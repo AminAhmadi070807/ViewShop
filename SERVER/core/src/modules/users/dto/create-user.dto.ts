@@ -8,25 +8,25 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty()
-  @IsString()
-  @IsPhoneNumber('IR')
+  @IsNotEmpty({ message: 'please enter a valid phone number' })
+  @IsString({ message: 'please enter a valid phone number' })
+  @IsPhoneNumber('IR', { message: 'please enter a valid phone number' })
   phone: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(24)
+  @IsNotEmpty({ message: 'password is not empty' })
+  @IsString({ message: 'password must be a string' })
+  @MinLength(8, { message: 'minLength must be at least 8 characters' })
+  @MaxLength(24, { message: 'maxLength must be at least 24 characters' })
   password: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(50)
+  @IsNotEmpty({ message: 'fullName is not empty' })
+  @IsString({ message: 'fullName has a string' })
+  @MinLength(8, { message: 'minLength must be at least 8 characters' })
+  @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
   fullName: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @IsEmail()
+  @IsNotEmpty({ message: 'please enter a valid email' })
+  @IsString({ message: 'please enter a valid email' })
+  @IsEmail({}, { message: 'please enter a valid phone number' })
   email: string;
 }
