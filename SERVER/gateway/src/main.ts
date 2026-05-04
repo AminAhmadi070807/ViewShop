@@ -1,8 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
+void (async () => {
+  const app: INestApplication = await NestFactory.create(AppModule);
+
+  try {
+    // port
+    const port: number = parseInt(process.env.GATEWAY_PORT as string) || 3000;
+
+    // set global validator
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+      }),
+    );
+
+    // running server
+    await app.listen(port, (): void => {
+      console.log(`Server running on port: ${port}`);
+    });
+  } catch {
+    console.error('Problem in running gateway');
+    await app.close();
+  }
+})();
