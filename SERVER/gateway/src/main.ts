@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 
 void (async (): Promise<void> => {
   const app: INestApplication = await NestFactory.create(AppModule);
@@ -20,6 +21,22 @@ void (async (): Promise<void> => {
 
     // set global api prefix
     app.setGlobalPrefix('api/v1');
+
+    // set core swagger config
+    const coreConfig = new DocumentBuilder()
+      .setTitle('ViewShop Api documentation')
+      .setDescription('These paths are related to the core.')
+      .setVersion('1.0.0')
+      .build();
+
+    // create core document
+    const coreDocument = SwaggerModule.createDocument(app, coreConfig, {
+      include: [AppModule],
+      deepScanRoutes: true,
+    });
+
+    // setup core document
+    SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
 
     // running server
     await app.listen(port, (): void => {
