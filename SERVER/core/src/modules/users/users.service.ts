@@ -57,8 +57,21 @@ export class UsersService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!user) {
+      throw new CustomException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return {
+      status: HttpStatus.OK,
+      body: user,
+    };
   }
 
   update(id: string, data: UpdateUserDto) {
