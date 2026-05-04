@@ -1,4 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { CORE_SERVICE } from '../common/constants/microservice.constant';
+import { ClientProxy } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class CoreService {}
+export class CoreService {
+  constructor(@Inject(CORE_SERVICE) private readonly client: ClientProxy) {}
+
+  send(pattern: string, payload: unknown = {}): Observable<unknown> {
+    return this.client.send(pattern, payload);
+  }
+}
