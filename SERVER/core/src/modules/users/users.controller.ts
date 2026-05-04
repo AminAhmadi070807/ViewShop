@@ -13,13 +13,13 @@ export class UsersController {
     return this.usersService.create(data);
   }
 
-  @MessagePattern('findAllUsers')
+  @MessagePattern('USER:FIND')
   findAll() {
     return this.usersService.findAll();
   }
 
-  @MessagePattern('findOneUser')
-  findOne(@Payload() id: number) {
+  @MessagePattern('USER:ONE')
+  findOne(@Payload() id: string) {
     return this.usersService.findOne(id);
   }
 
@@ -28,8 +28,8 @@ export class UsersController {
     return this.usersService.update(data.id, data);
   }
 
-  @MessagePattern('removeUser')
-  remove(@Payload() id: number) {
+  @MessagePattern('USER:DELETE')
+  remove(@Payload() id: string) {
     return this.usersService.remove(id);
   }
 }
