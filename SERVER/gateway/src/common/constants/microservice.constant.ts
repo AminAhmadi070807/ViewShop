@@ -1,0 +1,4 @@
+export const CORE_SERVICE = 'CORE_SERVICE';
+export const PAYMENT_SERVICE = 'PAYMENT_SERVICE';
+export const ADMIN_SERVICE = 'ADMIN_SERVICE';
+export const SELLER_SERVICE = 'SELLER_SERVICE';
