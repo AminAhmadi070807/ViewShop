@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 
-void (async () => {
+void (async (): Promise<void> => {
   const app: INestApplication = await NestFactory.create(AppModule);
 
   try {
@@ -17,6 +17,9 @@ void (async () => {
         forbidNonWhitelisted: true,
       }),
     );
+
+    // set global api prefix
+    app.setGlobalPrefix('api/v1');
 
     // running server
     await app.listen(port, (): void => {
