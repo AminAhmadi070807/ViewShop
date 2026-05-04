@@ -14,7 +14,9 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(data: CreateUserDto) {
+  async create(
+    data: CreateUserDto,
+  ): Promise<{ status: HttpStatus; message: string }> {
     const existing: User | null = await this.userRepository.findOne({
       where: { phone: data.phone },
     });
@@ -42,8 +44,17 @@ export class UsersService {
     };
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<{ status: HttpStatus; body: User[] }> {
+    const user: User[] = await this.userRepository.find({
+      order: {
+        id: -1,
+      },
+    });
+
+    return {
+      status: HttpStatus.OK,
+      body: user,
+    };
   }
 
   findOne(id: number) {
