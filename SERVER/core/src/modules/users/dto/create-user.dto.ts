@@ -24,9 +24,4 @@ export class CreateUserDto {
   @MinLength(8, { message: 'minLength must be at least 8 characters' })
   @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
   fullName: string;
-
-  @IsNotEmpty({ message: 'please enter a valid email' })
-  @IsString({ message: 'please enter a valid email' })
-  @IsEmail({}, { message: 'please enter a valid phone number' })
-  email: string;
 }

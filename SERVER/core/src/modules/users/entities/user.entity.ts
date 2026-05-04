@@ -15,9 +15,6 @@ export class User {
   @Column({ type: 'varchar', nullable: true, length: 50 })
   fullName: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  email: string;
-
   @Column({
     type: 'enum',
     enum: UserRoleEnum,
