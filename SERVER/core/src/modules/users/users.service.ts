@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
 
@@ -74,8 +74,13 @@ export class UsersService {
     };
   }
 
-  update(id: string, data: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, data: UpdateUserDto) {
+    await this.userRepository.update(id, data);
+
+    return {
+      status: HttpStatus.OK,
+      message: 'User updated successfully.',
+    };
   }
 
   async remove(id: string) {
