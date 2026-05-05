@@ -45,16 +45,29 @@ export class UsersService {
   }
 
   async findAll(): Promise<{ status: HttpStatus; body: User[] }> {
-    const user: User[] = await this.userRepository.find({
-      order: {
-        id: -1,
-      },
-    });
+    try {
+      const user: User[] = await this.userRepository.find({
+        order: {
+          id: -1,
+        },
+        select: {
+          id: true,
+          fullName: true,
+          phone: true,
+          role: true,
+        },
+      });
 
-    return {
-      status: HttpStatus.OK,
-      body: user,
-    };
+      return {
+        status: HttpStatus.OK,
+        body: user,
+      };
+    } catch (error) {
+      throw new CustomException(
+        error.message as string,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async findOne(id: string) {

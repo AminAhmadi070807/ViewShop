@@ -5,6 +5,8 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
@@ -24,6 +26,8 @@ export class UsersController {
   }
 
   @Get()
+  @ApiOkResponse({ description: 'Find All users successfully.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   findAll(): Observable<unknown> {
     return this.coreService.send('USER:FIND');
   }
