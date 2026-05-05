@@ -21,6 +21,7 @@ import {
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { PhoneDto } from '../../../common/validation/phone.dto';
 
 @Controller('core/users')
 export class UsersController {
@@ -44,6 +45,21 @@ export class UsersController {
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   findAll(): Observable<unknown> {
     return this.coreService.send('USER:FIND');
+  }
+
+  // send request to find user by phone number in core microservice
+  @Get('by/phone/:phone')
+  @ApiOkResponse({ description: 'Find All users successfully.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOperation({ description: 'get user by phone number.' })
+  @ApiParam({
+    name: 'phone',
+    required: true,
+    type: 'string',
+    description: 'User phone number',
+  })
+  findByPhone(@Param() param: PhoneDto): Observable<unknown> {
+    return this.coreService.send('USER:PHONE', param.phone);
   }
 
   // send request to find one user in core microservice
