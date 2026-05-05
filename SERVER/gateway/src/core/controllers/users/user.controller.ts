@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserValidator } from './user.dto';
 import {
@@ -38,7 +38,15 @@ export class UsersController {
   @ApiOkResponse({ description: 'Find One user successfully.' })
   @ApiNotFoundResponse({ description: 'User not found.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
-  findOne(@Param() id: ValidateUUID) {
+  findOne(@Param() id: ValidateUUID): Observable<unknown> {
     return this.coreService.send('USER:ONE', id.id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param() param: ValidateUUID,
+    @Body() data: UserValidator,
+  ): Observable<unknown> {
+    return this.coreService.send('USER:UPDATE', { id: param.id, ...data });
   }
 }
