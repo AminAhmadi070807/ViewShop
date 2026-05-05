@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { UserValidator } from './user.dto';
+import { UserUpdateValidator, UserValidator } from './user.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -91,9 +91,12 @@ export class UsersController {
   })
   update(
     @Param() param: ValidateUUID,
-    @Body() data: UserValidator,
+    @Body() data: UserUpdateValidator,
   ): Observable<unknown> {
-    return this.coreService.send('USER:UPDATE', { id: param.id, ...data });
+    return this.coreService.send('USER:UPDATE', {
+      id: param.id,
+      fullName: data.fullName,
+    });
   }
 
   // send request to remove user with userId in core microservice

@@ -45,3 +45,18 @@ export class UserValidator {
   @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
   fullName: string;
 }
+
+export class UserUpdateValidator {
+  @ApiPropertyOptional({
+    type: 'string',
+    minLength: 8,
+    maxLength: 50,
+    description: 'fullName is optional',
+    example: 'Amin Ahmadi',
+  })
+  @IsNotEmpty({ message: 'fullName is not empty' })
+  @IsString({ message: 'fullName has a string' })
+  @MinLength(8, { message: 'minLength must be at least 8 characters' })
+  @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
+  fullName: string;
+}
