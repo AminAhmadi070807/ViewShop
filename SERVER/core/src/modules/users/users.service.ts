@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
+import { UserInterface } from '../../common/interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -14,9 +15,7 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(
-    data: CreateUserDto,
-  ): Promise<{ status: HttpStatus; message: string }> {
+  async create(data: CreateUserDto): Promise<UserInterface> {
     const existing: User | null = await this.userRepository.findOne({
       where: { phone: data.phone },
     });
@@ -41,10 +40,11 @@ export class UsersService {
     return {
       status: HttpStatus.CREATED,
       message: 'User created successfully.',
+      body: null,
     };
   }
 
-  async findAll(): Promise<{ status: HttpStatus; body: User[] }> {
+  async findAll(): Promise<UserInterface> {
     try {
       const user: User[] = await this.userRepository.find({
         order: {
@@ -61,16 +61,18 @@ export class UsersService {
       return {
         status: HttpStatus.OK,
         body: user,
+        message: null,
       };
     } catch (error) {
+      const err = error as Error;
       throw new CustomException(
-        error.message as string,
+        `Internal server error. error message: ${err.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<UserInterface> {
     const user: User | null = await this.userRepository.findOne({
       where: {
         id,
@@ -84,36 +86,41 @@ export class UsersService {
     return {
       status: HttpStatus.OK,
       body: user,
+      message: null,
     };
   }
 
-  async update(id: string, data: UpdateUserDto) {
+  async update(id: string, data: UpdateUserDto): Promise<UserInterface> {
     try {
       await this.userRepository.update(id, data);
 
       return {
         status: HttpStatus.OK,
         message: 'User updated successfully.',
+        body: null,
       };
     } catch (error) {
+      const err = error as Error;
       throw new CustomException(
-        error.message as string,
+        `Internal server error. error message: ${err.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<UserInterface> {
     try {
       await this.userRepository.delete(id);
 
       return {
+        body: null,
         status: HttpStatus.NO_CONTENT,
         message: 'User removed successfully.',
       };
     } catch (error) {
+      const err = error as Error;
       throw new CustomException(
-        error.message as string,
+        `Internal server error. error message: ${err.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
