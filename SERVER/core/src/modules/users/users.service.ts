@@ -104,11 +104,18 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    await this.userRepository.delete(id);
+    try {
+      await this.userRepository.delete(id);
 
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: 'User removed successfully.',
-    };
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: 'User removed successfully.',
+      };
+    } catch (error) {
+      throw new CustomException(
+        error.message as string,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
