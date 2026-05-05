@@ -26,6 +26,7 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
+  // send request to create user in core microservice
   @Post()
   @ApiCreatedResponse({
     description: 'User created successfully.',
@@ -37,6 +38,7 @@ export class UsersController {
     return this.coreService.send('USER:CREATE', data);
   }
 
+  // send request to find all in core microservice
   @Get()
   @ApiOkResponse({ description: 'Find All users successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
@@ -44,6 +46,7 @@ export class UsersController {
     return this.coreService.send('USER:FIND');
   }
 
+  // send request to find one user in core microservice
   @Get(':id')
   @ApiOkResponse({ description: 'Find One user successfully.' })
   @ApiNotFoundResponse({ description: 'User not found.' })
@@ -59,6 +62,7 @@ export class UsersController {
     return this.coreService.send('USER:ONE', id.id);
   }
 
+  // send request to update user information with userId in core microservice
   @Patch(':id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
@@ -76,6 +80,7 @@ export class UsersController {
     return this.coreService.send('USER:UPDATE', { id: param.id, ...data });
   }
 
+  // send request to remove user with userId in core microservice
   @Delete(':id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
