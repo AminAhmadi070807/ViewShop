@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserValidator } from './user.dto';
 import {
@@ -8,6 +16,8 @@ import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
+  ApiParam,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
@@ -38,6 +48,13 @@ export class UsersController {
   @ApiOkResponse({ description: 'Find One user successfully.' })
   @ApiNotFoundResponse({ description: 'User not found.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOperation({ description: 'get user by id.' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'uuid',
+    description: 'User uuid',
+  })
   findOne(@Param() id: ValidateUUID): Observable<unknown> {
     return this.coreService.send('USER:ONE', id.id);
   }
@@ -45,10 +62,31 @@ export class UsersController {
   @Patch(':id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOperation({ description: 'get user by id.' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'uuid',
+    description: 'User uuid',
+  })
   update(
     @Param() param: ValidateUUID,
     @Body() data: UserValidator,
   ): Observable<unknown> {
     return this.coreService.send('USER:UPDATE', { id: param.id, ...data });
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ description: 'update user successfully.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOperation({ description: 'get user by id.' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'uuid',
+    description: 'User uuid',
+  })
+  delete(@Param() param: ValidateUUID): Observable<unknown> {
+    return this.coreService.send('USER:DELETE', param.id);
   }
 }
