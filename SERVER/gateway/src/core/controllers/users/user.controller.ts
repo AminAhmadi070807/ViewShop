@@ -43,6 +43,8 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @ApiOkResponse({ description: 'update user successfully.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   update(
     @Param() param: ValidateUUID,
     @Body() data: UserValidator,
