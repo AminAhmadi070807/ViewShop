@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserValidator } from './user.dto';
 import {
@@ -6,9 +6,11 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/users')
 export class UsersController {
@@ -30,5 +32,13 @@ export class UsersController {
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   findAll(): Observable<unknown> {
     return this.coreService.send('USER:FIND');
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ description: 'Find One user successfully.' })
+  @ApiNotFoundResponse({ description: 'User not found.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  findOne(@Param() id: ValidateUUID) {
+    return this.coreService.send('USER:ONE', id.id);
   }
 }
