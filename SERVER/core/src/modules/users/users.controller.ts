@@ -23,6 +23,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @MessagePattern('USER:PHONE')
+  findByPhone(@Payload() phone: string) {
+    return this.usersService.findByPhone(phone);
+  }
+
   @MessagePattern('USER:UPDATE')
   update(@Payload() data: UpdateUserDto) {
     return this.usersService.update(data.id, data);

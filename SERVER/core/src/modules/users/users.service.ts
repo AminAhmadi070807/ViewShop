@@ -90,6 +90,24 @@ export class UsersService {
     };
   }
 
+  async findByPhone(phone: string): Promise<UserInterface> {
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        phone: phone,
+      },
+    });
+
+    if (!user) {
+      throw new CustomException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return {
+      status: 200,
+      message: null,
+      body: user,
+    };
+  }
+
   async update(id: string, data: UpdateUserDto): Promise<UserInterface> {
     try {
       await this.userRepository.update(id, data);
