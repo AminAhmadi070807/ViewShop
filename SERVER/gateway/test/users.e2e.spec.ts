@@ -44,19 +44,23 @@ describe('Users Page', () => {
   afterAll(async (): Promise<void> => await app.close());
 
   describe('Users Routes', () => {
+    // test find all users
     it('FindAll users', async () => {
       return request(app.getHttpServer()).get('/core/users').expect(200);
     });
+    // test find one user by id
     it('FindOne user by id', async () => {
       return request(app.getHttpServer())
         .get(`/core/users/${userId}`)
         .expect(200);
     });
+    // test find one user by phone number
     it('FindOne user by phone', async () => {
       return request(app.getHttpServer())
         .get(`/core/users/by/phone/${phoneNumber}`)
         .expect(200);
     });
+    // test create new user
     it('Create user', async () => {
       return request(app.getHttpServer())
         .post('/core/users')
@@ -67,6 +71,7 @@ describe('Users Page', () => {
         })
         .expect(409);
     });
+    // test update fullName user by id
     it('Update user by id', async () => {
       return request(app.getHttpServer())
         .patch(`/core/users/update/${userId}`)
@@ -75,6 +80,7 @@ describe('Users Page', () => {
         })
         .expect(200);
     });
+    // test remove user by id
     it('Remove user by id', async () => {
       return request(app.getHttpServer())
         .delete(`/core/users/delete/${userId}`)
