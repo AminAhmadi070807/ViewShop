@@ -6,6 +6,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
 
 @Controller('core/users')
 export class UsersController {
@@ -18,7 +19,12 @@ export class UsersController {
   })
   @ApiConflictResponse({ description: 'This phone number already registered.' })
   @ApiBadRequestResponse({ description: 'Validation failed.' })
-  create(@Body() data: UserValidator) {
+  create(@Body() data: UserValidator): Observable<unknown> {
     return this.coreService.send('USER:CREATE', data);
+  }
+
+  @Get()
+  findAll(): Observable<unknown> {
+    return this.coreService.send('USER:FIND');
   }
 }
