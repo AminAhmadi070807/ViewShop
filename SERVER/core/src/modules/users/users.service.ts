@@ -88,12 +88,19 @@ export class UsersService {
   }
 
   async update(id: string, data: UpdateUserDto) {
-    await this.userRepository.update(id, data);
+    try {
+      await this.userRepository.update(id, data);
 
-    return {
-      status: HttpStatus.OK,
-      message: 'User updated successfully.',
-    };
+      return {
+        status: HttpStatus.OK,
+        message: 'User updated successfully.',
+      };
+    } catch (error) {
+      throw new CustomException(
+        error.message as string,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async remove(id: string) {
