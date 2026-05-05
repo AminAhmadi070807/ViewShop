@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserValidator } from './user.dto';
 import {
