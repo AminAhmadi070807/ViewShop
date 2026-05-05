@@ -38,6 +38,11 @@ void (async (): Promise<void> => {
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
 
+    app.enableCors({
+      origin: true,
+      credentials: true,
+    });
+
     // running server
     await app.listen(port, (): void => {
       console.log(`Server running on port: ${port}`);

@@ -27,7 +27,7 @@ void (async (): Promise<void> => {
       }),
     );
 
-    await app.init();
+    await app.listen();
     console.log(`Core Microservice (TCP) start on ${host}:${port}`);
   } catch {
     console.error('Problem in start core microservice');
