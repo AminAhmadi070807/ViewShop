@@ -71,7 +71,7 @@ export class UsersController {
   @ApiParam({
     name: 'id',
     required: true,
-    type: 'uuid',
+    type: 'string',
     description: 'User uuid',
   })
   findOne(@Param() id: ValidateUUID): Observable<unknown> {
@@ -79,14 +79,14 @@ export class UsersController {
   }
 
   // send request to update user information with userId in core microservice
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @ApiOperation({ description: 'get user by id.' })
   @ApiParam({
     name: 'id',
     required: true,
-    type: 'uuid',
+    type: 'string',
     description: 'User uuid',
   })
   update(
@@ -100,7 +100,7 @@ export class UsersController {
   }
 
   // send request to remove user with userId in core microservice
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @ApiOperation({ description: 'get user by id.' })

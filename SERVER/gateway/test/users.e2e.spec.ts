@@ -69,10 +69,15 @@ describe('Users Page', () => {
     });
     it('Update user by id', async () => {
       return request(app.getHttpServer())
-        .patch(`core/users/${userId}`)
+        .patch(`/core/users/update/${userId}`)
         .send({
           fullName: 'Amir Ahmadi',
         })
+        .expect(200);
+    });
+    it('Remove user by id', async () => {
+      return request(app.getHttpServer())
+        .delete(`/core/users/delete/${userId}`)
         .expect(200);
     });
   });
