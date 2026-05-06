@@ -26,9 +26,7 @@ export class JwtAccessTokenAuthGuard extends AuthGuard(
       context.getHandler(),
     ]);
 
-    if (isPublic) {
-      return true;
-    }
+    if (isPublic) return true;
 
     const ctx: HttpArgumentsHost = context.switchToHttp();
     const req: express.Request = ctx.getRequest();
