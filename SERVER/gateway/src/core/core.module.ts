@@ -9,6 +9,7 @@ import { JwtAccessTokenModuleConfig } from '../common/config/jwt.config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAccessTokenAuthGuard } from '../common/guards/auth.guard';
 import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.strategy';
+import { AuthController } from './controllers/auth/auth.controller';
 
 @Module({
   providers: [
@@ -27,6 +28,6 @@ import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.st
     }),
     JwtModule.registerAsync(JwtAccessTokenModuleConfig),
   ],
-  controllers: [UsersController],
+  controllers: [UsersController, AuthController],
 })
 export class CoreModule {}
