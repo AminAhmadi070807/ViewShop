@@ -12,10 +12,12 @@ export class AuthController {
   @Post('login')
   login(@Body() data: AuthLoginDto, @Req() req: express.Request) {
     const userAgent: string | undefined = req.headers['user-agent'];
+    const ip: string | undefined = req.ip;
     return this.coreService.send('AUTH:LOGIN', {
       phone: data.phone,
       password: data.password,
       device: userAgent,
+      ip: ip,
     });
   }
 }

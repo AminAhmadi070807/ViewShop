@@ -1,4 +1,5 @@
 import {
+  IsIP,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -44,4 +45,9 @@ export class AuthLoginDto {
   @IsNotEmpty()
   @IsString()
   device: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsIP()
+  ip: string;
 }

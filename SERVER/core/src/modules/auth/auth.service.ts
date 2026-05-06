@@ -93,14 +93,15 @@ export class AuthService {
       12,
     );
 
-    const token: Auth = await this.authRepository.create({
+    const token: Auth = this.authRepository.create({
       user,
       token: hashRefreshToken,
       device: data.device,
+      ip: data.ip,
     });
 
     await this.authRepository.save(token);
 
-    return token;
+    return tokens;
   }
 }
