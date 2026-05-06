@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 import { CoreService } from '../../core/core.service';
 
 @Injectable()
-export class JwtAccessTokenGuard extends PassportStrategy(
+export class JwtAccessTokenStrategy extends PassportStrategy(
   Strategy,
   'jwt-access-token-guard',
 ) {
@@ -19,13 +19,17 @@ export class JwtAccessTokenGuard extends PassportStrategy(
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: express.Request) => {
-          const token: string | null = req.cookies['access_token'] as
-            | string
-            | null;
+          if (req && req.cookies) {
+            const token: string | undefined = req.cookies['access_token'] as
+              | string
+              | undefined;
 
-          if (token) return token;
+            if (!token) return null;
 
-          return ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+            return token;
+          }
+
+          return null;
         },
       ]),
       secretOrKey: config.get<string>(
@@ -36,16 +40,12 @@ export class JwtAccessTokenGuard extends PassportStrategy(
   }
 
   async validate(payload: JwtPayload) {
-    const isValidId: boolean = (await bcrypt.compare(
+    const isValidId: boolean = await bcrypt.compare(
       payload.sub,
       payload.hashValue,
-    )) as boolean;
+    );
 
-    if (!isValidId) {
-      throw new UnauthorizedException(
-        'You are not authorized. please authorization first.',
-      );
-    }
+    if (!isValidId) return null;
 
     return { id: payload.sub, role: payload.role };
   }
