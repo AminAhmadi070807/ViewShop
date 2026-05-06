@@ -1,5 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
+import { Auth } from '../../auth/entities/auth.entity';
 
 @Entity('users')
 export class User {
@@ -22,4 +30,13 @@ export class User {
     nullable: false,
   })
   role: UserRoleEnum;
+
+  @OneToMany(() => Auth, (auth: Auth) => auth.user, { eager: true })
+  tokens: Auth[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
