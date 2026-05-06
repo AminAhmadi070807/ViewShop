@@ -3,14 +3,12 @@ import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
-// import { UserOneInterface } from '../../common/interfaces/user.interface';
 import { UserRoleEnum } from '../../common/enums/users/user.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { StringValue } from 'ms';
 import { AuthInterface } from '../../common/interfaces/auth.interface';
-import { UserOneInterface } from '../../common/interfaces/user.interface';
+import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
 
@@ -19,7 +17,8 @@ export class AuthService {
   constructor(
     @InjectRepository(Auth)
     private readonly authRepository: Repository<Auth>,
-    private readonly usersService: UsersService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
@@ -64,36 +63,44 @@ export class AuthService {
   }
 
   async login(data: AuthLoginDto) {
-    const user: UserOneInterface = await this.usersService.findByPhone(
-      data.phone,
-    );
+    const user: User | null = await this.userRepository.findOneBy({
+      phone: data.phone,
+    });
 
     if (!user) {
-      throw new CustomException('User not found', 404);
+      throw new CustomException(
+        `User not found this phone number ${data.phone}`,
+        404,
+      );
     }
 
     const isPassword: boolean = await bcrypt.compare(
       data.password,
-      user.body.password,
+      user.password,
     );
 
     if (!isPassword) {
-      throw new CustomException('User not found', 404);
+      throw new CustomException(
+        `User not found this phone number ${data.phone}`,
+        404,
+      );
     }
 
-    const tokens: AuthInterface = this.generateToken(
-      user.body.id,
-      user.body.role,
+    const tokens: AuthInterface = this.generateToken(user.id, user.role);
+
+    const hashRefreshToken: string = await bcrypt.hash(
+      tokens.refresh_token,
+      12,
     );
 
-    const hashRefreshToken: string = bcrypt.hashSync(tokens.refresh_token, 12);
+    const token: Auth = await this.authRepository.create({
+      user,
+      token: hashRefreshToken,
+      device: data.device,
+    });
 
-    // console.log(data.userAgent);
+    await this.authRepository.save(token);
 
-    // const authToken: Auth = this.authRepository.create({
-    //   token: hashRefreshToken,
-    //   user: user,
-    //   // device: data
-    // })
+    return token;
   }
 }

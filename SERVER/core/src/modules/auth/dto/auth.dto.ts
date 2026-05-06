@@ -26,7 +26,7 @@ export class AuthRegisterDto {
 
   @IsNotEmpty()
   @IsString()
-  userAgent: string;
+  device: string;
 }
 
 export class AuthLoginDto {
@@ -43,5 +43,5 @@ export class AuthLoginDto {
 
   @IsNotEmpty()
   @IsString()
-  userAgent: string;
+  device: string;
 }
