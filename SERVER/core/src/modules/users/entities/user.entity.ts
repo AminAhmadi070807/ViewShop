@@ -31,7 +31,7 @@ export class User {
   })
   role: UserRoleEnum;
 
-  @OneToMany(() => Auth, (auth: Auth) => auth.user, { eager: true })
+  @OneToMany(() => Auth, (auth: Auth) => auth.user)
   tokens: Auth[];
 
   @CreateDateColumn()

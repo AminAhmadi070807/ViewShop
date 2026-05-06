@@ -6,7 +6,10 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
-import { UserInterface } from '../../common/interfaces/user.interface';
+import {
+  UserInterface,
+  UserOneInterface,
+} from '../../common/interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -80,7 +83,7 @@ export class UsersService {
     }
   }
 
-  async findOne(id: string): Promise<UserInterface> {
+  async findOne(id: string): Promise<UserOneInterface> {
     const user: User | null = await this.userRepository.findOne({
       where: {
         id,
@@ -98,7 +101,7 @@ export class UsersService {
     };
   }
 
-  async findByPhone(phone: string): Promise<UserInterface> {
+  async findByPhone(phone: string): Promise<UserOneInterface> {
     const user: User | null = await this.userRepository.findOne({
       where: {
         phone: phone,

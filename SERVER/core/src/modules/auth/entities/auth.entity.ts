@@ -16,8 +16,7 @@ export class Auth {
   token: string;
 
   @ManyToOne(() => User, (user: User) => user.tokens, {
-    nullable: false,
-    eager: true,
+    nullable: true,
   })
   user: User;
 

@@ -6,3 +6,9 @@ export interface UserInterface {
   message: string | null;
   status: HttpStatus;
 }
+
+export interface UserOneInterface {
+  body: User;
+  message: string | null;
+  status: HttpStatus;
+}

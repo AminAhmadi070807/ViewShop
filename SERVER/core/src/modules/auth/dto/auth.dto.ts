@@ -24,6 +24,10 @@ export class AuthRegisterDto {
   @MinLength(8)
   @MaxLength(50)
   fullName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  userAgent: string;
 }
 
 export class AuthLoginDto {
@@ -37,4 +41,8 @@ export class AuthLoginDto {
   @MinLength(8)
   @MaxLength(24)
   password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  userAgent: string;
 }
