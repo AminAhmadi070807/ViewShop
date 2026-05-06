@@ -29,19 +29,27 @@ export class UsersService {
 
     const hashedPassword: string = bcrypt.hashSync(data.password, 12);
 
-    const user: User = this.userRepository.create({
-      phone: data.phone,
-      password: hashedPassword,
-      fullName: data.fullName,
-    });
+    try {
+      const user: User = this.userRepository.create({
+        phone: data.phone,
+        password: hashedPassword,
+        fullName: data.fullName,
+      });
 
-    await this.userRepository.save(user);
+      const saveUser: User = await this.userRepository.save(user);
 
-    return {
-      status: HttpStatus.CREATED,
-      message: 'User created successfully.',
-      body: null,
-    };
+      return {
+        status: HttpStatus.CREATED,
+        message: 'User created successfully.',
+        body: saveUser,
+      };
+    } catch (error) {
+      const err = error as Error;
+      throw new CustomException(
+        `Internal server error. error message: ${err.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async findAll(): Promise<UserInterface> {
