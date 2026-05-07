@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import express from 'express';
-import { JwtAccessTokenAuthGuard } from '../guards/auth.guard';
+import { CoreService } from '../../core/core.service';
+import { firstValueFrom } from 'rxjs';
+import { JwtRefreshPayload } from '../validation/jwt.dto';
 
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(
   Strategy,
   'refresh-jwt-token',
 ) {
-  constructor() {
+  constructor(private readonly coreService: CoreService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: express.Request) => {
@@ -27,5 +29,18 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
     });
   }
 
-  validate(payload: JwtAccessTokenAuthGuard) {}
+  async validate(payload: JwtRefreshPayload) {
+    if (!payload) {
+      throw new UnauthorizedException('Please authorized first.');
+    }
+
+    await firstValueFrom(
+      this.coreService.send('AUTH:VALIDATE', {
+        userId: payload.userId,
+        secret: payload.secret,
+      }),
+    );
+
+    return payload;
+  }
 }

@@ -3,14 +3,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
-import { CoreService } from '../../core/core.service';
 
 @Injectable()
 export class JwtAccessTokenStrategy extends PassportStrategy(
   Strategy,
   'access-jwt-token',
 ) {
-  constructor(private readonly coreService: CoreService) {
+  constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: express.Request) => {

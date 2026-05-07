@@ -10,3 +10,9 @@ export interface AuthInterface {
   body: AuthTokenInterface;
   message: string;
 }
+
+export interface AuthValidateInterface {
+  status: HttpStatus.OK;
+  body: null;
+  message: string;
+}
