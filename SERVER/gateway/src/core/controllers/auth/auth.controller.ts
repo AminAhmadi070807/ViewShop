@@ -4,17 +4,23 @@ import { AuthLoginDto } from './auth.dto';
 import express from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
-import { ConfigService } from '@nestjs/config';
-import { StringValue } from 'ms';
+import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 
 @Controller('core/auth')
 export class AuthController {
-  constructor(
-    private readonly coreService: CoreService,
-    private readonly config: ConfigService,
-  ) {}
+  constructor(private readonly coreService: CoreService) {}
 
+  // send request from login user
   @Public()
+  @ApiNotFoundResponse({ description: 'User not found for this phone number.' })
+  @ApiOkResponse({ description: 'Login successfully.' })
+  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @Post('login')
   async login(
     @Body() data: AuthLoginDto,

@@ -23,10 +23,16 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  generateToken(id: string, role: UserRoleEnum): AuthInterface {
+  generateToken(id: string, role: UserRoleEnum, device: string): AuthInterface {
+    // hashed device => user agent
+    const hashDevice = bcrypt.hashSync(device, 12);
+
     // user access token
     const access_token = this.jwtService.sign(
-      { userId: id, role },
+      {
+        userId: id,
+        role: role,
+      },
       {
         expiresIn: this.configService.get<StringValue>(
           'CORE_JWT_ACCESS_TOKEN_EXPIRE_IN',
@@ -36,11 +42,13 @@ export class AuthService {
         ),
       },
     );
+
     // user refresh token
     const refresh_token: string = this.jwtService.sign(
       {
         userId: id,
         role,
+        secret: hashDevice,
       },
       {
         expiresIn: this.configService.get<StringValue>(
@@ -86,7 +94,12 @@ export class AuthService {
       );
     }
 
-    const tokens: AuthInterface = this.generateToken(user.id, user.role);
+    // create user refresh & access tokens
+    const tokens: AuthInterface = this.generateToken(
+      user.id,
+      user.role,
+      data.device,
+    );
 
     const hashRefreshToken: string = await bcrypt.hash(
       tokens.refresh_token,
