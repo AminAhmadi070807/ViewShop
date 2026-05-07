@@ -17,6 +17,7 @@ export class Auth {
 
   @ManyToOne(() => User, (user: User) => user.tokens, {
     nullable: true,
+    onUpdate: 'CASCADE',
   })
   user: User;
 

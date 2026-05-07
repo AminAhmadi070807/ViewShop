@@ -5,7 +5,10 @@ import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
 
 @Injectable()
-export class JwtAccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtAccessTokenStrategy extends PassportStrategy(
+  Strategy,
+  'access-jwt-token',
+) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
