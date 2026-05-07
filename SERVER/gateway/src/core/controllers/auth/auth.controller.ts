@@ -1,23 +1,53 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AuthLoginDto } from './auth.dto';
 import express from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
+import { firstValueFrom } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
+import { StringValue } from 'ms';
 
 @Controller('core/auth')
 export class AuthController {
-  constructor(private readonly coreService: CoreService) {}
+  constructor(
+    private readonly coreService: CoreService,
+    private readonly config: ConfigService,
+  ) {}
 
   @Public()
   @Post('login')
-  login(@Body() data: AuthLoginDto, @Req() req: express.Request) {
+  async login(
+    @Body() data: AuthLoginDto,
+    @Req() req: express.Request,
+    @Res() res: express.Response,
+  ) {
     const userAgent: string | undefined = req.headers['user-agent'];
     const ip: string | undefined = req.ip;
-    return this.coreService.send('AUTH:LOGIN', {
-      phone: data.phone,
-      password: data.password,
-      device: userAgent,
-      ip: ip,
+    const auth: { access_token: string; refresh_token: string } =
+      (await firstValueFrom(
+        this.coreService.send('AUTH:LOGIN', {
+          phone: data.phone,
+          password: data.password,
+          device: userAgent,
+          ip: ip,
+        }),
+      )) as { access_token: string; refresh_token: string };
+
+    res.cookie('refresh_token', auth.refresh_token, {
+      secure: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'strict',
+      priority: 'high',
     });
+    res.cookie('access_token', auth.access_token, {
+      secure: true,
+      maxAge: 15 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'strict',
+      priority: 'high',
+    });
+
+    return res.status(200);
   }
 }
