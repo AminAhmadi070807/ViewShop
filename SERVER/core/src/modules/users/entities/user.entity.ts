@@ -31,6 +31,9 @@ export class User {
   })
   role: UserRoleEnum;
 
+  @Column({ type: 'boolean', nullable: false, default: false })
+  verified: boolean;
+
   @OneToMany(() => Auth, (auth: Auth) => auth.user)
   tokens: Auth[];
 
