@@ -42,7 +42,7 @@ export class AuthController {
     });
     res.cookie('access_token', auth.body.access_token, {
       secure: true,
-      maxAge: 15 * 60 * 60 * 1000,
+      maxAge: 15 * 60 * 1000,
       httpOnly: true,
       sameSite: 'strict',
       priority: 'high',

@@ -17,5 +17,6 @@ import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.st
     JwtModule.registerAsync(JwtAccessTokenModuleConfig),
   ],
   controllers: [UsersController, AuthController],
+  exports: [CoreService],
 })
 export class CoreModule {}
