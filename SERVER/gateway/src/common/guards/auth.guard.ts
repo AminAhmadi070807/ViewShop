@@ -53,12 +53,7 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
     return canactivate;
   }
 
-  handleRequest<TUser = JwtPayload>(
-    error: any,
-    user: TUser,
-    info: any,
-    ctx: ExecutionContext,
-  ): TUser {
+  handleRequest<TUser = JwtPayload>(error: any, user: TUser, info: any): TUser {
     if (error) throw new UnauthorizedException('Jwt auth error');
 
     if (!user) throw new UnauthorizedException('Please authorized first.');

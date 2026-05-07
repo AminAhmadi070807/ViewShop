@@ -12,3 +12,20 @@ export class JwtPayload {
   @IsEnum(UserRoleEnum)
   role: UserRoleEnum;
 }
+
+export class JwtRefreshPayload {
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  userId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(UserRoleEnum)
+  role: UserRoleEnum;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  secret: string;
+}
