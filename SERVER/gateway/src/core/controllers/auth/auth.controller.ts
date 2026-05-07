@@ -10,6 +10,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { AuthInterface } from '../../../common/interface/auth.interface';
 
 @Controller('core/auth')
 export class AuthController {
@@ -27,26 +28,23 @@ export class AuthController {
     @Req() req: express.Request,
     @Res() res: express.Response,
   ) {
-    const userAgent: string | undefined = req.headers['user-agent'];
-    const ip: string | undefined = req.ip;
-    const auth: { access_token: string; refresh_token: string } =
-      (await firstValueFrom(
-        this.coreService.send('AUTH:LOGIN', {
-          phone: data.phone,
-          password: data.password,
-          device: userAgent,
-          ip: ip,
-        }),
-      )) as { access_token: string; refresh_token: string };
+    // get tokens from core microservice
+    const auth: AuthInterface = (await firstValueFrom(
+      this.coreService.send('AUTH:LOGIN', {
+        phone: data.phone,
+        password: data.password,
+      }),
+    )) as AuthInterface;
 
-    res.cookie('refresh_token', auth.refresh_token, {
+    // set refresh & access token to cookies
+    res.cookie('refresh_token', auth.body.refresh_token, {
       secure: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       sameSite: 'strict',
       priority: 'high',
     });
-    res.cookie('access_token', auth.access_token, {
+    res.cookie('access_token', auth.body.access_token, {
       secure: true,
       maxAge: 15 * 60 * 60 * 1000,
       httpOnly: true,
@@ -54,6 +52,11 @@ export class AuthController {
       priority: 'high',
     });
 
-    return res.status(200);
+    // send response to client
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'Login successfully.',
+      body: null,
+    });
   }
 }

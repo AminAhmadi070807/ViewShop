@@ -20,11 +20,8 @@ export class Auth {
   })
   user: User;
 
-  @Column({ type: 'varchar', nullable: false })
-  device: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  ip: string;
+  @Column({ type: 'uuid', nullable: false })
+  secret: string;
 
   @CreateDateColumn()
   createdAt: Date;

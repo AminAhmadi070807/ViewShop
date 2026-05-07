@@ -1,5 +1,4 @@
 import {
-  IsIP,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -24,10 +23,6 @@ export class AuthRegisterDto {
   @MinLength(8)
   @MaxLength(50)
   fullName: string;
-
-  @IsNotEmpty()
-  @IsString()
-  device: string;
 }
 
 export class AuthLoginDto {
@@ -41,13 +36,4 @@ export class AuthLoginDto {
   @MinLength(8)
   @MaxLength(24)
   password: string;
-
-  @IsNotEmpty()
-  @IsString()
-  device: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsIP()
-  ip: string;
 }

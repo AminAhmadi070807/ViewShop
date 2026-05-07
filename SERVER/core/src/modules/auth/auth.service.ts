@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
@@ -7,7 +7,10 @@ import { UserRoleEnum } from '../../common/enums/users/user.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { StringValue } from 'ms';
-import { AuthInterface } from '../../common/interfaces/auth.interface';
+import {
+  AuthInterface,
+  AuthTokenInterface,
+} from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
@@ -23,9 +26,13 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  generateToken(id: string, role: UserRoleEnum, device: string): AuthInterface {
-    // hashed device => user agent
-    const hashDevice = bcrypt.hashSync(device, 12);
+  generateToken(
+    id: string,
+    role: UserRoleEnum,
+    secret: string,
+  ): AuthTokenInterface {
+    // hashed secret key
+    const hashSecret = bcrypt.hashSync(secret, 12);
 
     // user access token
     const access_token = this.jwtService.sign(
@@ -48,7 +55,7 @@ export class AuthService {
       {
         userId: id,
         role,
-        secret: hashDevice,
+        secret: hashSecret,
       },
       {
         expiresIn: this.configService.get<StringValue>(
@@ -70,7 +77,7 @@ export class AuthService {
     // const user: UserOneInterface = await this.usersService.create(data);
   }
 
-  async login(data: AuthLoginDto) {
+  async login(data: AuthLoginDto): Promise<AuthInterface> {
     const user: User | null = await this.userRepository.findOneBy({
       phone: data.phone,
     });
@@ -94,11 +101,13 @@ export class AuthService {
       );
     }
 
+    const secret: string = crypto.randomUUID();
+
     // create user refresh & access tokens
-    const tokens: AuthInterface = this.generateToken(
+    const tokens: AuthTokenInterface = this.generateToken(
       user.id,
       user.role,
-      data.device,
+      secret,
     );
 
     const hashRefreshToken: string = await bcrypt.hash(
@@ -109,12 +118,15 @@ export class AuthService {
     const token: Auth = this.authRepository.create({
       user,
       token: hashRefreshToken,
-      device: data.device,
-      ip: data.ip,
+      secret,
     });
 
     await this.authRepository.save(token);
 
-    return tokens;
+    return {
+      status: HttpStatus.OK,
+      message: 'Login successfully.',
+      body: tokens,
+    };
   }
 }
