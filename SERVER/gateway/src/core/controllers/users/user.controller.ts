@@ -22,7 +22,6 @@ import {
 import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { PhoneDto } from '../../../common/validation/phone.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('core/users')
 export class UsersController {
@@ -41,7 +40,6 @@ export class UsersController {
   }
 
   // send request to find all in core microservice
-  @Public()
   @Get()
   @ApiOkResponse({ description: 'Find All users successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })

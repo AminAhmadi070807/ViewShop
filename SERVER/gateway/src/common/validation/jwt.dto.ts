@@ -5,14 +5,10 @@ export class JwtPayload {
   @IsNotEmpty()
   @IsString()
   @IsUUID()
-  sub: string;
+  userId: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEnum(UserRoleEnum)
   role: UserRoleEnum;
-
-  @IsNotEmpty()
-  @IsString()
-  hashValue: string;
 }

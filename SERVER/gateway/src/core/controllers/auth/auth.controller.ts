@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AuthLoginDto } from './auth.dto';
 import express from 'express';
@@ -23,11 +23,7 @@ export class AuthController {
   @ApiBadRequestResponse({ description: 'Validation failed.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @Post('login')
-  async login(
-    @Body() data: AuthLoginDto,
-    @Req() req: express.Request,
-    @Res() res: express.Response,
-  ) {
+  async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
     // get tokens from core microservice
     const auth: AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:LOGIN', {

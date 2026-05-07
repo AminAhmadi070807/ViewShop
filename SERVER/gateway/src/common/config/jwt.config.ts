@@ -9,6 +9,7 @@ export const JwtAccessTokenModuleConfig: JwtModuleAsyncOptions = {
     signOptions: {
       expiresIn: config.get<StringValue>('CORE_JWT_REFRESH_TOKEN_EXPIRE_IN'),
     },
+    global: true,
   }),
   inject: [ConfigService],
 };
@@ -20,6 +21,7 @@ export const JwtRefreshTokenModuleConfig: JwtModuleAsyncOptions = {
     signOptions: {
       expiresIn: config.get<StringValue>('CORE_JWT_REFRESH_TOKEN_EXPIRE_IN'),
     },
+    global: true,
   }),
   inject: [ConfigService],
 };

@@ -4,52 +4,57 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import express from 'express';
-import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
-import { CoreService } from '../../core/core.service';
+import { JwtPayload } from '../validation/jwt.dto';
+import express from 'express';
 
 @Injectable()
-export class JwtAccessTokenAuthGuard extends AuthGuard(
-  'jwt-access-token-guard',
-) {
-  constructor(
-    private readonly reflector: Reflector,
-    private readonly coreService: CoreService,
-  ) {
+export class JwtAccessTokenAuthGuard extends AuthGuard('jwt') {
+  constructor(private readonly reflector: Reflector) {
     super();
   }
 
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     const isPublic: boolean = this.reflector.getAllAndOverride(IS_PUBLIC_KEY, [
       context.getHandler(),
+      context.getClass(),
     ]);
 
     if (isPublic) return true;
 
-    const ctx: HttpArgumentsHost = context.switchToHttp();
-    const req: express.Request = ctx.getRequest();
+    const canactivate = (await super.canActivate(context)) as boolean;
+
+    const req: express.Request = context.switchToHttp().getRequest();
 
     if (!req) {
-      throw new UnauthorizedException('You are not authorized');
+      throw new UnauthorizedException(
+        'You are not authorized. please authorized first.',
+      );
     }
 
     const user: Express.User | undefined = req.user;
 
-    if (!user) throw new UnauthorizedException('You are not authorized.');
-
-    console.log(user);
-
-    return super.canActivate(context);
-  }
-
-  handleRequest<TUser = any>(err: unknown, user: TUser, info: unknown): TUser {
-    if (err || !user || info) {
+    if (!user) {
       throw new UnauthorizedException(
-        "You're not authorized. please authorization first.",
+        'You are not authorized. please authorized first.',
       );
     }
+
+    return canactivate;
+  }
+
+  handleRequest<TUser = JwtPayload>(
+    error: any,
+    user: TUser,
+    info: any,
+    ctx: ExecutionContext,
+  ): TUser {
+    if (error) throw new UnauthorizedException('Jwt auth error');
+
+    if (!user) throw new UnauthorizedException('Please authorized first.');
+
+    if (!info) throw new UnauthorizedException('Please authorized first.');
 
     return user;
   }

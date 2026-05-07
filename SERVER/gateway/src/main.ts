@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 
 void (async (): Promise<void> => {
   const app: INestApplication = await NestFactory.create(AppModule);
@@ -18,6 +19,8 @@ void (async (): Promise<void> => {
         forbidNonWhitelisted: true,
       }),
     );
+
+    app.use(cookieParser());
 
     // set global api prefix
     app.setGlobalPrefix('api/v1');
