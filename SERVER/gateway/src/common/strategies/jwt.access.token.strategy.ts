@@ -2,9 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import express from 'express';
-import { JwtPayload, JwtRefreshPayload } from '../validation/jwt.dto';
+import { JwtPayload } from '../validation/jwt.dto';
 import { CoreService } from '../../core/core.service';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class JwtAccessTokenStrategy extends PassportStrategy(
@@ -29,23 +28,14 @@ export class JwtAccessTokenStrategy extends PassportStrategy(
     });
   }
 
-  async validate(payload: JwtRefreshPayload): Promise<JwtRefreshPayload> {
+  validate(payload: JwtPayload): JwtPayload {
     if (!payload) {
-      throw new UnauthorizedException('Please authorized first.');
-    }
-
-    const user: unknown = await firstValueFrom(
-      this.coreService.send('AUTH:ONE', payload.userId),
-    );
-
-    if (!user) {
       throw new UnauthorizedException('Please authorized first.');
     }
 
     return {
       userId: payload.userId,
       role: payload.role,
-      secret: payload.secret,
     };
   }
 }

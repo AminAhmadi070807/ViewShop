@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto';
+import { AuthLoginDto, AuthRegisterDto, AuthValidateDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -10,6 +10,7 @@ import { StringValue } from 'ms';
 import {
   AuthInterface,
   AuthTokenInterface,
+  AuthValidateInterface,
 } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
@@ -73,8 +74,54 @@ export class AuthService {
     };
   }
 
+  async findOneByUserId(id: string) {
+    const auth: Auth | null = await this.authRepository.findOneBy({
+      user: { id },
+    });
+
+    if (!auth) {
+      throw new CustomException(
+        'شما ثبت احراز هویت نکردید',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
+
   async register(data: AuthRegisterDto) {
     // const user: UserOneInterface = await this.usersService.create(data);
+  }
+
+  async validateRefreshToken(
+    data: AuthValidateDto,
+  ): Promise<AuthValidateInterface> {
+    const auths: Auth[] = await this.authRepository.find({
+      where: {
+        user: { id: data.userId },
+      },
+      order: {
+        id: 'DESC',
+      },
+    });
+
+    // token validate boolean array
+    const isValidTokenArray: boolean[] = [];
+
+    // find validate token array
+    for (const auth of auths) {
+      const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
+
+      isValidTokenArray.push(isToken);
+    }
+
+    if (isValidTokenArray.includes(true)) {
+      return {
+        body: null,
+        message: 'توکن معتبر هست',
+        status: HttpStatus.OK,
+      };
+    }
+
+    throw new CustomException('توکن کاربر معتبر نیست', HttpStatus.FORBIDDEN);
   }
 
   async login(data: AuthLoginDto): Promise<AuthInterface> {
@@ -83,10 +130,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new CustomException(
-        `User not found this phone number ${data.phone}`,
-        404,
-      );
+      throw new CustomException(`کاربر به این شماره تلفن یافت نشد`, 404);
     }
 
     const isPassword: boolean = await bcrypt.compare(
@@ -95,10 +139,7 @@ export class AuthService {
     );
 
     if (!isPassword) {
-      throw new CustomException(
-        `User not found this phone number ${data.phone}`,
-        404,
-      );
+      throw new CustomException(`کاربر به این شماره تلفن یافت نشد`, 404);
     }
 
     const secret: string = crypto.randomUUID();
@@ -125,7 +166,7 @@ export class AuthService {
 
     return {
       status: HttpStatus.OK,
-      message: 'Login successfully.',
+      message: 'احراز هویت با موفقیت انجام شد',
       body: tokens,
     };
   }

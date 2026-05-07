@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -23,6 +24,18 @@ export class AuthRegisterDto {
   @MinLength(8)
   @MaxLength(50)
   fullName: string;
+}
+
+export class AuthValidateDto {
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  userId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  secret: string;
 }
 
 export class AuthLoginDto {
