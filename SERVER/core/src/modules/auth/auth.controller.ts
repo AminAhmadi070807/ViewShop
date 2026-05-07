@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
-import { AuthLoginDto, AuthRegisterDto } from './dto/auth.dto';
+import { AuthLoginDto, AuthRegisterDto, AuthValidateDto } from './dto/auth.dto';
 
 @Controller()
 export class AuthController {
@@ -15,5 +15,10 @@ export class AuthController {
   @MessagePattern('AUTH:LOGIN')
   login(@Payload() data: AuthLoginDto) {
     return this.authService.login(data);
+  }
+
+  @MessagePattern('AUTH:VALIDATE')
+  validateRefreshToken(@Payload() data: AuthValidateDto) {
+    return this.authService.validateRefreshToken(data);
   }
 }
