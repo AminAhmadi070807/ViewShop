@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { StringValue } from 'ms';
 import {
   AuthInterface,
+  AuthRegisterInterface,
   AuthTokenInterface,
   AuthValidateInterface,
   VerifyTokenInterface,
@@ -77,7 +78,7 @@ export class AuthService {
     };
   }
 
-  async register(data: AuthRegisterDto) {
+  async register(data: AuthRegisterDto): Promise<AuthRegisterInterface> {
     // find user with phone number from database
     const existing: User | null = await this.userRepository.findOneBy({
       phone: data.phone,
@@ -99,24 +100,30 @@ export class AuthService {
         code: `${randomCode}`,
       });
 
+    // hashed user password
     const hashedPassword: string = await bcrypt.hash(data.password, 12);
+    // random user verify route
+    const randomRoute: string = crypto.randomUUID();
 
     if (sms.status === HttpStatus.OK) {
       await this.redisService.setCache(
-        `phone:${data.phone}`,
+        `route:${randomRoute}`,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
         180,
       );
       return {
         status: HttpStatus.OK,
         message: 'The otp was send successfully.',
+        body: {
+          route: randomRoute,
+        },
       };
     }
 
     throw new CustomException(sms.message, sms.status);
   }
 
-  async verify(data: AuthValidateDto): Promise<VerifyTokenInterface> {
+  async verifyToken(data: AuthValidateDto): Promise<VerifyTokenInterface> {
     const auths: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },

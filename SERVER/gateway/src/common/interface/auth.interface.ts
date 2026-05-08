@@ -6,15 +6,23 @@ export interface AuthTokenInterface {
 }
 
 export interface AuthInterface {
-  status: HttpStatus.OK;
+  status: HttpStatus;
   body: AuthTokenInterface;
   message: string;
 }
 
 export interface AuthVerifyInterface {
-  status: HttpStatus.OK;
+  status: HttpStatus;
   body: {
     access_token: string;
+  };
+  message: string;
+}
+
+export interface AuthRegisterInterface {
+  status: HttpStatus;
+  body: {
+    route: string;
   };
   message: string;
 }

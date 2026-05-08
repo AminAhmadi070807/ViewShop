@@ -23,7 +23,7 @@ export class AuthController {
   }
 
   @MessagePattern('AUTH:VERIFY')
-  verify(@Payload() data: AuthValidateDto) {
-    return this.authService.verify(data);
+  verifyToken(@Payload() data: AuthValidateDto) {
+    return this.authService.verifyToken(data);
   }
 }

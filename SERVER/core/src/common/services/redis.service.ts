@@ -1,4 +1,4 @@
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { CustomException } from '../exceptions/custom.exception.error';
 
@@ -15,7 +15,7 @@ export class RedisService {
   }
 
   async getOtpCache(title: string): Promise<unknown> {
-    const result: string | undefined = await this.redis.get(title);
+    const result: string | undefined = await this.redis.get(`route:${title}`);
 
     if (!result) throw new CustomException('Otp code is not valid', 400);
 
