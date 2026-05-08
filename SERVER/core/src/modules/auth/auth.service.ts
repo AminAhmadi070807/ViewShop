@@ -104,7 +104,7 @@ export class AuthService {
     if (sms.status === HttpStatus.OK) {
       await this.redisService.setCache(
         `phone:${data.phone}`,
-        `phone:${data.phone}|password:${hashedPassword}}|fullName:${data.fullName}|otp:${randomCode}`,
+        `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
         180,
       );
       return {
