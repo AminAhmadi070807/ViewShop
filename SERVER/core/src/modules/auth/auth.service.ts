@@ -1,5 +1,10 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { AuthLoginDto, AuthRegisterDto, AuthValidateDto } from './dto/auth.dto';
+import {
+  AuthLoginDto,
+  AuthRegisterDto,
+  AuthValidateDto,
+  AuthVerifyTokenDto,
+} from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -11,6 +16,7 @@ import {
   AuthInterface,
   AuthTokenInterface,
   AuthValidateInterface,
+  VerifyTokenInterface,
 } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
@@ -75,6 +81,60 @@ export class AuthService {
     // const user: UserOneInterface = await this.usersService.create(data);
   }
 
+  async verifyAccessToken(
+    data: AuthVerifyTokenDto,
+  ): Promise<VerifyTokenInterface> {
+    const auths: Auth[] = await this.authRepository.find({
+      where: {
+        user: { id: data.userId },
+      },
+      order: {
+        id: 'DESC',
+      },
+      relations: ['user'],
+    });
+
+    // user the right token
+    let token: Auth | null = null;
+
+    // find validate token array
+    for (const auth of auths) {
+      const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
+
+      if (isToken) token = auth;
+    }
+
+    if (token) {
+      const access_token: string = this.jwtService.sign(
+        {
+          userId: data.userId,
+          role: token.user.role,
+        },
+        {
+          expiresIn: this.configService.get<StringValue>(
+            'CORE_JWT_ACCESS_TOKEN_EXPIRE_IN',
+          ) as StringValue,
+          secret: this.configService.get<string>(
+            'CORE_JWT_ACCESS_TOKEN_SECRET_KEY',
+          ),
+        },
+      );
+
+      return {
+        body: {
+          access_token,
+        },
+        message: 'Verify token successfully.',
+        status: HttpStatus.OK,
+      };
+    }
+
+    throw new CustomException(
+      'The Refresh Token is not valid.',
+      HttpStatus.UNAUTHORIZED,
+    );
+  }
+
   async validateRefreshToken(
     data: AuthValidateDto,
   ): Promise<AuthValidateInterface> {
@@ -93,7 +153,6 @@ export class AuthService {
     // find validate token array
     for (const auth of auths) {
       const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
-      console.log(isToken);
 
       isValidTokenArray.push(isToken);
     }

@@ -1,4 +1,5 @@
 import {
+  IsJWT,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -27,6 +28,17 @@ export class AuthRegisterDto {
 }
 
 export class AuthValidateDto {
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  userId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  secret: string;
+}
+
+export class AuthVerifyTokenDto {
   @IsNotEmpty()
   @IsString()
   @IsUUID()

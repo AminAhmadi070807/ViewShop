@@ -5,6 +5,14 @@ export interface AuthTokenInterface {
   refresh_token: string;
 }
 
+export interface VerifyTokenInterface {
+  status: HttpStatus.OK;
+  body: {
+    access_token: string;
+  };
+  message: string;
+}
+
 export interface AuthInterface {
   status: HttpStatus.OK;
   body: AuthTokenInterface;

@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { INestMicroservice, ValidationPipe } from '@nestjs/common';
+import { CustomException } from './common/exceptions/custom.exception.error';
 
 void (async (): Promise<void> => {
   try {
@@ -21,9 +22,13 @@ void (async (): Promise<void> => {
 
     app.useGlobalPipes(
       new ValidationPipe({
-        forbidNonWhitelisted: true,
-        transform: true,
-        whitelist: true,
+        exceptionFactory: (errors) => {
+          const messages = errors.map((error) =>
+            Object.values(error.constraints || {}).join(', '),
+          );
+
+          return new CustomException(messages.join(' | '), 400);
+        },
       }),
     );
 

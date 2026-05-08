@@ -28,9 +28,7 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
     ]);
 
     // allowing access to route
-    if (isPublic) {
-      return true;
-    }
+    if (isPublic) return true;
 
     const can = (await super.canActivate(context)) as boolean;
 
