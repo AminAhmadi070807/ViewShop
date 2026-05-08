@@ -112,30 +112,34 @@ class AuthService {
     const randomRoute: string = crypto.randomUUID();
 
     if (sms.status === HttpStatus.OK) {
-      const ttl = await this.redisService.getOtpCodeTTL(data.phone)
+      const ttl: number = await this.redisService.getOtpCodeTTL(data.phone);
 
+      // was a ttl phone number send remaining ttl
       if (ttl) {
         return {
           status: HttpStatus.OK,
           message: 'The otp was send successfully.',
           body: {
             route: randomRoute,
-            ttl
+            ttl,
           },
         };
       }
 
+      // set data in redis
       await this.redisService.setCache(
         randomRoute,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
         data.phone,
       );
+
+      // send request
       return {
         status: HttpStatus.OK,
         message: 'The otp was send successfully.',
         body: {
           route: randomRoute,
-          ttl: 180
+          ttl: 180,
         },
       };
     }
