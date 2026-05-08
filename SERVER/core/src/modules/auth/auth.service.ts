@@ -84,7 +84,7 @@ export class AuthService {
 
     // send conflict exception
     if (existing) {
-      throw new CustomException('The user already existing', 409);
+      throw new CustomException('The user already exist', 409);
     }
 
     // random otp code

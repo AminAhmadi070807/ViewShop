@@ -1,5 +1,4 @@
 import {
-  IsJWT,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,

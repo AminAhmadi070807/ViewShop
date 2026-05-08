@@ -7,12 +7,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { AuthLoginDto } from './auth.dto';
+import { AuthLoginDto, AuthRegisterDto } from './auth.dto';
 import express from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -28,6 +29,19 @@ import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 @Controller('core/auth')
 export class AuthController {
   constructor(private readonly coreService: CoreService) {}
+
+  // authorization error
+  @Public()
+  @ApiConflictResponse({
+    description: 'The user already exist',
+  })
+  @ApiOkResponse({ description: 'The authentication successfully.' })
+  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @Post('register')
+  register(@Body() data: AuthRegisterDto) {
+    return this.coreService.send('AUTH:REGISTER', data);
+  }
 
   // authorization error
   @Public()
