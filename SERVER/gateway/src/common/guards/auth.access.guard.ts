@@ -10,6 +10,7 @@ import { JwtPayload } from '../validation/jwt.dto';
 import express from 'express';
 import { CoreService } from '../../core/core.service';
 import { firstValueFrom } from 'rxjs';
+import { IS_PUBLIC_ACCESS_KEY } from '../decorators/public.access.decorator';
 
 @Injectable()
 export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
@@ -25,8 +26,12 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
       context.getHandler(),
       context.getClass(),
     ]);
+    const isAccessPublic: boolean = this.reflector.getAllAndOverride(
+      IS_PUBLIC_ACCESS_KEY,
+      [context.getHandler(), context.getClass()],
+    );
 
-    if (isPublic) return true;
+    if (isPublic || isAccessPublic) return true;
 
     const canactivate = (await super.canActivate(context)) as boolean;
 
