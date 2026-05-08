@@ -18,6 +18,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import bcrypt from 'bcrypt';
 import { SmsService } from '../../common/services/sms.service';
 import crypto from 'crypto';
+import { RedisService } from '../../common/services/redis.service';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly smsService: SmsService,
+    private readonly redisService: RedisService,
   ) {}
 
   generateToken(
@@ -97,10 +99,17 @@ export class AuthService {
         code: `${randomCode}`,
       });
 
+    const hashedPassword: string = await bcrypt.hash(data.password, 12);
+
     if (sms.status === HttpStatus.OK) {
+      await this.redisService.setCache(
+        `phone:${data.phone}`,
+        `phone:${data.phone}|password:${hashedPassword}}|fullName:${data.fullName}|otp:${randomCode}`,
+        180,
+      );
       return {
         status: HttpStatus.OK,
-        message: 'Success',
+        message: 'The otp was send successfully.',
       };
     }
 
