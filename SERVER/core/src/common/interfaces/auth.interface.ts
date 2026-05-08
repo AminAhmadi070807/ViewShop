@@ -29,6 +29,7 @@ export interface AuthRegisterInterface {
   status: HttpStatus;
   body: {
     route: string;
+    ttl: number;
   };
   message: string;
 }

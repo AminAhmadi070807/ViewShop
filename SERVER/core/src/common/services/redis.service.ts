@@ -32,4 +32,10 @@ export class RedisService {
 
     return data;
   }
+
+  async getOtpCodeTTL(phone: string): Promise<number> {
+    const result: number | undefined = await this.redis.ttl(phone);
+
+    return result || 0;
+  }
 }

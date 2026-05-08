@@ -83,6 +83,7 @@ class AuthService {
     };
   }
 
+  // register user
   async register(data: AuthRegisterDto): Promise<AuthRegisterInterface> {
     // find user with phone number from database
     const existing: User | null = await this.userRepository.findOneBy({
@@ -111,6 +112,19 @@ class AuthService {
     const randomRoute: string = crypto.randomUUID();
 
     if (sms.status === HttpStatus.OK) {
+      const ttl = await this.redisService.getOtpCodeTTL(data.phone)
+
+      if (ttl) {
+        return {
+          status: HttpStatus.OK,
+          message: 'The otp was send successfully.',
+          body: {
+            route: randomRoute,
+            ttl
+          },
+        };
+      }
+
       await this.redisService.setCache(
         randomRoute,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
@@ -121,6 +135,7 @@ class AuthService {
         message: 'The otp was send successfully.',
         body: {
           route: randomRoute,
+          ttl: 180
         },
       };
     }
@@ -128,6 +143,7 @@ class AuthService {
     throw new CustomException(sms.message, sms.status);
   }
 
+  // verify otp code
   async verifyOtp(data: AuthVerifyOtp) {
     const result: Record<string, string> = await this.redisService.getOtpCache(
       data.route,
@@ -183,6 +199,7 @@ class AuthService {
     };
   }
 
+  // verify token
   async verifyToken(data: AuthValidateDto): Promise<VerifyTokenInterface> {
     const auths: Auth[] = await this.authRepository.find({
       where: {
@@ -235,6 +252,7 @@ class AuthService {
     );
   }
 
+  // validation refresh token
   async validateRefreshToken(
     data: AuthValidateDto,
   ): Promise<AuthValidateInterface> {
@@ -271,6 +289,7 @@ class AuthService {
     );
   }
 
+  // login user
   async login(data: AuthLoginDto): Promise<AuthInterface> {
     const user: User | null = await this.userRepository.findOneBy({
       phone: data.phone,
