@@ -34,9 +34,7 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
 
     if (!req) throw new UnauthorizedException('please authorized first.');
 
-    const userReq: JwtPayload | undefined = req.user as
-      | JwtPayload
-      | undefined;
+    const userReq: JwtPayload | undefined = req.user as JwtPayload | undefined;
 
     if (!userReq) {
       throw new UnauthorizedException('please authorized first.');
@@ -52,7 +50,7 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
 
     if (!user) throw new UnauthorizedException('Please authorized first.');
 
-    if (info) throw new UnauthorizedException('Please authorized first.');
+    if (info) throw new UnauthorizedException('The token is not valid..');
 
     return user;
   }

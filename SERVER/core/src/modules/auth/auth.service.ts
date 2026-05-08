@@ -32,9 +32,6 @@ export class AuthService {
     role: UserRoleEnum,
     secret: string,
   ): AuthTokenInterface {
-    // hashed secret key
-    const hashSecret = bcrypt.hashSync(secret, 12);
-
     // user access token
     const access_token = this.jwtService.sign(
       {
@@ -56,7 +53,7 @@ export class AuthService {
       {
         userId: id,
         role,
-        secret: hashSecret,
+        secret,
       },
       {
         expiresIn: this.configService.get<StringValue>(
@@ -96,6 +93,7 @@ export class AuthService {
     // find validate token array
     for (const auth of auths) {
       const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
+      console.log(isToken);
 
       isValidTokenArray.push(isToken);
     }
@@ -103,12 +101,15 @@ export class AuthService {
     if (isValidTokenArray.includes(true)) {
       return {
         body: null,
-        message: 'The token is valid.',
+        message: 'Refresh token is valid.',
         status: HttpStatus.OK,
       };
     }
 
-    throw new CustomException('Token is not valid.', HttpStatus.FORBIDDEN);
+    throw new CustomException(
+      'The Refresh Token is not valid.',
+      HttpStatus.UNAUTHORIZED,
+    );
   }
 
   async login(data: AuthLoginDto): Promise<AuthInterface> {
@@ -118,6 +119,7 @@ export class AuthService {
 
     if (!user) throw new CustomException(`User not found`, 404);
 
+    // validate password
     const isPassword: boolean = await bcrypt.compare(
       data.password,
       user.password,
@@ -134,17 +136,23 @@ export class AuthService {
       secret,
     );
 
+    // hashed refresh token
     const hashRefreshToken: string = await bcrypt.hash(
       tokens.refresh_token,
       12,
     );
 
+    // hashed secret key
+    const hashSecret = bcrypt.hashSync(secret, 12);
+
+    // create new token
     const token: Auth = this.authRepository.create({
       user,
       token: hashRefreshToken,
-      secret,
+      secret: hashSecret,
     });
 
+    // save token in database
     await this.authRepository.save(token);
 
     return {

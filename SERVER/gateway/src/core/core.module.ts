@@ -8,9 +8,10 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtAccessTokenModuleConfig } from '../common/config/jwt.config';
 import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.strategy';
+import { JwtRefreshTokenStrategy } from '../common/strategies/jwt.refresh.token.strategy';
 
 @Module({
-  providers: [CoreService, JwtAccessTokenStrategy],
+  providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
   imports: [
     ClientsModule.registerAsync(ClientsModuleConfig),
     PassportModule,

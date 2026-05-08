@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import express from 'express';
@@ -28,10 +28,6 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
   }
 
   validate(payload: JwtRefreshPayload): JwtRefreshPayload {
-    if (!payload) {
-      throw new UnauthorizedException('Please authorized first.');
-    }
-
     return payload;
   }
 }

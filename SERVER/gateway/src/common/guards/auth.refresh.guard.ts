@@ -1,13 +1,18 @@
 import { AuthGuard } from '@nestjs/passport';
 import express from 'express';
 import { JwtRefreshPayload } from '../validation/jwt.dto';
-import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { CoreService } from '../../core/core.service';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
 
-export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-guard') {
+@Injectable()
+export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
   constructor(
     private readonly reflector: Reflector,
     private readonly coreService: CoreService,
@@ -59,9 +64,11 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-guard') {
   ) {
     if (error) throw new UnauthorizedException('Jwt auth error.');
 
-    if (info) throw new UnauthorizedException('Token is not valid.');
-
     if (!user) throw new UnauthorizedException('Please authorized first.');
+
+    if (info) {
+      throw new UnauthorizedException('The Refresh Token is not valid.');
+    }
 
     return user;
   }
