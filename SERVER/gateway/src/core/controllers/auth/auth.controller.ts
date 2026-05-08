@@ -90,21 +90,20 @@ export class AuthController {
     )) as AuthInterface;
 
     // set refresh & access token to cookies
-    res.cookie('refresh_token', result.body.refresh_token, {
-      secure: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'strict',
-      priority: 'high',
-    });
-    res.cookie('access_token', result.body.access_token, {
-      secure: true,
-      maxAge: 15 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'strict',
-      priority: 'high',
-    });
-
+    // set refresh token to cookies
+    this.setToken(
+      res,
+      'refresh_token',
+      result.body.refresh_token,
+      this.refreshTokenOptions,
+    );
+    // set access token to cookies
+    this.setToken(
+      res,
+      'access_token',
+      result.body.access_token,
+      this.accessTokenOptions,
+    );
     // send response to client
     return res.status(200).json({
       statusCode: 200,
@@ -123,9 +122,9 @@ export class AuthController {
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @Post('verify_otp/:id')
   async verifyOTP(
+    @Param('id') id: string,
     @Body() data: AuthVerifyOtp,
     @Res() res: express.Response,
-    @Param('id') id: string,
   ) {
     // get tokens from core microservice
     const result: AuthInterface = (await firstValueFrom(
@@ -179,13 +178,13 @@ export class AuthController {
       throw new UnauthorizedException('The Refresh Token is not valid.');
     }
 
-    res.cookie('access_token', result.body.access_token, {
-      secure: true,
-      maxAge: 15 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'strict',
-      priority: 'high',
-    });
+    // set access token to cookies
+    this.setToken(
+      res,
+      'access_token',
+      result.body.access_token,
+      this.accessTokenOptions,
+    );
 
     return res.status(200).json({
       statusCode: 200,

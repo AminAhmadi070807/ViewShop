@@ -8,7 +8,7 @@ import { UserInterface } from '../src/common/interface/user.interface';
 describe('Users Page', () => {
   let app: INestApplication<App>;
   let userId: string;
-  const phoneNumber = '09144676519';
+  const phoneNumber = '09991234567';
 
   beforeAll(async (): Promise<void> => {
     const module: TestingModule = await Test.createTestingModule({

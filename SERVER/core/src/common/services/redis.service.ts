@@ -9,8 +9,9 @@ export class RedisService {
     private readonly redis: Cache,
   ) {}
 
-  async setCache(title: string, value: string, ttl: number) {
-    await this.redis.set(title, value, ttl);
+  async setCache(title: string, value: string, phone: string) {
+    await this.redis.set(`route:${title}`, value, 180);
+    await this.redis.set(phone, value, 180);
     return true;
   }
 

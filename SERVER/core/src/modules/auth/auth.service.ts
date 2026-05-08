@@ -112,9 +112,9 @@ class AuthService {
 
     if (sms.status === HttpStatus.OK) {
       await this.redisService.setCache(
-        `route:${randomRoute}`,
+        randomRoute,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
-        180,
+        data.phone,
       );
       return {
         status: HttpStatus.OK,
@@ -132,6 +132,12 @@ class AuthService {
     const result: Record<string, string> = await this.redisService.getOtpCache(
       data.route,
     );
+
+    const isOtpCode = result['otp'] === data.otp;
+
+    if (!isOtpCode) {
+      throw new CustomException('The otp code is not valid', 400);
+    }
 
     // create new user
     const user: User = this.userRepository.create({
