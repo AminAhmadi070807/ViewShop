@@ -11,8 +11,10 @@ export interface AuthInterface {
   message: string;
 }
 
-export interface AuthValidateInterface {
+export interface AuthVerifyInterface {
   status: HttpStatus.OK;
-  body: null;
+  body: {
+    access_token: string;
+  };
   message: string;
 }

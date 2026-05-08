@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Req,
+  Res,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AuthLoginDto } from './auth.dto';
 import express from 'express';
@@ -9,23 +16,31 @@ import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { AuthInterface } from '../../../common/interface/auth.interface';
+import {
+  AuthInterface,
+  AuthVerifyInterface,
+} from '../../../common/interface/auth.interface';
+import { PublicAccess } from '../../../common/decorators/public.access.decorator';
+import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/auth')
 export class AuthController {
   constructor(private readonly coreService: CoreService) {}
 
-  // send request from login user
+  // authorization error
   @Public()
-  @ApiNotFoundResponse({ description: 'User not found for this phone number.' })
-  @ApiOkResponse({ description: 'Login successfully.' })
+  @ApiNotFoundResponse({
+    description: 'The user not found for this phone number.',
+  })
+  @ApiOkResponse({ description: 'The authentication successfully.' })
   @ApiBadRequestResponse({ description: 'Validation failed.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   @Post('login')
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
     // get tokens from core microservice
-    const auth: AuthInterface = (await firstValueFrom(
+    const result: AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:LOGIN', {
         phone: data.phone,
         password: data.password,
@@ -33,14 +48,14 @@ export class AuthController {
     )) as AuthInterface;
 
     // set refresh & access token to cookies
-    res.cookie('refresh_token', auth.body.refresh_token, {
+    res.cookie('refresh_token', result.body.refresh_token, {
       secure: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       sameSite: 'strict',
       priority: 'high',
     });
-    res.cookie('access_token', auth.body.access_token, {
+    res.cookie('access_token', result.body.access_token, {
       secure: true,
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
@@ -52,6 +67,42 @@ export class AuthController {
     return res.status(200).json({
       statusCode: 200,
       message: 'Login successfully.',
+      body: null,
+    });
+  }
+
+  // verify access token
+  @PublicAccess()
+  @ApiOkResponse({ description: 'The verify successfully.' })
+  @ApiUnauthorizedResponse({ description: 'please authorized first' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @Post('verify')
+  async varify(@Req() req: express.Request, @Res() res: express.Response) {
+    const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
+
+    const result: AuthVerifyInterface = (await firstValueFrom(
+      this.coreService.send('AUTH:VERIFY', {
+        userId: payload.userId,
+        secret: payload.secret,
+      }),
+    )) as AuthVerifyInterface;
+
+    if (!result) {
+      throw new UnauthorizedException('The Refresh Token is not valid.');
+    }
+
+    res.cookie('access_token', result.body.access_token, {
+      secure: true,
+      maxAge: 15 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'strict',
+      priority: 'high',
+    });
+
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'The verify successfully.',
       body: null,
     });
   }

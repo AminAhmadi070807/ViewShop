@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { SmsDto } from '../validations/sms.dto';
 
 @Injectable()
 export class SmsService {
-  constructor() {}
+  constructor(private readonly config: ConfigService) {}
 
-  SmsMediana(phone: string, code: string) {}
+  Mediana(data: SmsDto) {}
 
-  SmsFarazSms(phone: string, code: string) {}
+  FarazSms(data: SmsDto) {}
 
-  Sms_ir(phone: string, code: string) {}
+  SmsIr(data: SmsDto) {}
 }
