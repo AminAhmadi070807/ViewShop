@@ -17,7 +17,6 @@ import {
   AuthRegisterInterface,
   AuthTokenInterface,
   AuthValidateInterface,
-  AuthVerifyOtpInterface,
   VerifyTokenInterface,
 } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';

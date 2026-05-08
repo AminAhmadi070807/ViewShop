@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -48,6 +49,19 @@ export class AuthRegisterDto {
   @MinLength(8)
   @MaxLength(50)
   fullName: string;
+}
+
+export class AuthVerifyOtp {
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  route: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6)
+  @MaxLength(6)
+  otp: string;
 }
 
 export class AuthLoginDto {

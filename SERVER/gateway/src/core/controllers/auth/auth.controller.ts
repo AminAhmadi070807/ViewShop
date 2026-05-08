@@ -1,13 +1,14 @@
 import {
   Body,
   Controller,
+  Param,
   Post,
   Req,
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { AuthLoginDto, AuthRegisterDto } from './auth.dto';
+import { AuthLoginDto, AuthRegisterDto, AuthVerifyOtp } from './auth.dto';
 import express from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
@@ -29,6 +30,33 @@ import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 @Controller('core/auth')
 export class AuthController {
   constructor(private readonly coreService: CoreService) {}
+
+  // refresh token options
+  private readonly refreshTokenOptions = {
+    secure: true,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: 'strict',
+    priority: 'high',
+  };
+  // access token options
+  private readonly accessTokenOptions = {
+    secure: true,
+    maxAge: 15 * 60 * 1000,
+    httpOnly: true,
+    sameSite: 'strict',
+    priority: 'high',
+  };
+
+  // set jwt token in cookies
+  setToken(
+    res: express.Response,
+    title: string,
+    token: string,
+    options: object,
+  ) {
+    res.cookie(title, token, options);
+  }
 
   // authorization error
   @Public()
@@ -76,6 +104,51 @@ export class AuthController {
       sameSite: 'strict',
       priority: 'high',
     });
+
+    // send response to client
+    return res.status(200).json({
+      statusCode: 200,
+      message: 'Login successfully.',
+      body: null,
+    });
+  }
+
+  // authorization error
+  @Public()
+  @ApiNotFoundResponse({
+    description: 'The user not found for this phone number.',
+  })
+  @ApiOkResponse({ description: 'The authentication successfully.' })
+  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @Post('verify_otp/:id')
+  async verifyOTP(
+    @Body() data: AuthVerifyOtp,
+    @Res() res: express.Response,
+    @Param('id') id: string,
+  ) {
+    // get tokens from core microservice
+    const result: AuthInterface = (await firstValueFrom(
+      this.coreService.send('AUTH:VERIFY_OTP', {
+        route: id,
+        otp: data.otp,
+      }),
+    )) as AuthInterface;
+
+    // set refresh token to cookies
+    this.setToken(
+      res,
+      'refresh_token',
+      result.body.refresh_token,
+      this.refreshTokenOptions,
+    );
+    // set access token to cookies
+    this.setToken(
+      res,
+      'access_token',
+      result.body.access_token,
+      this.accessTokenOptions,
+    );
 
     // send response to client
     return res.status(200).json({
