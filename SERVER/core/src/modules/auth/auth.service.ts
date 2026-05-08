@@ -1,10 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import {
-  AuthLoginDto,
-  AuthRegisterDto,
-  AuthValidateDto,
-  AuthVerifyTokenDto,
-} from './dto/auth.dto';
+import { AuthLoginDto, AuthRegisterDto, AuthValidateDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -81,9 +76,7 @@ export class AuthService {
     // const user: UserOneInterface = await this.usersService.create(data);
   }
 
-  async verifyAccessToken(
-    data: AuthVerifyTokenDto,
-  ): Promise<VerifyTokenInterface> {
+  async verify(data: AuthValidateDto): Promise<VerifyTokenInterface> {
     const auths: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },

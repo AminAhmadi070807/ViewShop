@@ -21,4 +21,9 @@ export class AuthController {
   validateRefreshToken(@Payload() data: AuthValidateDto) {
     return this.authService.validateRefreshToken(data);
   }
+
+  @MessagePattern('AUTH:VERIFY')
+  verify(@Payload() data: AuthValidateDto) {
+    return this.authService.verify(data);
+  }
 }

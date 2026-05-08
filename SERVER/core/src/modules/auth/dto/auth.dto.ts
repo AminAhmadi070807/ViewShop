@@ -38,17 +38,6 @@ export class AuthValidateDto {
   secret: string;
 }
 
-export class AuthVerifyTokenDto {
-  @IsNotEmpty()
-  @IsString()
-  @IsUUID()
-  userId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  secret: string;
-}
-
 export class AuthLoginDto {
   @IsNotEmpty()
   @IsString()
