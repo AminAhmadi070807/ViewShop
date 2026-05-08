@@ -16,6 +16,8 @@ import {
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
+import { SmsService } from '../../common/services/sms.service';
+import crypto from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +28,7 @@ export class AuthService {
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly smsService: SmsService,
   ) {}
 
   generateToken(
@@ -73,7 +76,35 @@ export class AuthService {
   }
 
   async register(data: AuthRegisterDto) {
-    // const user: UserOneInterface = await this.usersService.create(data);
+    // find user with phone number from database
+    const existing: User | null = await this.userRepository.findOneBy({
+      phone: data.phone,
+      verified: true,
+    });
+
+    // send conflict exception
+    if (existing) {
+      throw new CustomException('The user already existing', 409);
+    }
+
+    // random otp code
+    const randomCode: number = crypto.randomInt(100000, 999999);
+
+    // send otp code to user by sms service
+    const sms: { status: HttpStatus; message: string } =
+      await this.smsService.SmsIr({
+        phone: data.phone,
+        code: `${randomCode}`,
+      });
+
+    if (sms.status === HttpStatus.OK) {
+      return {
+        status: HttpStatus.OK,
+        message: 'Success',
+      };
+    }
+
+    throw new CustomException(sms.message, sms.status);
   }
 
   async verify(data: AuthValidateDto): Promise<VerifyTokenInterface> {

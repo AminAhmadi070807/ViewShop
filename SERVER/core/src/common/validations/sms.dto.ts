@@ -14,7 +14,7 @@ export class SmsDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(5)
-  @MaxLength(5)
+  @MinLength(6)
+  @MaxLength(6)
   code: string;
 }
