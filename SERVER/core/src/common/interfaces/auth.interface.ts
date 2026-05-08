@@ -32,3 +32,9 @@ export interface AuthRegisterInterface {
   };
   message: string;
 }
+
+export interface AuthVerifyOtpInterface {
+  phone: string;
+  fullName: string;
+  password: string;
+}

@@ -1,5 +1,10 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { AuthLoginDto, AuthRegisterDto, AuthValidateDto } from './dto/auth.dto';
+import {
+  AuthLoginDto,
+  AuthRegisterDto,
+  AuthValidateDto,
+  AuthVerifyOtp,
+} from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -12,6 +17,7 @@ import {
   AuthRegisterInterface,
   AuthTokenInterface,
   AuthValidateInterface,
+  AuthVerifyOtpInterface,
   VerifyTokenInterface,
 } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
@@ -22,7 +28,7 @@ import crypto from 'crypto';
 import { RedisService } from '../../common/services/redis.service';
 
 @Injectable()
-export class AuthService {
+class AuthService {
   constructor(
     @InjectRepository(Auth)
     private readonly authRepository: Repository<Auth>,
@@ -121,6 +127,55 @@ export class AuthService {
     }
 
     throw new CustomException(sms.message, sms.status);
+  }
+
+  async verifyOtp(data: AuthVerifyOtp) {
+    const result: Record<string, string> = await this.redisService.getOtpCache(
+      data.route,
+    );
+
+    // create new user
+    const user: User = this.userRepository.create({
+      verified: true,
+      role: UserRoleEnum.USER,
+      fullName: result.fullName,
+      phone: result.phone,
+      password: result.password,
+    });
+
+    // save new user in database
+    const saveUser: User = await this.userRepository.save(user);
+
+    // create a new secret
+    const secret: string = crypto.randomUUID();
+    // hashed secret
+    const hashedSecretKey: string = await bcrypt.hash(secret, 12);
+
+    // create user refresh & access tokens
+    const tokens: AuthTokenInterface = this.generateToken(
+      saveUser.id,
+      saveUser.role,
+      secret,
+    );
+
+    // hashed refresh token
+    const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
+
+    // create new token
+    const token: Auth = this.authRepository.create({
+      user,
+      token: hashRefreshToken,
+      secret: hashedSecretKey,
+    });
+
+    // save token in database
+    await this.authRepository.save(token);
+
+    return {
+      status: HttpStatus.OK,
+      message: 'Authentication was successfully.',
+      body: tokens,
+    };
   }
 
   async verifyToken(data: AuthValidateDto): Promise<VerifyTokenInterface> {
@@ -261,3 +316,5 @@ export class AuthService {
     };
   }
 }
+
+export default AuthService;

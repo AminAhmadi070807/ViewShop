@@ -49,3 +49,16 @@ export class AuthLoginDto {
   @MaxLength(24)
   password: string;
 }
+
+export class AuthVerifyOtp {
+  @IsNotEmpty()
+  @IsString()
+  @IsUUID()
+  route: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6)
+  @MaxLength(6)
+  otp: string;
+}

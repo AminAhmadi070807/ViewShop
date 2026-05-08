@@ -14,7 +14,7 @@ export class RedisService {
     return true;
   }
 
-  async getOtpCache(title: string): Promise<unknown> {
+  async getOtpCache(title: string): Promise<Record<string, string>> {
     const result: string | undefined = await this.redis.get(`route:${title}`);
 
     if (!result) throw new CustomException('Otp code is not valid', 400);
