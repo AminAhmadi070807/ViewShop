@@ -74,19 +74,6 @@ export class AuthService {
     };
   }
 
-  async findOneByUserId(id: string) {
-    const auth: Auth | null = await this.authRepository.findOneBy({
-      user: { id },
-    });
-
-    if (!auth) {
-      throw new CustomException(
-        'شما ثبت احراز هویت نکردید',
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
-  }
-
   async register(data: AuthRegisterDto) {
     // const user: UserOneInterface = await this.usersService.create(data);
   }
@@ -116,12 +103,12 @@ export class AuthService {
     if (isValidTokenArray.includes(true)) {
       return {
         body: null,
-        message: 'توکن معتبر هست',
+        message: 'The token is valid.',
         status: HttpStatus.OK,
       };
     }
 
-    throw new CustomException('توکن کاربر معتبر نیست', HttpStatus.FORBIDDEN);
+    throw new CustomException('Token is not valid.', HttpStatus.FORBIDDEN);
   }
 
   async login(data: AuthLoginDto): Promise<AuthInterface> {
@@ -129,18 +116,14 @@ export class AuthService {
       phone: data.phone,
     });
 
-    if (!user) {
-      throw new CustomException(`کاربر به این شماره تلفن یافت نشد`, 404);
-    }
+    if (!user) throw new CustomException(`User not found`, 404);
 
     const isPassword: boolean = await bcrypt.compare(
       data.password,
       user.password,
     );
 
-    if (!isPassword) {
-      throw new CustomException(`کاربر به این شماره تلفن یافت نشد`, 404);
-    }
+    if (!isPassword) throw new CustomException(`User not found.`, 404);
 
     const secret: string = crypto.randomUUID();
 
@@ -166,7 +149,7 @@ export class AuthService {
 
     return {
       status: HttpStatus.OK,
-      message: 'احراز هویت با موفقیت انجام شد',
+      message: 'Authentication was successfully.',
       body: tokens,
     };
   }

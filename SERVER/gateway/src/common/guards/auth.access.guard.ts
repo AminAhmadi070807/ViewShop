@@ -32,23 +32,17 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
 
     const req: express.Request = context.switchToHttp().getRequest();
 
-    if (!req) {
-      throw new UnauthorizedException(
-        'You are not authorized. please authorized first.',
-      );
-    }
+    if (!req) throw new UnauthorizedException('please authorized first.');
 
-    const userPayload: JwtPayload | undefined = req.user as
+    const userReq: JwtPayload | undefined = req.user as
       | JwtPayload
       | undefined;
 
-    if (!userPayload) {
-      throw new UnauthorizedException(
-        'You are not authorized. please authorized first.',
-      );
+    if (!userReq) {
+      throw new UnauthorizedException('please authorized first.');
     }
 
-    await firstValueFrom(this.coreService.send('USER:ONE', userPayload.userId));
+    await firstValueFrom(this.coreService.send('USER:ONE', userReq.userId));
 
     return canactivate;
   }
