@@ -192,4 +192,19 @@ export class AuthController {
       body: null,
     });
   }
+
+  @PublicAccess()
+  @ApiOkResponse({ description: 'The verify successfully.' })
+  @ApiUnauthorizedResponse({ description: 'please authorized first' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @Post('logout')
+  logout(@Req() req: express.Request) {
+    const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
+
+    return this.coreService.send('AUTH:LOGOUT', {
+      userId: payload.userId,
+      secret: payload.secret,
+    });
+  }
 }
