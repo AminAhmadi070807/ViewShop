@@ -179,6 +179,9 @@ class AuthService {
       throw new CustomException('The otp code is not valid', 400);
     }
 
+    await this.redisService.ddl(data.route);
+    await this.redisService.ddl(<string>map.get('phone'));
+
     // create new user
     const user: User = this.userRepository.create({
       verified: true,
@@ -204,7 +207,10 @@ class AuthService {
     );
 
     // hashed refresh token
-    const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
+    const hashRefreshToken: string = await bcrypt.hash(
+      tokens.refresh_token,
+      12,
+    );
 
     // create new token
     const token: Auth = this.authRepository.create({
