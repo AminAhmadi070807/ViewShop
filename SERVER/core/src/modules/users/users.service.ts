@@ -10,6 +10,7 @@ import {
   UserInterface,
   UserOneInterface,
 } from '../../common/interfaces/user.interface';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class UsersService {
@@ -18,45 +19,46 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
+  // create new user
   async create(data: CreateUserDto): Promise<UserInterface> {
+    // existing user
     const existing: User | null = await this.userRepository.findOne({
       where: { phone: data.phone },
     });
 
     if (existing) {
-      throw new CustomException(
-        'this phone number already registered.',
-        HttpStatus.CONFLICT,
-      );
+      throw new CustomException(statusMessages.fa['409'], HttpStatus.CONFLICT);
     }
 
+    // hashed user password
     const hashedPassword: string = bcrypt.hashSync(data.password, 12);
 
     try {
+      // create new user
       const user: User = this.userRepository.create({
         phone: data.phone,
         password: hashedPassword,
         fullName: data.fullName,
       });
 
+      // save user in database
       const saveUser: User = await this.userRepository.save(user);
 
+      // send response to client
       return {
         status: HttpStatus.CREATED,
         message: 'User created successfully.',
         body: saveUser,
       };
-    } catch (error) {
-      const err = error as Error;
-      throw new CustomException(
-        `Internal server error. error message: ${err.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
+  // getting all users
   async findAll(): Promise<UserInterface> {
     try {
+      // get all user from database
       const user: User[] = await this.userRepository.find({
         order: {
           id: -1,
@@ -69,10 +71,11 @@ export class UsersService {
         },
       });
 
+      // send response to client
       return {
         status: HttpStatus.OK,
         body: user,
-        message: null,
+        message: statusMessages.fa['200'],
       };
     } catch (error) {
       const err = error as Error;
@@ -83,6 +86,7 @@ export class UsersService {
     }
   }
 
+  // get one user by id
   async findOne(id: string): Promise<UserOneInterface> {
     const user: User | null = await this.userRepository.findOne({
       where: {
@@ -90,35 +94,35 @@ export class UsersService {
       },
     });
 
-    if (!user) {
-      throw new CustomException('User not found', HttpStatus.NOT_FOUND);
-    }
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
 
     return {
       status: HttpStatus.OK,
       body: user,
-      message: null,
+      message: statusMessages.fa['200'],
     };
   }
 
+  // get one user by phone number
   async findByPhone(phone: string): Promise<UserOneInterface> {
+    // find one user by phone number
     const user: User | null = await this.userRepository.findOne({
       where: {
         phone: phone,
       },
     });
 
-    if (!user) {
-      throw new CustomException('User not found', HttpStatus.NOT_FOUND);
-    }
+    // send error to client
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
 
     return {
       status: 200,
-      message: null,
+      message: statusMessages.fa['204'],
       body: user,
     };
   }
 
+  // update user information
   async update(id: string, data: UpdateUserDto): Promise<UserInterface> {
     try {
       await this.userRepository.update(id, data);
@@ -137,6 +141,7 @@ export class UsersService {
     }
   }
 
+  // remove user by id
   async remove(id: string): Promise<UserInterface> {
     try {
       await this.userRepository.delete(id);

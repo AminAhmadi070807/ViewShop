@@ -37,7 +37,7 @@ export class SmsService {
     };
   }
 
-  async FarazSms(data: SmsDto) {}
+  async FarazSms() {}
 
   async SmsIr(data: SmsDto) {
     const response: Response = await fetch(

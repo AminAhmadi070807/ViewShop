@@ -25,6 +25,12 @@ import bcrypt from 'bcrypt';
 import { SmsService } from '../../common/services/sms.service';
 import crypto from 'crypto';
 import { RedisService } from '../../common/services/redis.service';
+import { statusMessages } from '../../common/message/message.status';
+
+interface SmsInterface {
+  status: HttpStatus;
+  message: string;
+}
 
 @Injectable()
 class AuthService {
@@ -106,15 +112,15 @@ class AuthService {
     });
 
     // send conflict exception
-    if (existing) {
-      throw new CustomException('The user already exist', 409);
-    }
+    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
     const ttl: number = await this.redisService.ttl(data.phone);
 
     // was a ttl phone number send remaining ttl
     if (ttl > 0) {
+      // get route from redis with phone number
       const route: string = (await this.redisService.get(data.phone)) as string;
+      // send response to client
       return {
         status: HttpStatus.OK,
         message: `The otp code already send to this phone number.`,
@@ -129,17 +135,17 @@ class AuthService {
     const randomCode: number = crypto.randomInt(100000, 999999);
 
     // send otp code to user by sms service
-    const sms: { status: HttpStatus; message: string } =
-      await this.smsService.Mediana({
-        phone: data.phone,
-        code: `${randomCode}`,
-      });
+    const sms: SmsInterface = await this.smsService.Mediana({
+      phone: data.phone,
+      code: `${randomCode}`,
+    });
 
     // hashed user password
     const hashedPassword: string = await bcrypt.hash(data.password, 12);
     // random user verify route
     const randomRoute: string = crypto.randomUUID();
 
+    // To send sms was successfully send response to client
     if (sms.status === HttpStatus.OK) {
       // set data in redis
       await this.redisService.set(
