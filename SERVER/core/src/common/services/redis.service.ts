@@ -1,10 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  OnModuleDestroy,
-  OnModuleInit,
-} from '@nestjs/common';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
 import { ConfigService } from '@nestjs/config';
 
@@ -52,5 +46,9 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     const ttl: number = await this.client.ttl(key);
 
     return Number(ttl);
+  }
+
+  async ddl(key: string): Promise<number> {
+    return this.client.del(key);
   }
 }
