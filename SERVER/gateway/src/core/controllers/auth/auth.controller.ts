@@ -112,7 +112,7 @@ export class AuthController {
     // send response to client
     return res.status(200).json({
       statusCode: 200,
-      message: 'Login successfully.',
+      message: statusMessages.fa.AUTH['200'],
       body: null,
     });
   }

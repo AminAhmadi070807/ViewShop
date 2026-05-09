@@ -3,9 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { UserInterface } from '../src/common/interface/user.interface';
-import { UserRoleEnum } from '../src/common/enums/core/users/role.enum';
 import jwt from 'jsonwebtoken';
+import { JwtPayload } from '../src/common/validation/jwt.dto';
 
 describe('Users Page', () => {
   let app: INestApplication<App>;
@@ -22,13 +21,37 @@ describe('Users Page', () => {
       app = module.createNestApplication();
       await app.init();
 
-      const res = await request(app.getHttpServer())
+      let res = await request(app.getHttpServer())
         .post('/core/auth/login')
         .send({
           phone: phoneNumber,
           password: userPassword,
         });
-      console.log(await res.body);
+
+      if (res.status === 404) {
+        res = await request(app.getHttpServer()).post('/core/users/').send({
+          phone: phoneNumber,
+          password: userPassword,
+          fullName: 'کاربر تستی',
+        });
+      }
+
+      const cookies = res.headers['set-cookie'];
+
+      const tokens: Map<string, string> = new Map<string, string>();
+
+      for (const cookie of cookies) {
+        const tokenValue: string = cookie.split(';')[0];
+        const token: string[] = tokenValue.split('_token=');
+        tokens.set(token[0], token[1]);
+      }
+
+      const payloadRefreshToken = jwt.verify(
+        tokens.get('access') as string,
+        process.env.CORE_JWT_ACCESS_TOKEN_SECRET_KEY as string,
+      ) as JwtPayload;
+
+      userId = payloadRefreshToken.userId;
     }
   });
 
