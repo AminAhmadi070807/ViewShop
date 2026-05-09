@@ -1,5 +1,6 @@
 import { AuthGuard } from '@nestjs/passport';
 import {
+  BadRequestException,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
@@ -11,6 +12,7 @@ import express from 'express';
 import { CoreService } from '../../core/core.service';
 import { firstValueFrom } from 'rxjs';
 import { IS_PUBLIC_ACCESS_KEY } from '../decorators/public.access.decorator';
+import { statusMessages } from '../messages/status.message';
 
 @Injectable()
 export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
@@ -37,12 +39,12 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
 
     const req: express.Request = context.switchToHttp().getRequest();
 
-    if (!req) throw new UnauthorizedException('please authorized first.');
+    if (!req) throw new UnauthorizedException(statusMessages.fa['401']);
 
     const userReq: JwtPayload | undefined = req.user as JwtPayload | undefined;
 
     if (!userReq) {
-      throw new UnauthorizedException('please authorized first.');
+      throw new UnauthorizedException(statusMessages.fa['401']);
     }
 
     await firstValueFrom(this.coreService.send('USER:ONE', userReq.userId));
@@ -51,11 +53,11 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
   }
 
   handleRequest<TUser = JwtPayload>(error: any, user: TUser, info: any): TUser {
-    if (error) throw new UnauthorizedException('Jwt auth error');
+    if (error) throw new UnauthorizedException(statusMessages.fa['401']);
 
-    if (!user) throw new UnauthorizedException('Please authorized first.');
+    if (!user) throw new UnauthorizedException(statusMessages.fa['401']);
 
-    if (info) throw new UnauthorizedException('The token is not valid..');
+    if (info) throw new BadRequestException(statusMessages.fa['400']);
 
     return user;
   }

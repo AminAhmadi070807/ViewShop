@@ -2,7 +2,7 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
-  IsUUID,
+  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -17,9 +17,9 @@ export class AuthRegisterDto {
     maxLength: 11,
     minLength: 11,
   })
-  @IsNotEmpty()
-  @IsString()
-  @IsPhoneNumber('IR')
+  @IsNotEmpty({ message: 'شماره تلفن نمیتواند خالی باشد' })
+  @IsString({ message: 'لطفا یک شماره تلفن درست وارد کنید' })
+  @IsPhoneNumber('IR', { message: 'لطفا یک شماره تلفن درست وارد کنید' })
   phone: string;
 
   @ApiProperty({
@@ -30,24 +30,27 @@ export class AuthRegisterDto {
     maxLength: 24,
     minLength: 8,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(24)
+  @IsNotEmpty({ message: 'رمز عبور نمیتواند خالی باشد' })
+  @IsString({ message: 'رمز عبور نمیتواند خالی باشد' })
+  @MinLength(8, { message: 'رمزعبور حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'رمزعبور نمیتواند بیشتر از 24 کارکتر باشد' })
   password: string;
 
   @ApiProperty({
     description: 'User fullName',
-    example: 'Amin Ahmadi',
+    example: 'امین احمدی',
     type: 'string',
     required: true,
     maxLength: 50,
     minLength: 8,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(50)
+  @IsNotEmpty({ message: 'نام و نام خانوادگی نباید خالی باشد' })
+  @IsString({ message: 'نام و نام خانوادگی باید رشته باشد' })
+  @MinLength(8, { message: 'نام و نام خانوادگی حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'نام و نام خانوادگی حدکثر میتواند 50 کارکتر باشد' })
+  @Matches(/^[\u0600-\u06FF\s]+$/, {
+    message: 'فقط حروف فارسی مجاز است',
+  })
   fullName: string;
 }
 
@@ -59,10 +62,10 @@ export class AuthVerifyOtp {
     maxLength: 6,
     minLength: 6,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(6)
-  @MaxLength(6)
+  @IsNotEmpty({ message: 'لطفا کد ورودی درست را وارد کنید' })
+  @IsString({ message: 'کد ورود باید عداد باشد' })
+  @MinLength(6, { message: 'کدقل و حدکثر کد ورود باید 6 رقم باشد' })
+  @MaxLength(6, { message: 'کدقل و حدکثر کد ورود باید 6 رقم باشد' })
   otp: string;
 }
 
@@ -75,9 +78,9 @@ export class AuthLoginDto {
     maxLength: 11,
     minLength: 11,
   })
-  @IsNotEmpty()
-  @IsString()
-  @IsPhoneNumber('IR')
+  @IsNotEmpty({ message: 'شماره تلفن نمیتواند خالی باشد' })
+  @IsString({ message: 'لطفا یک شماره تلفن درست وارد کنید' })
+  @IsPhoneNumber('IR', { message: 'لطفا یک شماره تلفن درست وارد کنید' })
   phone: string;
 
   @ApiProperty({
@@ -88,9 +91,9 @@ export class AuthLoginDto {
     maxLength: 24,
     minLength: 8,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(24)
+  @IsNotEmpty({ message: 'رمز عبور نمیتواند خالی باشد' })
+  @IsString({ message: 'رمز عبور نمیتواند خالی باشد' })
+  @MinLength(8, { message: 'رمزعبور حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'رمزعبور نمیتواند بیشتر از 24 کارکتر باشد' })
   password: string;
 }

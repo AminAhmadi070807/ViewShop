@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
+import { statusMessages } from '../messages/status.message';
 
 @Injectable()
 export class JwtAccessTokenStrategy extends PassportStrategy(
@@ -28,9 +29,7 @@ export class JwtAccessTokenStrategy extends PassportStrategy(
   }
 
   validate(payload: JwtPayload): JwtPayload {
-    if (!payload) {
-      throw new UnauthorizedException('Please authorized first.');
-    }
+    if (!payload) throw new UnauthorizedException(statusMessages.fa['401']);
 
     return {
       userId: payload.userId,

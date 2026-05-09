@@ -2,6 +2,7 @@ import { AuthGuard } from '@nestjs/passport';
 import express from 'express';
 import { JwtRefreshPayload } from '../validation/jwt.dto';
 import {
+  BadRequestException,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
@@ -10,6 +11,7 @@ import { Reflector } from '@nestjs/core';
 import { CoreService } from '../../core/core.service';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
+import { statusMessages } from '../messages/status.message';
 
 @Injectable()
 export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
@@ -34,7 +36,7 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
 
     const req: express.Request = context.switchToHttp().getRequest();
 
-    if (!req) throw new UnauthorizedException('please authorized first.');
+    if (!req) throw new UnauthorizedException(statusMessages.fa['401']);
 
     // get user payload from request
     const userReq: JwtRefreshPayload | undefined = req.user as
@@ -42,7 +44,7 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
       | undefined;
 
     // send unauthorized error
-    if (!userReq) throw new UnauthorizedException('please authorized first.');
+    if (!userReq) throw new UnauthorizedException(statusMessages.fa['401']);
 
     // validate user refresh token
     await firstValueFrom(
@@ -60,12 +62,12 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
     user: TUser,
     info: unknown,
   ) {
-    if (error) throw new UnauthorizedException('Jwt auth error.');
+    if (error) throw new UnauthorizedException(statusMessages.fa['401']);
 
-    if (!user) throw new UnauthorizedException('Please authorized first.');
+    if (!user) throw new UnauthorizedException(statusMessages.fa['401']);
 
     if (info) {
-      throw new UnauthorizedException('The Refresh Token is not valid.');
+      throw new BadRequestException(statusMessages.fa['400']);
     }
 
     return user;
