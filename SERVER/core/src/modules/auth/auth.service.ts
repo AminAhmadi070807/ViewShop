@@ -365,7 +365,7 @@ class AuthService {
 
     return {
       status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
+      message: statusMessages.fa.AUTH['200'],
       body: tokens,
     };
   }
