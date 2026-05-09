@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
+  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -14,9 +15,9 @@ export class UserValidator {
     description: 'phone number is required',
     pattern: /^09(0[1-5]|1\d|2[0-2]|3\d|9[^567])\d{7}$/,
   })
-  @IsNotEmpty({ message: 'please enter a valid phone number' })
-  @IsString({ message: 'please enter a valid phone number' })
-  @IsPhoneNumber('IR', { message: 'please enter a valid phone number' })
+  @IsNotEmpty({ message: 'شماره تلفن نمیتواند خالی باشد' })
+  @IsString({ message: 'لطفا یک شماره تلفن درست وارد کنید' })
+  @IsPhoneNumber('IR', { message: 'لطفا یک شماره تلفن درست وارد کنید' })
   phone: string;
 
   @ApiProperty({
@@ -26,10 +27,10 @@ export class UserValidator {
     description: 'user password is required',
     example: '123456789',
   })
-  @IsNotEmpty({ message: 'password is not empty' })
-  @IsString({ message: 'password must be a string' })
-  @MinLength(8, { message: 'minLength must be at least 8 characters' })
-  @MaxLength(24, { message: 'maxLength must be at least 24 characters' })
+  @IsNotEmpty({ message: 'رمزعبور نباید خالی باشد' })
+  @IsString({ message: 'رمزعبور باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل باید رمز عبور 8 کارکتری باشد' })
+  @MaxLength(24, { message: 'حدکثر رمزعبور باید 24 کارکتری باشد' })
   password: string;
 
   @ApiPropertyOptional({
@@ -37,26 +38,32 @@ export class UserValidator {
     minLength: 8,
     maxLength: 50,
     description: 'fullName is optional',
-    example: 'Amin Ahmadi',
+    example: 'امین احمدی',
   })
-  @IsNotEmpty({ message: 'fullName is not empty' })
-  @IsString({ message: 'fullName has a string' })
-  @MinLength(8, { message: 'minLength must be at least 8 characters' })
-  @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
+  @IsNotEmpty({ message: 'نام و نام خانوادگی نباید خالی باشد' })
+  @IsString({ message: 'نام و نام خانوادگی باید رشته باشد' })
+  @MinLength(8, { message: 'نام و نام خانوادگی حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'نام و نام خانوادگی حدکثر میتواند 50 کارکتر باشد' })
+  @Matches(/^[\u0600-\u06FF\s]+$/, {
+    message: 'فقط حروف فارسی مجاز است',
+  })
   fullName: string;
 }
 
 export class UserUpdateValidator {
-  @ApiPropertyOptional({
+  @ApiProperty({
     type: 'string',
     minLength: 8,
     maxLength: 50,
     description: 'fullName is optional',
-    example: 'Amin Ahmadi',
+    example: 'امین احمدی',
   })
-  @IsNotEmpty({ message: 'fullName is not empty' })
-  @IsString({ message: 'fullName has a string' })
-  @MinLength(8, { message: 'minLength must be at least 8 characters' })
-  @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
+  @IsNotEmpty({ message: 'نام و نام خانوادگی نباید خالی باشد' })
+  @IsString({ message: 'نام و نام خانوادگی باید رشته باشد' })
+  @MinLength(8, { message: 'نام و نام خانوادگی حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'نام و نام خانوادگی حدکثر میتواند 50 کارکتر باشد' })
+  @Matches(/^[\u0600-\u06FF\s]+$/, {
+    message: 'فقط حروف فارسی مجاز است',
+  })
   fullName: string;
 }
