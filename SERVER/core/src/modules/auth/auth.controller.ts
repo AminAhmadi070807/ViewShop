@@ -22,6 +22,11 @@ export class AuthController {
     return this.authService.login(data);
   }
 
+  @MessagePattern('AUTH:LOGOUT')
+  logout(@Payload() data: AuthValidateDto) {
+    return this.authService.logout(data);
+  }
+
   @MessagePattern('AUTH:VALIDATE')
   validateRefreshToken(@Payload() data: AuthValidateDto) {
     return this.authService.validateRefreshToken(data);
