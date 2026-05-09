@@ -7,9 +7,37 @@ import { CustomException } from '../exceptions/custom.exception.error';
 export class SmsService {
   constructor(private readonly config: ConfigService) {}
 
-  Mediana(data: SmsDto) {}
+  async Mediana(data: SmsDto) {
+    const response: Response = await fetch(
+      'https://api.mediana.ir/sms/v1/send/otp',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': this.config.get<string>('SMS_MEDIANA_API_KEY') as string,
+        },
+        body: JSON.stringify({
+          patternCode: this.config.get<string>('SMS_MEDIANA_PATTERN_KEY'),
+          recipient: data.phone,
+          otpCode: data.code,
+        }),
+      },
+    );
 
-  FarazSms(data: SmsDto) {}
+    if (response.status === 200) {
+      return {
+        status: 200,
+        message: 'ارسال پیامک موفقیت امیز بود',
+      };
+    }
+
+    return {
+      status: response.status,
+      message: response.statusText,
+    };
+  }
+
+  async FarazSms(data: SmsDto) {}
 
   async SmsIr(data: SmsDto) {
     const response: Response = await fetch(
@@ -23,7 +51,7 @@ export class SmsService {
         },
         body: JSON.stringify({
           mobile: data.phone,
-          templateId: '439538',
+          templateId: this.config.get<string>('SMS_IR_TEMPLATE_ID'),
           parameters: [
             {
               name: 'OTP',

@@ -130,7 +130,7 @@ class AuthService {
 
     // send otp code to user by sms service
     const sms: { status: HttpStatus; message: string } =
-      await this.smsService.SmsIr({
+      await this.smsService.Mediana({
         phone: data.phone,
         code: `${randomCode}`,
       });
@@ -370,5 +370,4 @@ class AuthService {
     };
   }
 }
-
 export default AuthService;
