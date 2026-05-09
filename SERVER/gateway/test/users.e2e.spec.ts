@@ -8,7 +8,8 @@ import { UserInterface } from '../src/common/interface/user.interface';
 describe('Users Page', () => {
   let app: INestApplication<App>;
   let userId: string;
-  const phoneNumber = '09991234567';
+  const phoneNumber = '09990000000';
+  const userPassword = '000000000';
 
   beforeAll(async (): Promise<void> => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,27 +19,34 @@ describe('Users Page', () => {
     app = module.createNestApplication();
     await app.init();
 
-    const response = await request(app.getHttpServer()).get(
+    const result = await request(app.getHttpServer()).get(
       `/core/users/by/phone/${phoneNumber}`,
     );
 
-    if (response.ok) {
-      const user: UserInterface = response.body as UserInterface;
-
-      userId = user.body.id;
-    } else {
-      const response = await request(app.getHttpServer())
-        .post('/core/users')
-        .send({
-          phone: phoneNumber,
-          password: '123456789',
-          fullName: 'Amin Ahmadi',
-        });
-
-      const user: UserInterface = response.body as UserInterface;
+    if (result.ok) {
+      const user: UserInterface = result.body as UserInterface;
 
       userId = user.body.id;
     }
+
+    const res = await request(app.getHttpServer()).post('/core/users').send({
+      phone: phoneNumber,
+      password: userPassword,
+      fullName: 'کاربر تستی',
+    });
+
+    const user: UserInterface = res.body as UserInterface;
+
+    userId = user.body.id;
+
+    const login = await request(app.getHttpServer())
+      .post('/core/auth/login')
+      .send({
+        phone: phoneNumber,
+        password: userPassword,
+      });
+
+    console.log(login.headers);
   });
 
   afterAll(async (): Promise<void> => await app.close());
