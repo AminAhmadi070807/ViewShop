@@ -1,41 +1,56 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { CustomException } from '../exceptions/custom.exception.error';
+import Redis from 'ioredis';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class RedisService {
-  constructor(
-    @Inject(CACHE_MANAGER)
-    private readonly redis: Cache,
-  ) {}
+export class RedisService implements OnModuleInit, OnModuleDestroy {
+  private client: Redis;
 
-  async setCache(title: string, value: string, phone: string) {
-    await this.redis.set(`route:${title}`, value, 180);
-    await this.redis.set(phone, value, 180);
-    return true;
+  constructor(private readonly configService: ConfigService) {}
+
+  onModuleInit(): void {
+    const host = this.configService.get<string>('CORE_DB_REDIS_HOST') as string;
+    const port = parseInt(
+      this.configService.get<'6379'>('CORE_DB_REDIS_PORT', '6379'),
+    );
+    const pass = this.configService.get<string>('CORE_REDIS_PASS') as string;
+    const db = this.configService.get<number>('CORE_REDIS_DB') as number;
+
+    this.client = new Redis({
+      host,
+      port,
+      db,
+      password: pass || undefined,
+    });
+
+    this.client.on('connect', () => console.log('[Redis] Connected'));
+
+    this.client.on('error', (err) => console.error('[Redis] error:', err));
   }
 
-  async getOtpCache(title: string): Promise<Record<string, string>> {
-    const result: string | undefined = await this.redis.get(`route:${title}`);
-
-    if (!result) throw new CustomException('Otp code is not valid', 400);
-
-    const items: string[] = result.split('___');
-
-    const data: Record<string, string> = {};
-
-    for (const item of items) {
-      const keyAndValue: string[] = item.split(':=:');
-
-      data[keyAndValue[0].trim()] = keyAndValue[1].trim();
+  async onModuleDestroy() {
+    if (this.client) {
+      await this.client.quit();
     }
-
-    return data;
   }
 
-  async getOtpCodeTTL(phone: string): Promise<number> {
-    const result: number | undefined = await this.redis.ttl(phone);
+  async set(key: string, value: string, second: number): Promise<void> {
+    await this.client.set(key, value, 'EX', second);
+  }
 
-    return result || 0;
+  async get(key: string): Promise<string | null> {
+    return this.client.get(key);
+  }
+
+  async ttl(key: string): Promise<number> {
+    const ttl: number = await this.client.ttl(key);
+
+    return Number(ttl);
   }
 }

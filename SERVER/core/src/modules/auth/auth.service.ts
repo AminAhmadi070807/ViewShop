@@ -83,6 +83,20 @@ class AuthService {
     };
   }
 
+  private payloadOtp(payload: string): Map<string, string> {
+    const items: string[] = payload.split('___');
+
+    const data: Map<string, string> = new Map();
+
+    for (const item of items) {
+      const result: string[] = item.split(':=:');
+
+      data.set(result[0], result[1]);
+    }
+
+    return data;
+  }
+
   // register user
   async register(data: AuthRegisterDto): Promise<AuthRegisterInterface> {
     // find user with phone number from database
@@ -94,6 +108,21 @@ class AuthService {
     // send conflict exception
     if (existing) {
       throw new CustomException('The user already exist', 409);
+    }
+
+    const ttl: number = await this.redisService.ttl(data.phone);
+
+    // was a ttl phone number send remaining ttl
+    if (ttl > 0) {
+      const route: string = (await this.redisService.get(data.phone)) as string;
+      return {
+        status: HttpStatus.OK,
+        message: `The otp code already send to this phone number.`,
+        body: {
+          route,
+          ttl,
+        },
+      };
     }
 
     // random otp code
@@ -112,26 +141,13 @@ class AuthService {
     const randomRoute: string = crypto.randomUUID();
 
     if (sms.status === HttpStatus.OK) {
-      const ttl: number = await this.redisService.getOtpCodeTTL(data.phone);
-
-      // was a ttl phone number send remaining ttl
-      if (ttl) {
-        return {
-          status: HttpStatus.OK,
-          message: 'The otp was send successfully.',
-          body: {
-            route: randomRoute,
-            ttl,
-          },
-        };
-      }
-
       // set data in redis
-      await this.redisService.setCache(
+      await this.redisService.set(
         randomRoute,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
-        data.phone,
+        180,
       );
+      await this.redisService.set(data.phone, randomRoute, 180);
 
       // send request
       return {
@@ -149,11 +165,15 @@ class AuthService {
 
   // verify otp code
   async verifyOtp(data: AuthVerifyOtp) {
-    const result: Record<string, string> = await this.redisService.getOtpCache(
-      data.route,
-    );
+    const result: string | null = await this.redisService.get(data.route);
 
-    const isOtpCode = result['otp'] === data.otp;
+    if (!result) {
+      throw new CustomException('The otp code is not valid', 400);
+    }
+
+    const map: Map<string, string> = this.payloadOtp(result);
+
+    const isOtpCode: boolean = map.get('otp') === data.otp;
 
     if (!isOtpCode) {
       throw new CustomException('The otp code is not valid', 400);
@@ -163,9 +183,9 @@ class AuthService {
     const user: User = this.userRepository.create({
       verified: true,
       role: UserRoleEnum.USER,
-      fullName: result.fullName,
-      phone: result.phone,
-      password: result.password,
+      fullName: map.get('fullName'),
+      phone: map.get('phone'),
+      password: map.get('password'),
     });
 
     // save new user in database
