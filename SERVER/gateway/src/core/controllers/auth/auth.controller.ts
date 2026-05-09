@@ -26,6 +26,7 @@ import {
 } from '../../../common/interface/auth.interface';
 import { PublicAccess } from '../../../common/decorators/public.access.decorator';
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
+import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/auth')
 export class AuthController {
@@ -63,9 +64,11 @@ export class AuthController {
   @ApiConflictResponse({
     description: 'The user already exist',
   })
-  @ApiOkResponse({ description: 'The authentication successfully.' })
-  @ApiBadRequestResponse({ description: 'Validation failed.' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+  @ApiInternalServerErrorResponse({
+    description: statusMessages.fa['500'],
+  })
   @Post('register')
   register(@Body() data: AuthRegisterDto) {
     return this.coreService.send('AUTH:REGISTER', data);
@@ -76,9 +79,11 @@ export class AuthController {
   @ApiNotFoundResponse({
     description: 'The user not found for this phone number.',
   })
-  @ApiOkResponse({ description: 'The authentication successfully.' })
-  @ApiBadRequestResponse({ description: 'Validation failed.' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+  @ApiInternalServerErrorResponse({
+    description: statusMessages.fa['500'],
+  })
   @Post('login')
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
     // get tokens from core microservice
@@ -117,9 +122,11 @@ export class AuthController {
   @ApiNotFoundResponse({
     description: 'The user not found for this phone number.',
   })
-  @ApiOkResponse({ description: 'The authentication successfully.' })
-  @ApiBadRequestResponse({ description: 'Validation failed.' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+  @ApiInternalServerErrorResponse({
+    description: statusMessages.fa['500'],
+  })
   @Post('verify_otp/:id')
   async verifyOTP(
     @Param('id') id: string,
@@ -152,17 +159,19 @@ export class AuthController {
     // send response to client
     return res.status(200).json({
       statusCode: 200,
-      message: 'Login successfully.',
+      message: statusMessages.fa.AUTH['200'],
       body: null,
     });
   }
 
   // verify access token
   @PublicAccess()
-  @ApiOkResponse({ description: 'The verify successfully.' })
-  @ApiUnauthorizedResponse({ description: 'please authorized first' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
-  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiInternalServerErrorResponse({
+    description: statusMessages.fa['500'],
+  })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @Post('verify')
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
@@ -193,11 +202,12 @@ export class AuthController {
     });
   }
 
-  @PublicAccess()
-  @ApiOkResponse({ description: 'The verify successfully.' })
-  @ApiUnauthorizedResponse({ description: 'please authorized first' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
-  @ApiBadRequestResponse({ description: 'Validation failed.' })
+  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiInternalServerErrorResponse({
+    description: statusMessages.fa['500'],
+  })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @Post('logout')
   logout(@Req() req: express.Request) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;

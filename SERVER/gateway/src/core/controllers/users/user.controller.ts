@@ -22,12 +22,14 @@ import {
 import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { PhoneDto } from '../../../common/validation/phone.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('core/users')
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
   // send request to create user in core microservice
+  @Public()
   @Post()
   @ApiCreatedResponse({
     description: 'User created successfully.',
@@ -40,6 +42,7 @@ export class UsersController {
   }
 
   // send request to find all in core microservice
+  @Public()
   @Get()
   @ApiOkResponse({ description: 'Find All users successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
@@ -48,6 +51,7 @@ export class UsersController {
   }
 
   // send request to find user by phone number in core microservice
+  @Public()
   @Get('by/phone/:phone')
   @ApiOkResponse({ description: 'Find All users successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
@@ -63,6 +67,7 @@ export class UsersController {
   }
 
   // send request to find one user in core microservice
+  @Public()
   @Get(':id')
   @ApiOkResponse({ description: 'Find One user successfully.' })
   @ApiNotFoundResponse({ description: 'User not found.' })
@@ -79,6 +84,7 @@ export class UsersController {
   }
 
   // send request to update user information with userId in core microservice
+  @Public()
   @Patch('update/:id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
@@ -100,6 +106,7 @@ export class UsersController {
   }
 
   // send request to remove user with userId in core microservice
+  @Public()
   @Delete('delete/:id')
   @ApiOkResponse({ description: 'update user successfully.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
