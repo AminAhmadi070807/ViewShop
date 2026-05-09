@@ -369,5 +369,31 @@ class AuthService {
       body: tokens,
     };
   }
+
+  // logout user
+  async logout(data: AuthValidateDto): Promise<AuthValidateInterface> {
+    const tokens: Auth[] = await this.authRepository.find({
+      where: {
+        user: { id: data.userId },
+      },
+    });
+
+    for (const token of tokens) {
+      const validToken: boolean = await bcrypt.compare(
+        data.secret,
+        token.secret,
+      );
+
+      if (validToken) {
+        await this.authRepository.delete(token.id);
+      }
+    }
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: 'the logout was successfully',
+      body: null,
+    };
+  }
 }
 export default AuthService;
