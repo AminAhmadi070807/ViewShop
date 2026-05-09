@@ -62,7 +62,7 @@ export class AuthController {
   // authorization error
   @Public()
   @ApiConflictResponse({
-    description: 'The user already exist',
+    description: statusMessages.fa['409'],
   })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
@@ -77,7 +77,7 @@ export class AuthController {
   // authorization error
   @Public()
   @ApiNotFoundResponse({
-    description: 'The user not found for this phone number.',
+    description: statusMessages.fa['404'],
   })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
@@ -120,7 +120,7 @@ export class AuthController {
   // authorization error
   @Public()
   @ApiNotFoundResponse({
-    description: 'The user not found for this phone number.',
+    description: statusMessages.fa['404'],
   })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
