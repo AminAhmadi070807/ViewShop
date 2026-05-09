@@ -89,6 +89,7 @@ class AuthService {
     };
   }
 
+  // payload otp data
   private payloadOtp(payload: string): Map<string, string> {
     const items: string[] = payload.split('___');
 
@@ -123,7 +124,7 @@ class AuthService {
       // send response to client
       return {
         status: HttpStatus.OK,
-        message: `The otp code already send to this phone number.`,
+        message: statusMessages.fa['409'],
         body: {
           route,
           ttl,
@@ -173,17 +174,13 @@ class AuthService {
   async verifyOtp(data: AuthVerifyOtp) {
     const result: string | null = await this.redisService.get(data.route);
 
-    if (!result) {
-      throw new CustomException('The otp code is not valid', 400);
-    }
+    if (!result) throw new CustomException(statusMessages.fa['400'], 400);
 
     const map: Map<string, string> = this.payloadOtp(result);
 
     const isOtpCode: boolean = map.get('otp') === data.otp;
 
-    if (!isOtpCode) {
-      throw new CustomException('The otp code is not valid', 400);
-    }
+    if (!isOtpCode) throw new CustomException(statusMessages.fa['400'], 400);
 
     await this.redisService.ddl(data.route);
     await this.redisService.ddl(<string>map.get('phone'));
@@ -230,14 +227,14 @@ class AuthService {
 
     return {
       status: HttpStatus.OK,
-      message: 'Authentication was successfully.',
+      message: statusMessages.fa.AUTH['201'],
       body: tokens,
     };
   }
 
   // verify token
   async verifyToken(data: AuthValidateDto): Promise<VerifyTokenInterface> {
-    const auths: Auth[] = await this.authRepository.find({
+    const tokens: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },
       },
@@ -248,20 +245,20 @@ class AuthService {
     });
 
     // user the right token
-    let token: Auth | null = null;
+    let userToken: Auth | null = null;
 
     // find validate token array
-    for (const auth of auths) {
-      const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
+    for (const token of tokens) {
+      const isToken: boolean = await bcrypt.compare(data.secret, token.secret);
 
-      if (isToken) token = auth;
+      if (isToken) userToken = token;
     }
 
-    if (token) {
+    if (userToken) {
       const access_token: string = this.jwtService.sign(
         {
           userId: data.userId,
-          role: token.user.role,
+          role: userToken.user.role,
         },
         {
           expiresIn: this.configService.get<StringValue>(
@@ -282,17 +279,14 @@ class AuthService {
       };
     }
 
-    throw new CustomException(
-      'The Refresh Token is not valid.',
-      HttpStatus.UNAUTHORIZED,
-    );
+    throw new CustomException(statusMessages.fa['401'], 401);
   }
 
   // validation refresh token
   async validateRefreshToken(
     data: AuthValidateDto,
   ): Promise<AuthValidateInterface> {
-    const auths: Auth[] = await this.authRepository.find({
+    const tokens: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },
       },
@@ -305,33 +299,32 @@ class AuthService {
     const isValidTokenArray: boolean[] = [];
 
     // find validate token array
-    for (const auth of auths) {
-      const isToken: boolean = await bcrypt.compare(data.secret, auth.secret);
+    for (const token of tokens) {
+      const isToken: boolean = await bcrypt.compare(data.secret, token.secret);
 
       isValidTokenArray.push(isToken);
     }
 
+    // validation tokens array
     if (isValidTokenArray.includes(true)) {
       return {
         body: null,
-        message: 'Refresh token is valid.',
+        message: statusMessages.fa['204'],
         status: HttpStatus.OK,
       };
     }
 
-    throw new CustomException(
-      'The Refresh Token is not valid.',
-      HttpStatus.UNAUTHORIZED,
-    );
+    throw new CustomException(statusMessages.fa['401'], 401);
   }
 
   // login user
   async login(data: AuthLoginDto): Promise<AuthInterface> {
+    // find user
     const user: User | null = await this.userRepository.findOneBy({
       phone: data.phone,
     });
 
-    if (!user) throw new CustomException(`User not found`, 404);
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
 
     // validate password
     const isPassword: boolean = await bcrypt.compare(
@@ -339,8 +332,9 @@ class AuthService {
       user.password,
     );
 
-    if (!isPassword) throw new CustomException(`User not found.`, 404);
+    if (!isPassword) throw new CustomException(statusMessages.fa['404'], 404);
 
+    // create new secret key
     const secret: string = crypto.randomUUID();
 
     // create user refresh & access tokens
@@ -371,13 +365,14 @@ class AuthService {
 
     return {
       status: HttpStatus.OK,
-      message: 'Authentication was successfully.',
+      message: statusMessages.fa['200'],
       body: tokens,
     };
   }
 
   // logout user
   async logout(data: AuthValidateDto): Promise<AuthValidateInterface> {
+    // get user tokens
     const tokens: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },
@@ -390,14 +385,13 @@ class AuthService {
         token.secret,
       );
 
-      if (validToken) {
-        await this.authRepository.delete(token.id);
-      }
+      // remove user token
+      if (validToken) await this.authRepository.delete(token.id);
     }
 
     return {
       status: HttpStatus.NO_CONTENT,
-      message: 'the logout was successfully',
+      message: statusMessages.fa['204'],
       body: null,
     };
   }
