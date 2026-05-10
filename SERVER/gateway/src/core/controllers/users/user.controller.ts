@@ -28,7 +28,7 @@ import { Roles } from '../../../common/decorators/role.decorator';
 import { UserRoleEnum } from '../../../common/enums/core/users/role.enum';
 
 @Controller('core/users')
-@Roles(UserRoleEnum.USER)
+@Roles(UserRoleEnum.ADMIN)
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
