@@ -24,8 +24,11 @@ import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { PhoneDto } from '../../../common/validation/phone.dto';
 import { statusMessages } from '../../../common/messages/status.message';
+import { Roles } from '../../../common/decorators/role.decorator';
+import { UserRoleEnum } from '../../../common/enums/core/users/role.enum';
 
 @Controller('core/users')
+@Roles(UserRoleEnum.USER)
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 

@@ -6,6 +6,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpGlobalExceptionFilter } from './common/filters/global.filter';
 import { JwtAccessTokenAuthGuard } from './common/guards/auth.access.guard';
 import { JwtRefreshTokenGuard } from './common/guards/auth.refresh.guard';
+import { RoleGuard } from './common/guards/role.guard';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }), CoreModule],
@@ -22,6 +23,10 @@ import { JwtRefreshTokenGuard } from './common/guards/auth.refresh.guard';
     {
       provide: APP_GUARD,
       useClass: JwtAccessTokenAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
     },
   ],
 })
