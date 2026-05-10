@@ -11,7 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class AuthRegisterDto {
   @ApiProperty({
     description: 'User phone number',
-    example: '09141111111',
+    example: '09990000000',
     type: 'string',
     required: true,
     maxLength: 11,
@@ -24,7 +24,7 @@ export class AuthRegisterDto {
 
   @ApiProperty({
     description: 'User password',
-    example: '123456789',
+    example: '000000000',
     type: 'string',
     required: true,
     maxLength: 24,
@@ -72,7 +72,7 @@ export class AuthVerifyOtp {
 export class AuthLoginDto {
   @ApiProperty({
     description: 'User phone number',
-    example: '09141111111',
+    example: '09990000000',
     type: 'string',
     required: true,
     maxLength: 11,
@@ -85,7 +85,7 @@ export class AuthLoginDto {
 
   @ApiProperty({
     description: 'User password',
-    example: '123456789',
+    example: '000000000',
     type: 'string',
     required: true,
     maxLength: 24,

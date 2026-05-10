@@ -25,7 +25,7 @@ export class UserValidator {
     minLength: 8,
     maxLength: 24,
     description: 'user password is required',
-    example: '123456789',
+    example: '000000000',
   })
   @IsNotEmpty({ message: 'رمزعبور نباید خالی باشد' })
   @IsString({ message: 'رمزعبور باید رشته باشد' })
