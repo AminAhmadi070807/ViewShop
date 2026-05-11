@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { CreatePermissionDto, UpdatePermissionDto } from './dto/permission.dto';
+import { CreatePermissionDto } from './dto/permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from './entities/permission.entity';
 import { Repository } from 'typeorm';
@@ -57,18 +57,6 @@ export class PermissionsService {
       status: HttpStatus.OK,
       message: statusMessages.fa['200'],
       body: permission,
-    };
-  }
-
-  async update(id: string, data: UpdatePermissionDto) {
-    await this.permissionRepository.update(id, {
-      title: data.title,
-    });
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
     };
   }
 

@@ -3,4 +3,12 @@ export enum PermissionEnum {
   READ = 'READ',
   EDIT = 'EDIT',
   DELETE = 'DELETE',
+  REJECT = 'REJECT',
+  CANCEL = 'CANCEL',
+  REFUND = 'REFUND',
+  CHANGE_STATUS = 'CHANGE_STATUS',
+  CHANGE_ROLE = 'CHANGE_ROLE',
+  MANAGE = 'MANAGE',
+  EXPORT = 'EXPORT',
+  IMPORT = 'IMPORT',
 }
