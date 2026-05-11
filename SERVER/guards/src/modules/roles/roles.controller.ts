@@ -1,14 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RolesService } from './roles.service';
-import { RoleDto } from './dto/role.dto';
+import { UpdateRoleDto, CreateRoleDto } from './dto/role.dto';
 
 @Controller()
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @MessagePattern('ROLE:CREATE')
-  create(@Payload() data: RoleDto) {
+  create(@Payload() data: CreateRoleDto) {
     return this.rolesService.create(data);
   }
 
@@ -23,7 +23,7 @@ export class RolesController {
   }
 
   @MessagePattern('ROLE:UPDATE')
-  update(@Payload() data: RoleDto) {
+  update(@Payload() data: UpdateRoleDto) {
     return this.rolesService.update(data.id, data);
   }
 

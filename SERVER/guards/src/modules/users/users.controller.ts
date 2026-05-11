@@ -1,15 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create.user.dto';
+import { UpdateUserDto, CreateUserDto } from './dto/user.dto';
 
 @Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @MessagePattern('USER:CREATE')
-  create(@Payload() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Payload() data: CreateUserDto) {
+    return this.usersService.create(data);
   }
 
   @MessagePattern('USER:ONE')
@@ -18,7 +18,7 @@ export class UsersController {
   }
 
   @MessagePattern('USER:UPDATE')
-  update(@Payload() data: CreateUserDto) {
+  update(@Payload() data: UpdateUserDto) {
     return this.usersService.update(data);
   }
 

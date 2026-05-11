@@ -24,7 +24,6 @@ export class Role {
   permissions: Permission[];
 
   @ManyToMany(() => Guard, (guard: Guard) => guard.roles, {
-    nullable: false,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
