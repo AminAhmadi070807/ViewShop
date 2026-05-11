@@ -1,6 +1,9 @@
 import { ClientsModuleAsyncOptions, Transport } from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CORE_SERVICE } from '../constants/microservice.constant';
+import {
+  CORE_SERVICE,
+  GUARDS_SERVICE,
+} from '../constants/microservice.constant';
 
 export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
   {
@@ -14,5 +17,17 @@ export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
     }),
     inject: [ConfigService],
     name: CORE_SERVICE,
+  },
+  {
+    name: GUARDS_SERVICE,
+    imports: [ConfigModule],
+    useFactory: (config: ConfigService) => ({
+      transport: Transport.TCP,
+      options: {
+        port: parseInt(config.get<string>('GUARD_PORT', '4001'), 10) || 4001,
+        host: config.get<string>('GUARD_HOST', '127.0.0.1'),
+      },
+    }),
+    inject: [ConfigService],
   },
 ];
