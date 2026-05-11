@@ -18,8 +18,8 @@ export class Guard {
   @ManyToMany(() => Role, (role: Role) => role.guards, { eager: true })
   @JoinTable({
     name: 'guard_roles',
-    joinColumn: { name: 'user_id' },
-    inverseJoinColumn: { name: 'role_id' },
+    joinColumn: { name: 'role_id' },
+    inverseJoinColumn: { name: 'guard_id' },
   })
   roles: Role[];
 
