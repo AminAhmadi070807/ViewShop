@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { PermissionsService } from './permissions.service';
 import { CreatePermissionDto } from './dto/permission.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class PermissionsController {
@@ -18,12 +19,12 @@ export class PermissionsController {
   }
 
   @MessagePattern('PERMISSION:ONE')
-  findOne(@Payload() id: string) {
-    return this.permissionsService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.permissionsService.findOne(data.id);
   }
 
   @MessagePattern('PERMISSION:DELETE')
-  remove(@Payload() id: string) {
-    return this.permissionsService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.permissionsService.remove(data.id);
   }
 }

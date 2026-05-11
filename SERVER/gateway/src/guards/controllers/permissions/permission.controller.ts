@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
-import { CreatePermissionDto, PermissionUUID } from './permission.dto';
+import { CreatePermissionDto } from './permission.dto';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -10,6 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('guards/permissions')
 export class PermissionsController {
@@ -38,8 +39,8 @@ export class PermissionsController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Get(':id')
-  findOne(@Param() data: PermissionUUID) {
-    return this.guardsService.send('PERMISSION:ONE', data.id);
+  findOne(@Param() data: ValidateUUID) {
+    return this.guardsService.send('PERMISSION:ONE', data);
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
@@ -47,7 +48,7 @@ export class PermissionsController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Delete(':id')
-  remove(@Param() data: PermissionUUID) {
-    return this.guardsService.send('PERMISSION:REMOVE', data.id);
+  remove(@Param() data: ValidateUUID) {
+    return this.guardsService.send('PERMISSION:REMOVE', data);
   }
 }
