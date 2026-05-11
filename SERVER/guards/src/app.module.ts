@@ -8,6 +8,7 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
 import { UsersModule } from './modules/users/users.module';
 import { ClientsModule } from '@nestjs/microservices';
 import { ClientsModuleConfig } from './common/config/client.config';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ClientsModuleConfig } from './common/config/client.config';
     RolesModule,
     PermissionsModule,
     UsersModule,
+    CoreModule,
   ],
   controllers: [],
   providers: [],
