@@ -6,6 +6,8 @@ import { GuardsModule } from './modules/guards/guards.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
 import { UsersModule } from './modules/users/users.module';
+import { ClientsModule } from '@nestjs/microservices';
+import { ClientsModuleConfig } from './common/config/client.config';
 
 @Module({
   imports: [
@@ -13,6 +15,7 @@ import { UsersModule } from './modules/users/users.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
+    ClientsModule.registerAsync(ClientsModuleConfig),
     GuardsModule,
     RolesModule,
     PermissionsModule,
