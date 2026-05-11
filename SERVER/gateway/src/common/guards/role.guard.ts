@@ -30,7 +30,7 @@ export class RoleGuard implements CanActivate {
       UserRoleEnum[]
     >(ROLES_KEY, [context.getClass(), context.getHandler()]);
 
-    if (!requiredRoles.length) return true;
+    if (!requiredRoles?.length) return true;
 
     const req: express.Request = context.switchToHttp().getRequest();
     // get user jwtPayload

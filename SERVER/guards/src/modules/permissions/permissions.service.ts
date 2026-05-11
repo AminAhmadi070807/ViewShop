@@ -1,26 +1,84 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePermissionDto } from './dto/create-permission.dto';
-import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { CreatePermissionDto, UpdatePermissionDto } from './dto/permission.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Permission } from './entities/permission.entity';
+import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
 
 @Injectable()
 export class PermissionsService {
-  create(createPermissionDto: CreatePermissionDto) {
-    return 'This action adds a new permission';
+  constructor(
+    @InjectRepository(Permission)
+    private readonly permissionRepository: Repository<Permission>,
+  ) {}
+
+  async create(data: CreatePermissionDto) {
+    const existing: Permission | null =
+      await this.permissionRepository.findOneBy({
+        title: data.title,
+      });
+
+    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+
+    const permission: Permission = this.permissionRepository.create(data);
+
+    await this.permissionRepository.save(permission);
+
+    return {
+      status: HttpStatus.CREATED,
+      message: statusMessages.fa['201'],
+      body: null,
+    };
   }
 
-  findAll() {
-    return `This action returns all permissions`;
+  async findAll() {
+    const permissions: Permission[] = await this.permissionRepository.find();
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: permissions,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} permission`;
+  async findOne(id: string) {
+    const permission: Permission | null =
+      await this.permissionRepository.findOne({
+        where: {
+          id: id,
+        },
+        relations: ['role'],
+      });
+
+    if (!permission) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: permission,
+    };
   }
 
-  update(id: number, updatePermissionDto: UpdatePermissionDto) {
-    return `This action updates a #${id} permission`;
+  async update(id: string, data: UpdatePermissionDto) {
+    await this.permissionRepository.update(id, {
+      title: data.title,
+    });
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
+      body: null,
+    };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} permission`;
+  async remove(id: string) {
+    await this.permissionRepository.delete(id);
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
+      body: null,
+    };
   }
 }

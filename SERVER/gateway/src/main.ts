@@ -43,12 +43,14 @@ void (async (): Promise<void> => {
       deepScanRoutes: true,
     });
 
+    // remove all routes except core
     if (coreDocument.paths) {
       Object.keys(coreDocument.paths).forEach((path) => {
         if (!path.includes('/core')) delete coreDocument.paths[path];
       });
     }
 
+    // remove all route except guards
     if (guardDocument.paths) {
       Object.keys(guardDocument.paths).forEach((path) => {
         if (!path.includes('/guards')) delete guardDocument.paths[path];

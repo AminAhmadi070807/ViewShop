@@ -1,16 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { PermissionsService } from './permissions.service';
-import { CreatePermissionDto } from './dto/create-permission.dto';
-import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { UpdatePermissionDto, CreatePermissionDto } from './dto/permission.dto';
 
 @Controller()
 export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
 
-  @MessagePattern('createPermission')
-  create(@Payload() createPermissionDto: CreatePermissionDto) {
-    return this.permissionsService.create(createPermissionDto);
+  @MessagePattern('PERMISSION:CREATE')
+  create(@Payload() data: CreatePermissionDto) {
+    return this.permissionsService.create(data);
   }
 
   @MessagePattern('findAllPermissions')
@@ -24,8 +23,8 @@ export class PermissionsController {
   }
 
   @MessagePattern('updatePermission')
-  update(@Payload() updatePermissionDto: UpdatePermissionDto) {
-    return this.permissionsService.update(updatePermissionDto.id, updatePermissionDto);
+  update(@Payload() data: UpdatePermissionDto) {
+    return this.permissionsService.update(data.id, data);
   }
 
   @MessagePattern('removePermission')
