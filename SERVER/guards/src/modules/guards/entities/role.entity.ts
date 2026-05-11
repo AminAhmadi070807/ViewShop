@@ -1,5 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Permission } from './permission.entity';
+import { Guard } from './guard.entity';
 
 @Entity('roles')
 export class Role {
@@ -13,4 +20,11 @@ export class Role {
     eager: true,
   })
   permissions: Permission[];
+
+  @ManyToMany(() => Guard, (guard: Guard) => guard.roles, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  guards: Guard[];
 }
