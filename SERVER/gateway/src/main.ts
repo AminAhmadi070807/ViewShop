@@ -26,20 +26,39 @@ void (async (): Promise<void> => {
     app.setGlobalPrefix('api/v1');
 
     // set core swagger config
-    const coreConfig = new DocumentBuilder()
+    const swaggerConfig = new DocumentBuilder()
       .setTitle('ViewShop Api documentation')
       .setDescription('These paths are related to the core.')
       .setVersion('1.0.0')
       .build();
 
     // create core document
-    const coreDocument = SwaggerModule.createDocument(app, coreConfig, {
+    const coreDocument = SwaggerModule.createDocument(app, swaggerConfig, {
+      include: [AppModule],
+      deepScanRoutes: true,
+    });
+    // create guard document
+    const guardDocument = SwaggerModule.createDocument(app, swaggerConfig, {
       include: [AppModule],
       deepScanRoutes: true,
     });
 
+    if (coreDocument.paths) {
+      Object.keys(coreDocument.paths).forEach((path) => {
+        if (!path.includes('/core')) delete coreDocument.paths[path];
+      });
+    }
+
+    if (guardDocument.paths) {
+      Object.keys(guardDocument.paths).forEach((path) => {
+        if (!path.includes('/guards')) delete guardDocument.paths[path];
+      });
+    }
+
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
+    // setup guard document
+    SwaggerModule.setup('api/v1/guard/docs', app, guardDocument);
 
     app.enableCors({
       origin: true,
