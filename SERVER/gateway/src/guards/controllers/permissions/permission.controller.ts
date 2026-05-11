@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { CreatePermissionDto } from './permission.dto';
 import {
+  ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -17,6 +18,7 @@ export class PermissionsController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -26,6 +28,7 @@ export class PermissionsController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -35,6 +38,7 @@ export class PermissionsController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -44,6 +48,7 @@ export class PermissionsController {
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })

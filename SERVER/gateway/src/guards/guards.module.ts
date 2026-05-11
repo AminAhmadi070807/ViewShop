@@ -3,10 +3,11 @@ import { GuardsService } from './guards.service';
 import { ClientsModule } from '@nestjs/microservices';
 import { ClientsModuleConfig } from '../common/config/client.config';
 import { PermissionsController } from './controllers/permissions/permission.controller';
+import { RoleController } from './controllers/roles/role.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
   providers: [GuardsService],
-  controllers: [PermissionsController],
+  controllers: [PermissionsController, RoleController],
 })
 export class GuardsModule {}
