@@ -8,27 +8,27 @@ import { UpdateGuardDto } from './dto/update-guard.dto';
 export class GuardsController {
   constructor(private readonly guardsService: GuardsService) {}
 
-  @MessagePattern('createGuard')
+  @MessagePattern('GUARD:CREATE')
   create(@Payload() createGuardDto: CreateGuardDto) {
     return this.guardsService.create(createGuardDto);
   }
 
-  @MessagePattern('findAllGuards')
-  findAll() {
+  @MessagePattern('GUARD:FIND')
+  find() {
     return this.guardsService.findAll();
   }
 
-  @MessagePattern('findOneGuard')
-  findOne(@Payload() id: number) {
-    return this.guardsService.findOne(id);
+  @MessagePattern('GUARD:VALIDATE')
+  validate() {
+    return this.guardsService.findAll();
   }
 
-  @MessagePattern('updateGuard')
+  @MessagePattern('GUARD:UPDATE')
   update(@Payload() updateGuardDto: UpdateGuardDto) {
     return this.guardsService.update(updateGuardDto.id, updateGuardDto);
   }
 
-  @MessagePattern('removeGuard')
+  @MessagePattern('GUARD:DELETE')
   remove(@Payload() id: number) {
     return this.guardsService.remove(id);
   }
