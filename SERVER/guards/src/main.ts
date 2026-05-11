@@ -1,8 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { INestMicroservice, ValidationPipe } from '@nestjs/common';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
+void (async (): Promise<void> => {
+  try {
+    // port
+    const port: number = parseInt(process.env.PORT as string, 10) || 4001;
+    // host
+    const host: string = (process.env.HOST as string) || '127.0.0.1';
+
+    const app: INestMicroservice =
+      await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+        transport: Transport.TCP,
+        options: {
+          host,
+          port,
+        },
+      });
+
+    app.useGlobalPipes(new ValidationPipe());
+
+    await app.listen();
+    console.log(`GUARD Microservice (TCP) start on ${host}:${port}`);
+  } catch {
+    console.error('Problem in start GUARD microservice');
+  }
+})();
