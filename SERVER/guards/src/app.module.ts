@@ -5,6 +5,7 @@ import { TypeOrmModuleConfig } from './common/config/typeorm.config';
 import { GuardsModule } from './modules/guards/guards.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
     GuardsModule,
     RolesModule,
     PermissionsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
