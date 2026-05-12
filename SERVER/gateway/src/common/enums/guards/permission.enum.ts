@@ -1,4 +1,5 @@
 export enum PermissionEnum {
+  ALL = 'ALL',
   CREATE = 'CREATE',
   READ = 'READ',
   EDIT = 'EDIT',

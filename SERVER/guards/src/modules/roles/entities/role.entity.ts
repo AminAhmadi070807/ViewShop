@@ -18,7 +18,7 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @OneToMany(() => Permission, (permission: Permission) => permission.role, {
+  @OneToMany(() => Permission, (permission: Permission) => permission.roles, {
     eager: true,
   })
   permissions: Permission[];

@@ -14,5 +14,5 @@ export class Permission {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  role: Role;
+  roles: Role[];
 }

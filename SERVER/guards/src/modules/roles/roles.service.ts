@@ -5,12 +5,16 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { ValidateTitle } from '../../common/validations/title.dto';
+import { RoleDto } from '../../common/validations/role.dto';
+import { Permission } from '../permissions/entities/permission.entity';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
+    @InjectRepository(Permission)
+    private readonly permissionRepository: Repository<Permission>,
   ) {}
 
   async create(data: ValidateTitle) {
@@ -55,6 +59,30 @@ export class RolesService {
     return {
       status: HttpStatus.OK,
       message: statusMessages.fa['200'],
+      body: null,
+    };
+  }
+
+  async update(data: RoleDto) {
+    const role: Role | null = await this.roleRepository.findOneBy({
+      id: data.roleId,
+    });
+    const permission: Permission | null =
+      await this.permissionRepository.findOneBy({ id: data.permissionId });
+
+    if (!role || !permission) {
+      throw new CustomException(statusMessages.fa['404'], 404);
+    }
+
+    role.permissions.push(permission);
+    permission.roles.push(role);
+
+    await this.roleRepository.save(role);
+    await this.permissionRepository.save(permission);
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
       body: null,
     };
   }

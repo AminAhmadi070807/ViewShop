@@ -7,6 +7,7 @@ import { CoreService } from '../../core/core.service';
 import { statusMessages } from '../../common/messages/status.message';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { Role } from '../roles/entities/role.entity';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,9 @@ export class UsersService {
     private readonly coreService: CoreService,
   ) {}
 
-  async create(data: CreateUserDto) {}
+  async create(data: CreateUserDto) {
+    await firstValueFrom(this.coreService.send('USER:ONE', data.id));
+  }
 
   async findAll() {
     const users: User[] = await this.userRepository.find({
