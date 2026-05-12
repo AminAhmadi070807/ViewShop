@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { UpdateUserDto, CreateUserDto } from './dto/user.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class UsersController {
@@ -18,13 +19,18 @@ export class UsersController {
   }
 
   @MessagePattern('USER:ONE')
-  findOne(@Payload() id: number) {
-    return this.usersService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.usersService.findOne(data.id);
   }
 
   @MessagePattern('USER:UPDATE')
   update(@Payload() data: UpdateUserDto) {
     return this.usersService.update(data);
+  }
+
+  @MessagePattern('USER:DELETE:ROLE')
+  removeRoleFromUser(@Payload() data: UpdateUserDto) {
+    return this.usersService.removeRoleFromUser(data);
   }
 
   @MessagePattern('USER:VALIDATE')

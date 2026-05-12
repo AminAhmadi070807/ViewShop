@@ -12,8 +12,13 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'ایدی کاربر نقش نمیتواند خالی باشد' })
+  @IsString({ message: 'ایدی کاربر باید یک یویوایدی معتتبر باشد' })
   @IsUUID()
-  id: string;
+  userId: string;
+
+  @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
+  @IsString({ message: 'ایدی نقش باید یک یویوایدی معتتبر باشد' })
+  @IsUUID()
+  roleId: string;
 }
