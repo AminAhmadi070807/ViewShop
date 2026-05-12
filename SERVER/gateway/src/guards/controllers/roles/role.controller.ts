@@ -50,7 +50,7 @@ export class RoleController {
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Patch()
-  update(@Param() data: RoleDto) {
+  update(@Body() data: RoleDto) {
     return this.guardsService.send('ROLE:UPDATE', data);
   }
 
