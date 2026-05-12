@@ -27,6 +27,9 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { Roles } from '../../../common/decorators/role.decorator';
 import { UserRoleEnum } from '../../../common/enums/core/users/role.enum';
 
+@ApiOkResponse({ description: statusMessages.fa['200'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @Controller('core/users')
 @Roles(UserRoleEnum.ADMIN)
 export class UsersController {
@@ -39,26 +42,18 @@ export class UsersController {
   })
   @ApiConflictResponse({ description: statusMessages.fa['404'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   create(@Body() data: UserValidator): Observable<unknown> {
     return this.coreService.send('USER:CREATE', data);
   }
 
   // send request to find all in core microservice
   @Get()
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   findAll(): Observable<unknown> {
     return this.coreService.send('USER:FIND');
   }
 
   // send request to find user by phone number in core microservice
   @Get('by/phone/:phone')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiOperation({ description: 'دریافت کاربر با شماره تلفن' })
   @ApiParam({
     name: 'phone',
@@ -72,10 +67,7 @@ export class UsersController {
 
   // send request to find one user in core microservice
   @Get(':id')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiOperation({ description: 'دریافت کاربر با ایدی' })
   @ApiParam({
     name: 'id',
@@ -89,9 +81,6 @@ export class UsersController {
 
   // send request to update user information with userId in core microservice
   @Patch('update/:id')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiOperation({ description: 'بروزرسانی کاربر با ایدی' })
   @ApiParam({
     name: 'id',
@@ -111,8 +100,6 @@ export class UsersController {
 
   // send request to remove user with userId in core microservice
   @Delete('delete/:id')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @ApiOperation({ description: 'حذف کاربر با ایدی' })
   @ApiParam({
     name: 'id',
@@ -120,7 +107,6 @@ export class UsersController {
     type: 'uuid',
     description: 'ایدی کاربر',
   })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   delete(@Param() param: ValidateUUID): Observable<unknown> {
     return this.coreService.send('USER:DELETE', param.id);
   }

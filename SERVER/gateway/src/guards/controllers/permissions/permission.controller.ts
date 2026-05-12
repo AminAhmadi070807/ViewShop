@@ -13,45 +13,33 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
+@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @Controller('guards/permissions')
 export class PermissionsController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Post()
   create(@Body() data: CreatePermissionDto) {
     return this.guardsService.send('PERMISSION:CREATE', data);
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Get()
   findAll() {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Get(':id')
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:ONE', data);
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
   @Delete(':id')
   remove(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:REMOVE', data);

@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -28,6 +29,11 @@ import { PublicAccess } from '../../../common/decorators/public.access.decorator
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 
+@ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+@ApiInternalServerErrorResponse({
+  description: statusMessages.fa['500'],
+})
+@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @Controller('core/auth')
 export class AuthController {
   constructor(private readonly coreService: CoreService) {}
@@ -64,11 +70,6 @@ export class AuthController {
   @ApiConflictResponse({
     description: statusMessages.fa['409'],
   })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
-  })
   @Post('register')
   register(@Body() data: AuthRegisterDto) {
     return this.coreService.send('AUTH:REGISTER', data);
@@ -78,11 +79,6 @@ export class AuthController {
   @Public()
   @ApiNotFoundResponse({
     description: statusMessages.fa['404'],
-  })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
   })
   @Post('login')
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
@@ -122,11 +118,7 @@ export class AuthController {
   @ApiNotFoundResponse({
     description: statusMessages.fa['404'],
   })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
-  })
+  @ApiCreatedResponse({ description: statusMessages.fa.AUTH['201'] })
   @Post('verify_otp/:id')
   async verifyOTP(
     @Param('id') id: string,
@@ -166,12 +158,7 @@ export class AuthController {
 
   // verify access token
   @PublicAccess()
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['201'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
-  })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @Post('verify')
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
@@ -204,10 +191,6 @@ export class AuthController {
 
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
-  })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @Post('logout')
   logout(@Req() req: express.Request) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
