@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RolesService } from './roles.service';
 import { ValidateUUID } from '../../common/validations/id.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
+import { RoleDto } from '../../common/validations/role.dto';
 
 @Controller()
 export class RolesController {
@@ -21,6 +22,11 @@ export class RolesController {
   @MessagePattern('ROLE:ONE')
   findOne(@Payload() data: ValidateUUID) {
     return this.rolesService.findOne(data.id);
+  }
+
+  @MessagePattern('ROLE:UPDATE')
+  update(@Payload() data: RoleDto) {
+    return this.rolesService.update(data);
   }
 
   @MessagePattern('ROLE:DELETE')
