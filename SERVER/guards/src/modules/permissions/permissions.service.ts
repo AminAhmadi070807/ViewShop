@@ -54,7 +54,6 @@ export class PermissionsService {
         where: {
           id: id,
         },
-        relations: ['role'],
       });
 
     if (!permission) throw new CustomException(statusMessages.fa['404'], 404);

@@ -8,6 +8,7 @@ import {
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiOkResponse,
+  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -33,15 +34,27 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get(':id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+    description: 'user id',
+  })
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:ONE', data);
   }
 
-  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @Delete(':id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: String,
+    description: 'user id',
+  })
   remove(@Param() data: ValidateUUID) {
-    return this.guardsService.send('PERMISSION:REMOVE', data);
+    return this.guardsService.send('PERMISSION:DELETE', data);
   }
 }
