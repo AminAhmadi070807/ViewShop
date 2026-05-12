@@ -24,14 +24,11 @@ import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { PhoneDto } from '../../../common/validation/phone.dto';
 import { statusMessages } from '../../../common/messages/status.message';
-import { Roles } from '../../../common/decorators/role.decorator';
-import { UserRoleEnum } from '../../../common/enums/core/users/role.enum';
 
 @ApiOkResponse({ description: statusMessages.fa['200'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @Controller('core/users')
-@Roles(UserRoleEnum.ADMIN)
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
