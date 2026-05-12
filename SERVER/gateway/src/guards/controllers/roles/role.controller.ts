@@ -15,6 +15,7 @@ import {
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiOkResponse,
+  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -44,6 +45,11 @@ export class RoleController {
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get(':id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'string',
+  })
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('ROLE:ONE', data);
   }
@@ -56,7 +62,12 @@ export class RoleController {
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @Delete(':id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'string',
+  })
   remove(@Param() data: ValidateUUID) {
-    return this.guardsService.send('ROLE:REMOVE', data);
+    return this.guardsService.send('ROLE:DELETE', data);
   }
 }

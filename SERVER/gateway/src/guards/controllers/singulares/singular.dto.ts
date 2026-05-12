@@ -34,12 +34,12 @@ export class SingularDto {
     type: String,
     required: true,
     example: '',
-    minLength: 3,
+    minLength: 2,
     maxLength: 24,
   })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
-  @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
+  @MinLength(2, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
   @MaxLength(24, { message: 'عنوان حدکثر میتواند 24 کارکتر داشته باشد' })
   title: string;
 }

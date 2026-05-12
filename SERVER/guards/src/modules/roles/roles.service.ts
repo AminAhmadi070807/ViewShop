@@ -58,7 +58,7 @@ export class RolesService {
     return {
       status: HttpStatus.OK,
       message: statusMessages.fa['200'],
-      body: null,
+      body: role,
     };
   }
 
