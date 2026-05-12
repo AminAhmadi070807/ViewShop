@@ -11,7 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { RoleDto } from './role.dto';
+import { ValidateTitle } from '../../../common/validation/title.dto';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -23,7 +23,7 @@ export class RoleController {
 
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @Post()
-  create(@Body() data: RoleDto) {
+  create(@Body() data: ValidateTitle) {
     return this.guardsService.send('ROLE:CREATE', data);
   }
 
