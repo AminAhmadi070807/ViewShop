@@ -12,6 +12,11 @@ export class UsersController {
     return this.usersService.create(data);
   }
 
+  @MessagePattern('USER:FIND')
+  findAll() {
+    return this.usersService.findAll();
+  }
+
   @MessagePattern('USER:ONE')
   findOne(@Payload() id: number) {
     return this.usersService.findOne(id);

@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CoreService } from '../../core/core.service';
 import { statusMessages } from '../../common/messages/status.message';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 @Injectable()
 export class UsersService {
@@ -28,7 +29,17 @@ export class UsersService {
     };
   }
 
-  findOne(id: number) {}
+  async findOne(id: string) {
+    const user: User | null = await this.userRepository.findOneBy({ id });
+
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      data: user,
+    };
+  }
 
   update(data: UpdateUserDto) {
     return data;
