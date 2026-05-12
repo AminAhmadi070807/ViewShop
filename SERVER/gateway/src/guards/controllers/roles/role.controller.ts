@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
@@ -12,6 +20,7 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { ValidateTitle } from '../../../common/validation/title.dto';
+import { RoleDto } from './role.dto';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -37,6 +46,12 @@ export class RoleController {
   @Get(':id')
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('ROLE:ONE', data);
+  }
+
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @Patch()
+  update(@Param() data: RoleDto) {
+    return this.guardsService.send('ROLE:UPDATE', data);
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
