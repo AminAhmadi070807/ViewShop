@@ -41,6 +41,13 @@ export class RolesService {
       order: {
         createdAt: -1,
       },
+      relations: ['singulars'],
+      select: {
+        singulars: {
+          id: true,
+          title: true,
+        },
+      },
     });
 
     return {
@@ -51,7 +58,18 @@ export class RolesService {
   }
 
   async findOne(id: string) {
-    const role: Role | null = await this.roleRepository.findOneBy({ id });
+    const role: Role | null = await this.roleRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['singulars'],
+      select: {
+        singulars: {
+          id: true,
+          title: true,
+        },
+      },
+    });
 
     if (!role) throw new CustomException(statusMessages.fa['404'], 409);
 

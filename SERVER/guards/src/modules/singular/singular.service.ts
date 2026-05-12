@@ -53,11 +53,20 @@ export class SingularService {
   }
 
   async findAll() {
-    const singulars: Singular[] = await this.singularRepository.find({
-      order: {
-        createdAt: -1,
-      },
-    });
+    const singulars = await this.singularRepository
+      .createQueryBuilder('singular')
+      .leftJoinAndSelect('singular.role', 'role')
+      .leftJoinAndSelect('singular.permissions', 'permissions')
+      .select([
+        'singular.id',
+        'singular.title',
+        'role.id',
+        'role.title',
+        'permissions.id',
+        'permissions.title',
+      ])
+      .orderBy('singular.createdAt', 'DESC')
+      .getMany();
 
     return {
       status: HttpStatus.OK,
