@@ -35,7 +35,11 @@ export class PermissionsService {
   }
 
   async findAll() {
-    const permissions: Permission[] = await this.permissionRepository.find();
+    const permissions: Permission[] = await this.permissionRepository.find({
+      order: {
+        createdAt: -1,
+      },
+    });
 
     return {
       status: HttpStatus.OK,

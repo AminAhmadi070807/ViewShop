@@ -6,15 +6,12 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { ValidateTitle } from '../../common/validations/title.dto';
 import { RoleDto } from '../../common/validations/role.dto';
-import { Permission } from '../permissions/entities/permission.entity';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
-    @InjectRepository(Permission)
-    private readonly permissionRepository: Repository<Permission>,
   ) {}
 
   async create(data: ValidateTitle) {
@@ -72,26 +69,10 @@ export class RolesService {
       },
       relations: ['permissions'],
     });
-    const permission: Permission | null =
-      await this.permissionRepository.findOne({
-        where: {
-          id: data.permissionId,
-        },
-        relations: ['roles'],
-      });
 
-    if (!role || !permission) {
+    if (!role) {
       throw new CustomException(statusMessages.fa['404'], 404);
     }
-
-    if (!role.permissions.length) role.permissions = [];
-    if (!permission.roles?.length) permission.roles = [];
-
-    role.permissions.push(permission);
-    permission.roles.push(role);
-
-    await this.roleRepository.save(role);
-    await this.permissionRepository.save(permission);
 
     return {
       status: HttpStatus.NO_CONTENT,

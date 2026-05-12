@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RoleDto {
@@ -10,10 +10,10 @@ export class RoleDto {
     minLength: 36,
     maxLength: 36,
   })
-  @IsNotEmpty({ message: 'ایدی پرمیژن نباید خالی باشد' })
-  @IsString({ message: 'ایدی پرمیژن باید یک uuid معتبر باشد' })
+  @IsNotEmpty({ message: 'ایدی سینگیولار نباید خالی باشد' })
+  @IsString({ message: 'ایدی سینگیولار باید یک uuid معتبر باشد' })
   @IsUUID()
-  permissionId: string;
+  singularId: string;
 
   @ApiProperty({
     type: 'string',
@@ -26,6 +26,5 @@ export class RoleDto {
   @IsNotEmpty({ message: 'ایدی نقش نباید خالی باشد' })
   @IsString({ message: 'ایدی نقش باید یک uuid معتبر باشد' })
   @IsUUID()
-  @IsOptional()
   roleId: string;
 }

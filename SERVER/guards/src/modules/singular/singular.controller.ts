@@ -9,8 +9,8 @@ export class SingularController {
   constructor(private readonly singularService: SingularService) {}
 
   @MessagePattern('SINGULAR:CREATE')
-  create(@Payload() createSingularDto: SingularDto) {
-    return this.singularService.create(createSingularDto);
+  create(@Payload() data: SingularDto) {
+    return this.singularService.create(data);
   }
 
   @MessagePattern('SINGULAR:FIND')
