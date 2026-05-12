@@ -18,14 +18,16 @@ export class RolesService {
   ) {}
 
   async create(data: ValidateTitle) {
+    const title: string = data.title.toUpperCase();
+
     const existing: Role | null = await this.roleRepository.findOneBy({
-      title: data.title,
+      title,
     });
 
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
     const role: Role = this.roleRepository.create({
-      title: data.title,
+      title,
     });
 
     await this.roleRepository.save(role);
@@ -40,7 +42,7 @@ export class RolesService {
   async findAll() {
     const roles: Role[] = await this.roleRepository.find({
       order: {
-        id: 'DESC',
+        createdAt: -1,
       },
     });
 
@@ -64,15 +66,26 @@ export class RolesService {
   }
 
   async update(data: RoleDto) {
-    const role: Role | null = await this.roleRepository.findOneBy({
-      id: data.roleId,
+    const role: Role | null = await this.roleRepository.findOne({
+      where: {
+        id: data.roleId,
+      },
+      relations: ['permissions'],
     });
     const permission: Permission | null =
-      await this.permissionRepository.findOneBy({ id: data.permissionId });
+      await this.permissionRepository.findOne({
+        where: {
+          id: data.permissionId,
+        },
+        relations: ['roles'],
+      });
 
     if (!role || !permission) {
       throw new CustomException(statusMessages.fa['404'], 404);
     }
+
+    if (!role.permissions.length) role.permissions = [];
+    if (!permission.roles?.length) permission.roles = [];
 
     role.permissions.push(permission);
     permission.roles.push(role);

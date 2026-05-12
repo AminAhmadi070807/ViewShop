@@ -21,7 +21,9 @@ export class PermissionsService {
 
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
-    const permission: Permission = this.permissionRepository.create(data);
+    const permission: Permission = this.permissionRepository.create({
+      title: data.title,
+    });
 
     await this.permissionRepository.save(permission);
 
