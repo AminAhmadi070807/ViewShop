@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { SingularDto } from './dto/singular.dto';
-import { UpdateSingularDto } from './dto/update-singular.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Singular } from './entities/singular.entity';
+import { Repository } from 'typeorm';
+import { statusMessages } from '../../common/messages/status.message';
 
 @Injectable()
 export class SingularService {
-  create(createSingularDto: SingularDto) {
+  constructor(
+    @InjectRepository(Singular)
+    private readonly singularRepository: Repository<Singular>,
+  ) {}
+
+  async create(data: SingularDto) {
     return 'This action adds a new singular';
   }
 
-  findAll() {
-    return `This action returns all singular`;
+  async findAll() {
+    const singulars: Singular[] = await this.singularRepository.find({
+      order: {
+        createdAt: -1,
+      },
+    });
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['201'],
+      body: singulars,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} singular`;
-  }
+  async remove(data: ValidateUUID) {
+    await this.singularRepository.delete(data.id);
 
-  update(id: number, updateSingularDto: UpdateSingularDto) {
-    return `This action updates a #${id} singular`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} singular`;
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['204'],
+      body: null,
+    };
   }
 }

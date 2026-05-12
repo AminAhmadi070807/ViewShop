@@ -1,5 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
+import { Permission } from '../../permissions/entities/permission.entity';
 
 @Entity('singular')
 export class Singular {
@@ -9,6 +17,24 @@ export class Singular {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @ManyToOne(() => Role, (role: Role) => role.singular, { onUpdate: 'CASCADE' })
+  @OneToMany(
+    () => Permission,
+    (permission: Permission) => permission.singular,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+      nullable: false,
+    },
+  )
+  permissions: Permission[];
+
+  @ManyToOne(() => Role, (role: Role) => role.singulars, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
   role: Role;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }

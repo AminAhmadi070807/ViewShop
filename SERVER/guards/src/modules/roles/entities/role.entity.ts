@@ -21,11 +21,6 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @OneToMany(() => Permission, (permission: Permission) => permission.roles, {
-    eager: true,
-  })
-  permissions: Permission[];
-
   @ManyToMany(() => Guard, (guard: Guard) => guard.roles, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
@@ -38,7 +33,11 @@ export class Role {
   })
   guards: Guard[];
 
-  @ManyToMany(() => User, (user: User) => user.roles, { eager: true })
+  @ManyToMany(() => User, (user: User) => user.roles, {
+    eager: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinTable({
     name: 'roles_users',
     joinColumn: { name: 'user_id' },
@@ -46,10 +45,8 @@ export class Role {
   })
   users: User[];
 
-  @OneToMany(() => Singular, (singular: Singular) => singular.role, {
-    eager: true,
-  })
-  singular: Singular;
+  @OneToMany(() => Singular, (singular: Singular) => singular.role)
+  singulars: Singular[];
 
   @CreateDateColumn()
   createdAt: Date;

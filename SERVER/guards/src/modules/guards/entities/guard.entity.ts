@@ -17,7 +17,11 @@ export class Guard {
   @Column({ type: 'varchar', length: 255, unique: true, nullable: false })
   patch: string;
 
-  @ManyToMany(() => Role, (role: Role) => role.guards, { eager: true })
+  @ManyToMany(() => Role, (role: Role) => role.guards, {
+    eager: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinTable({
     name: 'guard_roles',
     joinColumn: { name: 'role_id' },

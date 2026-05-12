@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Role } from '../../roles/entities/role.entity';
 import { PermissionEnum } from '../../../common/enums/permission/permission.enum';
+import { Singular } from '../../singular/entities/singular.entity';
 
 @Entity('permissions')
 export class Permission {
@@ -17,11 +17,12 @@ export class Permission {
   @Column({ type: 'enum', enum: PermissionEnum, nullable: false })
   title: PermissionEnum;
 
-  @ManyToOne(() => Role, (role: Role) => role.permissions, {
+  @ManyToOne(() => Singular, (singular: Singular) => singular.permissions, {
+    eager: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  roles: Role[];
+  singular: Singular;
 
   @CreateDateColumn()
   createdAt: Date;
