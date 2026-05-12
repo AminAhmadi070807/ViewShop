@@ -88,9 +88,11 @@ export class RolesService {
       relations: ['permissions'],
     });
 
-    if (!role) {
-      throw new CustomException(statusMessages.fa['404'], 404);
-    }
+    if (!role) throw new CustomException(statusMessages.fa['404'], 404);
+
+    await this.roleRepository.update(data.roleId, {
+      singulars: [{ id: data.singularId }],
+    });
 
     return {
       status: HttpStatus.NO_CONTENT,
