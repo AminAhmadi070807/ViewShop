@@ -4,7 +4,7 @@ import { UserRoleEnum } from '../enums/core/users/role.enum';
 export class JwtPayload {
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsString({ message: 'ایدی باید رشته باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   userId: string;
 
   @IsNotEmpty({ message: 'نقش کاربر نمیتواند خالی باشد' })
@@ -16,7 +16,7 @@ export class JwtPayload {
 export class JwtRefreshPayload {
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsString({ message: 'ایدی باید رشته باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   userId: string;
 
   @IsNotEmpty({ message: 'نقش کاربر نمیتواند خالی باشد' })
@@ -26,6 +26,6 @@ export class JwtRefreshPayload {
 
   @IsNotEmpty({ message: 'کلید نمیتواند خالی باشد' })
   @IsString({ message: 'کلید باید رشته باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   secret: string;
 }

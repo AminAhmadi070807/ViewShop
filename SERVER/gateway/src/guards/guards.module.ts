@@ -6,10 +6,11 @@ import { PermissionsController } from './controllers/permissions/permission.cont
 import { RoleController } from './controllers/roles/role.controller';
 import { SingularController } from './controllers/singulares/singular.controller';
 import { UserController } from './controllers/users/user.controller';
+import { GuardController } from './controllers/guards/guard.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
   providers: [GuardsService],
-  controllers: [PermissionsController, RoleController, SingularController, UserController],
+  controllers: [PermissionsController, RoleController, SingularController, UserController, GuardController],
 })
 export class GuardsModule {}

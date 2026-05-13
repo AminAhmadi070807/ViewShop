@@ -12,7 +12,7 @@ export class RoleDto {
   })
   @IsNotEmpty({ message: 'ایدی سینگیولار نباید خالی باشد' })
   @IsString({ message: 'ایدی سینگیولار باید یک uuid معتبر باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   singularId: string;
 
   @ApiProperty({
@@ -25,6 +25,6 @@ export class RoleDto {
   })
   @IsNotEmpty({ message: 'ایدی نقش نباید خالی باشد' })
   @IsString({ message: 'ایدی نقش باید یک uuid معتبر باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   roleId: string;
 }

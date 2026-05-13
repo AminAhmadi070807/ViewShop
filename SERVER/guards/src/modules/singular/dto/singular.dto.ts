@@ -8,11 +8,11 @@ import {
 
 export class SingularDto {
   @IsNotEmpty({ message: 'ایدی پرمیژن نمیتواند خالی باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   permissionId: string;
 
   @IsNotEmpty({ message: 'ایدی پرمیژن نمیتواند خالی باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   roleId: string;
 
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })

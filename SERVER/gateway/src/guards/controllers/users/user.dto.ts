@@ -9,7 +9,7 @@ export class UpdateUserDto {
   })
   @IsNotEmpty({ message: 'ایدی کاربر نقش نمیتواند خالی باشد' })
   @IsString({ message: 'ایدی کاربر باید یک یویوایدی معتتبر باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   userId: string;
 
   @ApiProperty({
@@ -19,6 +19,6 @@ export class UpdateUserDto {
   })
   @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
   @IsString({ message: 'ایدی نقش باید یک یویوایدی معتتبر باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   roleId: string;
 }

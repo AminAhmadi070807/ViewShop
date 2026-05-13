@@ -16,7 +16,7 @@ export class SingularDto {
     maxLength: 36,
   })
   @IsNotEmpty({ message: 'ایدی پرمیژن نمیتواند خالی باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   permissionId: string;
 
   @ApiProperty({
@@ -27,7 +27,7 @@ export class SingularDto {
     maxLength: 36,
   })
   @IsNotEmpty({ message: 'ایدی پرمیژن نمیتواند خالی باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   roleId: string;
 
   @ApiProperty({

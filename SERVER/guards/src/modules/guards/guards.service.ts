@@ -120,7 +120,9 @@ export class GuardsService {
       relations: ['roles'],
     });
 
-    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+    if (!guard) {
+
+    }
 
     const user: User | null = await this.userRepository.findOne({
       where: {

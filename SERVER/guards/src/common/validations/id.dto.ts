@@ -2,6 +2,6 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class ValidateUUID {
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
-  @IsUUID()
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   id: string;
 }
