@@ -1,11 +1,12 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { GuardDto, UpdateGuardDto } from './dto/guard.dto';
+import { GuardDto, UpdateGuardDto, ValidateGuard } from './dto/guard.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Guard } from './entities/guard.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { Role } from '../roles/entities/role.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class GuardsService {
@@ -14,6 +15,8 @@ export class GuardsService {
     private readonly guardsRepository: Repository<Guard>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async create(data: GuardDto) {
@@ -109,8 +112,42 @@ export class GuardsService {
     };
   }
 
-  validate() {
-    return `This action returns a guard`;
+  async validate(data: ValidateGuard) {
+    const guard: Guard | null = await this.guardsRepository.findOne({
+      where: {
+        patch: data.patch.toLowerCase(),
+      },
+      relations: ['roles'],
+    });
+
+    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        id: data.userId,
+      },
+      relations: ['roles'],
+      select: {
+        roles: {
+          id: true,
+          title: true,
+        },
+        banned: true,
+        id: true,
+        user: true,
+      },
+    });
+
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: {
+        user,
+        guard,
+      },
+    };
   }
 
   update(data: UpdateGuardDto) {

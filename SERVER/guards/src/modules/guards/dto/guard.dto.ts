@@ -13,4 +13,14 @@ export class GuardDto {
   public: boolean;
 }
 
+export class ValidateGuard {
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID()
+  userId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  patch: string;
+}
+
 export class UpdateGuardDto {}

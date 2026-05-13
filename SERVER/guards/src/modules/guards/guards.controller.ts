@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GuardsService } from './guards.service';
-import { GuardDto } from './dto/guard.dto';
+import { GuardDto, ValidateGuard } from './dto/guard.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -24,8 +24,8 @@ export class GuardsController {
   }
 
   @MessagePattern('GUARD:VALIDATE')
-  validate() {
-    return this.guardsService.validate();
+  validate(@Payload() data: ValidateGuard) {
+    return this.guardsService.validate(data);
   }
 
   @MessagePattern('GUARD:UPDATE')
