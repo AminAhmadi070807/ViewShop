@@ -5,10 +5,11 @@ import { ClientsModuleConfig } from '../common/config/client.config';
 import { PermissionsController } from './controllers/permissions/permission.controller';
 import { RoleController } from './controllers/roles/role.controller';
 import { SingularController } from './controllers/singulares/singular.controller';
+import { UserController } from './controllers/users/user.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
   providers: [GuardsService],
-  controllers: [PermissionsController, RoleController, SingularController],
+  controllers: [PermissionsController, RoleController, SingularController, UserController],
 })
 export class GuardsModule {}

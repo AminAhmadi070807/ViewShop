@@ -20,23 +20,69 @@ export class UsersService {
   ) {}
 
   async create(data: CreateUserDto) {
+    // check user in core database
     await firstValueFrom(this.coreService.send('USER:ONE', data.id));
+
+    // check user in guard database
+    const existing: User | null = await this.userRepository.findOneBy({
+      user: data.id,
+    });
+
+    // create new user
+    if (!existing) {
+      const numberOfUsers: number = await this.userRepository.count({});
+
+      const role: Role = (await this.roleRepository.findOneBy({
+        title: numberOfUsers ? 'USER' : 'AdMIN',
+      })) as Role;
+
+      const user: User = this.userRepository.create({
+        user: data.id,
+        roles: [role],
+      });
+
+      await this.userRepository.save(user);
+    }
+
+    // send success request
+    return {
+      status: HttpStatus.OK,
+      body: null,
+      message: statusMessages.fa['200'],
+    };
   }
 
   async findAll() {
     const users: User[] = await this.userRepository.find({
       relations: ['roles'],
+      select: {
+        roles: {
+          id: true,
+          title: true,
+        },
+      },
     });
 
     return {
       status: HttpStatus.OK,
-      message: statusMessages.fa['201'],
+      message: statusMessages.fa['200'],
       data: users,
     };
   }
 
   async findOne(id: string) {
-    const user: User | null = await this.userRepository.findOneBy({ id });
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['roles'],
+      select: {
+        roles: {
+          id: true,
+          title: true,
+        },
+      },
+    });
 
     if (!user) throw new CustomException(statusMessages.fa['404'], 404);
 
