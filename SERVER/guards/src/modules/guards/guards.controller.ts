@@ -1,31 +1,36 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GuardsService } from './guards.service';
-import { CreateGuardDto } from './dto/create-guard.dto';
-import { UpdateGuardDto } from './dto/update-guard.dto';
+import { GuardDto } from './dto/guard.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class GuardsController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @MessagePattern('GUARD:CREATE')
-  create(@Payload() createGuardDto: CreateGuardDto) {
+  create(@Payload() createGuardDto: GuardDto) {
     return this.guardsService.create(createGuardDto);
   }
 
   @MessagePattern('GUARD:FIND')
-  find() {
-    return this.guardsService.findAll();
+  findAll(@Payload() role?: string) {
+    return this.guardsService.findAll(role);
+  }
+
+  @MessagePattern('GUARD:ONE')
+  findOne(@Payload() data: ValidateUUID) {
+    return this.guardsService.findOne(data.id);
   }
 
   @MessagePattern('GUARD:VALIDATE')
   validate() {
-    return this.guardsService.findAll();
+    return this.guardsService.validate();
   }
 
   @MessagePattern('GUARD:UPDATE')
-  update(@Payload() updateGuardDto: UpdateGuardDto) {
-    return this.guardsService.update(updateGuardDto.id, updateGuardDto);
+  update(@Payload() data: GuardDto) {
+    return this.guardsService.update(data);
   }
 
   @MessagePattern('GUARD:DELETE')

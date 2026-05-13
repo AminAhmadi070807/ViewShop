@@ -1,23 +1,120 @@
-import { Injectable } from '@nestjs/common';
-import { CreateGuardDto } from './dto/create-guard.dto';
-import { UpdateGuardDto } from './dto/update-guard.dto';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { GuardDto, UpdateGuardDto } from './dto/guard.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Guard } from './entities/guard.entity';
+import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
+import { Role } from '../roles/entities/role.entity';
 
 @Injectable()
 export class GuardsService {
-  create(createGuardDto: CreateGuardDto) {
-    return 'This action adds a new guard';
+  constructor(
+    @InjectRepository(Guard)
+    private readonly guardsRepository: Repository<Guard>,
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
+  ) {}
+
+  async create(data: GuardDto) {
+    const existing: Guard | null = await this.guardsRepository.findOne({
+      where: {
+        patch: data.patch.toLowerCase(),
+      },
+    });
+
+    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+
+    const role: Role | null = await this.roleRepository.findOneBy({
+      id: data.roleId,
+    });
+
+    if (!role) throw new CustomException(statusMessages.fa['404'], 409);
+
+    const guard: Guard = this.guardsRepository.create({
+      patch: data.patch.toLowerCase(),
+      public: data.public,
+      roles: [role],
+    });
+
+    await this.guardsRepository.save(guard);
+
+    return {
+      status: HttpStatus.CREATED,
+      message: statusMessages.fa['201'],
+      body: null,
+    };
   }
 
-  findAll() {
-    return `This action returns all guards`;
+  async findAll(title?: string) {
+    let guards: Guard[];
+
+    if (title) {
+      const role: Role | null = await this.roleRepository.findOneBy({ title });
+
+      if (!role) throw new CustomException(statusMessages.fa['404'], 404);
+
+      guards = await this.guardsRepository.find({
+        where: {
+          roles: {
+            id: role.id,
+          },
+        },
+        order: {
+          id: 'DESC',
+        },
+      });
+    } else {
+      guards = await this.guardsRepository.find({
+        order: {
+          id: 'DESC',
+        },
+      });
+    }
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: guards,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} guard`;
+  async findOne(id: string) {
+    const guard: Guard | null = await this.guardsRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['roles'],
+      select: {
+        roles: {
+          id: true,
+          users: {
+            id: true,
+            user: true,
+          },
+          singulars: {
+            id: true,
+            title: true,
+          },
+        },
+      },
+    });
+
+    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: guard,
+    };
   }
 
-  update(id: number, updateGuardDto: UpdateGuardDto) {
-    return `This action updates a #${id} guard`;
+  validate() {
+    return `This action returns a guard`;
+  }
+
+  update(data: UpdateGuardDto) {
+    return data;
   }
 
   remove(id: number) {
