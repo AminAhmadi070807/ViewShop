@@ -40,7 +40,6 @@ export class GuardsService {
       public: data.public || false,
       roles: [role],
       service: data.service,
-      pattern: data.pattern,
     });
 
     await this.guardsRepository.save(guard);

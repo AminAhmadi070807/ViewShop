@@ -36,9 +36,6 @@ export class Guard {
   @Column({ type: 'enum', enum: GuardEnum, nullable: false })
   service: GuardEnum;
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  pattern: string;
-
   @CreateDateColumn()
   createdAt: Date;
 

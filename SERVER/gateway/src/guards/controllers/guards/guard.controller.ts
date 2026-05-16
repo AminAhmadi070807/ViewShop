@@ -5,17 +5,18 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { GuardDto, ValidateGuard } from './guard.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { ApiParam } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
 
 @Controller('guards/guard')
 export class GuardController {
   constructor(private readonly guardsService: GuardsService) {}
   @Post()
-  create(@Body() data: GuardDto) {
+  create(@Body() data: GuardDto): Observable<any> {
     return this.guardsService.send('GUARD:CREATE', data);
   }
 
   @Get()
-  findAll() {
+  findAll(): Observable<any> {
     return this.guardsService.send('GUARD:FIND');
   }
 
@@ -26,12 +27,15 @@ export class GuardController {
     description: 'Id of Guard',
     required: true,
   })
-  findOne(@Param() data: ValidateUUID) {
+  findOne(@Param() data: ValidateUUID): Observable<any> {
     return this.guardsService.send('GUARD:ONE', data);
   }
 
   @Post('validate')
-  validate(@Body() data: ValidateGuard, @Req() req: express.Request) {
+  validate(
+    @Body() data: ValidateGuard,
+    @Req() req: express.Request,
+  ): Observable<any> {
     const user: JwtPayload = req.user as JwtPayload;
     return this.guardsService.send('GUARD:VALIDATE', {
       userId: user.userId,
