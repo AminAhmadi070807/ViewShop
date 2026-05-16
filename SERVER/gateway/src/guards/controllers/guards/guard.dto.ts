@@ -8,6 +8,8 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { GuardEnum } from '../../../common/enums/guards/guards/guard.enum';
+import { HttpStatus } from '@nestjs/common';
+import { statusMessages } from '../../../common/messages/status.message';
 
 export class GuardDto {
   @ApiProperty({
@@ -95,4 +97,31 @@ export class ValidateGuard {
       'سوریس باید یکی از این موارد باشد (CORE, GUARD, ADMIN, SELLER, PAYMENT)',
   })
   service: GuardEnum;
+}
+
+export class ValidateOkResult {
+  @ApiProperty({
+    type: Number,
+    enum: HttpStatus,
+    example: HttpStatus.OK,
+  })
+  @IsNotEmpty()
+  @IsEnum(HttpStatus)
+  status: HttpStatus;
+
+  @ApiProperty({
+    type: String,
+    example: statusMessages.fa['200'],
+  })
+  @IsNotEmpty()
+  @IsString()
+  message: string;
+
+  @ApiProperty({
+    type: Boolean,
+    example: true,
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  body: boolean;
 }
