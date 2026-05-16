@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
@@ -63,5 +71,14 @@ export class GuardController {
       patch: data.patch,
       service: data.service,
     });
+  }
+
+  @ApiOkResponse({
+    description: statusMessages.fa['200'],
+    type: ValidateOkResult,
+  })
+  @Delete('/:id')
+  remove(@Param() data: ValidateUUID): Observable<any> {
+    return this.guardsService.send('GUARD:DELETE', data);
   }
 }
