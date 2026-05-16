@@ -2,7 +2,6 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUUID,
   Matches,
@@ -54,7 +53,4 @@ export class ValidateGuard {
       'سوریس باید یکی از این موارد باشد (CORE, GUARD, ADMIN, SELLER, PAYMENT)',
   })
   service: GuardEnum;
-
-  @IsOptional({ message: 'دیتا اختیاری هست' })
-  data: unknown;
 }

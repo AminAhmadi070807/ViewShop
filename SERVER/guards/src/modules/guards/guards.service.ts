@@ -8,9 +8,6 @@ import { statusMessages } from '../../common/messages/status.message';
 import { Role } from '../roles/entities/role.entity';
 import { User } from '../users/entities/user.entity';
 import { ValidateOptionalTitle } from '../../common/validations/title.dto';
-import { GuardEnum } from '../../common/enums/guards/guard.enum';
-import { CoreService } from '../../core/core.service';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class GuardsService {
@@ -21,27 +18,7 @@ export class GuardsService {
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly coreService: CoreService,
   ) {}
-
-  async send(
-    guard: GuardEnum,
-    pattern: string,
-    data: unknown = {},
-  ): Promise<any> {
-    switch (guard) {
-      case GuardEnum.CORE:
-        return await firstValueFrom(this.coreService.send(pattern, data));
-      case GuardEnum.GUARD:
-        break;
-      case GuardEnum.ADMIN:
-        break;
-      case GuardEnum.PAYMENT:
-        break;
-      case GuardEnum.SELLER:
-        break;
-    }
-  }
 
   async create(data: GuardDto) {
     const existing: Guard | null = await this.guardsRepository.findOne({
@@ -149,13 +126,10 @@ export class GuardsService {
       },
       relations: ['roles'],
       select: {
-        id: true,
-        patch: true,
         roles: {
           id: true,
           title: true,
         },
-        public: true,
       },
     });
 
@@ -197,7 +171,10 @@ export class GuardsService {
 
     // validation
     for (const userRoleTitle of userRolesTitle) {
-      if (guardsRoleTitle.includes(userRoleTitle)) {
+      if (
+        guardsRoleTitle.includes(userRoleTitle) ||
+        guardsRoleTitle.includes('ALL')
+      ) {
         validate = true;
         break;
       } else validate = false;
@@ -206,16 +183,10 @@ export class GuardsService {
     // send forbidden error if user isn't access to this route
     if (!validate) throw new CustomException(statusMessages.fa['403'], 403);
 
-    const result: unknown = await this.send(
-      GuardEnum.CORE,
-      guard.pattern,
-      data.data,
-    );
-
     return {
       status: HttpStatus.OK,
       message: statusMessages.fa['200'],
-      body: result,
+      body: true,
     };
   }
 

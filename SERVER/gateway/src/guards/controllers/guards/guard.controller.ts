@@ -36,6 +36,7 @@ export class GuardController {
     return this.guardsService.send('GUARD:VALIDATE', {
       userId: user.userId,
       patch: data.patch,
+      service: data.service,
     });
   }
 }

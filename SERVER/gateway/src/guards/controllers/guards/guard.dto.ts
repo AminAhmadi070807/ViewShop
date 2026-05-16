@@ -2,14 +2,12 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUUID,
   Matches,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { GuardEnum } from '../../../common/enums/guards/guards/guard.enum';
-import any = jasmine.any;
 
 export class GuardDto {
   @ApiProperty({
@@ -97,14 +95,4 @@ export class ValidateGuard {
       'سوریس باید یکی از این موارد باشد (CORE, GUARD, ADMIN, SELLER, PAYMENT)',
   })
   service: GuardEnum;
-
-  @ApiProperty({
-    required: false,
-    nullable: true,
-    example: {},
-    description: 'validate data',
-  })
-  @IsNotEmpty()
-  @IsOptional()
-  data?: unknown;
 }
