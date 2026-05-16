@@ -59,6 +59,14 @@ export class UsersService {
         roles: {
           id: true,
           title: true,
+          singulars: {
+            id: true,
+            title: true,
+            permissions: {
+              id: true,
+              title: true,
+            },
+          },
         },
       },
     });
@@ -97,11 +105,13 @@ export class UsersService {
     // find one user from database
     const user: User | null = await this.userRepository.findOne({
       where: {
-        id: data.userId,
+        user: data.userId,
       },
       relations: ['roles'],
       select: {
         id: true,
+        user: true,
+        banned: true,
       },
     });
     // find role from database
@@ -112,6 +122,7 @@ export class UsersService {
       relations: ['users'],
       select: {
         id: true,
+        title: true,
       },
     });
 
@@ -120,28 +131,41 @@ export class UsersService {
       throw new CustomException(statusMessages.fa['404'], 404);
     }
 
-    const isUserRole: boolean = user.roles.some((role: Role) => {
+    const isRoleExist: boolean = user.roles.some((role: Role) => {
       return role.id === data.roleId;
     });
 
-    if (isUserRole) {
+    if (isRoleExist) {
       user.roles = user.roles.filter((role: Role) => role.id !== data.roleId);
-      role.users = role.users.filter((user: User) => user.id !== data.userId);
-    } else {
-      // push role to users role
-      user.roles.push(role);
-      // push user to roles
-      role.users.push(user);
-    }
+    } else user.roles.push(role);
 
     // sava data in user & role
     await this.userRepository.save(user);
-    await this.roleRepository.save(role);
 
     return {
       status: HttpStatus.NO_CONTENT,
       message: statusMessages.fa['204'],
       data: null,
+    };
+  }
+
+  async toggleBanned(data: CreateUserDto) {
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        user: data.id,
+      },
+    });
+
+    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+
+    user.banned = !user.banned;
+
+    await this.userRepository.save(user);
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
+      body: null,
     };
   }
 }

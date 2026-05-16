@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
@@ -17,6 +8,7 @@ import {
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -50,6 +42,11 @@ export class UserController {
 
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    type: 'string',
+  })
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('USER:ONE', data);
   }

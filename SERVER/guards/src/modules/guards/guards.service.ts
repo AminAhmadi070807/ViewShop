@@ -148,6 +148,9 @@ export class GuardsService {
     });
 
     if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+    else if (user.banned) {
+      throw new CustomException(statusMessages.fa['403'], 404);
+    }
 
     return {
       status: HttpStatus.OK,

@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -24,19 +23,9 @@ export class Role {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinTable({
-    name: 'roles_guard',
-    joinColumn: { name: 'guard_id' },
-    inverseJoinColumn: { name: 'role_id' },
-  })
   guards: Guard[];
 
   @ManyToMany(() => User, (user: User) => user.roles)
-  @JoinTable({
-    name: 'roles_users',
-    joinColumn: { name: 'user_id' },
-    inverseJoinColumn: { name: 'role_id' },
-  })
   users: User[];
 
   @OneToMany(() => Singular, (singular: Singular) => singular.role, {
