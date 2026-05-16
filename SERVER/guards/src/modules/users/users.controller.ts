@@ -24,7 +24,12 @@ export class UsersController {
   }
 
   @MessagePattern('USER:TOGGLE:ROLE')
-  update(@Payload() data: UpdateUserDto) {
+  toggleUserRole(@Payload() data: UpdateUserDto) {
     return this.usersService.toggleUserRole(data);
+  }
+
+  @MessagePattern('USER:TOGGLE:BANNED')
+  toggleUserBanned(@Payload() data: ValidateUUID) {
+    return this.usersService.toggleBanned(data);
   }
 }

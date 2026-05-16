@@ -8,6 +8,7 @@ import { statusMessages } from '../../common/messages/status.message';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { Role } from '../roles/entities/role.entity';
 import { firstValueFrom } from 'rxjs';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Injectable()
 export class UsersService {
@@ -149,7 +150,7 @@ export class UsersService {
     };
   }
 
-  async toggleBanned(data: CreateUserDto) {
+  async toggleBanned(data: ValidateUUID) {
     const user: User | null = await this.userRepository.findOne({
       where: {
         user: data.id,

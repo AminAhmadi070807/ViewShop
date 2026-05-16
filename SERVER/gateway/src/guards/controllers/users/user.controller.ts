@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
@@ -55,5 +64,11 @@ export class UserController {
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   toggleUserRole(@Body() data: UserDto) {
     return this.guardsService.send('USER:TOGGLE:ROLE', data);
+  }
+
+  @Put()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  toggleUserBanned(@Body() data: ValidateUUID) {
+    return this.guardsService.send('USER:TOGGLE:BANNED', data);
   }
 }
