@@ -23,16 +23,8 @@ export class UsersController {
     return this.usersService.findOne(data.id);
   }
 
-  @MessagePattern('USER:UPDATE')
+  @MessagePattern('USER:TOGGLE:ROLE')
   update(@Payload() data: UpdateUserDto) {
-    return this.usersService.update(data);
+    return this.usersService.toggleUserRole(data);
   }
-
-  @MessagePattern('USER:DELETE:ROLE')
-  removeRoleFromUser(@Payload() data: UpdateUserDto) {
-    return this.usersService.removeRoleFromUser(data);
-  }
-
-  @MessagePattern('USER:VALIDATE')
-  validate() {}
 }

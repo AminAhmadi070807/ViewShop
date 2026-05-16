@@ -56,13 +56,7 @@ export class UserController {
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  update(@Body() data: UserDto) {
-    return this.guardsService.send('USER:UPDATE', data);
-  }
-
-  @Delete()
-  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  removeRoleFromUser(@Body() data: UserDto) {
-    return this.guardsService.send('USER:UPDATE', data);
+  toggleUserRole(@Body() data: UserDto) {
+    return this.guardsService.send('USER:TOGGLE:ROLE', data);
   }
 }
