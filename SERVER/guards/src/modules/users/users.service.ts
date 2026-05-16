@@ -95,12 +95,24 @@ export class UsersService {
 
   async update(data: UpdateUserDto) {
     // find one user from database
-    const user: User | null = await this.userRepository.findOneBy({
-      id: data.userId,
+    const user: User | null = await this.userRepository.findOne({
+      where: {
+        id: data.userId,
+      },
+      relations: ['roles'],
+      select: {
+        id: true,
+      },
     });
     // find role from database
-    const role: Role | null = await this.roleRepository.findOneBy({
-      id: data.roleId,
+    const role: Role | null = await this.roleRepository.findOne({
+      where: {
+        id: data.roleId,
+      },
+      relations: ['users'],
+      select: {
+        id: true,
+      },
     });
 
     // check user

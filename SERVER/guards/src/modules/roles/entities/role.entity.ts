@@ -31,10 +31,7 @@ export class Role {
   })
   guards: Guard[];
 
-  @ManyToMany(() => User, (user: User) => user.roles, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @ManyToMany(() => User, (user: User) => user.roles)
   @JoinTable({
     name: 'roles_users',
     joinColumn: { name: 'user_id' },

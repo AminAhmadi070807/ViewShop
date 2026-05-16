@@ -21,7 +21,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { UpdateUserDto } from './user.dto';
+import { UserDto } from './user.dto';
 
 @Controller('guards/users')
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
@@ -56,13 +56,13 @@ export class UserController {
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  update(@Body() data: UpdateUserDto) {
+  update(@Body() data: UserDto) {
     return this.guardsService.send('USER:UPDATE', data);
   }
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  removeRoleFromUser(@Body() data: UpdateUserDto) {
+  removeRoleFromUser(@Body() data: UserDto) {
     return this.guardsService.send('USER:UPDATE', data);
   }
 }

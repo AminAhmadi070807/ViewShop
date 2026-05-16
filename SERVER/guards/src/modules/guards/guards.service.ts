@@ -36,7 +36,7 @@ export class GuardsService {
 
     const guard: Guard = this.guardsRepository.create({
       patch: data.patch.toLowerCase(),
-      public: data.public,
+      public: data.public || false,
       roles: [role],
     });
 
@@ -118,15 +118,22 @@ export class GuardsService {
         patch: data.patch.toLowerCase(),
       },
       relations: ['roles'],
+      select: {
+        id: true,
+        patch: true,
+        roles: {
+          id: true,
+          title: true,
+        },
+        public: true,
+      },
     });
 
-    if (!guard) {
-
-    }
+    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
 
     const user: User | null = await this.userRepository.findOne({
       where: {
-        id: data.userId,
+        user: data.userId,
       },
       relations: ['roles'],
       select: {

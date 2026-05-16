@@ -2,11 +2,15 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ValidateGuard } from './guard.dto';
+import { GuardDto, ValidateGuard } from './guard.dto';
 
 @Controller('guards/guard')
 export class GuardController {
   constructor(private readonly guardsService: GuardsService) {}
+  @Post()
+  create(@Body() data: GuardDto) {
+    return this.guardsService.send('GUARD:CREATE', data);
+  }
 
   @Post('validate')
   validate(@Body() data: ValidateGuard, @Req() req: express.Request) {
