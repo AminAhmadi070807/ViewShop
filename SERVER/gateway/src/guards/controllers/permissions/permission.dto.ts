@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionEnum } from '../../../common/enums/guards/permission.enum';
+import { PermissionEnum } from '../../../common/enums/guards/permission/permission.enum';
 
 export class CreatePermissionDto {
   @ApiProperty({

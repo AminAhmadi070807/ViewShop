@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
+import { GuardEnum } from '../../../common/enums/guards/guard.enum';
 
 @Entity('guards')
 export class Guard {
@@ -31,6 +32,12 @@ export class Guard {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   public: boolean;
+
+  @Column({ type: 'enum', enum: GuardEnum, nullable: false })
+  service: GuardEnum;
+
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  pattern: string;
 
   @CreateDateColumn()
   createdAt: Date;
