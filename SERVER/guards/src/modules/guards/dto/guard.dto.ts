@@ -31,5 +31,3 @@ export class ValidateGuard {
   })
   patch: string;
 }
-
-export class UpdateGuardDto {}

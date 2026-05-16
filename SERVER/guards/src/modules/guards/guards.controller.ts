@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GuardsService } from './guards.service';
 import { GuardDto, ValidateGuard } from './dto/guard.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
+import { ValidateOptionalTitle } from '../../common/validations/title.dto';
 
 @Controller()
 export class GuardsController {
@@ -14,8 +15,8 @@ export class GuardsController {
   }
 
   @MessagePattern('GUARD:FIND')
-  findAll(@Payload() role?: string) {
-    return this.guardsService.findAll(role);
+  findAll(@Payload() data: ValidateOptionalTitle) {
+    return this.guardsService.findAll(data);
   }
 
   @MessagePattern('GUARD:ONE')
@@ -28,13 +29,8 @@ export class GuardsController {
     return this.guardsService.validate(data);
   }
 
-  @MessagePattern('GUARD:UPDATE')
-  update(@Payload() data: GuardDto) {
-    return this.guardsService.update(data);
-  }
-
   @MessagePattern('GUARD:DELETE')
-  remove(@Payload() id: number) {
-    return this.guardsService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.guardsService.remove(data.id);
   }
 }

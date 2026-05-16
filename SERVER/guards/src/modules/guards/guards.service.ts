@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { GuardDto, UpdateGuardDto, ValidateGuard } from './dto/guard.dto';
+import { GuardDto, ValidateGuard } from './dto/guard.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Guard } from './entities/guard.entity';
 import { Repository } from 'typeorm';
@@ -7,6 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { Role } from '../roles/entities/role.entity';
 import { User } from '../users/entities/user.entity';
+import { ValidateOptionalTitle } from '../../common/validations/title.dto';
 
 @Injectable()
 export class GuardsService {
@@ -49,11 +50,13 @@ export class GuardsService {
     };
   }
 
-  async findAll(title?: string) {
+  async findAll(data: ValidateOptionalTitle) {
     let guards: Guard[];
 
-    if (title) {
-      const role: Role | null = await this.roleRepository.findOneBy({ title });
+    if (data.title) {
+      const role: Role | null = await this.roleRepository.findOneBy({
+        title: data.title,
+      });
 
       if (!role) throw new CustomException(statusMessages.fa['404'], 404);
 
@@ -113,6 +116,7 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
+    // get patch from database
     const guard: Guard | null = await this.guardsRepository.findOne({
       where: {
         patch: data.patch.toLowerCase(),
@@ -129,8 +133,10 @@ export class GuardsService {
       },
     });
 
+    // check guard
     if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
 
+    // get user from database
     const user: User | null = await this.userRepository.findOne({
       where: {
         user: data.userId,
@@ -147,26 +153,46 @@ export class GuardsService {
       },
     });
 
+    // check user & user banned
     if (!user) throw new CustomException(statusMessages.fa['404'], 404);
     else if (user.banned) {
       throw new CustomException(statusMessages.fa['403'], 404);
     }
 
+    // save user & guards role in array
+    const userRolesTitle: string[] = user.roles.map((role: Role) => role.title);
+    const guardsRoleTitle: string[] = guard.roles.map((role: Role) => {
+      return role.title;
+    });
+
+    // validate user access to this patch
+    let validate: boolean = false;
+
+    // validation
+    for (const userRoleTitle of userRolesTitle) {
+      if (guardsRoleTitle.includes(userRoleTitle)) {
+        validate = true;
+        break;
+      } else validate = false;
+    }
+
+    // send forbidden error if user isn't access to this route
+    if (!validate) throw new CustomException(statusMessages.fa['403'], 403);
+
     return {
       status: HttpStatus.OK,
       message: statusMessages.fa['200'],
-      body: {
-        user,
-        guard,
-      },
+      body: validate,
     };
   }
 
-  update(data: UpdateGuardDto) {
-    return data;
-  }
+  async remove(id: string) {
+    await this.guardsRepository.delete(id);
 
-  remove(id: number) {
-    return `This action removes a #${id} guard`;
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
+      body: null,
+    };
   }
 }

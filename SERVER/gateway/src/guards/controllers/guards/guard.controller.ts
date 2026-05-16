@@ -1,8 +1,10 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { GuardDto, ValidateGuard } from './guard.dto';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('guards/guard')
 export class GuardController {
@@ -10,6 +12,22 @@ export class GuardController {
   @Post()
   create(@Body() data: GuardDto) {
     return this.guardsService.send('GUARD:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.guardsService.send('GUARD:FIND');
+  }
+
+  @Get('/:id')
+  @ApiParam({
+    name: 'id',
+    type: 'string',
+    description: 'Id of Guard',
+    required: true,
+  })
+  findOne(@Param() data: ValidateUUID) {
+    return this.guardsService.send('GUARD:ONE', data);
   }
 
   @Post('validate')
