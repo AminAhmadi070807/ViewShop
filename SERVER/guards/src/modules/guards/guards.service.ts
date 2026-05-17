@@ -174,8 +174,8 @@ export class GuardsService {
     // validation
     for (const userRoleTitle of userRolesTitle) {
       if (
-        guardsRoleTitle.includes(userRoleTitle) ||
-        guardsRoleTitle.includes('ALL')
+        guardsRoleTitle.includes('ALL') ||
+        guardsRoleTitle.includes(userRoleTitle)
       ) {
         validate = true;
         break;

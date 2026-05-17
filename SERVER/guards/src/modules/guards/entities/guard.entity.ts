@@ -23,7 +23,6 @@ export class Guard {
 
   @ManyToMany(() => Role, (role: Role) => role.guards, {
     eager: true,
-    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinTable({

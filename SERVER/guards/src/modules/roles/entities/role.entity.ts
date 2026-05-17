@@ -20,16 +20,17 @@ export class Role {
   title: string;
 
   @ManyToMany(() => Guard, (guard: Guard) => guard.roles, {
-    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   guards: Guard[];
+
+  @Column({ type: 'smallint', nullable: false, default: 0 })
+  score: number;
 
   @ManyToMany(() => User, (user: User) => user.roles)
   users: User[];
 
   @OneToMany(() => Singular, (singular: Singular) => singular.role, {
-    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   singulars: Singular[];

@@ -22,7 +22,6 @@ export class Singular {
     (permission: Permission) => permission.singular,
     {
       onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
       nullable: false,
     },
   )
@@ -30,7 +29,6 @@ export class Singular {
 
   @ManyToOne(() => Role, (role: Role) => role.singulars, {
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
     nullable: false,
   })
   role: Role;

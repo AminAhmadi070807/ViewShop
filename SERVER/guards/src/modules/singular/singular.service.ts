@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { SingularDto } from './dto/singular.dto';
+import { SingularDto, UpdateSingularDto } from './dto/singular.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Singular } from './entities/singular.entity';
 import { Repository } from 'typeorm';
@@ -72,6 +72,39 @@ export class SingularService {
       status: HttpStatus.OK,
       message: statusMessages.fa['201'],
       body: singulars,
+    };
+  }
+
+  async togglePermission(data: UpdateSingularDto) {
+    const permission: Permission | null =
+      await this.permissionRepository.findOneBy({ id: data.permissionId });
+
+    if (!permission) throw new CustomException(statusMessages.fa['404'], 404);
+
+    const singular: Singular | null = await this.singularRepository.findOneBy({
+      id: data.permissionId,
+    });
+
+    if (!singular) throw new CustomException(statusMessages.fa['404'], 404);
+
+    const isExistingPermissionInSingular: boolean = singular.permissions.some(
+      (p: Permission): boolean => {
+        return p.id === data.permissionId;
+      },
+    );
+
+    if (isExistingPermissionInSingular) {
+      singular.permissions = singular.permissions.filter((p) => {
+        return p.id !== data.permissionId;
+      });
+    } else singular.permissions.push(permission);
+
+    await this.singularRepository.save(singular);
+
+    return {
+      status: HttpStatus.NO_CONTENT,
+      message: statusMessages.fa['204'],
+      body: null,
     };
   }
 

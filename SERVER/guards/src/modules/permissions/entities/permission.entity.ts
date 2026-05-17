@@ -19,7 +19,6 @@ export class Permission {
 
   @ManyToOne(() => Singular, (singular: Singular) => singular.permissions, {
     eager: true,
-    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   singular: Singular;
