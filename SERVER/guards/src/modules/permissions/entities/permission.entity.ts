@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,11 +17,10 @@ export class Permission {
   @Column({ type: 'enum', enum: PermissionEnum, nullable: false })
   title: PermissionEnum;
 
-  @ManyToOne(() => Singular, (singular: Singular) => singular.permissions, {
-    eager: true,
+  @ManyToMany(() => Singular, (singular: Singular) => singular.permissions, {
     onUpdate: 'CASCADE',
   })
-  singular: Singular;
+  singulars: Singular[];
 
   @CreateDateColumn()
   createdAt: Date;

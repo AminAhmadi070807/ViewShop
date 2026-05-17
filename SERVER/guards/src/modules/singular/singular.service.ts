@@ -23,6 +23,9 @@ export class SingularService {
   async create(data: SingularDto) {
     const existing: Singular | null = await this.singularRepository.findOneBy({
       title: data.title.toUpperCase(),
+      roles: {
+        id: data.roleId,
+      },
     });
 
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
@@ -39,7 +42,7 @@ export class SingularService {
 
     const singular: Singular = this.singularRepository.create({
       title: data.title.toUpperCase(),
-      role,
+      roles: [role],
       permissions: [permission],
     });
 
@@ -53,20 +56,20 @@ export class SingularService {
   }
 
   async findAll() {
-    const singulars = await this.singularRepository
-      .createQueryBuilder('singular')
-      .leftJoinAndSelect('singular.role', 'role')
-      .leftJoinAndSelect('singular.permissions', 'permissions')
-      .select([
-        'singular.id',
-        'singular.title',
-        'role.id',
-        'role.title',
-        'permissions.id',
-        'permissions.title',
-      ])
-      .orderBy('singular.createdAt', 'DESC')
-      .getMany();
+    const singulars = await this.singularRepository.find({
+      relations: ['roles', 'permissions'],
+      select: {
+        roles: {
+          id: true,
+          title: true,
+          singulars: false,
+        },
+        permissions: {
+          id: true,
+          title: true,
+        },
+      },
+    });
 
     return {
       status: HttpStatus.OK,
@@ -76,27 +79,38 @@ export class SingularService {
   }
 
   async togglePermission(data: UpdateSingularDto) {
+    // get permission from database by id
     const permission: Permission | null =
-      await this.permissionRepository.findOneBy({ id: data.permissionId });
+      await this.permissionRepository.findOne({
+        where: { id: data.permissionId },
+      });
 
+    // check permission
     if (!permission) throw new CustomException(statusMessages.fa['404'], 404);
 
-    const singular: Singular | null = await this.singularRepository.findOneBy({
-      id: data.permissionId,
+    // get singular from database by id
+    const singular: Singular | null = await this.singularRepository.findOne({
+      where: {
+        id: data.singularId,
+      },
+      relations: ['permissions'],
     });
 
+    // check singular
     if (!singular) throw new CustomException(statusMessages.fa['404'], 404);
 
-    const isExistingPermissionInSingular: boolean = singular.permissions.some(
+    // existing singular in permission already
+    const existing: boolean = singular.permissions.some(
       (p: Permission): boolean => {
         return p.id === data.permissionId;
       },
     );
 
-    if (isExistingPermissionInSingular) {
-      singular.permissions = singular.permissions.filter((p) => {
-        return p.id !== data.permissionId;
-      });
+    // check existing
+    if (existing) {
+      singular.permissions = singular.permissions.filter(
+        (p): boolean => p.id !== data.permissionId,
+      );
     } else singular.permissions.push(permission);
 
     await this.singularRepository.save(singular);

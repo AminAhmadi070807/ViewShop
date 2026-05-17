@@ -30,7 +30,7 @@ export class Role {
   @ManyToMany(() => User, (user: User) => user.roles)
   users: User[];
 
-  @OneToMany(() => Singular, (singular: Singular) => singular.role, {
+  @OneToMany(() => Singular, (singular: Singular) => singular.roles, {
     onUpdate: 'CASCADE',
   })
   singulars: Singular[];

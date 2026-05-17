@@ -149,6 +149,7 @@ export class GuardsService {
         roles: {
           id: true,
           title: true,
+          score: true,
         },
         banned: true,
         id: true,
@@ -162,24 +163,16 @@ export class GuardsService {
       throw new CustomException(statusMessages.fa['403'], 404);
     }
 
-    // save user & guards role in array
-    const userRolesTitle: string[] = user.roles.map((role: Role) => role.title);
-    const guardsRoleTitle: string[] = guard.roles.map((role: Role) => {
-      return role.title;
-    });
-
     // validate user access to this patch
     let validate: boolean = false;
 
-    // validation
-    for (const userRoleTitle of userRolesTitle) {
-      if (
-        guardsRoleTitle.includes('ALL') ||
-        guardsRoleTitle.includes(userRoleTitle)
-      ) {
-        validate = true;
-        break;
-      } else validate = false;
+    for (const role of guard.roles) {
+      for (const userRole of user.roles) {
+        if (role.score <= userRole.score) {
+          validate = true;
+          break;
+        }
+      }
     }
 
     // send forbidden error if user isn't access to this route
