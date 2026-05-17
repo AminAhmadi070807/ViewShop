@@ -67,3 +67,13 @@ export class UpdateSingularDto {
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   singularId: string;
 }
+
+export class UpdateSingularRoleDto {
+  @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  roleId: string;
+
+  @IsNotEmpty({ message: 'ایدی سینگیولار نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  singularId: string;
+}

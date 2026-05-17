@@ -42,8 +42,14 @@ export class SingularController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['204'] })
-  @Patch()
+  @Patch('toggle/permission')
   togglePermission(@Body() data: UpdateSingularDto) {
+    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
+  }
+
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
+  @Patch('toggle/role')
+  toggleRole(@Body() data: UpdateSingularDto) {
     return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
   }
 

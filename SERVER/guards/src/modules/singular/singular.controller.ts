@@ -1,7 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SingularService } from './singular.service';
-import { SingularDto, UpdateSingularDto } from './dto/singular.dto';
+import {
+  SingularDto,
+  UpdateSingularDto,
+  UpdateSingularRoleDto,
+} from './dto/singular.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -21,6 +25,11 @@ export class SingularController {
   @MessagePattern('SINGULAR:TOGGLE:PERMISSION')
   togglePermission(@Payload() data: UpdateSingularDto) {
     return this.singularService.togglePermission(data);
+  }
+
+  @MessagePattern('SINGULAR:TOGGLE:ROLE')
+  toggleRole(@Payload() data: UpdateSingularRoleDto) {
+    return this.singularService.toggleRole(data);
   }
 
   @MessagePattern('SINGULAR:DELETE')
