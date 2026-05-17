@@ -18,7 +18,7 @@ export class SingularController {
     return this.singularService.findAll();
   }
 
-  @MessagePattern('SINGULAR:FIND')
+  @MessagePattern('SINGULAR:TOGGLE:PERMISSION')
   togglePermission(@Payload() data: UpdateSingularDto) {
     return this.singularService.togglePermission(data);
   }

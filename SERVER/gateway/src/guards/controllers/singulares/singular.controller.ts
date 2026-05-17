@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
@@ -31,6 +39,12 @@ export class SingularController {
   @Get()
   findAll() {
     return this.guardsService.send('SINGULAR:FIND');
+  }
+
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @Patch()
+  togglePermission() {
+    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION');
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
