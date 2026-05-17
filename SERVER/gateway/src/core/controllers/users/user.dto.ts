@@ -11,7 +11,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 export class UserValidator {
   @ApiProperty({
     type: 'string',
-    example: '0999000000',
+    example: '09990000000',
     description: 'phone number is required',
     pattern: /^09(0[1-5]|1\d|2[0-2]|3\d|9[^567])\d{7}$/,
   })

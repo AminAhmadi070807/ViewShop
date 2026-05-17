@@ -7,7 +7,10 @@ import {
   Matches,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { GuardEnum } from '../../../common/enums/guards/guards/guard.enum';
+import {
+  GuardEnum,
+  MethodEnum,
+} from '../../../common/enums/guards/guards/guard.enum';
 import { HttpStatus } from '@nestjs/common';
 import { statusMessages } from '../../../common/messages/status.message';
 
@@ -24,6 +27,16 @@ export class GuardDto {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
+
+  @ApiProperty({
+    type: String,
+    enum: MethodEnum,
+    nullable: false,
+    example: MethodEnum.GET,
+  })
+  @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
+  @IsEnum(MethodEnum)
+  method: GuardEnum;
 
   @ApiProperty({
     type: String,
@@ -55,18 +68,9 @@ export class GuardDto {
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {
     message:
-      'سوریس باید یکی از این موارد باشد (CORE, GUARD, ADMIN, SELLER, PAYMENT)',
+      'سوریس باید یکی از این موارد باشد (CORE, GUARDS, ADMIN, SELLER, PAYMENT)',
   })
   service: GuardEnum;
-
-  @ApiProperty({
-    type: String,
-    example: '',
-    description: 'pattern',
-  })
-  @IsNotEmpty({ message: 'پترن نمیتواند خالی باشد' })
-  @IsString({ message: 'پترن باید رشته باشد' })
-  pattern: string;
 }
 
 export class ValidateGuard {

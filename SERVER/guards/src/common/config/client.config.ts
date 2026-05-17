@@ -9,7 +9,7 @@ export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
     useFactory: (config: ConfigService) => ({
       transport: Transport.TCP,
       options: {
-        port: parseInt(config.get<string>('', '4000'), 10) || 4000,
+        port: parseInt(config.get<string>('CORE_PORT', '4000'), 10) || 4000,
         host: config.get<string>('CORE_HOST', '127.0.0.1'),
       },
     }),

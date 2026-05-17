@@ -8,15 +8,18 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
-import { GuardEnum } from '../../../common/enums/guards/guard.enum';
+import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 
 @Entity('guards')
 export class Guard {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255, unique: true, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: false })
   patch: string;
+
+  @Column({ type: 'enum', enum: MethodEnum, nullable: false })
+  method: MethodEnum;
 
   @ManyToMany(() => Role, (role: Role) => role.guards, {
     eager: true,

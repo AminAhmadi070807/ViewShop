@@ -24,6 +24,7 @@ export class GuardsService {
     const existing: Guard | null = await this.guardsRepository.findOne({
       where: {
         patch: data.patch.toLowerCase(),
+        method: data.method,
       },
     });
 
@@ -40,6 +41,7 @@ export class GuardsService {
       public: data.public || false,
       roles: [role],
       service: data.service,
+      method: data.method,
     });
 
     await this.guardsRepository.save(guard);
@@ -122,6 +124,7 @@ export class GuardsService {
       where: {
         patch: data.patch.toLowerCase(),
         service: data.service,
+        method: data.method,
       },
       relations: ['roles'],
       select: {

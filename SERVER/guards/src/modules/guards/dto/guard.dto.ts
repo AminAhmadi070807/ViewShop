@@ -2,11 +2,12 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   Matches,
 } from 'class-validator';
-import { GuardEnum } from '../../../common/enums/guards/guard.enum';
+import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 
 export class GuardDto {
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
@@ -15,6 +16,10 @@ export class GuardDto {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
+
+  @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
+  @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
+  method: MethodEnum;
 
   @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
@@ -29,16 +34,13 @@ export class GuardDto {
       'سوریس باید یکی از این موارد باشد (CORE, GUARD, ADMIN, SELLER, PAYMENT)',
   })
   service: GuardEnum;
-
-  @IsNotEmpty({ message: 'پترن نمیتواند خالی باشد' })
-  @IsString({ message: 'پترن باید رشته باشد' })
-  pattern: string;
 }
 
 export class ValidateGuard {
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  userId: string;
+  @IsOptional()
+  userId?: string;
 
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر باید رشته باشد' })
@@ -46,6 +48,10 @@ export class ValidateGuard {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
+
+  @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
+  @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
+  method: MethodEnum;
 
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {

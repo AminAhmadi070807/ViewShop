@@ -23,6 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { statusMessages } from '../../../common/messages/status.message';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('guards/guard')
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
@@ -32,6 +33,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 export class GuardController {
   constructor(private readonly guardsService: GuardsService) {}
 
+  @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @Post()
   create(@Body() data: GuardDto): Observable<any> {
