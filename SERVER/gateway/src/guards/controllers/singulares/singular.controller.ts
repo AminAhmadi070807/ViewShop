@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { SingularDto } from './singular.dto';
+import { SingularDto, UpdateSingularDto } from './singular.dto';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -41,10 +41,10 @@ export class SingularController {
     return this.guardsService.send('SINGULAR:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
   @Patch()
-  togglePermission() {
-    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION');
+  togglePermission(@Body() data: UpdateSingularDto) {
+    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
   }
 
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
