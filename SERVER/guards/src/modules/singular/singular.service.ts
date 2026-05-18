@@ -1,9 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import {
-  SingularDto,
-  UpdateSingularDto,
-  UpdateSingularRoleDto,
-} from './dto/singular.dto';
+import { SingularDto, UpdateSingularDto } from './dto/singular.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Singular } from './entities/singular.entity';
 import { Repository } from 'typeorm';
@@ -116,47 +112,6 @@ export class SingularService {
         (p): boolean => p.id !== data.permissionId,
       );
     } else singular.permissions.push(permission);
-
-    await this.singularRepository.save(singular);
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
-  }
-
-  async toggleRole(data: UpdateSingularRoleDto) {
-    // get role from database by id
-    const role: Role | null = await this.roleRepository.findOne({
-      where: { id: data.roleId },
-    });
-
-    // check role
-    if (!role) throw new CustomException(statusMessages.fa['404'], 404);
-
-    // get singular from database by id
-    const singular: Singular | null = await this.singularRepository.findOne({
-      where: {
-        id: data.singularId,
-      },
-      relations: ['permissions'],
-    });
-
-    // check singular
-    if (!singular) throw new CustomException(statusMessages.fa['404'], 404);
-
-    // existing singular in role already
-    const existing: boolean = singular.roles.some((r: Role): boolean => {
-      return r.id === data.roleId;
-    });
-
-    // check existing
-    if (existing) {
-      singular.roles = singular.roles.filter(
-        (r: Role): boolean => r.id !== data.roleId,
-      );
-    } else singular.roles.push(role);
 
     await this.singularRepository.save(singular);
 

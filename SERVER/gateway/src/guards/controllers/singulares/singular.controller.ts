@@ -47,12 +47,6 @@ export class SingularController {
     return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['204'] })
-  @Patch('toggle/role')
-  toggleRole(@Body() data: UpdateSingularDto) {
-    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
-  }
-
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @Delete(':id')
   remove(@Param() data: ValidateUUID) {

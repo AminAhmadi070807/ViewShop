@@ -5,6 +5,7 @@ import { TypeOrmModuleConfig } from './common/config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { WalletsModule } from './modules/wallets/wallets.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
       isGlobal: true,
     }),
     AuthModule,
+    WalletsModule,
   ],
 })
 export class AppModule {}
