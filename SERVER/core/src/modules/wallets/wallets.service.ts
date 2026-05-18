@@ -42,11 +42,45 @@ export class WalletsService {
     };
   }
 
-  findAll() {
-    return `This action returns all wallets`;
+  async findAll() {
+    const wallets: Wallet[] = await this.walletRepository.find({
+      relations: ['user'],
+      order: {
+        updatedAt: 'ASC',
+      },
+      select: {
+        user: { id: true, phone: true, fullName: true },
+      },
+    });
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: wallets,
+    };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} wallet`;
+  async findOne(id: string) {
+    const wallet: Wallet | null = await this.walletRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: ['user'],
+      select: {
+        user: {
+          id: true,
+          phone: true,
+          fullName: true,
+        },
+      },
+    });
+
+    if (!wallet) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: wallet,
+    };
   }
 }
