@@ -13,11 +13,12 @@ export class Wallet {
   id: string;
 
   @Column({ type: 'bigint', default: 0, nullable: false })
-  money: 0;
+  money: number;
 
   @OneToOne((): typeof User => User, (user: User): Wallet => user.wallet, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
+    nullable: false,
   })
   user: User;
 
