@@ -7,7 +7,7 @@ import { ZarinPalVerifyDto } from './dto/verify.dto';
 export class VerifiesController {
   constructor(private readonly verifiesService: VerifiesService) {}
 
-  @MessagePattern('PAYMENT:VERIFY')
+  @MessagePattern('PAYMENT:VERIFY:ZARIN_PAL')
   verify(@Payload() data: ZarinPalVerifyDto) {
     return this.verifiesService.zarinPal(data);
   }
