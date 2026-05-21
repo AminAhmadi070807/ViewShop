@@ -7,8 +7,13 @@ import { ZarinPalDto } from './dto/payment.dto';
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @MessagePattern('createPayment')
+  @MessagePattern('PAYMENT:ZARIN_PAL')
   zarinPal(@Payload() data: ZarinPalDto) {
     return this.paymentService.zarinPal(data);
+  }
+
+  @MessagePattern('PAYMENT:ZIBAL')
+  zibal(@Payload() data: ZarinPalDto) {
+    return this.paymentService.zibal(data);
   }
 }

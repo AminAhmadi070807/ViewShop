@@ -27,8 +27,8 @@ export class Guard {
   })
   @JoinTable({
     name: 'guard_roles',
-    joinColumn: { name: 'role_id' },
-    inverseJoinColumn: { name: 'guard_id' },
+    joinColumn: { name: 'guard_id' },
+    inverseJoinColumn: { name: 'role_id' },
   })
   roles: Role[];
 

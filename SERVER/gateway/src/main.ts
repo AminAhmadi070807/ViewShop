@@ -42,6 +42,11 @@ void (async (): Promise<void> => {
       include: [AppModule],
       deepScanRoutes: true,
     });
+    // create payment document
+    const paymentDocument = SwaggerModule.createDocument(app, swaggerConfig, {
+      include: [AppModule],
+      deepScanRoutes: true,
+    });
 
     // remove all routes except core
     if (coreDocument.paths) {
@@ -57,10 +62,19 @@ void (async (): Promise<void> => {
       });
     }
 
+    // remove all route except guards
+    if (paymentDocument.paths) {
+      Object.keys(paymentDocument.paths).forEach((path) => {
+        if (!path.includes('/payment')) delete paymentDocument.paths[path];
+      });
+    }
+
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
     // setup guard document
     SwaggerModule.setup('api/v1/guard/docs', app, guardDocument);
+    // setup payment document
+    SwaggerModule.setup('api/v1/payment/docs', app, paymentDocument);
 
     app.enableCors({
       origin: true,
