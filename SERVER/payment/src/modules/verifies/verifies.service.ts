@@ -91,6 +91,7 @@ export class VerifiesService {
       }
 
       const body: VerifyInterface = (await result.json()) as VerifyInterface;
+      console.log(body);
 
       return {
         status: body.data.code,

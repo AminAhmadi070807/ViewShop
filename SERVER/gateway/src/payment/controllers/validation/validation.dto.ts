@@ -6,7 +6,10 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { PaymentModelEnum } from '../../../common/enums/payment/payment.enum';
+import {
+  PaymentModelEnum,
+  PaymentStatusEnum,
+} from '../../../common/enums/payment/payment.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ValidationDto {
@@ -23,6 +26,18 @@ export class ValidationDto {
   IPG: PaymentModelEnum;
 
   @ApiProperty({
+    nullable: false,
+    required: true,
+    description: 'status message',
+    enum: PaymentStatusEnum,
+    default: PaymentStatusEnum.WAITING,
+  })
+  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
+  @IsString({ message: 'وضیعت باید رشته باشد' })
+  @IsEnum(PaymentStatusEnum, { message: 'وضیعت نامعتبر است' })
+  status: PaymentStatusEnum;
+
+  @ApiProperty({
     type: Number,
     required: true,
     nullable: false,
@@ -33,7 +48,7 @@ export class ValidationDto {
     { allowInfinity: true, allowNaN: false },
     { message: 'کد وضیعت باید اعداد باشد' },
   )
-  status: number;
+  statusCode: number;
 
   @ApiProperty({
     type: String,

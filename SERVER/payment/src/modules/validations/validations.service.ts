@@ -17,7 +17,7 @@ export class ValidationsService {
     try {
       const existing = await this.validationRepository.findOneBy({
         IPG: data.IPG,
-        status: data.status,
+        statusCode: data.statusCode,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
