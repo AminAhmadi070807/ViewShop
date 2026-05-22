@@ -6,10 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import {
-  PaymentModelEnum,
-  PaymentStatusEnum,
-} from '../../../common/enums/payment/payment.enum';
+import { PaymentModelEnum } from '../../../common/enums/payment/payment.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ValidationDto {
@@ -26,21 +23,6 @@ export class ValidationDto {
   IPG: PaymentModelEnum;
 
   @ApiProperty({
-    nullable: false,
-    required: true,
-    description: 'the status',
-    enum: PaymentStatusEnum,
-    default: PaymentStatusEnum.WAITING,
-  })
-  @IsNotEmpty({ message: ' وضیعت نمیتواند خالی باشد' })
-  @IsString({ message: 'وضیعت باید رشته باشد' })
-  @IsEnum(PaymentStatusEnum, {
-    message:
-      'وضیعت باید یکی از این موارد باشد (SUCCESS, CANCELED, FAILED, WAITING)',
-  })
-  status: PaymentStatusEnum;
-
-  @ApiProperty({
     type: Number,
     required: true,
     nullable: false,
@@ -51,7 +33,7 @@ export class ValidationDto {
     { allowInfinity: true, allowNaN: false },
     { message: 'کد وضیعت باید اعداد باشد' },
   )
-  statusCode: number;
+  status: number;
 
   @ApiProperty({
     type: String,
@@ -63,7 +45,7 @@ export class ValidationDto {
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(5, { message: 'توضیحات حدقل باید 5 کارکتر داشته باشد' })
-  @MaxLength(50, { message: 'توضیحات حدکثر میتواند 50 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 50 کارکتر داشته باشد' })
   description: string;
 }
 
@@ -79,19 +61,4 @@ export class FindValidationDto {
   @IsString({ message: 'سرویس پرداخت باید رشته باشد' })
   @IsEnum(PaymentModelEnum, { message: 'سرویس پرداخت نام معتبر است' })
   IPG: PaymentModelEnum;
-
-  @ApiProperty({
-    nullable: false,
-    required: true,
-    description: 'the status',
-    enum: PaymentStatusEnum,
-    default: PaymentStatusEnum.WAITING,
-  })
-  @IsNotEmpty({ message: ' وضیعت نمیتواند خالی باشد' })
-  @IsString({ message: 'وضیعت باید رشته باشد' })
-  @IsEnum(PaymentStatusEnum, {
-    message:
-      'وضیعت باید یکی از این موارد باشد (SUCCESS, CANCELED, FAILED, WAITING)',
-  })
-  status: PaymentStatusEnum;
 }

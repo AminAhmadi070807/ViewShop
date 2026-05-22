@@ -10,11 +10,8 @@ export class Validation {
   @Column({ type: 'enum', enum: PaymentModelEnum, nullable: false })
   IPG: PaymentModelEnum;
 
-  @Column({ type: 'enum', enum: PaymentStatusEnum, nullable: false })
-  status: PaymentStatusEnum;
-
   @Column({ type: 'smallint', nullable: false })
-  statusCode: number;
+  status: number;
 
   @Column({ type: 'varchar', nullable: false })
   description: string;

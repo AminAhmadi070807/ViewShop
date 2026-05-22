@@ -11,6 +11,7 @@ export const TypeOrmModuleConfig: TypeOrmModuleAsyncOptions = {
     password: config.get<string>('PAYMENT_DB_PASS'),
     database: config.get<string>('PAYMENT_DB_NAME', 'ViewShop_Payment'),
     autoLoadEntities: true,
+    migrations: ['dist/migrations/*.js'],
     synchronize:
       config.get<'development' | 'production'>('NODE_ENV', 'development') ===
       'development',
