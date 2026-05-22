@@ -10,20 +10,21 @@ import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
 import {
   PaymentVerifyInterface,
   SendRequestInterface,
-  VerifyInterface,
 } from '../../common/interfaces/verifye.interface';
 import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
+import { Validation } from '../validations/entities/validation.entity';
 
 @Injectable()
 export class VerifiesService {
   constructor(
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
+    @InjectRepository(Validation)
+    private readonly validationRepository: Repository<Validation>,
   ) {}
 
   private verifyRequestData(data: SendRequestInterface) {
     let requestBody;
-    console.log(data);
 
     if (data.model === PaymentModelEnum.ZARIN_PAL) {
       requestBody = {
@@ -43,6 +44,22 @@ export class VerifiesService {
     return requestBody;
   }
 
+  private validateBody(data: { model: PaymentModelEnum; data: object }) {
+    const body = new Map(Object.entries(data.data));
+
+    if (data.model === PaymentModelEnum.ZARIN_PAL) {
+      return {
+        status: body.get('code') as number,
+        model: data.model,
+      };
+    } else if (data.model === PaymentModelEnum.ZIBAL) {
+      return {
+        status: body.get('result') as number,
+        model: data.model,
+      };
+    }
+  }
+
   async verify(data: PaymentVerifyInterface) {
     try {
       // get payment data from database
@@ -50,8 +67,6 @@ export class VerifiesService {
         where: {
           authority: data.data.authority,
           user: data.userId,
-          IPG: PaymentModelEnum.ZIBAL,
-          status: PaymentStatusEnum.WAITING,
         },
       });
 
@@ -62,8 +77,13 @@ export class VerifiesService {
           message: statusMessages.fa['402'],
           body: {},
         };
+      } else if (payment.status === PaymentStatusEnum.SUCCESS) {
+        return {
+          status: 200,
+          message: 'پرداخت قبلا تاید شده است',
+          body: {},
+        };
       }
-
       // create payload
       const payload: object = this.verifyRequestData({
         authority: data.data.authority,
@@ -82,6 +102,7 @@ export class VerifiesService {
         body: JSON.stringify(payload),
       });
 
+      // check status result
       if (result.status !== 200) {
         return {
           status: result.status,
@@ -90,13 +111,42 @@ export class VerifiesService {
         };
       }
 
-      const body: VerifyInterface = (await result.json()) as VerifyInterface;
-      console.log(body);
+      // take out body from result
+      const body: object = (await result.json()) as object;
+
+      // get status & model from body
+      const resultBody: { model: PaymentModelEnum; status: number } =
+        this.validateBody({ model: payment.IPG, data: body }) as {
+          model: PaymentModelEnum;
+          status: number;
+        };
+
+      // get status code from database
+      const statusResult: Validation | null =
+        await this.validationRepository.findOneBy({
+          IPG: payment.IPG,
+          statusCode: resultBody.status,
+        });
+
+      // check status code
+      if (!statusResult) {
+        return {
+          status: 404,
+          message: 'کد وضیعت پیدا نشد',
+          body: {},
+        };
+      }
+
+      // update payment to success
+      payment.status = PaymentStatusEnum.SUCCESS;
+
+      // save payment
+      await this.paymentRepository.save(payment);
 
       return {
-        status: body.data.code,
-        body,
-        message: statusMessages.fa['200'],
+        status: 200,
+        message: statusResult.description,
+        body: {},
       };
     } catch {
       return {
@@ -161,7 +211,7 @@ export class VerifiesService {
     const merchant = process.env.ZIBAL_PAL_MERCHANT as string;
     const verifyUrl = process.env.ZIBAL_PAL_VALIDATE as string;
 
-    const result = await this.verify({
+    return await this.verify({
       status: data.status,
       userId: data.userId,
       data: {
@@ -171,7 +221,5 @@ export class VerifiesService {
         amount: 0,
       },
     });
-
-    return result;
   }
 }
