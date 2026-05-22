@@ -43,8 +43,6 @@ export class JwtRefreshTokenGuard extends AuthGuard('refresh-jwt-token') {
       | JwtRefreshPayload
       | undefined;
 
-    console.log('RESULT =>', userReq);
-
     // send unauthorized error
     if (!userReq) throw new UnauthorizedException(statusMessages.fa['401']);
 
