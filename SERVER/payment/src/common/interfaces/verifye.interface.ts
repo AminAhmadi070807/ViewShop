@@ -1,10 +1,23 @@
 import { HttpStatus } from '@nestjs/common';
+import { PaymentModelEnum } from './payment.interface';
 
 export interface PaymentVerifyInterface {
-  merchant: string;
-  amount: number;
-  authority: string | number;
+  userId: string;
+  status: number;
+  data: {
+    merchant: string;
+    amount: number;
+    authority: string | number;
+    url: string;
+  };
+}
+
+export interface SendRequestInterface {
   url: string;
+  amount: number;
+  merchant: string | number;
+  model: PaymentModelEnum;
+  authority: string | number;
 }
 
 export interface VerifyInterface {

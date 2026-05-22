@@ -14,6 +14,6 @@ export class VerifiesController {
 
   @MessagePattern('PAYMENT:VERIFY:ZIBAL')
   zibal(@Payload() data: ZibalVerifyDto) {
-    return data;
+    return this.verifiesService.zibal(data);
   }
 }

@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmModuleConfig } from './common/config/typeorm.config';
 import { PaymentModule } from './modules/payment/payment.module';
 import { VerifiesModule } from './modules/verifies/verifies.module';
+import { ValidationsModule } from './modules/validations/validations.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { VerifiesModule } from './modules/verifies/verifies.module';
     TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
     PaymentModule,
     VerifiesModule,
+    ValidationsModule,
   ],
   controllers: [],
   providers: [],

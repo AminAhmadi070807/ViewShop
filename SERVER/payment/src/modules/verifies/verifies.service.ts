@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalVerifyDto } from './dto/verify.dto';
+import { ZarinPalVerifyDto, ZibalVerifyDto } from './dto/verify.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../payment/entities/payment.entity';
 import { Repository } from 'typeorm';
@@ -9,8 +9,10 @@ import { ZarinPalVerifyEnum } from '../../common/enums/verifye/status.enum';
 import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
 import {
   PaymentVerifyInterface,
+  SendRequestInterface,
   VerifyInterface,
 } from '../../common/interfaces/verifye.interface';
+import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
 
 @Injectable()
 export class VerifiesService {
@@ -19,31 +21,76 @@ export class VerifiesService {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
-  async verify(
-    data: PaymentVerifyInterface,
-  ): Promise<{ status: number; body: object; message: string }> {
+  private verifyRequestData(data: SendRequestInterface) {
+    let requestBody;
+    console.log(data);
+
+    if (data.model === PaymentModelEnum.ZARIN_PAL) {
+      requestBody = {
+        amount: data.amount,
+        merchant_id: data.merchant,
+        authority: data.authority,
+      };
+    } else if (data.model === PaymentModelEnum.ZIBAL) {
+      requestBody = {
+        merchant: data.merchant,
+        trackId: data.authority,
+      };
+    } else {
+      requestBody = {};
+    }
+
+    return requestBody;
+  }
+
+  async verify(data: PaymentVerifyInterface) {
     try {
-      const req: Response = await fetch(data.url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // get payment data from database
+      const payment: Payment | null = await this.paymentRepository.findOne({
+        where: {
+          authority: data.data.authority,
+          user: data.userId,
+          IPG: PaymentModelEnum.ZIBAL,
+          status: PaymentStatusEnum.WAITING,
         },
-        body: JSON.stringify({
-          merchant_id: data.merchant,
-          amount: data.amount,
-          authority: data.authority,
-        }),
       });
 
-      if (req.status !== 200) {
+      // check payment
+      if (!payment) {
         return {
-          status: req.status,
+          status: 402,
           message: statusMessages.fa['402'],
           body: {},
         };
       }
 
-      const body: VerifyInterface = (await req.json()) as VerifyInterface;
+      // create payload
+      const payload: object = this.verifyRequestData({
+        authority: data.data.authority,
+        url: data.data.url,
+        model: payment.IPG,
+        amount: payment.amount,
+        merchant: data.data.merchant,
+      });
+
+      // send request to payment service
+      const result: Response = await fetch(data.data.url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (result.status !== 200) {
+        return {
+          status: result.status,
+          message: statusMessages.fa['402'],
+          body: {},
+        };
+      }
+
+      const body: VerifyInterface = (await result.json()) as VerifyInterface;
 
       return {
         status: body.data.code,
@@ -53,7 +100,7 @@ export class VerifiesService {
     } catch {
       return {
         status: 402,
-        message: statusMessages.fa['402'] + 'aaaa',
+        message: statusMessages.fa['402'],
         body: {},
       };
     }
@@ -64,6 +111,8 @@ export class VerifiesService {
       where: {
         authority: data.authority,
         user: data.userId,
+        IPG: PaymentModelEnum.ZARIN_PAL,
+        status: PaymentStatusEnum.WAITING,
       },
     });
 
@@ -79,10 +128,14 @@ export class VerifiesService {
     const verifyUrl = process.env.ZARIN_PAL_VALIDATE as string;
 
     const verify = await this.verify({
-      merchant,
-      amount: payment.amount,
-      authority: payment.authority,
-      url: verifyUrl,
+      status: data.status === ZarinPalVerifyEnum.OK ? 1 : 2,
+      userId: data.userId,
+      data: {
+        merchant,
+        url: verifyUrl,
+        amount: payment.amount,
+        authority: payment.authority,
+      },
     });
 
     if (verify.status === 101 || verify.status === 100) {
@@ -101,5 +154,23 @@ export class VerifiesService {
       message: verify.message,
       body: verify.body,
     };
+  }
+
+  async zibal(data: ZibalVerifyDto) {
+    const merchant = process.env.ZIBAL_PAL_MERCHANT as string;
+    const verifyUrl = process.env.ZIBAL_PAL_VALIDATE as string;
+
+    const result = await this.verify({
+      status: data.status,
+      userId: data.userId,
+      data: {
+        merchant,
+        authority: data.trackId,
+        url: verifyUrl,
+        amount: 0,
+      },
+    });
+
+    return result;
   }
 }

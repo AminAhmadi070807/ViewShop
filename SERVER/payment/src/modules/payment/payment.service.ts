@@ -146,7 +146,7 @@ export class PaymentService {
 
     const payment: Payment = this.paymentRepository.create({
       user: data.user,
-      IPG: PaymentModelEnum.ZARIN_PAL,
+      IPG: PaymentModelEnum.ZIBAL,
       status: PaymentStatusEnum.WAITING,
       amount: data.amount,
       authority: paymentData.body.trackId,
