@@ -29,14 +29,14 @@ export class PaymentService {
         amount: data.amount,
         description: data.description,
         merchant_id: data.merchant,
-        callback_url: data.callbackUrl,
+        callback_url: data.callbackUrl + 'zarin_pal',
       };
     } else if (data.model === PaymentModelEnum.ZIBAL) {
       requestBody = {
         amount: data.amount,
         description: data.description,
         merchant: data.merchant,
-        callbackUrl: data.callbackUrl,
+        callbackUrl: data.callbackUrl + 'zibal',
       };
     } else {
       requestBody = {};
@@ -45,11 +45,9 @@ export class PaymentService {
     return requestBody;
   }
 
-  private async send(data: SendRequestInterface): Promise<{
-    status: HttpStatus;
-    message: string;
-    body: null | object;
-  }> {
+  private async send(
+    data: SendRequestInterface,
+  ): Promise<{ status: HttpStatus; message: string; body: null | object }> {
     const reqData: object = this.paymentRequestData(data);
 
     const request: Response = await fetch(data.url, {

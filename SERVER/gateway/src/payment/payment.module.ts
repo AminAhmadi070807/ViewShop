@@ -3,10 +3,11 @@ import { PaymentService } from './payment.service';
 import { ClientsModule } from '@nestjs/microservices';
 import { ClientsModuleConfig } from '../common/config/client.config';
 import { PaymentController } from './controllers/payment/payment.controller';
+import { VerifyController } from './controllers/verify/verify.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
-  controllers: [PaymentController],
+  controllers: [PaymentController, VerifyController],
   providers: [PaymentService],
 })
 export class PaymentModule {}
