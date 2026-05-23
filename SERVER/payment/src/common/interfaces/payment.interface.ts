@@ -5,7 +5,6 @@ export enum PaymentModelEnum {
   ZIBAL = 'ZIBAL',
 }
 
-
 export interface SendRequestInterface {
   url: string;
   description: string;

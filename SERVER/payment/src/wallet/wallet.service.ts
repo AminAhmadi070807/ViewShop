@@ -1,46 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { WalletDto } from './dto/wallet.dto';
-import { CustomException } from '../common/exceptions/custom.exception.error';
-import { statusMessages } from '../common/messages/status.message';
 import { Wallet } from './entities/wallet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PaymentService } from '../modules/payment/payment.service';
+import { PaymentModelEnum } from '../common/interfaces/payment.interface';
 
 @Injectable()
 export class WalletService {
   constructor(
     @InjectRepository(Wallet)
     private readonly walletRepository: Repository<Wallet>,
+    private readonly paymentService: PaymentService,
   ) {}
 
   async charge(data: WalletDto) {
-    try {
-      const wallet: Wallet | null = await this.walletRepository.findOneBy({
-        user: data.userId,
-      });
+    let result;
 
-      if (!wallet) {
-        const newWallet: Wallet = this.walletRepository.create({
-          amount: data.amount,
+    switch (data.IPG) {
+      case PaymentModelEnum.ZARIN_PAL: {
+        result = await this.paymentService.zarinPal({
           user: data.userId,
-          payments: [],
+          amount: data.amount,
+          description: 'پرداخت به کیف پول کاربر',
         });
-
-        await this.walletRepository.save(newWallet);
-      } else {
-        wallet.amount = Number(data.amount) + Number(wallet.amount);
-
-        await this.walletRepository.save(wallet);
+        break;
       }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: null,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['402'], 402);
+      case PaymentModelEnum.ZIBAL: {
+        result = await this.paymentService.zibal({
+          user: data.userId,
+          amount: data.amount,
+          description: 'پرداخت به کیف پول کاربر',
+        });
+        break;
+      }
+      default: {
+        result = {
+          status: 400,
+          message: 'نوسع سرویس پرداخت نادرست است',
+          body: null,
+        };
+      }
     }
+
+    return result;
   }
 
   findAll() {

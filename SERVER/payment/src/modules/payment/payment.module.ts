@@ -9,6 +9,6 @@ import { Validation } from '../validations/entities/validation.entity';
   controllers: [PaymentController],
   providers: [PaymentService],
   imports: [TypeOrmModule.forFeature([Payment, Validation])],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, PaymentService],
 })
 export class PaymentModule {}
