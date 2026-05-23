@@ -9,7 +9,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtAccessTokenModuleConfig } from '../common/config/jwt.config';
 import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.strategy';
 import { JwtRefreshTokenStrategy } from '../common/strategies/jwt.refresh.token.strategy';
-import { WalletsController } from './controllers/wallets/wallet.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -18,7 +17,7 @@ import { WalletsController } from './controllers/wallets/wallet.controller';
     PassportModule,
     JwtModule.registerAsync(JwtAccessTokenModuleConfig),
   ],
-  controllers: [UsersController, AuthController, WalletsController],
+  controllers: [UsersController, AuthController],
   exports: [CoreService],
 })
 export class CoreModule {}

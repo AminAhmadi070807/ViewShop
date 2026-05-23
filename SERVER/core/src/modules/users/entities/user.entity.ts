@@ -3,13 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
 import { Auth } from '../../auth/entities/auth.entity';
-import { Wallet } from '../../wallets/entities/wallet.entity';
 
 @Entity('users')
 export class User {
@@ -38,9 +36,6 @@ export class User {
 
   @OneToMany(() => Auth, (auth: Auth) => auth.user)
   tokens: Auth[];
-
-  @OneToOne(() => Wallet, (wallet: Wallet) => wallet.user)
-  wallet: Wallet;
 
   @CreateDateColumn()
   createdAt: Date;

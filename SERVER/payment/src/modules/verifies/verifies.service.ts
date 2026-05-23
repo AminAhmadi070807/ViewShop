@@ -3,7 +3,6 @@ import { ZarinPalVerifyDto, ZibalVerifyDto } from './dto/verify.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../payment/entities/payment.entity';
 import { Repository } from 'typeorm';
-import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { ZarinPalVerifyEnum } from '../../common/enums/verifye/status.enum';
 import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
@@ -75,13 +74,13 @@ export class VerifiesService {
         return {
           status: 402,
           message: statusMessages.fa['402'],
-          body: {},
+          body: null,
         };
       } else if (payment.status === PaymentStatusEnum.SUCCESS) {
         return {
           status: 200,
           message: 'پرداخت قبلا تاید شده است',
-          body: {},
+          body: null,
         };
       }
       // create payload
@@ -107,7 +106,7 @@ export class VerifiesService {
         return {
           status: result.status,
           message: statusMessages.fa['402'],
-          body: {},
+          body: null,
         };
       }
 
@@ -133,7 +132,7 @@ export class VerifiesService {
         return {
           status: 404,
           message: 'کد وضیعت پیدا نشد',
-          body: {},
+          body: null,
         };
       }
 
@@ -146,65 +145,37 @@ export class VerifiesService {
       return {
         status: 200,
         message: statusResult.description,
-        body: {},
+        body: null,
       };
     } catch {
       return {
         status: 402,
         message: statusMessages.fa['402'],
-        body: {},
+        body: null,
       };
     }
   }
 
   async zarinPal(data: ZarinPalVerifyDto) {
-    const payment: Payment | null = await this.paymentRepository.findOne({
-      where: {
-        authority: data.authority,
-        user: data.userId,
-        IPG: PaymentModelEnum.ZARIN_PAL,
-        status: PaymentStatusEnum.WAITING,
-      },
-    });
-
-    if (!payment) throw new CustomException(statusMessages.fa['402'], 402);
-    else if (data.status === ZarinPalVerifyEnum.NOK) {
-      payment.status = PaymentStatusEnum.FAILED;
-      await this.paymentRepository.save(payment);
-
-      throw new CustomException(statusMessages.fa['402'], 402);
-    }
-
-    const merchant = process.env.ZARIN_PAL_MERCHANT as string;
-    const verifyUrl = process.env.ZARIN_PAL_VALIDATE as string;
-
-    const verify = await this.verify({
-      status: data.status === ZarinPalVerifyEnum.OK ? 1 : 2,
-      userId: data.userId,
-      data: {
-        merchant,
-        url: verifyUrl,
-        amount: payment.amount,
-        authority: payment.authority,
-      },
-    });
-
-    if (verify.status === 101 || verify.status === 100) {
-      payment.status = PaymentStatusEnum.SUCCESS;
-      await this.paymentRepository.save(payment);
-
+    if (data.status === ZarinPalVerifyEnum.NOK) {
       return {
-        status: 204,
-        message: statusMessages.fa['200'],
+        status: 402,
+        message: statusMessages.fa['402'],
         body: null,
       };
     }
+    const merchant = process.env.ZARIN_PAL_MERCHANT as string;
+    const verifyUrl = process.env.ZARIN_PAL_VALIDATE as string;
 
-    return {
-      status: verify.status,
-      message: verify.message,
-      body: verify.body,
-    };
+    return await this.verify({
+      userId: data.userId,
+      data: {
+        merchant,
+        authority: data.authority,
+        url: verifyUrl,
+        amount: 0,
+      },
+    });
   }
 
   async zibal(data: ZibalVerifyDto) {
@@ -212,7 +183,6 @@ export class VerifiesService {
     const verifyUrl = process.env.ZIBAL_PAL_VALIDATE as string;
 
     return await this.verify({
-      status: data.status,
       userId: data.userId,
       data: {
         merchant,

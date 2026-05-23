@@ -3,7 +3,6 @@ import { PaymentModelEnum } from './payment.interface';
 
 export interface PaymentVerifyInterface {
   userId: string;
-  status: number;
   data: {
     merchant: string;
     amount: number;

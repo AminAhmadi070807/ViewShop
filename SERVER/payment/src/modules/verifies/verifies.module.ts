@@ -9,5 +9,6 @@ import { Validation } from '../validations/entities/validation.entity';
   controllers: [VerifiesController],
   providers: [VerifiesService],
   imports: [TypeOrmModule.forFeature([Payment, Validation])],
+  exports: [VerifiesService],
 })
 export class VerifiesModule {}

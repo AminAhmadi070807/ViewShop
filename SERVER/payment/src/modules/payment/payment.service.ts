@@ -12,6 +12,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from './entities/payment.entity';
 import { Repository } from 'typeorm';
 import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
+import { Validation } from '../validations/entities/validation.entity';
 
 @Injectable()
 export class PaymentService {
@@ -19,6 +20,8 @@ export class PaymentService {
     private readonly config: ConfigService,
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
+    @InjectRepository(Validation)
+    private readonly validationRepository: Repository<Validation>,
   ) {}
 
   private paymentRequestData(data: SendRequestInterface): object {
@@ -45,6 +48,27 @@ export class PaymentService {
     return requestBody;
   }
 
+  private verifyBody(data: { model: PaymentModelEnum; data: object }) {
+    const body = new Map(Object.entries(data.data));
+
+    if (data.model === PaymentModelEnum.ZARIN_PAL) {
+      return {
+        status: body.get('code') as number,
+        model: data.model,
+      };
+    } else if (data.model === PaymentModelEnum.ZIBAL) {
+      return {
+        status: body.get('result') as number,
+        model: data.model,
+      };
+    } else {
+      return {
+        status: 500,
+        model: data.model,
+      };
+    }
+  }
+
   private async send(
     data: SendRequestInterface,
   ): Promise<{ status: HttpStatus; message: string; body: null | object }> {
@@ -67,6 +91,37 @@ export class PaymentService {
     }
 
     const body: object = (await request.json()) as object;
+
+    const resultBody = this.verifyBody({ model: data.model, data: body });
+
+    if (resultBody.status === 500) {
+      return {
+        status: 422,
+        message: 'ارتباط با سرویس پرداخت مجاز نیست لطفا بعدا امتحان فرماید',
+        body: null,
+      };
+    }
+
+    const result: Validation | null = await this.validationRepository.findOneBy(
+      {
+        IPG: data.model,
+        statusCode: resultBody.status,
+      },
+    );
+
+    if (!result) {
+      return {
+        status: 402,
+        message: statusMessages.fa['402'],
+        body: null,
+      };
+    } else if (result.status !== PaymentStatusEnum.SUCCESS) {
+      return {
+        status: 402,
+        message: result.description,
+        body: null,
+      };
+    }
 
     return {
       status: 200,
