@@ -7,22 +7,22 @@ import { WalletDto } from './dto/wallet.dto';
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
-  @MessagePattern('createWallet')
+  @MessagePattern('WALLET:CHARGE')
   charge(@Payload() data: WalletDto) {
     return this.walletService.charge(data);
   }
 
-  @MessagePattern('findAllWallet')
+  @MessagePattern('WALLET:FIND')
   findAll() {
     return this.walletService.findAll();
   }
 
-  @MessagePattern('findOneWallet')
+  @MessagePattern('WALLET:ONE')
   findOne(@Payload() id: string) {
     return this.walletService.findOne(id);
   }
 
-  @MessagePattern('removeWallet')
+  @MessagePattern('WALLET:PAYMENT')
   payment(@Payload() id: string) {
     return this.walletService.remove(id);
   }

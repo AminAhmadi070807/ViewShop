@@ -1,9 +1,11 @@
 import {
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Payment } from '../../modules/payment/entities/payment.entity';
 
 @Entity('wallet')
 export class Wallet {
@@ -14,7 +16,12 @@ export class Wallet {
   user: string;
 
   @Column({ type: 'smallint', nullable: false, default: 0 })
-  wallet: number;
+  amount: number;
+
+  @OneToMany(() => Payment, (payment) => payment.wallet, {
+    nullable: false,
+  })
+  payments: Payment[];
 
   @UpdateDateColumn()
   updateAt: Date;

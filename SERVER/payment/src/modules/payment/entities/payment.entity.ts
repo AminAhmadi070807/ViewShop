@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 import { PaymentModelEnum } from '../../../common/interfaces/payment.interface';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
+import { Wallet } from '../../../wallet/entities/wallet.entity';
 
 @Entity('payment')
 export class Payment {
@@ -45,6 +47,12 @@ export class Payment {
 
   @Column({ type: 'varchar', nullable: false })
   authority: string | number;
+
+  @ManyToOne(() => Wallet, (wallet: Wallet) => wallet.payments, {
+    nullable: false,
+    eager: true,
+  })
+  wallet: Wallet;
 
   @CreateDateColumn()
   createdAt: Date;

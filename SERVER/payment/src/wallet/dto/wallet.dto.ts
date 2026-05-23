@@ -3,7 +3,11 @@ import { IsInt, IsNotEmpty, IsNumber, IsUUID, Max, Min } from 'class-validator';
 export class WalletDto {
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نادرست است' })
-  user: string;
+  userId: string;
+
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نادرست است' })
+  paymentId: string;
 
   @IsNotEmpty({ message: 'مقدار نمیتوناد خالی باشد' })
   @IsNumber(
