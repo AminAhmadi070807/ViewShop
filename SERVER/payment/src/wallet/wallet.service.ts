@@ -93,5 +93,17 @@ export class WalletService {
     }
   }
 
-  async remove(id: string) {}
+  async remove(id: string) {
+    try {
+      await this.walletRepository.delete(id);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
