@@ -5,6 +5,7 @@ import { TypeOrmModuleConfig } from './common/config/typeorm.config';
 import { PaymentModule } from './modules/payment/payment.module';
 import { VerifiesModule } from './modules/verifies/verifies.module';
 import { ValidationsModule } from './modules/validations/validations.module';
+import { WalletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ValidationsModule } from './modules/validations/validations.module';
     PaymentModule,
     VerifiesModule,
     ValidationsModule,
+    WalletModule,
   ],
   controllers: [],
   providers: [],
