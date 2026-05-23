@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { WalletService } from './wallet.service';
 import { WalletDto } from './dto/wallet.dto';
+import { ValidateUUID } from '../common/validations/uuid.dto';
 
 @Controller()
 export class WalletController {
@@ -18,12 +19,12 @@ export class WalletController {
   }
 
   @MessagePattern('WALLET:ONE')
-  findOne(@Payload() id: string) {
-    return this.walletService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.walletService.findOne(data.id);
   }
 
   @MessagePattern('WALLET:PAYMENT')
-  payment(@Payload() id: string) {
-    return this.walletService.remove(id);
+  payment(@Payload() data: ValidateUUID) {
+    return this.walletService.remove(data.id);
   }
 }

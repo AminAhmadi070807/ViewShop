@@ -48,7 +48,10 @@ export class Payment {
   @Column({ type: 'varchar', nullable: false })
   authority: string | number;
 
-  @ManyToOne(() => Wallet, (wallet: Wallet): Payment[] => wallet.payments)
+  @ManyToOne(() => Wallet, (wallet: Wallet): Payment[] => wallet.payments, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   wallet: Wallet;
 
   @CreateDateColumn()

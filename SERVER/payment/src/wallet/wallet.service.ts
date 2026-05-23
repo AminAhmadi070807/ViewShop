@@ -53,7 +53,13 @@ export class WalletService {
       const wallets: Wallet[] = await this.walletRepository.find({
         relations: ['payments'],
         select: {
+          id: true,
           amount: true,
+          payments: {
+            id: true,
+            amount: true,
+            createdAt: true,
+          },
         },
       });
 
@@ -75,13 +81,17 @@ export class WalletService {
         },
         relations: ['payments'],
         select: {
+          id: true,
           amount: true,
+          payments: {
+            id: true,
+            amount: true,
+            createdAt: true,
+          },
         },
       });
 
-      if (!wallet) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (!wallet) return new CustomException(statusMessages.fa['404'], 404);
 
       return {
         status: 200,
