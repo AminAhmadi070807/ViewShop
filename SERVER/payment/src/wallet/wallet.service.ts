@@ -67,7 +67,31 @@ export class WalletService {
     }
   }
 
-  async findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const wallet: Wallet | null = await this.walletRepository.findOne({
+        where: {
+          id,
+        },
+        relations: ['payments'],
+        select: {
+          amount: true,
+        },
+      });
+
+      if (!wallet) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: wallet,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {}
 }
