@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PaymentService } from '../modules/payment/payment.service';
 import { PaymentModelEnum } from '../common/interfaces/payment.interface';
+import { statusMessages } from '../common/messages/status.message';
+import { CustomException } from '../common/exceptions/custom.exception.error';
 
 @Injectable()
 export class WalletService {
@@ -46,15 +48,26 @@ export class WalletService {
     return result;
   }
 
-  findAll() {
-    return `This action returns all wallet`;
+  async findAll() {
+    try {
+      const wallets: Wallet[] = await this.walletRepository.find({
+        relations: ['payments'],
+        select: {
+          amount: true,
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: wallets,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} wallet`;
-  }
+  async findOne(id: string) {}
 
-  remove(id: string) {
-    return `This action removes a #${id} wallet`;
-  }
+  async remove(id: string) {}
 }
