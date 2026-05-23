@@ -12,6 +12,9 @@ import {
 } from '../../common/interfaces/verifye.interface';
 import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
 import { Validation } from '../validations/entities/validation.entity';
+import { PaymentSectionEnum } from '../../common/enums/payment/section.enum';
+import { Wallet } from '../../wallet/entities/wallet.entity';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 @Injectable()
 export class VerifiesService {
@@ -20,7 +23,54 @@ export class VerifiesService {
     private readonly paymentRepository: Repository<Payment>,
     @InjectRepository(Validation)
     private readonly validationRepository: Repository<Validation>,
+    @InjectRepository(Wallet)
+    private readonly walletRepository: Repository<Wallet>,
   ) {}
+  private async transmissionPayment(payment: Payment) {
+    switch (payment.section) {
+      case PaymentSectionEnum.WALLET: {
+        // get wallet from database
+        const wallet: Wallet | null = await this.walletRepository.findOneBy({
+          user: payment.user,
+        });
+
+        // check payment
+        if (!payment) {
+          return {
+            status: 402,
+            message: statusMessages.fa['402'],
+            body: null,
+          };
+        }
+
+        // check waller
+        if (!wallet) {
+          const wallet = this.walletRepository.create({
+            amount: payment.amount,
+            payments: [payment],
+            user: payment.user,
+          });
+
+          await this.walletRepository.save(wallet);
+
+          await this.walletRepository.save(wallet);
+        } else {
+          wallet.payments.push(payment);
+
+          await this.walletRepository.save(payment);
+        }
+        break;
+      }
+      default:
+        throw new CustomException(statusMessages.fa['400'], 400);
+    }
+
+    return {
+      status: 200,
+      message: 'با موفقیت ذخیره شد',
+      body: null,
+    };
+  }
 
   private verifyRequestData(data: SendRequestInterface) {
     let requestBody;
@@ -141,6 +191,9 @@ export class VerifiesService {
 
       // save payment
       await this.paymentRepository.save(payment);
+
+      // transmission payment to sections
+      await this.transmissionPayment(payment);
 
       return {
         status: 200,
