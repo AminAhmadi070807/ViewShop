@@ -15,12 +15,10 @@ export class Wallet {
   @Column({ type: 'uuid', nullable: false, unique: true })
   user: string;
 
-  @Column({ type: 'smallint', nullable: false, default: 0 })
+  @Column({ type: 'bigint', nullable: false, default: 0 })
   amount: number;
 
-  @OneToMany(() => Payment, (payment) => payment.wallet, {
-    nullable: false,
-  })
+  @OneToMany(() => Payment, (payment: Payment): Wallet => payment.wallet)
   payments: Payment[];
 
   @UpdateDateColumn()

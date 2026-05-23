@@ -30,22 +30,16 @@ export class VerifiesService {
     switch (payment.section) {
       case PaymentSectionEnum.WALLET: {
         // get wallet from database
-        const wallet: Wallet | null = await this.walletRepository.findOneBy({
-          user: payment.user,
+        const wallet: Wallet | null = await this.walletRepository.findOne({
+          where: {
+            user: payment.user,
+          },
+          relations: ['payments'],
         });
-
-        // check payment
-        if (!payment) {
-          return {
-            status: 402,
-            message: statusMessages.fa['402'],
-            body: null,
-          };
-        }
 
         // check waller
         if (!wallet) {
-          const wallet = this.walletRepository.create({
+          const wallet: Wallet = this.walletRepository.create({
             amount: payment.amount,
             payments: [payment],
             user: payment.user,
@@ -53,12 +47,17 @@ export class VerifiesService {
 
           await this.walletRepository.save(wallet);
 
-          await this.walletRepository.save(wallet);
+          await this.paymentRepository.save({
+            ...payment,
+            wallet,
+          });
         } else {
           wallet.payments.push(payment);
+          wallet.amount = Number(wallet.amount) + Number(payment.amount);
 
-          await this.walletRepository.save(payment);
+          await this.walletRepository.save(wallet);
         }
+
         break;
       }
       default:
@@ -200,7 +199,8 @@ export class VerifiesService {
         message: statusResult.description,
         body: null,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       return {
         status: 402,
         message: statusMessages.fa['402'],

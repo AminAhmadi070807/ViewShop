@@ -48,10 +48,7 @@ export class Payment {
   @Column({ type: 'varchar', nullable: false })
   authority: string | number;
 
-  @ManyToOne(() => Wallet, (wallet: Wallet) => wallet.payments, {
-    nullable: false,
-    eager: true,
-  })
+  @ManyToOne(() => Wallet, (wallet: Wallet): Payment[] => wallet.payments)
   wallet: Wallet;
 
   @CreateDateColumn()

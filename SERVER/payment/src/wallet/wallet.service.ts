@@ -23,7 +23,7 @@ export class WalletService {
         const newWallet: Wallet = this.walletRepository.create({
           amount: data.amount,
           user: data.userId,
-          payments: []
+          payments: [],
         });
 
         await this.walletRepository.save(newWallet);
