@@ -1,6 +1,7 @@
 import {
   IsNotEmpty,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -8,6 +9,10 @@ import {
 import { Type } from 'class-transformer';
 
 export class AddressDto {
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی  نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یه ایدی درست وارد کنید' })
+  user: string;
+
   @IsNotEmpty({ message: 'استان نمیتواند خالی باشد' })
   @IsString({ message: 'استان باید رشته باشد' })
   @MinLength(5, { message: 'استان حدقل باید 5 تا کارکتر داشته باشد' })
