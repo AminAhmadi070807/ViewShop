@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
 import { Auth } from '../../auth/entities/auth.entity';
+import { Address } from '../../addresses/entities/address.entity';
 
 @Entity('users')
 export class User {
@@ -36,6 +37,9 @@ export class User {
 
   @OneToMany(() => Auth, (auth: Auth) => auth.user)
   tokens: Auth[];
+
+  @OneToMany(() => Address, (address: Address) => address.user)
+  addresses: Auth[];
 
   @CreateDateColumn()
   createdAt: Date;
