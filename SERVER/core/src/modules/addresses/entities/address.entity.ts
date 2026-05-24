@@ -16,25 +16,25 @@ export class Address {
     onDelete: 'CASCADE',
     nullable: false,
   })
-  user: string;
+  user: User;
 
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   province: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   city: string;
 
   @Column({ type: 'varchar', nullable: false })
   street: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   alley: string;
 
   @Column({ type: 'varchar', nullable: false })
   address: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
-  postal_code: string | null;
+  @Column({ type: 'varchar', nullable: true })
+  postal_code: number;
 
   @CreateDateColumn()
   createdAt: Date;

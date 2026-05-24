@@ -39,7 +39,7 @@ export class User {
   tokens: Auth[];
 
   @OneToMany(() => Address, (address: Address) => address.user)
-  addresses: Auth[];
+  addresses: Address[];
 
   @CreateDateColumn()
   createdAt: Date;
