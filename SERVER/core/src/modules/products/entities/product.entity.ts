@@ -60,6 +60,13 @@ export class Product {
   stock_status: ProductStockStatusEnum;
 
   @Column({
+    type: 'smallint',
+    nullable: false,
+    comment: 'product stock quantity',
+  })
+  stock_quantity: number;
+
+  @Column({
     type: 'enum',
     enum: ProductApprovalStatusEnum,
     nullable: false,
@@ -111,6 +118,13 @@ export class Product {
   tax_type: ProductTaxTypeEnum;
 
   @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product tax type',
+  })
+  tax_amount: number;
+
+  @Column({
     type: 'enum',
     enum: ProductWarrantyTypeEnum,
     nullable: false,
@@ -138,7 +152,7 @@ export class Product {
   visibility: ProductVisibilityEnum;
 
   @Column({
-    type: 'bigint',
+    type: 'smallint',
     nullable: false,
     comment: 'product minimum quantity.',
   })
@@ -150,4 +164,65 @@ export class Product {
     comment: 'product maximum quantity.',
   })
   maximum_quantity: number;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product reserved quantity.',
+  })
+  reserved_quantity: number;
+
+  @Column({
+    type: 'smallint',
+    nullable: false,
+    comment: 'product low stock threshold.',
+  })
+  low_stock_threshold: number;
+
+  @Column({
+    type: 'boolean',
+    nullable: false,
+    comment: 'product allow backorder.',
+    default: false,
+  })
+  allow_backorder: boolean;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product base price.',
+    default: false,
+  })
+  base_price: number;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product sale price.',
+    default: false,
+  })
+  sale_price: number;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product final price type',
+  })
+  final_price: number;
+
+  @Column({
+    type: 'smallint',
+    nullable: false,
+    comment: 'product discount percent type',
+    default: 0,
+  })
+  discount_percent: number;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product discount amount type',
+    default: 0,
+  })
+  discount_amount: number;
 }
