@@ -7,6 +7,7 @@ import {
 } from '../../../common/enums/products/product/status.enum';
 import {
   ProductOwnershipTypeEnum,
+  ProductReturnPolicyTypeEnum,
   ProductTaxTypeEnum,
   ProductTypeEnum,
   ProductWarrantyTypeEnum,
@@ -107,6 +108,15 @@ export class Product {
     comment: 'product warranty type',
   })
   warranty_type: ProductWarrantyTypeEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ProductReturnPolicyTypeEnum,
+    nullable: false,
+    default: ProductReturnPolicyTypeEnum.STANDARD,
+    comment: 'product policy type',
+  })
+  return_policy_type: ProductReturnPolicyTypeEnum;
 
   @Column({
     type: 'enum',
