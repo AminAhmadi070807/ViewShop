@@ -3,6 +3,7 @@ import {
   ProductApprovalStatusEnum,
   ProductStatusEnum,
   ProductStockStatusEnum,
+  ProductSupplyStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
 import {
   ProductOwnershipTypeEnum,
@@ -62,6 +63,14 @@ export class Product {
     comment: 'product approval status',
   })
   approval_status: ProductApprovalStatusEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ProductSupplyStatusEnum,
+    nullable: false,
+    comment: 'product approval status',
+  })
+  supply_status: ProductSupplyStatusEnum;
 
   @Column({
     type: 'enum',
