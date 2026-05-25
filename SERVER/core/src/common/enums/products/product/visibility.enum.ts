@@ -1,0 +1,6 @@
+export enum ProductVisibilityEnum {
+  CUSTOMERS_ONLY = 'CUSTOMERS_ONLY',
+  SELLERS_ONLY = 'SELLERS_ONLY',
+  PRIVATE = 'PRIVATE',
+  PUBLIC = 'PUBLIC',
+}
