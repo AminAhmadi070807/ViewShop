@@ -200,7 +200,6 @@ export class Product {
     type: 'bigint',
     nullable: false,
     comment: 'product base price.',
-    default: false,
   })
   base_price: number;
 
@@ -209,9 +208,24 @@ export class Product {
     type: 'bigint',
     nullable: false,
     comment: 'product sale price.',
-    default: false,
   })
   sale_price: number;
+
+  // product minimum price
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product minimum price.',
+  })
+  min_price: number;
+
+  // product maximum price
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product maximum price.',
+  })
+  max_price: number;
 
   // product final price
   @Column({
