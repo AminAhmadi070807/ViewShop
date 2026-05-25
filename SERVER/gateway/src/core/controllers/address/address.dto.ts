@@ -5,7 +5,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AddressDto {
@@ -35,7 +34,7 @@ export class AddressDto {
   })
   @IsNotEmpty({ message: 'شهر نمیتواند خالی باشد' })
   @IsString({ message: 'شهر باید رشته باشد' })
-  @MinLength(5, { message: 'شهر حدقل باید 5 تا کارکتر داشته باشد' })
+  @MinLength(3, { message: 'شهر حدقل باید 5 تا کارکتر داشته باشد' })
   @MaxLength(100, { message: 'شهر حدکثر باید 100 کارکتر داشته باشد' })
   city: string;
 
@@ -85,18 +84,15 @@ export class AddressDto {
   address: string;
 
   @ApiProperty({
-    type: Number,
+    type: String,
     required: true,
     nullable: false,
     minLength: 10,
     maxLength: 10,
-    example: 1111111111,
+    example: '0123456789',
     description: 'postal code value',
   })
   @IsNotEmpty({ message: 'کد پستی نمیتواند خالی باشد' })
-  @Type((): NumberConstructor => Number)
-  @MinLength(10, { message: 'لطفا یه کد پستی درست وارد کنید' })
-  @MaxLength(10, { message: 'لطفا یه کد پستی درست وارد کنید' })
   @Matches(/^[0-9]{10}$/, { message: 'لطفا یه کد پستی درست وارد کنید' })
-  postal_code: number;
+  postal_code: string;
 }

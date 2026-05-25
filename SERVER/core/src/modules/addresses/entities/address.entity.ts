@@ -34,7 +34,7 @@ export class Address {
   address: string;
 
   @Column({ type: 'varchar', nullable: true })
-  postal_code: number;
+  postal_code: string;
 
   @CreateDateColumn()
   createdAt: Date;

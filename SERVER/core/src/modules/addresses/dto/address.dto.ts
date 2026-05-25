@@ -6,7 +6,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 
 export class AddressDto {
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی  نمیتواند خالی باشد' })
@@ -21,7 +20,7 @@ export class AddressDto {
 
   @IsNotEmpty({ message: 'شهر نمیتواند خالی باشد' })
   @IsString({ message: 'شهر باید رشته باشد' })
-  @MinLength(5, { message: 'شهر حدقل باید 5 تا کارکتر داشته باشد' })
+  @MinLength(3, { message: 'شهر حدقل باید 5 تا کارکتر داشته باشد' })
   @MaxLength(100, { message: 'شهر حدکثر باید 100 کارکتر داشته باشد' })
   city: string;
 
@@ -44,11 +43,8 @@ export class AddressDto {
   address: string;
 
   @IsNotEmpty({ message: 'کد پستی نمیتواند خالی باشد' })
-  @Type((): NumberConstructor => Number)
-  @MinLength(10, { message: 'لطفا یه کد پستی درست وارد کنید' })
-  @MaxLength(10, { message: 'لطفا یه کد پستی درست وارد کنید' })
-  @Matches(/^[0-9]{11}$/, { message: 'لطفا یه کد پستی درست وارد کنید' })
-  postal_code: number;
+  @Matches(/^[0-9]{10}$/, { message: 'لطفا یه کد پستی درست وارد کنید' })
+  postal_code: string;
 }
 
 export class FindUserAddressDto {
