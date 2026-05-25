@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import {
   ProductApprovalStatusEnum,
   ProductIndexableStatusEnum,
@@ -14,9 +14,10 @@ import {
   ProductWarrantyTypeEnum,
 } from '../../../common/enums/products/product/type.enum';
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('products')
-export class Product {
+export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -252,4 +253,7 @@ export class Product {
     default: 0,
   })
   discount_amount: number;
+
+  @ManyToOne(() => User, (user: User) => user.parentProducts)
+  user: User;
 }
