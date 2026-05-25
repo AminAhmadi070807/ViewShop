@@ -136,4 +136,18 @@ export class Product {
     comment: 'product visibility',
   })
   visibility: ProductVisibilityEnum;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product minimum quantity.',
+  })
+  minimum_quantity: number;
+
+  @Column({
+    type: 'bigint',
+    nullable: false,
+    comment: 'product maximum quantity.',
+  })
+  maximum_quantity: number;
 }
