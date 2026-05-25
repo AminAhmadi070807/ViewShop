@@ -31,16 +31,7 @@ export class Product {
   })
   alias: string;
 
-  @Column({ type: 'text', nullable: false, comment: 'product description' })
-  description: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: false,
-    comment: 'product short description',
-  })
-  short_description: string;
-
+  // product status
   @Column({
     type: 'enum',
     enum: ProductStatusEnum,
@@ -50,6 +41,7 @@ export class Product {
   })
   status: ProductStatusEnum;
 
+  // product stock status
   @Column({
     type: 'enum',
     enum: ProductStockStatusEnum,
@@ -59,6 +51,7 @@ export class Product {
   })
   stock_status: ProductStockStatusEnum;
 
+  // product stock quantity
   @Column({
     type: 'smallint',
     nullable: false,
@@ -66,6 +59,7 @@ export class Product {
   })
   stock_quantity: number;
 
+  // product approval status
   @Column({
     type: 'enum',
     enum: ProductApprovalStatusEnum,
@@ -75,6 +69,7 @@ export class Product {
   })
   approval_status: ProductApprovalStatusEnum;
 
+  // product supply status
   @Column({
     type: 'enum',
     enum: ProductSupplyStatusEnum,
@@ -83,6 +78,7 @@ export class Product {
   })
   supply_status: ProductSupplyStatusEnum;
 
+  // product indexable status
   @Column({
     type: 'enum',
     enum: ProductIndexableStatusEnum,
@@ -92,6 +88,7 @@ export class Product {
   })
   indexable_status: ProductIndexableStatusEnum;
 
+  // product type
   @Column({
     type: 'enum',
     enum: ProductTypeEnum,
@@ -100,6 +97,7 @@ export class Product {
   })
   product_type: ProductTypeEnum;
 
+  // product ownership type
   @Column({
     type: 'enum',
     enum: ProductOwnershipTypeEnum,
@@ -108,6 +106,7 @@ export class Product {
   })
   ownership_type: ProductOwnershipTypeEnum;
 
+  // product tax type
   @Column({
     type: 'enum',
     enum: ProductTaxTypeEnum,
@@ -117,6 +116,7 @@ export class Product {
   })
   tax_type: ProductTaxTypeEnum;
 
+  // product tax amount
   @Column({
     type: 'bigint',
     nullable: false,
@@ -124,6 +124,7 @@ export class Product {
   })
   tax_amount: number;
 
+  // product warranty type
   @Column({
     type: 'enum',
     enum: ProductWarrantyTypeEnum,
@@ -133,6 +134,7 @@ export class Product {
   })
   warranty_type: ProductWarrantyTypeEnum;
 
+  // product return policy type
   @Column({
     type: 'enum',
     enum: ProductReturnPolicyTypeEnum,
@@ -142,6 +144,7 @@ export class Product {
   })
   return_policy_type: ProductReturnPolicyTypeEnum;
 
+  // product visibility
   @Column({
     type: 'enum',
     enum: ProductVisibilityEnum,
@@ -151,6 +154,7 @@ export class Product {
   })
   visibility: ProductVisibilityEnum;
 
+  // product minimum quantity
   @Column({
     type: 'smallint',
     nullable: false,
@@ -158,6 +162,7 @@ export class Product {
   })
   minimum_quantity: number;
 
+  // product maximum quantity
   @Column({
     type: 'bigint',
     nullable: false,
@@ -165,6 +170,7 @@ export class Product {
   })
   maximum_quantity: number;
 
+  // product reserved quantity
   @Column({
     type: 'bigint',
     nullable: false,
@@ -172,6 +178,7 @@ export class Product {
   })
   reserved_quantity: number;
 
+  // product low stock threshold
   @Column({
     type: 'smallint',
     nullable: false,
@@ -179,6 +186,7 @@ export class Product {
   })
   low_stock_threshold: number;
 
+  // product allow backorder
   @Column({
     type: 'boolean',
     nullable: false,
@@ -187,6 +195,7 @@ export class Product {
   })
   allow_backorder: boolean;
 
+  // product base price
   @Column({
     type: 'bigint',
     nullable: false,
@@ -195,6 +204,7 @@ export class Product {
   })
   base_price: number;
 
+  // product sale price
   @Column({
     type: 'bigint',
     nullable: false,
@@ -203,6 +213,7 @@ export class Product {
   })
   sale_price: number;
 
+  // product final price
   @Column({
     type: 'bigint',
     nullable: false,
@@ -210,6 +221,7 @@ export class Product {
   })
   final_price: number;
 
+  // product discount percent
   @Column({
     type: 'smallint',
     nullable: false,
@@ -218,6 +230,7 @@ export class Product {
   })
   discount_percent: number;
 
+  // product discount amount
   @Column({
     type: 'bigint',
     nullable: false,
