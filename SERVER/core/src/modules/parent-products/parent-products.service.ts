@@ -3,7 +3,7 @@ import { ParentProductDto } from './dto/parent-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent-product.entity';
 import { User } from '../users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -95,11 +95,19 @@ export class ParentProductsService {
     }
   }
 
-  update(id: string, data: ParentProductDto) {
-    return `This action updates a #${id} parentProduct`;
+  async update(data: ParentProductDto) {
+    try {
+      await this.productRepository.update({ alias: data.alias }, data);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} parentProduct`;
-  }
+  async remove(id: string) {}
 }
