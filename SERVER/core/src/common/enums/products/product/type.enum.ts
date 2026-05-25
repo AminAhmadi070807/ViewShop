@@ -16,3 +16,10 @@ export enum ProductTaxTypeEnum {
   FIXED_AMOUNT = 'FIXED_AMOUNT',
   NONE = 'NONE',
 }
+
+export enum ProductWarrantyTypeEnum {
+  MANUFACTURER = 'MANUFACTURER',
+  SELLER = 'SELLER',
+  PLATFORM = 'PLATFORM',
+  NO_WARRANTY = 'NO_WARRANTY',
+}

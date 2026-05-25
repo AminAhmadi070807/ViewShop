@@ -9,6 +9,7 @@ import {
   ProductOwnershipTypeEnum,
   ProductTaxTypeEnum,
   ProductTypeEnum,
+  ProductWarrantyTypeEnum,
 } from '../../../common/enums/products/product/type.enum';
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 
@@ -97,6 +98,15 @@ export class Product {
     comment: 'product tax type',
   })
   tax_type: ProductTaxTypeEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ProductWarrantyTypeEnum,
+    nullable: false,
+    default: ProductWarrantyTypeEnum.NO_WARRANTY,
+    comment: 'product warranty type',
+  })
+  warranty_type: ProductWarrantyTypeEnum;
 
   @Column({
     type: 'enum',
