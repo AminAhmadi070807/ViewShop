@@ -1,1 +1,1 @@
-export class CreateParentProductDto {}
+export class ParentProductDto {}
