@@ -1,7 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AddressesService } from './addresses.service';
-import { AddressDto } from './dto/address.dto';
+import { AddressDto, FindUserAddressDto } from './dto/address.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class AddressesController {
@@ -17,13 +18,13 @@ export class AddressesController {
     return this.addressesService.findAll();
   }
 
-  @MessagePattern('ADDRESS:ONE')
-  findOne(@Payload() id: number) {
-    return this.addressesService.findOne(id);
+  @MessagePattern('ADDRESS:User')
+  findUserAddress(@Payload() data: FindUserAddressDto) {
+    return this.addressesService.findUserAddress(data);
   }
 
   @MessagePattern('ADDRESS:DELETE')
-  remove(@Payload() id: number) {
-    return this.addressesService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.addressesService.remove(data.id);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AddressDto } from './dto/address.dto';
+import { AddressDto, FindUserAddressDto } from './dto/address.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
@@ -42,15 +42,41 @@ export class AddressesService {
     };
   }
 
-  findAll() {
-    return `This action returns all addresses`;
+  async findAll() {
+    const addresses: Address[] = await this.addressRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
+
+    return {
+      status: 200,
+      message: statusMessages.fa['200'],
+      body: addresses,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} address`;
+  async findUserAddress(data: FindUserAddressDto) {
+    const address: Address | null = await this.addressRepository.findOneBy({
+      user: { id: data.userId },
+    });
+
+    if (!address) throw new CustomException(statusMessages.fa['404'], 404);
+
+    return {
+      status: 200,
+      message: statusMessages.fa['200'],
+      body: address,
+    };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+  async remove(id: string) {
+    await this.addressRepository.delete(id);
+
+    return {
+      status: 204,
+      message: statusMessages.fa['204'],
+      body: null,
+    };
   }
 }
