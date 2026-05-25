@@ -72,8 +72,27 @@ export class ParentProductsService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} parentProduct`;
+  async findOne(id: string) {
+    try {
+      const result: ParentProduct | null = await this.productRepository.findOne(
+        {
+          where: {
+            id: id,
+          },
+          relations: ['user'],
+        },
+      );
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   update(id: string, data: ParentProductDto) {
