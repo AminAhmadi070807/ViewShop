@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   Min,
@@ -26,6 +27,10 @@ import {
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 
 export class ParentProductDto {
+  @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  userId: string;
+
   @IsNotEmpty()
   @IsString()
   @MinLength(9)
