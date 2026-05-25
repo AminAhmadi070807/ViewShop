@@ -16,7 +16,7 @@ import {
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('products')
+@Entity('parent_products')
 export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
