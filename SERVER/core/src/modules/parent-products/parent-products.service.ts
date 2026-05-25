@@ -53,8 +53,23 @@ export class ParentProductsService {
     }
   }
 
-  findAll() {
-    return `This action returns all parentProducts`;
+  async findAll() {
+    try {
+      const result: ParentProduct[] = await this.productRepository.find({
+        order: {
+          id: 'DESC',
+        },
+        relations: ['user'],
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: string) {
