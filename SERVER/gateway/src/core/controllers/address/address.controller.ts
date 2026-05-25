@@ -40,8 +40,16 @@ export class AddressController {
   })
   @ApiConflictResponse({ description: statusMessages.fa['404'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  create(@Body() data: AddressDto): Observable<unknown> {
-    return this.coreService.send('ADDRESS:CREATE', data);
+  create(
+    @Body() data: AddressDto,
+    @Req() req: express.Request,
+  ): Observable<unknown> {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('ADDRESS:CREATE', {
+      user: user.userId,
+      ...data,
+    });
   }
 
   // send request to find all in core microservice
@@ -51,9 +59,8 @@ export class AddressController {
   }
 
   // send request to find one user in core microservice
-  @Get()
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  findOne(@Req() req: express.Request): Observable<unknown> {
+  @Get('user')
+  findUserAddress(@Req() req: express.Request): Observable<unknown> {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('ADDRESS:USER', {
@@ -62,7 +69,7 @@ export class AddressController {
   }
 
   // send request to remove user with userId in core microservice
-  @Delete('delete/:id')
+  @Delete('/:id')
   @ApiOperation({ description: 'حذف کاربر با ایدی' })
   @ApiParam({
     name: 'id',
