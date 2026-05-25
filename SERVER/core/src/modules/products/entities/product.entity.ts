@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import {
   ProductApprovalStatusEnum,
+  ProductIndexableStatusEnum,
   ProductStatusEnum,
   ProductStockStatusEnum,
   ProductSupplyStatusEnum,
@@ -74,6 +75,15 @@ export class Product {
     comment: 'product supply status',
   })
   supply_status: ProductSupplyStatusEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ProductIndexableStatusEnum,
+    nullable: false,
+    comment: 'product indexable status',
+    default: ProductIndexableStatusEnum.INDEXABLE,
+  })
+  indexable_status: ProductIndexableStatusEnum;
 
   @Column({
     type: 'enum',
