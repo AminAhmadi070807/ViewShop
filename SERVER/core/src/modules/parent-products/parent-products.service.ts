@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ParentProductDto } from './dto/create-parent-product.dto';
+import { ParentProductDto } from './dto/parent-product.dto';
 
 @Injectable()
 export class ParentProductsService {
