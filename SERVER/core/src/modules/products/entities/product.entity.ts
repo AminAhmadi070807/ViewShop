@@ -7,6 +7,7 @@ import {
 } from '../../../common/enums/products/product/status.enum';
 import {
   ProductOwnershipTypeEnum,
+  ProductTaxTypeEnum,
   ProductTypeEnum,
 } from '../../../common/enums/products/product/type.enum';
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
@@ -68,7 +69,7 @@ export class Product {
     type: 'enum',
     enum: ProductSupplyStatusEnum,
     nullable: false,
-    comment: 'product approval status',
+    comment: 'product supply status',
   })
   supply_status: ProductSupplyStatusEnum;
 
@@ -87,6 +88,15 @@ export class Product {
     comment: 'product ownership type',
   })
   ownership_type: ProductOwnershipTypeEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ProductTaxTypeEnum,
+    nullable: false,
+    default: ProductTaxTypeEnum.PERCENTAGE,
+    comment: 'product tax type',
+  })
+  tax_type: ProductTaxTypeEnum;
 
   @Column({
     type: 'enum',
