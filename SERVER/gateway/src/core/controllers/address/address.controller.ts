@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import {
   ApiBadRequestResponse,
@@ -15,6 +23,8 @@ import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import { AddressDto } from './address.dto';
+import express from 'express';
+import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @ApiOkResponse({ description: statusMessages.fa['200'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -41,17 +51,14 @@ export class AddressController {
   }
 
   // send request to find one user in core microservice
-  @Get(':id')
+  @Get()
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiOperation({ description: 'دریافت کاربر با ایدی' })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'string',
-    description: 'ایدی کاربر',
-  })
-  findOne(@Param() data: ValidateUUID): Observable<unknown> {
-    return this.coreService.send('ADDRESS:USER', data);
+  findOne(@Req() req: express.Request): Observable<unknown> {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('ADDRESS:USER', {
+      userId: user.userId,
+    });
   }
 
   // send request to remove user with userId in core microservice
