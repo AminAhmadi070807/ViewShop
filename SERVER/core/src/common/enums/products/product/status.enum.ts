@@ -11,7 +11,6 @@ export enum ProductStockStatusEnum {
   OUT_OF_STOCK = 'OUT_OF_STOCK',
   LOW_STOCK = 'LOW_STOCK',
   PREORDER = 'PREORDER',
-  DISCONTINUED = 'DISCONTINUED',
 }
 
 export enum ProductApprovalStatusEnum {

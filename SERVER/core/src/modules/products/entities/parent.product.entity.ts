@@ -7,7 +7,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import {
-  ProductApprovalStatusEnum,
   ProductStatusEnum,
   ProductStockStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
@@ -66,16 +65,6 @@ export class ParentProduct {
     comment: 'product stock quantity',
   })
   stock_quantity: number;
-
-  // product approval status
-  @Column({
-    type: 'enum',
-    enum: ProductApprovalStatusEnum,
-    nullable: false,
-    default: ProductApprovalStatusEnum.PENDING,
-    comment: 'product approval status',
-  })
-  approval_status: ProductApprovalStatusEnum;
 
   // product type
   @Column({
