@@ -8,13 +8,10 @@ import {
 } from 'typeorm';
 import {
   ProductApprovalStatusEnum,
-  ProductIndexableStatusEnum,
   ProductStatusEnum,
   ProductStockStatusEnum,
-  ProductSupplyStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
 import {
-  ProductOwnershipTypeEnum,
   ProductReturnPolicyTypeEnum,
   ProductTaxTypeEnum,
   ProductTypeEnum,
@@ -33,14 +30,6 @@ export class Product {
 
   @Column({ type: 'text', nullable: false, comment: 'product description' })
   description: string;
-
-  @Column({
-    type: 'simple-array',
-    array: true,
-    nullable: false,
-    comment: 'product colors',
-  })
-  colors: string[];
 
   @Column({
     type: 'varchar',
@@ -194,37 +183,13 @@ export class Product {
   })
   base_price: number;
 
-  // product sale price
+  // product price price
   @Column({
     type: 'bigint',
     nullable: false,
-    comment: 'product sale price.',
+    comment: 'product price type',
   })
-  sale_price: number;
-
-  // product minimum price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product minimum price.',
-  })
-  min_price: number;
-
-  // product maximum price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product maximum price.',
-  })
-  max_price: number;
-
-  // product final price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product final price type',
-  })
-  final_price: number;
+  price: number;
 
   // product discount percent
   @Column({

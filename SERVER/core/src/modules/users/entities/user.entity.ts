@@ -9,7 +9,7 @@ import {
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
 import { Auth } from '../../auth/entities/auth.entity';
 import { Address } from '../../addresses/entities/address.entity';
-import { Product } from '../../products/entities/product.entity';
+import { Product } from '../../products/entities/parent.product.entity';
 
 @Entity('users')
 export class User {

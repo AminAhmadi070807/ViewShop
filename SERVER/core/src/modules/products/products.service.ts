@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDto } from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ParentProduct } from './entities/product.entity';
+import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
