@@ -26,7 +26,7 @@ import {
 } from '../../../common/enums/products/product/type.enum';
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 
-export class ParentProductDto {
+export class ProductDto {
   @IsNotEmpty()
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;

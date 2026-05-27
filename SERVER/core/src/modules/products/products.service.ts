@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { ParentProductDto } from './dto/parent-product.dto';
+import { ProductDto } from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ParentProduct } from './entities/parent-product.entity';
+import { ParentProduct } from './entities/product.entity';
 import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
-export class ParentProductsService {
+export class ProductsService {
   constructor(
     @InjectRepository(ParentProduct)
     private readonly productRepository: Repository<ParentProduct>,
@@ -16,7 +16,7 @@ export class ParentProductsService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(data: ParentProductDto) {
+  async create(data: ProductDto) {
     try {
       const user: User | null = await this.userRepository.findOneBy({
         id: data.userId,
@@ -95,7 +95,7 @@ export class ParentProductsService {
     }
   }
 
-  async update(data: ParentProductDto) {
+  async update(data: ProductDto) {
     try {
       await this.productRepository.update({ alias: data.alias }, data);
 

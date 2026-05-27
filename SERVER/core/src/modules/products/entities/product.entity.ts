@@ -24,12 +24,23 @@ import { ProductVisibilityEnum } from '../../../common/enums/products/product/vi
 import { User } from '../../users/entities/user.entity';
 
 @Entity('parent_products')
-export class ParentProduct {
+export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', nullable: false, comment: 'product title' })
   title: string;
+
+  @Column({ type: 'text', nullable: false, comment: 'product description' })
+  description: string;
+
+  @Column({
+    type: 'simple-array',
+    array: true,
+    nullable: false,
+    comment: 'product colors',
+  })
+  colors: string[];
 
   @Column({
     type: 'varchar',
@@ -77,25 +88,6 @@ export class ParentProduct {
   })
   approval_status: ProductApprovalStatusEnum;
 
-  // product supply status
-  @Column({
-    type: 'enum',
-    enum: ProductSupplyStatusEnum,
-    nullable: false,
-    comment: 'product supply status',
-  })
-  supply_status: ProductSupplyStatusEnum;
-
-  // product indexable status
-  @Column({
-    type: 'enum',
-    enum: ProductIndexableStatusEnum,
-    nullable: false,
-    comment: 'product indexable status',
-    default: ProductIndexableStatusEnum.INDEXABLE,
-  })
-  indexable_status: ProductIndexableStatusEnum;
-
   // product type
   @Column({
     type: 'enum',
@@ -104,15 +96,6 @@ export class ParentProduct {
     comment: 'product type',
   })
   product_type: ProductTypeEnum;
-
-  // product ownership type
-  @Column({
-    type: 'enum',
-    enum: ProductOwnershipTypeEnum,
-    nullable: false,
-    comment: 'product ownership type',
-  })
-  ownership_type: ProductOwnershipTypeEnum;
 
   // product tax type
   @Column({
@@ -261,7 +244,7 @@ export class ParentProduct {
   })
   discount_amount: number;
 
-  @ManyToOne(() => User, (user: User) => user.parentProducts)
+  @ManyToOne(() => User, (user: User) => user.products)
   user: User;
 
   @CreateDateColumn()

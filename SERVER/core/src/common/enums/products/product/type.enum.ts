@@ -5,12 +5,6 @@ export enum ProductTypeEnum {
   PHYSICAL = 'PHYSICAL',
 }
 
-export enum ProductOwnershipTypeEnum {
-  ADMIN_OWNED = 'ADMIN_OWNED',
-  SELLER_OWNED = 'SELLER_OWNED',
-  SUPPLIER_OWNED = 'SUPPLIER_OWNED',
-}
-
 export enum ProductTaxTypeEnum {
   PERCENTAGE = 'PERCENTAGE',
   FIXED_AMOUNT = 'FIXED_AMOUNT',
