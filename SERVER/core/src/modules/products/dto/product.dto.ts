@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -12,13 +11,10 @@ import {
 } from 'class-validator';
 import {
   ProductApprovalStatusEnum,
-  ProductIndexableStatusEnum,
   ProductStatusEnum,
   ProductStockStatusEnum,
-  ProductSupplyStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
 import {
-  ProductOwnershipTypeEnum,
   ProductReturnPolicyTypeEnum,
   ProductTaxTypeEnum,
   ProductTypeEnum,
@@ -36,6 +32,12 @@ export class ProductDto {
   @MinLength(9)
   @MaxLength(255)
   title: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(255)
+  @MaxLength(5000)
+  description: string;
 
   @IsNotEmpty()
   @IsString()
@@ -65,25 +67,10 @@ export class ProductDto {
   @IsEnum(ProductApprovalStatusEnum)
   approval_status: ProductApprovalStatusEnum;
 
-  // product supply status
-  @IsNotEmpty()
-  @IsEnum(ProductSupplyStatusEnum)
-  supply_status: ProductSupplyStatusEnum;
-
-  // product indexable status
-  @IsNotEmpty()
-  @IsEnum(ProductIndexableStatusEnum)
-  indexable_status: ProductIndexableStatusEnum;
-
   // product type
   @IsNotEmpty()
   @IsEnum(ProductTypeEnum)
   product_type: ProductTypeEnum;
-
-  // product ownership type
-  @IsNotEmpty()
-  @IsEnum(ProductOwnershipTypeEnum)
-  ownership_type: ProductOwnershipTypeEnum;
 
   // product tax type
   @IsNotEmpty()
@@ -123,35 +110,6 @@ export class ProductDto {
   @Min(0)
   maximum_quantity: number;
 
-  // product reserved quantity
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  reserved_quantity: number;
-
-  // product low stock threshold
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  low_stock_threshold: number;
-
-  // product allow backorder
-  @IsNotEmpty()
-  @IsBoolean()
-  allow_backorder: boolean;
-
-  // product base price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  base_price: number;
-
-  // product sale price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  sale_price: number;
-
   // product minimum price
   @IsNotEmpty()
   @IsNumber()
@@ -163,22 +121,4 @@ export class ProductDto {
   @IsNumber()
   @Min(0)
   max_price: number;
-
-  // product final price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  final_price: number;
-
-  // product discount percent
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  discount_percent: number;
-
-  // product discount amount
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  discount_amount: number;
 }

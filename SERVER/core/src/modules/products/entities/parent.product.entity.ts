@@ -21,7 +21,7 @@ import { ProductVisibilityEnum } from '../../../common/enums/products/product/vi
 import { User } from '../../users/entities/user.entity';
 
 @Entity('parent_products')
-export class Product {
+export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -150,64 +150,21 @@ export class Product {
   })
   maximum_quantity: number;
 
-  // product reserved quantity
+  // product min price
   @Column({
     type: 'bigint',
     nullable: false,
-    comment: 'product reserved quantity.',
+    comment: 'product min price type',
   })
-  reserved_quantity: number;
+  min_price: number;
 
-  // product low stock threshold
-  @Column({
-    type: 'smallint',
-    nullable: false,
-    comment: 'product low stock threshold.',
-  })
-  low_stock_threshold: number;
-
-  // product allow backorder
-  @Column({
-    type: 'boolean',
-    nullable: false,
-    comment: 'product allow backorder.',
-    default: false,
-  })
-  allow_backorder: boolean;
-
-  // product base price
+  // product max price
   @Column({
     type: 'bigint',
     nullable: false,
-    comment: 'product base price.',
+    comment: 'product max price type',
   })
-  base_price: number;
-
-  // product price price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product price type',
-  })
-  price: number;
-
-  // product discount percent
-  @Column({
-    type: 'smallint',
-    nullable: false,
-    comment: 'product discount percent type',
-    default: 0,
-  })
-  discount_percent: number;
-
-  // product discount amount
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product discount amount type',
-    default: 0,
-  })
-  discount_amount: number;
+  max_price: number;
 
   @ManyToOne(() => User, (user: User) => user.products)
   user: User;

@@ -9,7 +9,7 @@ import {
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
 import { Auth } from '../../auth/entities/auth.entity';
 import { Address } from '../../addresses/entities/address.entity';
-import { Product } from '../../products/entities/parent.product.entity';
+import { ParentProduct } from '../../products/entities/parent.product.entity';
 
 @Entity('users')
 export class User {
@@ -42,8 +42,11 @@ export class User {
   @OneToMany(() => Address, (address: Address) => address.user)
   addresses: Address[];
 
-  @OneToMany(() => Product, (product: Product) => product.user)
-  products: Product[];
+  @OneToMany(
+    (): typeof ParentProduct => ParentProduct,
+    (parentProduct: ParentProduct): User => parentProduct.user,
+  )
+  products: ParentProduct[];
 
   @CreateDateColumn()
   createdAt: Date;
