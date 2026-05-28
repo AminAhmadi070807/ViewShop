@@ -32,6 +32,17 @@ export class Product {
   })
   alias: string;
 
+  @Column({
+    type: 'varchar',
+    array: true,
+    nullable: false,
+    comment: 'product images',
+  })
+  images: string[];
+
+  @Column({ type: 'varchar', nullable: false, comment: 'product video' })
+  video: string;
+
   // product status
   @Column({
     type: 'enum',
