@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ProductDto } from './dto/product.dto';
+import { ParentProductDto } from './dto/parent.product.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -9,7 +9,7 @@ export class ProductController {
   constructor(private readonly parentProductService: ProductsService) {}
 
   @MessagePattern('PRODUCT:PARENT:CREATE')
-  create(@Payload() data: ProductDto) {
+  create(@Payload() data: ParentProductDto) {
     return this.parentProductService.create(data);
   }
 
@@ -24,7 +24,7 @@ export class ProductController {
   }
 
   @MessagePattern('PRODUCT:PARENT:UPDATE')
-  update(@Payload() data: ProductDto) {
+  update(@Payload() data: ParentProductDto) {
     return this.parentProductService.update(data);
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProductDto } from './dto/product.dto';
+import { ParentProductDto } from './dto/parent.product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
@@ -16,7 +16,7 @@ export class ProductsService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(data: ProductDto) {
+  async create(data: ParentProductDto) {
     try {
       const user: User | null = await this.userRepository.findOneBy({
         id: data.userId,
@@ -95,7 +95,7 @@ export class ProductsService {
     }
   }
 
-  async update(data: ProductDto) {
+  async update(data: ParentProductDto) {
     try {
       await this.productRepository.update({ alias: data.alias }, data);
 

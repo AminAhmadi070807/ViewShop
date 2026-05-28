@@ -14,13 +14,6 @@ import {
   ProductStatusEnum,
   ProductStockStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
-import {
-  ProductReturnPolicyTypeEnum,
-  ProductTaxTypeEnum,
-  ProductTypeEnum,
-  ProductWarrantyTypeEnum,
-} from '../../../common/enums/products/product/type.enum';
-import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 
 export class ProductDto {
   @IsNotEmpty()
@@ -67,58 +60,15 @@ export class ProductDto {
   @IsEnum(ProductApprovalStatusEnum)
   approval_status: ProductApprovalStatusEnum;
 
-  // product type
-  @IsNotEmpty()
-  @IsEnum(ProductTypeEnum)
-  product_type: ProductTypeEnum;
-
-  // product tax type
-  @IsNotEmpty()
-  @IsEnum(ProductTaxTypeEnum)
-  tax_type: ProductTaxTypeEnum;
-
-  // product tax amount
+  // product price
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  tax_amount: number;
+  price: number;
 
-  // product warranty type
-  @IsNotEmpty()
-  @IsEnum(ProductWarrantyTypeEnum)
-  warranty_type: ProductWarrantyTypeEnum;
-
-  // product return policy type
-  @IsNotEmpty()
-  @IsEnum(ProductReturnPolicyTypeEnum)
-  return_policy_type: ProductReturnPolicyTypeEnum;
-
-  // product visibility
-  @IsNotEmpty()
-  @IsEnum(ProductVisibilityEnum)
-  visibility: ProductVisibilityEnum;
-
-  // product minimum quantity
+  // product discount amount
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  minimum_quantity: number;
-
-  // product maximum quantity
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  maximum_quantity: number;
-
-  // product minimum price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  min_price: number;
-
-  // product maximum price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  max_price: number;
+  discount_amount: number;
 }
