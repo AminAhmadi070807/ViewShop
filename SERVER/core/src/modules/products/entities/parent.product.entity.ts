@@ -164,7 +164,7 @@ export class ParentProduct {
   })
   max_price: number;
 
-  @ManyToOne(() => User, (user: User) => user.products)
+  @ManyToOne(() => User, (user: User) => user.parentProducts)
   user: User;
 
   @ManyToOne(() => Product, (product: Product) => product.parent_product)

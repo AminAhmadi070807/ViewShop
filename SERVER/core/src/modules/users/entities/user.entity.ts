@@ -46,7 +46,7 @@ export class User {
     (): typeof ParentProduct => ParentProduct,
     (parentProduct: ParentProduct): User => parentProduct.user,
   )
-  products: ParentProduct[];
+  parentProducts: ParentProduct[];
 
   @CreateDateColumn()
   createdAt: Date;
