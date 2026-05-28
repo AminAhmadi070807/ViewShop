@@ -1,12 +1,12 @@
 import { Controller } from '@nestjs/common';
-import { ProductsService } from './products.service';
+import { ParentProductsService } from './parent.products.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ParentProductDto } from './dto/parent.product.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
-export class ProductController {
-  constructor(private readonly parentProductService: ProductsService) {}
+export class ParentProductController {
+  constructor(private readonly parentProductService: ParentProductsService) {}
 
   @MessagePattern('PRODUCT:PARENT:CREATE')
   create(@Payload() data: ParentProductDto) {
