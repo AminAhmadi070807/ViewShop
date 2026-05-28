@@ -18,6 +18,7 @@ import {
 } from '../../../common/enums/products/product/type.enum';
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 import { User } from '../../users/entities/user.entity';
+import { Product } from './product.entity';
 
 @Entity('parent_products')
 export class ParentProduct {
@@ -165,6 +166,9 @@ export class ParentProduct {
 
   @ManyToOne(() => User, (user: User) => user.products)
   user: User;
+
+  @ManyToOne(() => Product, (product: Product) => product.parent_product)
+  products: Product[];
 
   @CreateDateColumn()
   createdAt: Date;

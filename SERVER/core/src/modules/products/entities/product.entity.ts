@@ -12,6 +12,7 @@ import {
   ProductStockStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
 import { User } from '../../users/entities/user.entity';
+import { ParentProduct } from './parent.product.entity';
 
 @Entity('products')
 export class Product {
@@ -100,6 +101,9 @@ export class Product {
 
   @ManyToOne(() => User, (user: User) => user.products)
   user: User;
+
+  @ManyToOne(() => ParentProduct, (product: ParentProduct) => product.products)
+  parent_product: ParentProduct;
 
   @CreateDateColumn()
   createdAt: Date;
