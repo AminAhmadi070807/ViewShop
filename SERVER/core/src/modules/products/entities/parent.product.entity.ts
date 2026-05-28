@@ -6,10 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import {
-  ProductStatusEnum,
-  ProductStockStatusEnum,
-} from '../../../common/enums/products/product/status.enum';
+import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import {
   ProductReturnPolicyTypeEnum,
   ProductTaxTypeEnum,
@@ -57,24 +54,6 @@ export class ParentProduct {
   })
   status: ProductStatusEnum;
 
-  // product stock status
-  @Column({
-    type: 'enum',
-    enum: ProductStockStatusEnum,
-    nullable: false,
-    default: ProductStockStatusEnum.IN_STOCK,
-    comment: 'product stock status',
-  })
-  stock_status: ProductStockStatusEnum;
-
-  // product stock quantity
-  @Column({
-    type: 'smallint',
-    nullable: false,
-    comment: 'product stock quantity',
-  })
-  stock_quantity: number;
-
   // product type
   @Column({
     type: 'enum',
@@ -96,7 +75,7 @@ export class ParentProduct {
 
   // product tax amount
   @Column({
-    type: 'bigint',
+    type: 'integer',
     nullable: false,
     comment: 'product tax type',
   })

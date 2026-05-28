@@ -19,12 +19,6 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false, comment: 'product title' })
-  title: string;
-
-  @Column({ type: 'text', nullable: false, comment: 'product description' })
-  description: string;
-
   @Column({
     type: 'varchar',
     nullable: false,
@@ -74,17 +68,9 @@ export class Product {
   })
   approval_status: ProductApprovalStatusEnum;
 
-  // product stock quantity
+  // product price
   @Column({
-    type: 'smallint',
-    nullable: false,
-    comment: 'product stock quantity',
-  })
-  stock_quantity: number;
-
-  // product price price
-  @Column({
-    type: 'bigint',
+    type: 'integer',
     nullable: false,
     comment: 'product price type',
   })
@@ -92,7 +78,7 @@ export class Product {
 
   // product discount amount
   @Column({
-    type: 'bigint',
+    type: 'integer',
     nullable: false,
     comment: 'product discount amount type',
     default: 0,
