@@ -89,7 +89,7 @@ export class Product {
   user: User;
 
   @ManyToOne(() => ParentProduct, (product: ParentProduct) => product.products)
-  parent_product: ParentProduct;
+  parentProduct: ParentProduct;
 
   @CreateDateColumn()
   createdAt: Date;

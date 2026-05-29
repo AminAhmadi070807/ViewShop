@@ -3,10 +3,10 @@ import { WalletDto } from './dto/wallet.dto';
 import { Wallet } from './entities/wallet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaymentService } from '../modules/payment/payment.service';
-import { PaymentModelEnum } from '../common/interfaces/payment.interface';
-import { statusMessages } from '../common/messages/status.message';
-import { CustomException } from '../common/exceptions/custom.exception.error';
+import { PaymentService } from '../payment/payment.service';
+import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
+import { statusMessages } from '../../common/messages/status.message';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 @Injectable()
 export class WalletService {

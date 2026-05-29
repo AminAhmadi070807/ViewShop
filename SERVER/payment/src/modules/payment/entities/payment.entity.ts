@@ -8,7 +8,7 @@ import {
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 import { PaymentModelEnum } from '../../../common/interfaces/payment.interface';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
-import { Wallet } from '../../../wallet/entities/wallet.entity';
+import { Wallet } from '../../wallet/entities/wallet.entity';
 
 @Entity('payment')
 export class Payment {

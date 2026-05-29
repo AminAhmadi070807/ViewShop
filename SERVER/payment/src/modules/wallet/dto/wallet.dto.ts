@@ -7,7 +7,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
+import { PaymentModelEnum } from '../../../common/interfaces/payment.interface';
 
 export class WalletDto {
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })

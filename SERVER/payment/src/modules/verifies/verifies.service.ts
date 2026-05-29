@@ -13,8 +13,8 @@ import {
 import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
 import { Validation } from '../validations/entities/validation.entity';
 import { PaymentSectionEnum } from '../../common/enums/payment/section.enum';
-import { Wallet } from '../../wallet/entities/wallet.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { Wallet } from '../wallet/entities/wallet.entity';
 
 @Injectable()
 export class VerifiesService {

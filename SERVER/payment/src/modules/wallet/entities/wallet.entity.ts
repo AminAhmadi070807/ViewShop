@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Payment } from '../../modules/payment/entities/payment.entity';
+import { Payment } from '../../payment/entities/payment.entity';
 
 @Entity('wallet')
 export class Wallet {

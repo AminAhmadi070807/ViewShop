@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,7 +18,7 @@ import { ProductVisibilityEnum } from '../../../common/enums/products/product/vi
 import { User } from '../../users/entities/user.entity';
 import { Product } from './product.entity';
 
-@Entity('parent_products')
+@Entity('parentProducts')
 export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -146,7 +147,7 @@ export class ParentProduct {
   @ManyToOne(() => User, (user: User) => user.parentProducts)
   user: User;
 
-  @ManyToOne(() => Product, (product: Product) => product.parent_product)
+  @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];
 
   @CreateDateColumn()
