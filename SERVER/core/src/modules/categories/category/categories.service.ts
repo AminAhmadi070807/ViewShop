@@ -4,7 +4,7 @@ import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  create(createCategoryDto: CreateCategoryDto) {
+  create(data: CreateCategoryDto) {
     return 'This action adds a new category';
   }
 
@@ -12,15 +12,15 @@ export class CategoriesService {
     return `This action returns all categories`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  update(data: UpdateCategoryDto) {
+    return data;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} category`;
   }
 }

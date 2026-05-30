@@ -8,28 +8,28 @@ import { UpdateCategoryDto } from '../dto/update-category.dto';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @MessagePattern('createCategory')
-  create(@Payload() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
+  @MessagePattern('CATEGORY:CREATE')
+  create(@Payload() data: CreateCategoryDto) {
+    return this.categoriesService.create(data);
   }
 
-  @MessagePattern('findAllCategories')
+  @MessagePattern('CATEGORY:FIND')
   findAll() {
     return this.categoriesService.findAll();
   }
 
-  @MessagePattern('findOneCategory')
-  findOne(@Payload() id: number) {
+  @MessagePattern('CATEGORY:ONE')
+  findOne(@Payload() id: string) {
     return this.categoriesService.findOne(id);
   }
 
-  @MessagePattern('updateCategory')
-  update(@Payload() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoriesService.update(updateCategoryDto.id, updateCategoryDto);
+  @MessagePattern('CATEGORY:UPDATE')
+  update(@Payload() data: UpdateCategoryDto) {
+    return this.categoriesService.update(data);
   }
 
-  @MessagePattern('removeCategory')
-  remove(@Payload() id: number) {
+  @MessagePattern('CATEGORY:DELETE')
+  remove(@Payload() id: string) {
     return this.categoriesService.remove(id);
   }
 }

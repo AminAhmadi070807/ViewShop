@@ -33,7 +33,7 @@ export class Category {
   parentProduct: ParentProduct[];
 
   @OneToMany(
-    () => SubCategory,
+    (): typeof SubCategory => SubCategory,
     (subCategory: SubCategory) => subCategory.category,
   )
   subCategories: SubCategory[];
