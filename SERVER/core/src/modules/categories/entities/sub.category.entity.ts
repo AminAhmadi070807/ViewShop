@@ -1,6 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Category } from './category.entity';
+import { Attribute } from './attribute.entity';
 
 @Entity('subCategories')
 export class SubCategory {
@@ -27,4 +34,7 @@ export class SubCategory {
     onUpdate: 'CASCADE',
   })
   category: Category;
+
+  @OneToMany(() => Attribute, (attribute: Attribute) => attribute.subCategory)
+  attributes: Attribute[];
 }
