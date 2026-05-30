@@ -17,6 +17,7 @@ import {
 import { ProductVisibilityEnum } from '../../../common/enums/products/product/visibility.enum';
 import { User } from '../../users/entities/user.entity';
 import { Product } from './product.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity('parentProducts')
 export class ParentProduct {
@@ -146,6 +147,9 @@ export class ParentProduct {
 
   @ManyToOne(() => User, (user: User) => user.parentProducts)
   user: User;
+
+  @ManyToOne(() => Category, (category: Category) => category.parentProduct)
+  category: Category;
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];

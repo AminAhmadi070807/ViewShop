@@ -11,6 +11,7 @@ import { Auth } from '../../auth/entities/auth.entity';
 import { Address } from '../../addresses/entities/address.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { Product } from '../../products/entities/product.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity('users')
 export class User {
@@ -54,6 +55,12 @@ export class User {
     (product: Product): User => product.user,
   )
   products: Product[];
+
+  @OneToMany(
+    (): typeof Category => Category,
+    (category: Category): User => category.user,
+  )
+  categories: Category[];
 
   @CreateDateColumn()
   createdAt: Date;
