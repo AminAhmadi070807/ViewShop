@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
+import { SubCategory } from './sub.category.entity';
 
 @Entity('categories')
 export class Category {
@@ -30,4 +31,10 @@ export class Category {
     (product: ParentProduct): Category => product.category,
   )
   parentProduct: ParentProduct[];
+
+  @OneToMany(
+    () => SubCategory,
+    (subCategory: SubCategory) => subCategory.category,
+  )
+  subCategories: SubCategory[];
 }

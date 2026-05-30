@@ -12,6 +12,7 @@ import { Address } from '../../addresses/entities/address.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { Product } from '../../products/entities/product.entity';
 import { Category } from '../../categories/entities/category.entity';
+import { SubCategory } from '../../categories/entities/sub.category.entity';
 
 @Entity('users')
 export class User {
@@ -61,6 +62,12 @@ export class User {
     (category: Category): User => category.user,
   )
   categories: Category[];
+
+  @OneToMany(
+    (): typeof SubCategory => SubCategory,
+    (subCategory: SubCategory): User => subCategory.user,
+  )
+  subCategories: SubCategory[];
 
   @CreateDateColumn()
   createdAt: Date;

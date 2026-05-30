@@ -148,7 +148,14 @@ export class ParentProduct {
   @ManyToOne(() => User, (user: User) => user.parentProducts)
   user: User;
 
-  @ManyToOne(() => Category, (category: Category) => category.parentProduct)
+  @ManyToOne(
+    (): typeof Category => Category,
+    (category: Category) => category.parentProduct,
+    {
+      nullable: false,
+      onUpdate: 'CASCADE',
+    },
+  )
   category: Category;
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
