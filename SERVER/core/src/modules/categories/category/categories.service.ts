@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryDto } from '../dto/category.dto';
-import { UpdateCategoryDto } from '../dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -16,7 +15,7 @@ export class CategoriesService {
     return `This action returns a #${id} category`;
   }
 
-  update(data: UpdateCategoryDto) {
+  update(data: CategoryDto) {
     return data;
   }
 
