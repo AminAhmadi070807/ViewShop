@@ -26,6 +26,7 @@ export class GuardsController {
 
   @MessagePattern('GUARD:VALIDATE')
   validate(@Payload() data: ValidateGuard) {
+    console.log('AMIN', data);
     return this.guardsService.validate(data);
   }
 

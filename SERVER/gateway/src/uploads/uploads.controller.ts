@@ -1,6 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 
-@Controller('uploads')
+@Controller('gateway/uploads')
 export class UploadsController {
   constructor() {}
+
+  @Post()
+  upload() {
+    return 'AMIN';
+  }
 }
