@@ -14,6 +14,7 @@ export class HttpGlobalExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx: HttpArgumentsHost = host.switchToHttp();
     const response: express.Response = ctx.getResponse();
+    console.log(exception);
 
     let statusCode: HttpStatus;
     let errorDetails: any;

@@ -2,6 +2,7 @@ export enum GuardEnum {
   CORE = 'CORE',
   GUARDS = 'GUARDS',
   PAYMENT = 'PAYMENT',
+  GATEWAY = 'GATEWAY',
 }
 
 export enum MethodEnum {

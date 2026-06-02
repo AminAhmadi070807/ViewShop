@@ -12,7 +12,13 @@ import { PaymentModule } from './payment/payment.module';
 import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), CoreModule, GuardsModule, PaymentModule, UploadsModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    CoreModule,
+    GuardsModule,
+    PaymentModule,
+    UploadsModule,
+  ],
   controllers: [AppController],
   providers: [
     {

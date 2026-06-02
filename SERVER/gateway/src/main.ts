@@ -3,9 +3,11 @@ import { AppModule } from './app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import path from 'node:path';
 
 void (async (): Promise<void> => {
-  const app: INestApplication = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   try {
     // port
@@ -25,6 +27,11 @@ void (async (): Promise<void> => {
     // set global api prefix
     app.setGlobalPrefix('api/v1');
 
+    // read file from server
+    app.useStaticAssets(path.join(__dirname, '../uploads'), {
+      prefix: '/uploads',
+    });
+
     // set core swagger config
     const swaggerConfig = new DocumentBuilder()
       .setTitle('ViewShop Api documentation')
@@ -33,6 +40,11 @@ void (async (): Promise<void> => {
       .build();
 
     // create core document
+    const gatewayDocument = SwaggerModule.createDocument(app, swaggerConfig, {
+      include: [AppModule],
+      deepScanRoutes: true,
+    });
+
     const coreDocument = SwaggerModule.createDocument(app, swaggerConfig, {
       include: [AppModule],
       deepScanRoutes: true,
@@ -69,12 +81,21 @@ void (async (): Promise<void> => {
       });
     }
 
+    // remove all route except guards
+    if (gatewayDocument.paths) {
+      Object.keys(gatewayDocument.paths).forEach((path) => {
+        if (!path.includes('/gateway')) delete gatewayDocument.paths[path];
+      });
+    }
+
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
     // setup guard document
     SwaggerModule.setup('api/v1/guard/docs', app, guardDocument);
     // setup payment document
     SwaggerModule.setup('api/v1/payment/docs', app, paymentDocument);
+    // setup gateway document
+    SwaggerModule.setup('api/v1/gateway/docs', app, gatewayDocument);
 
     app.enableCors({
       origin: true,
