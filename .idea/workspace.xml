@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/config/multer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/common/config/multer.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +84,7 @@
       <workItem from="1780373645571" duration="8885000" />
       <workItem from="1780394911695" duration="4877000" />
       <workItem from="1780400113825" duration="5679000" />
-      <workItem from="1780412548259" duration="1166000" />
+      <workItem from="1780412548259" duration="3581000" />
     </task>
     <servers />
   </component>

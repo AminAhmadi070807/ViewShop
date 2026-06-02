@@ -106,8 +106,8 @@ void (async (): Promise<void> => {
     await app.listen(port, (): void => {
       console.log(`Server running on port: ${port}`);
     });
-  } catch {
-    console.error('Problem in running gateway');
+  } catch (error) {
+    console.error('Problem in running gateway', error);
     await app.close();
   }
 })();

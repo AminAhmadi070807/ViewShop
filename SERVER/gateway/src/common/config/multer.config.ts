@@ -10,7 +10,7 @@ export const MulterOptions = {
     filename: (req, file, callback) => {
       const ext: string = path.extname(file.originalname);
 
-      callback(null, `${crypto.randomUUID()}-${ext}`);
+      callback(null, `${crypto.randomUUID()}${ext}`);
     },
   }),
 
