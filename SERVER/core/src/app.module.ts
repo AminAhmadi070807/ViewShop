@@ -11,7 +11,6 @@ import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [
-    UsersModule,
     TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
     JwtModule.register({
       global: true,
@@ -21,6 +20,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
     }),
     AuthModule,
     AddressesModule,
+    UsersModule,
     ProductsModule,
     CategoriesModule,
   ],

@@ -36,7 +36,7 @@ export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
     useFactory: (config: ConfigService) => ({
       transport: Transport.TCP,
       options: {
-        port: parseInt(config.get<string>('PAYMENT_PORT', '4000'), 10) || 4000,
+        port: parseInt(config.get<string>('PAYMENT_PORT', '4002'), 10) || 4002,
         host: config.get<string>('PAYMENT_HOST', '127.0.0.1'),
       },
     }),

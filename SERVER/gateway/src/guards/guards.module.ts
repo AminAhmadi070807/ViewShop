@@ -11,7 +11,13 @@ import { GuardController } from './controllers/guards/guard.controller';
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
   providers: [GuardsService],
-  controllers: [PermissionsController, RoleController, SingularController, UserController, GuardController],
+  controllers: [
+    PermissionsController,
+    RoleController,
+    SingularController,
+    UserController,
+    GuardController,
+  ],
   exports: [GuardsService],
 })
 export class GuardsModule {}

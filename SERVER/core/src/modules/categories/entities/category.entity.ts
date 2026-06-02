@@ -5,9 +5,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { SubCategory } from './sub.category.entity';
+import { ParentProduct } from '../../products/entities/parent.product.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('categories')
 export class Category {

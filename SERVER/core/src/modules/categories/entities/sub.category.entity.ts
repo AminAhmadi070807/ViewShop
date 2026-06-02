@@ -5,8 +5,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
 import { Category } from './category.entity';
+import { User } from '../../users/entities/user.entity';
 import { Attribute } from './attribute.entity';
 
 @Entity('subCategories')

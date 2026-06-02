@@ -35,13 +35,13 @@ export class ParentProductsService {
         return new CustomException(statusMessages.fa['409'], 409);
       }
 
-      const product: ParentProduct = this.productRepository.create({
-        ...data,
-        alias: aliasName,
-        user: user,
-      });
+      // const product: ParentProduct = this.productRepository.create({
+      //   ...data,
+      //   alias: aliasName,
+      //   user: user,
+      // });
 
-      await this.productRepository.save(product);
+      // await this.productRepository.save(product);
 
       return {
         status: 201,

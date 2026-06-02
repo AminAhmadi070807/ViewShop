@@ -10,6 +10,7 @@ export class GuardsService {
   ) {}
 
   send(pattern: string, data: unknown = {}) {
+    console.log('GUARD PATTERN', pattern);
     return this.client.send(pattern, data);
   }
 }
