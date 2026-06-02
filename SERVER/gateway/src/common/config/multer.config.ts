@@ -1,6 +1,6 @@
 import { diskStorage } from 'multer';
 import path from 'node:path';
-import { randomUUID } from 'node:crypto';
+import crypto from 'node:crypto';
 import { BadRequestException } from '@nestjs/common';
 
 export const MulterOptions = {
@@ -8,15 +8,14 @@ export const MulterOptions = {
     destination: './uploads',
 
     filename: (req, file, callback) => {
-      console.log(req.user);
       const ext: string = path.extname(file.originalname);
 
-      callback(null, `${randomUUID()}${ext}`);
+      callback(null, `${crypto.randomUUID()}-${ext}`);
     },
   }),
 
   limits: {
-    fileSize: 10 * 1024 * 1024,
+    fileSize: 50 * 1024 * 1024,
   },
 
   fileFilter: (
