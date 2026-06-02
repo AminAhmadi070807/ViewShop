@@ -10,7 +10,6 @@ export class MainGuard implements CanActivate {
   constructor(private readonly guardService: GuardsService) {}
 
   async canActivate(context: ExecutionContext) {
-    console.log('ENTER MAIN GUARD');
     const ctx: HttpArgumentsHost = context.switchToHttp();
     const req: express.Request = ctx.getRequest();
     const url: string[] = req.url.split('/');

@@ -46,7 +46,6 @@ export class UsersController {
   // send request to find all in core microservice
   @Get()
   findAll() {
-    console.log('CONTROLLER FIND ALL USER');
     return this.coreService.send('USER:FIND');
     // return 'AMIN';
   }

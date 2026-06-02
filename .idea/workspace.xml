@@ -5,50 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ViewShop.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/SERVER.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/betterCommentsSettings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/dictionaries/project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/git_toolbox_prj.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/prettier.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/auth/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/attribute.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/attribute.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/category.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/category.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/sub.category.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/categories/entities/sub.category.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/products/entities/parent.product.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/products/entities/parent.product.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/products/entities/product.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/products/entities/product.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/products/parent.products.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/products/parent.products.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/users/entities/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/users/entities/user.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/users/users.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/users/users.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/config/client.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/common/config/client.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/config/multer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/common/config/multer.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/decorators/upload.decorator.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/filters/global.filter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/common/filters/global.filter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/common/guards/main.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/common/guards/main.guard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/core/controllers/users/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/core/controllers/users/user.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/core/core.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/core/core.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/guards/guards.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/guards/guards.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/guards/guards.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/guards/guards.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/payment/payment.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/payment/payment.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/guards/src/common/constants/microservice.constant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/guards/src/common/constants/microservice.constant.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SERVER/guards/src/modules/guards/guards.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/guards/src/modules/guards/guards.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/payment/src/modules/verifies/verifies.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/payment/src/modules/verifies/verifies.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +86,7 @@
       <workItem from="1780330854182" duration="81000" />
       <workItem from="1780373645571" duration="8885000" />
       <workItem from="1780394911695" duration="4877000" />
-      <workItem from="1780400113825" duration="300000" />
+      <workItem from="1780400113825" duration="1095000" />
     </task>
     <servers />
   </component>

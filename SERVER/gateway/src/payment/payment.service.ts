@@ -10,7 +10,6 @@ export class PaymentService {
   ) {}
 
   send(pattern: string, data: unknown = {}) {
-    console.log('PAYMENT PATTERN', pattern);
     return this.client.send(pattern, data);
   }
 }

@@ -39,7 +39,6 @@ export class AuthController {
 
   @MessagePattern('AUTH:VERIFY')
   verifyToken(@Payload() data: AuthValidateDto) {
-    console.log('AMIN 2007');
     return this.authService.verifyToken(data);
   }
 }

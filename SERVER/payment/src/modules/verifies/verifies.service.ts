@@ -200,7 +200,6 @@ export class VerifiesService {
         body: null,
       };
     } catch (error) {
-      console.log(error);
       return {
         status: 402,
         message: statusMessages.fa['402'],
