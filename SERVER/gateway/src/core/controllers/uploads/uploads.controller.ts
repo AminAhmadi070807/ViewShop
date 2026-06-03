@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
@@ -56,5 +56,10 @@ export class MediaController {
       title: data.title,
       user: user.userId,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('MEDIA:FIND');
   }
 }
