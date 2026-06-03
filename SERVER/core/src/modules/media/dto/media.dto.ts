@@ -1,1 +1,25 @@
-export class MediaDto {}
+import {
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+
+export class MediaDto {
+  @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'عنوان حدکثر میتواند 24 کارکتر داشته باشد' })
+  title: string;
+
+  @IsNotEmpty({ message: 'نام مستعار نباید خالی باشد' })
+  @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @MinLength(3, { message: 'نام مستعار حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'نام مستعار حدکثر میتواند 24 کارکتر داشته باشد' })
+  alias: string;
+
+  @IsNotEmpty({ message: 'ایدی کاربر نباید خالی باشد' })
+  @IsUUID('4', { message: 'ایدی نادرست است' })
+  user: string;
+}
