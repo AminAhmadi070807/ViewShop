@@ -32,7 +32,7 @@ export class MediaService {
       const save: Media = await this.mediaRepository.save(media);
 
       return {
-        statusCode: 200,
+        status: 200,
         data: media,
         body: {
           id: save.id,
@@ -43,8 +43,22 @@ export class MediaService {
     }
   }
 
-  findAll() {
-    return `This action returns all media`;
+  async findAll() {
+    try {
+      const medias: Media[] = await this.mediaRepository.find({
+        order: {
+          id: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: medias,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   search(id: string) {
