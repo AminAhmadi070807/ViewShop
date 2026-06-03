@@ -62,4 +62,9 @@ export class MediaController {
   findAll() {
     return this.coreService.send('MEDIA:FIND');
   }
+
+  @Get('search')
+  search() {
+    return this.coreService.send('MEDIA:SEARCH');
+  }
 }
