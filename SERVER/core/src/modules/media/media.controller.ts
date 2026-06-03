@@ -17,13 +17,8 @@ export class MediaController {
     return this.mediaService.findAll();
   }
 
-  @MessagePattern('MEDIA:ONE')
+  @MessagePattern('MEDIA:SEARCH')
   search(@Payload() id: string) {
     return this.mediaService.search(id);
-  }
-
-  @MessagePattern('MEDIA:DELETE')
-  remove(@Payload() id: string) {
-    return this.mediaService.remove(id);
   }
 }

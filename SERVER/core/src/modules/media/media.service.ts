@@ -81,11 +81,4 @@ export class MediaService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
-
-  remove(id: string) {
-    try {
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
 }
