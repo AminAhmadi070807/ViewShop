@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMediaDto } from './dto/create-media.dto';
-import { UpdateMediaDto } from './dto/update-media.dto';
+import { MediaDto } from './dto/media.dto';
 
 @Injectable()
 export class MediaService {
-  create(createMediaDto: CreateMediaDto) {
+  create(data: MediaDto) {
     return 'This action adds a new media';
   }
 
@@ -12,15 +11,11 @@ export class MediaService {
     return `This action returns all media`;
   }
 
-  findOne(id: number) {
+  search(id: string) {
     return `This action returns a #${id} media`;
   }
 
-  update(id: number, updateMediaDto: UpdateMediaDto) {
-    return `This action updates a #${id} media`;
-  }
-
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} media`;
   }
 }

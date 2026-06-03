@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/categories/category/categories.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/categories/category/categories.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/users/entities/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/users/entities/user.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/core/controllers/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/core/controllers/auth/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/gateway/src/uploads/uploads.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/core/src/modules/media/media.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/SERVER/core/src/modules/media/media.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +88,8 @@
       <workItem from="1780394911695" duration="4877000" />
       <workItem from="1780400113825" duration="5679000" />
       <workItem from="1780412548259" duration="5483000" />
-      <workItem from="1780455273857" duration="3578000" />
+      <workItem from="1780455273857" duration="6462000" />
+      <workItem from="1780469413475" duration="286000" />
     </task>
     <servers />
   </component>

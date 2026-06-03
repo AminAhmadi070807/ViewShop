@@ -1,15 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MediaService } from './media.service';
-import { CreateMediaDto } from './dto/create-media.dto';
+import { MediaDto } from './dto/media.dto';
 
 @Controller()
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   @MessagePattern('MEDIA:SAVE')
-  create(@Payload() createMediaDto: CreateMediaDto) {
-    return this.mediaService.create(createMediaDto);
+  create(@Payload() data: MediaDto) {
+    return this.mediaService.create(data);
   }
 
   @MessagePattern('MEDIA:FIND')
@@ -18,12 +18,12 @@ export class MediaController {
   }
 
   @MessagePattern('MEDIA:ONE')
-  findOne(@Payload() id: number) {
-    return this.mediaService.findOne(id);
+  search(@Payload() id: string) {
+    return this.mediaService.search(id);
   }
 
   @MessagePattern('MEDIA:DELETE')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.mediaService.remove(id);
   }
 }
