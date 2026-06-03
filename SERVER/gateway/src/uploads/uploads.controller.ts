@@ -14,11 +14,9 @@ import path from 'node:path';
 @Controller('gateway/uploads')
 export class UploadsController {
   constructor() {
-    const uploadPath = path.join(process.cwd(), 'uploads');
+    const uploadPath: string = path.join(process.cwd(), 'uploads');
 
-    if (!existsSync(uploadPath)) {
-      mkdirSync('./uploads', { recursive: true });
-    }
+    if (!existsSync(uploadPath)) mkdirSync('./uploads', { recursive: true });
   }
 
   @Post()

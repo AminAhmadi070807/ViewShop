@@ -184,7 +184,7 @@ export class AuthController {
 
     return res.status(200).json({
       statusCode: 200,
-      message: 'The verify successfully.',
+      message: statusMessages.fa.AUTH['200'],
       body: null,
     });
   }

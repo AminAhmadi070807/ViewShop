@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AddressesModule } from './modules/addresses/addresses.module';
 import { ProductsModule } from './modules/products/products.module';
 import { CategoriesModule } from './modules/categories/categories.module';
+import { MediaModule } from './modules/media/media.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
     UsersModule,
     ProductsModule,
     CategoriesModule,
+    MediaModule,
   ],
 })
 export class AppModule {}

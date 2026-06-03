@@ -13,6 +13,7 @@ import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { Product } from '../../products/entities/product.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('users')
 export class User {
@@ -68,6 +69,9 @@ export class User {
     (subCategory: SubCategory): User => subCategory.user,
   )
   subCategories: SubCategory[];
+
+  @OneToMany(() => Media, (media: Media) => media.user)
+  medias: Media[];
 
   @CreateDateColumn()
   createdAt: Date;
