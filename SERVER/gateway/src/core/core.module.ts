@@ -10,6 +10,7 @@ import { JwtAccessTokenModuleConfig } from '../common/config/jwt.config';
 import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.strategy';
 import { JwtRefreshTokenStrategy } from '../common/strategies/jwt.refresh.token.strategy';
 import { AddressController } from './controllers/address/address.controller';
+import { UploadsController } from './controllers/uploads/uploads.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -18,7 +19,12 @@ import { AddressController } from './controllers/address/address.controller';
     PassportModule,
     JwtModule.registerAsync(JwtAccessTokenModuleConfig),
   ],
-  controllers: [UsersController, AuthController, AddressController],
+  controllers: [
+    UsersController,
+    AuthController,
+    AddressController,
+    UploadsController,
+  ],
   exports: [CoreService],
 })
 export class CoreModule {}

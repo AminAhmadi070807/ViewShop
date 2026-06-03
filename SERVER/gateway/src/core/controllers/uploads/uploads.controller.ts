@@ -10,10 +10,11 @@ import { existsSync } from 'node:fs';
 import { mkdirSync } from 'fs';
 import { statusMessages } from '../../../common/messages/status.message';
 import path from 'node:path';
+import { CoreService } from '../../core.service';
 
 @Controller('core/uploads')
 export class UploadsController {
-  constructor() {
+  constructor(private readonly coreService: CoreService) {
     const uploadPath: string = path.join(process.cwd(), 'uploads');
 
     if (!existsSync(uploadPath)) mkdirSync('./uploads', { recursive: true });

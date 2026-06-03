@@ -7,7 +7,7 @@ import { MediaDto } from './dto/media.dto';
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
-  @MessagePattern('MEDIA:SAVE')
+  @MessagePattern('MEDIA:UPLOAD')
   create(@Payload() data: MediaDto) {
     return this.mediaService.create(data);
   }
