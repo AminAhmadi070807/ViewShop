@@ -2,7 +2,9 @@ import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
+  ApiConflictResponse,
   ApiConsumes,
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -16,6 +18,9 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/media')
+@ApiInternalServerErrorResponse({
+  description: statusMessages.fa['500'],
+})
 export class MediaController {
   constructor(private readonly coreService: CoreService) {
     const uploadPath: string = path.join(process.cwd(), 'uploads');
@@ -24,12 +29,10 @@ export class MediaController {
   }
 
   @Post()
-  @ApiOkResponse({
+  @ApiCreatedResponse({
     description: statusMessages.fa['200'],
   })
-  @ApiInternalServerErrorResponse({
-    description: statusMessages.fa['500'],
-  })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
