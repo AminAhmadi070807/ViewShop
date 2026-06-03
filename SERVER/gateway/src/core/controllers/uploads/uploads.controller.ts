@@ -1,5 +1,5 @@
 import { Controller, Post, UploadedFile } from '@nestjs/common';
-import { Upload } from '../common/decorators/upload.decorator';
+import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
   ApiConsumes,
@@ -8,10 +8,10 @@ import {
 } from '@nestjs/swagger';
 import { existsSync } from 'node:fs';
 import { mkdirSync } from 'fs';
-import { statusMessages } from '../common/messages/status.message';
+import { statusMessages } from '../../../common/messages/status.message';
 import path from 'node:path';
 
-@Controller('gateway/uploads')
+@Controller('core/uploads')
 export class UploadsController {
   constructor() {
     const uploadPath: string = path.join(process.cwd(), 'uploads');

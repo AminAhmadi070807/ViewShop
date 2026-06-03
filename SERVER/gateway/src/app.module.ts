@@ -9,7 +9,7 @@ import { JwtRefreshTokenGuard } from './common/guards/auth.refresh.guard';
 import { MainGuard } from './common/guards/main.guard';
 import { GuardsModule } from './guards/guards.module';
 import { PaymentModule } from './payment/payment.module';
-import { UploadsModule } from './uploads/uploads.module';
+import { UploadsModule } from './core/controllers/uploads/uploads.module';
 
 @Module({
   imports: [
