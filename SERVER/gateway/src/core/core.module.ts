@@ -10,7 +10,7 @@ import { JwtAccessTokenModuleConfig } from '../common/config/jwt.config';
 import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.strategy';
 import { JwtRefreshTokenStrategy } from '../common/strategies/jwt.refresh.token.strategy';
 import { AddressController } from './controllers/address/address.controller';
-import { UploadsController } from './controllers/uploads/uploads.controller';
+import { MediaController } from './controllers/uploads/uploads.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -23,7 +23,7 @@ import { UploadsController } from './controllers/uploads/uploads.controller';
     UsersController,
     AuthController,
     AddressController,
-    UploadsController,
+    MediaController,
   ],
   exports: [CoreService],
 })

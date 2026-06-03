@@ -12,7 +12,7 @@ import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 export class GuardDto {
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
   @IsString()
-  @Matches(/^\/api\/v\d\/(guards|core|gateway|payment)(\/.*)$/, {
+  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
@@ -30,7 +30,7 @@ export class GuardDto {
 
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {
-    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, GATEWAY, PAYMENT)',
+    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, PAYMENT)',
   })
   service: GuardEnum;
 }
@@ -43,7 +43,7 @@ export class ValidateGuard {
 
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر باید رشته باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|gateway|payment)(\/.*)$/, {
+  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
@@ -54,7 +54,7 @@ export class ValidateGuard {
 
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {
-    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, GATEWAY, PAYMENT)',
+    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, PAYMENT)',
   })
   service: GuardEnum;
 }

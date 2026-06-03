@@ -15,8 +15,8 @@ import { MediaDto } from './uploads.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 
-@Controller('core/uploads')
-export class UploadsController {
+@Controller('core/media')
+export class MediaController {
   constructor(private readonly coreService: CoreService) {
     const uploadPath: string = path.join(process.cwd(), 'uploads');
 

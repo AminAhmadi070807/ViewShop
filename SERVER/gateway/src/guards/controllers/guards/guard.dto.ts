@@ -23,7 +23,7 @@ export class GuardDto {
     description: 'patch',
   })
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|gateway|payment)(\/.*)$/, {
+  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
@@ -83,7 +83,7 @@ export class ValidateGuard {
   })
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر باید رشته باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|gateway|payment)(\/.*)$/, {
+  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
   patch: string;
