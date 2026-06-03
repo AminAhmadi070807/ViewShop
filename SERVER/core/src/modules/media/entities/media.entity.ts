@@ -9,8 +9,8 @@ export class Media {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  patch: string;
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  path: string;
 
   @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
   user: User;

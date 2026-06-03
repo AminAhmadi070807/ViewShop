@@ -3,6 +3,8 @@ import { MediaDto } from './dto/media.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Media } from './entities/media.entity';
 import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class MediaService {
@@ -12,7 +14,33 @@ export class MediaService {
   ) {}
 
   async create(data: MediaDto) {
-    return 'This action adds a new media';
+    try {
+      const existing = await this.mediaRepository.findOneBy({
+        path: data.path,
+      });
+
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const media: Media = this.mediaRepository.create({
+        path: data.path,
+        user: {
+          id: data.user,
+        },
+        title: data.title,
+      });
+
+      const save: Media = await this.mediaRepository.save(media);
+
+      return {
+        statusCode: 200,
+        data: media,
+        body: {
+          id: save.id,
+        },
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findAll() {

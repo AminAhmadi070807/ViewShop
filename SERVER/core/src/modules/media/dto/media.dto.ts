@@ -17,7 +17,7 @@ export class MediaDto {
   @IsString({ message: 'مسیر باید رشته باشد' })
   @MinLength(3, { message: 'مسیر حدقل باید 3 کارکتر داشته باشد' })
   @MaxLength(24, { message: 'مسیر حدکثر میتواند 24 کارکتر داشته باشد' })
-  patch: string;
+  path: string;
 
   @IsNotEmpty({ message: 'ایدی کاربر نباید خالی باشد' })
   @IsUUID('4', { message: 'ایدی نادرست است' })
