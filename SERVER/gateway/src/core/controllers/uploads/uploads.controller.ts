@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
@@ -11,6 +11,9 @@ import { mkdirSync } from 'fs';
 import { statusMessages } from '../../../common/messages/status.message';
 import path from 'node:path';
 import { CoreService } from '../../core.service';
+import { MediaDto } from './uploads.dto';
+import express from 'express';
+import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/uploads')
 export class UploadsController {
@@ -41,15 +44,17 @@ export class UploadsController {
     },
   })
   @Upload('media')
-  upload(@UploadedFile() file: Express.Multer.File) {
-    return {
-      status: 200,
-      message: statusMessages.fa['200'],
-      body: {
-        mimetype: file.mimetype,
-        path: file.path,
-        size: file.size,
-      },
-    };
+  upload(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() data: MediaDto,
+    @Req() req: express.Request,
+  ) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('MEDIA:UPLOAD', {
+      path: file.path,
+      title: data.title,
+      user: user.userId,
+    });
   }
 }
