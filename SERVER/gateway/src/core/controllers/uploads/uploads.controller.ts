@@ -61,6 +61,7 @@ export class MediaController {
     });
   }
 
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get()
   findAll() {
     return this.coreService.send('MEDIA:FIND');
