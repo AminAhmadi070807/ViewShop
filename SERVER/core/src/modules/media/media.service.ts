@@ -33,7 +33,7 @@ export class MediaService {
 
       return {
         status: 200,
-        data: media,
+        message: statusMessages.fa['201'],
         body: {
           id: save.id,
         },
