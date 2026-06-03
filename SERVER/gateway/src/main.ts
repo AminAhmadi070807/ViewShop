@@ -39,12 +39,6 @@ void (async (): Promise<void> => {
       .setVersion('1.0.0')
       .build();
 
-    // create core document
-    const gatewayDocument = SwaggerModule.createDocument(app, swaggerConfig, {
-      include: [AppModule],
-      deepScanRoutes: true,
-    });
-
     const coreDocument = SwaggerModule.createDocument(app, swaggerConfig, {
       include: [AppModule],
       deepScanRoutes: true,
@@ -81,21 +75,12 @@ void (async (): Promise<void> => {
       });
     }
 
-    // remove all route except guards
-    if (gatewayDocument.paths) {
-      Object.keys(gatewayDocument.paths).forEach((path) => {
-        if (!path.includes('/gateway')) delete gatewayDocument.paths[path];
-      });
-    }
-
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
     // setup guard document
     SwaggerModule.setup('api/v1/guard/docs', app, guardDocument);
     // setup payment document
     SwaggerModule.setup('api/v1/payment/docs', app, paymentDocument);
-    // setup gateway document
-    SwaggerModule.setup('api/v1/gateway/docs', app, gatewayDocument);
 
     app.enableCors({
       origin: true,
