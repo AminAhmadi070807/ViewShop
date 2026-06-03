@@ -10,7 +10,7 @@ export class Media {
   title: string;
 
   @Column({ type: 'varchar', nullable: false })
-  alias: string;
+  patch: string;
 
   @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
   user: User;

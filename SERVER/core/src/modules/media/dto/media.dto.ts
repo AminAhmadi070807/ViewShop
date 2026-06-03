@@ -13,11 +13,11 @@ export class MediaDto {
   @MaxLength(24, { message: 'عنوان حدکثر میتواند 24 کارکتر داشته باشد' })
   title: string;
 
-  @IsNotEmpty({ message: 'نام مستعار نباید خالی باشد' })
-  @IsString({ message: 'نام مستعار باید رشته باشد' })
-  @MinLength(3, { message: 'نام مستعار حدقل باید 3 کارکتر داشته باشد' })
-  @MaxLength(24, { message: 'نام مستعار حدکثر میتواند 24 کارکتر داشته باشد' })
-  alias: string;
+  @IsNotEmpty({ message: 'مسیر نباید خالی باشد' })
+  @IsString({ message: 'مسیر باید رشته باشد' })
+  @MinLength(3, { message: 'مسیر حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'مسیر حدکثر میتواند 24 کارکتر داشته باشد' })
+  patch: string;
 
   @IsNotEmpty({ message: 'ایدی کاربر نباید خالی باشد' })
   @IsUUID('4', { message: 'ایدی نادرست است' })
