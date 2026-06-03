@@ -61,11 +61,31 @@ export class MediaService {
     }
   }
 
-  search(id: string) {
-    return `This action returns a #${id} media`;
+  async search(title: string) {
+    try {
+      const medias: Media[] = await this.mediaRepository.find({
+        where: {
+          title,
+        },
+        order: {
+          id: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: medias,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   remove(id: string) {
-    return `This action removes a #${id} media`;
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
