@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/eslint.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/nest-cli.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/test/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/test/jest-e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/tsconfig.build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/admin/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/eslint.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/nest-cli.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/test/app.e2e-spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/test/jest-e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/tsconfig.build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SERVER/seller/tsconfig.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1780552036" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="V1" />
+                    <option name="lastUsedInstant" value="1780552035" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/SERVER/core/src/main.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SERVER/gateway/src/core/core.service.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SERVER/payment/.env" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="HttpClientEndpointsTabState">
+    <option name="cachedRequestData" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;a35d9fb1314161051bb2281e5c0e04778c0a2e4a&quot; value=&quot;###&amp;#10;POST http://localhost:8080/core/users&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3EWDaCDXiH6xpsHVfeb1V7NoCBc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
+    "last_opened_file_path": "F:/ViewShop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "F:\\ViewShop\\SERVER\\core\\node_modules\\prettier",
+    "ts.external.directory.path": "F:\\ViewShop\\SERVER\\core\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\ViewShop\SERVER\gateway\src\core\controllers" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.31033.133" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="" />
+      <created>1780285493080</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780285493080</updated>
+      <workItem from="1780285495009" duration="5206000" />
+      <workItem from="1780292042850" duration="1925000" />
+      <workItem from="1780294730353" duration="1376000" />
+      <workItem from="1780310925644" duration="6204000" />
+      <workItem from="1780330854182" duration="81000" />
+      <workItem from="1780373645571" duration="8885000" />
+      <workItem from="1780394911695" duration="4877000" />
+      <workItem from="1780400113825" duration="5679000" />
+      <workItem from="1780412548259" duration="5483000" />
+      <workItem from="1780455273857" duration="6462000" />
+      <workItem from="1780469413475" duration="9631000" />
+      <workItem from="1780508495611" duration="2897000" />
+      <workItem from="1780544088812" duration="7642000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
