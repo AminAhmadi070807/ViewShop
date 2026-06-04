@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -172,6 +173,11 @@ export class ParentProduct {
       eager: true,
     },
   )
+  @JoinTable({
+    name: 'parentProducts_medias',
+    joinColumn: { name: 'product_id' },
+    inverseJoinColumn: { name: 'media_id' },
+  })
   medias: Media[];
 
   @CreateDateColumn()
