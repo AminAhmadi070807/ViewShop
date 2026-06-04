@@ -8,6 +8,7 @@ import {
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import express from 'express';
 import { RpcException } from '@nestjs/microservices';
+import { statusMessages } from '../messages/status.message';
 
 @Catch()
 export class HttpGlobalExceptionFilter implements ExceptionFilter {
@@ -50,7 +51,7 @@ export class HttpGlobalExceptionFilter implements ExceptionFilter {
       errorDetails = { message: exception.message || 'An error occurred' };
     } else {
       // eslint-disable-next-line
-      errorDetails = { message: exception.message };
+      errorDetails = { message: exception.message || statusMessages.fa['500'] };
       statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 

@@ -43,7 +43,7 @@ export class AuthController {
     secure: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: 'none',
     priority: 'high',
   };
   // access token options
@@ -51,7 +51,7 @@ export class AuthController {
     secure: true,
     maxAge: 15 * 60 * 1000,
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: 'none',
     priority: 'high',
   };
 
@@ -184,7 +184,7 @@ export class AuthController {
 
     return res.status(200).json({
       statusCode: 200,
-      message: 'The verify successfully.',
+      message: statusMessages.fa.AUTH['200'],
       body: null,
     });
   }

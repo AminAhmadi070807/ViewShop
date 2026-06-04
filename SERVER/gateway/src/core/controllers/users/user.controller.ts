@@ -45,8 +45,9 @@ export class UsersController {
 
   // send request to find all in core microservice
   @Get()
-  findAll(): Observable<unknown> {
+  findAll() {
     return this.coreService.send('USER:FIND');
+    // return 'AMIN';
   }
 
   // send request to find user by phone number in core microservice

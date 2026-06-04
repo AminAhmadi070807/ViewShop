@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import path from 'node:path';
 
 void (async (): Promise<void> => {
-  const app: INestApplication = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   try {
     // port
@@ -25,6 +27,11 @@ void (async (): Promise<void> => {
     // set global api prefix
     app.setGlobalPrefix('api/v1');
 
+    // read file from server
+    app.useStaticAssets(path.join(__dirname, '../uploads'), {
+      prefix: '/uploads',
+    });
+
     // set core swagger config
     const swaggerConfig = new DocumentBuilder()
       .setTitle('ViewShop Api documentation')
@@ -32,13 +39,17 @@ void (async (): Promise<void> => {
       .setVersion('1.0.0')
       .build();
 
-    // create core document
     const coreDocument = SwaggerModule.createDocument(app, swaggerConfig, {
       include: [AppModule],
       deepScanRoutes: true,
     });
     // create guard document
     const guardDocument = SwaggerModule.createDocument(app, swaggerConfig, {
+      include: [AppModule],
+      deepScanRoutes: true,
+    });
+    // create payment document
+    const paymentDocument = SwaggerModule.createDocument(app, swaggerConfig, {
       include: [AppModule],
       deepScanRoutes: true,
     });
@@ -57,10 +68,19 @@ void (async (): Promise<void> => {
       });
     }
 
+    // remove all route except guards
+    if (paymentDocument.paths) {
+      Object.keys(paymentDocument.paths).forEach((path) => {
+        if (!path.includes('/payment')) delete paymentDocument.paths[path];
+      });
+    }
+
     // setup core document
     SwaggerModule.setup('api/v1/core/docs', app, coreDocument);
     // setup guard document
     SwaggerModule.setup('api/v1/guard/docs', app, guardDocument);
+    // setup payment document
+    SwaggerModule.setup('api/v1/payment/docs', app, paymentDocument);
 
     app.enableCors({
       origin: true,
@@ -71,8 +91,8 @@ void (async (): Promise<void> => {
     await app.listen(port, (): void => {
       console.log(`Server running on port: ${port}`);
     });
-  } catch {
-    console.error('Problem in running gateway');
+  } catch (error) {
+    console.error('Problem in running gateway', error);
     await app.close();
   }
 })();

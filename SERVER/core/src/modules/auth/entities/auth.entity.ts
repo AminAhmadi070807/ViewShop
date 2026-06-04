@@ -21,7 +21,7 @@ export class Auth {
   })
   user: User;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   secret: string;
 
   @CreateDateColumn()

@@ -1,10 +1,24 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModuleConfig } from './common/config/typeorm.config';
+import { PaymentModule } from './modules/payment/payment.module';
+import { VerifiesModule } from './modules/verifies/verifies.module';
+import { ValidationsModule } from './modules/validations/validations.module';
+import { WalletModule } from './modules/wallet/wallet.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
+    PaymentModule,
+    VerifiesModule,
+    ValidationsModule,
+    WalletModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

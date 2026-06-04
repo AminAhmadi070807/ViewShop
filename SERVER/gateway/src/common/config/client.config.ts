@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   CORE_SERVICE,
   GUARDS_SERVICE,
+  PAYMENT_SERVICE,
 } from '../constants/microservice.constant';
 
 export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
@@ -29,5 +30,17 @@ export const ClientsModuleConfig: ClientsModuleAsyncOptions = [
       },
     }),
     inject: [ConfigService],
+  },
+  {
+    imports: [ConfigModule],
+    useFactory: (config: ConfigService) => ({
+      transport: Transport.TCP,
+      options: {
+        port: parseInt(config.get<string>('PAYMENT_PORT', '4002'), 10) || 4002,
+        host: config.get<string>('PAYMENT_HOST', '127.0.0.1'),
+      },
+    }),
+    inject: [ConfigService],
+    name: PAYMENT_SERVICE,
   },
 ];

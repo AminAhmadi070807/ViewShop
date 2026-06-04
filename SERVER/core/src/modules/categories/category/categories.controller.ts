@@ -1,0 +1,34 @@
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { CategoriesService } from './categories.service';
+import { CategoryDto } from '../dto/category.dto';
+
+@Controller()
+export class CategoriesController {
+  constructor(private readonly categoriesService: CategoriesService) {}
+
+  @MessagePattern('CATEGORY:CREATE')
+  create(@Payload() data: CategoryDto) {
+    return this.categoriesService.create(data);
+  }
+
+  @MessagePattern('CATEGORY:FIND')
+  findAll() {
+    return this.categoriesService.findAll();
+  }
+
+  @MessagePattern('CATEGORY:ONE')
+  findOne(@Payload() id: string) {
+    return this.categoriesService.findOne(id);
+  }
+
+  @MessagePattern('CATEGORY:UPDATE')
+  update(@Payload() data: CategoryDto) {
+    return this.categoriesService.update(data);
+  }
+
+  @MessagePattern('CATEGORY:DELETE')
+  remove(@Payload() id: string) {
+    return this.categoriesService.remove(id);
+  }
+}

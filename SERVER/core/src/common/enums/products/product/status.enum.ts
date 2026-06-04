@@ -1,0 +1,22 @@
+export enum ProductStatusEnum {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  DRAFT = 'DRAFT',
+  DELETED = 'DELETED',
+  PENDING_APPROVAL = 'PENDING_APPROVAL',
+}
+
+export enum ProductStockStatusEnum {
+  IN_STOCK = 'IN_STOCK',
+  OUT_OF_STOCK = 'OUT_OF_STOCK',
+  LOW_STOCK = 'LOW_STOCK',
+  PREORDER = 'PREORDER',
+}
+
+export enum ProductApprovalStatusEnum {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+  NOT_APPLICABLE = 'NOT_APPLICABLE',
+  DISCONTINUED = 'DISCONTINUE',
+}

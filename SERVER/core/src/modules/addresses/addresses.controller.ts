@@ -1,0 +1,30 @@
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { AddressesService } from './addresses.service';
+import { AddressDto, FindUserAddressDto } from './dto/address.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
+
+@Controller()
+export class AddressesController {
+  constructor(private readonly addressesService: AddressesService) {}
+
+  @MessagePattern('ADDRESS:CREATE')
+  create(@Payload() createAddressDto: AddressDto) {
+    return this.addressesService.create(createAddressDto);
+  }
+
+  @MessagePattern('ADDRESS:FIND')
+  findAll() {
+    return this.addressesService.findAll();
+  }
+
+  @MessagePattern('ADDRESS:USER')
+  findUserAddress(@Payload() data: FindUserAddressDto) {
+    return this.addressesService.findUserAddress(data);
+  }
+
+  @MessagePattern('ADDRESS:DELETE')
+  remove(@Payload() data: ValidateUUID) {
+    return this.addressesService.remove(data.id);
+  }
+}
