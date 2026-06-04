@@ -18,6 +18,7 @@ export class MainGuard implements CanActivate {
 
     if (this.isUuid(url[lastIndex])) url[lastIndex] = ':id';
     else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
+    else if (this.isTitle(url[lastIndex])) url[lastIndex] = ':title';
     else if (url[lastIndex - 1].startsWith('verify')) {
       url[lastIndex] = url[lastIndex].split('?')[0];
     }
@@ -44,5 +45,9 @@ export class MainGuard implements CanActivate {
 
   private isPhoneNumber(value: string): boolean {
     return /^(\+98|0)?9\d{9}$/.test(value);
+  }
+
+  private isTitle(value: string): boolean {
+    return /^([\d|\w]|['"-_ `]).{3,24}$/.test(value);
   }
 }
