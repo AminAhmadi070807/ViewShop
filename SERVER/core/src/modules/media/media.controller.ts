@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MediaService } from './media.service';
 import { MediaDto } from './dto/media.dto';
+import { ValidateTitle } from '../../common/validations/title.dto';
 
 @Controller()
 export class MediaController {
@@ -18,7 +19,7 @@ export class MediaController {
   }
 
   @MessagePattern('MEDIA:SEARCH')
-  search(@Payload() id: string) {
-    return this.mediaService.search(id);
+  search(@Payload() data: ValidateTitle) {
+    return this.mediaService.search(data.title);
   }
 }
