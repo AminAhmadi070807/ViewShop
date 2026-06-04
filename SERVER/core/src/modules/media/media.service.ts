@@ -15,7 +15,7 @@ export class MediaService {
 
   async create(data: MediaDto) {
     try {
-      const existing = await this.mediaRepository.findOneBy({
+      const existing: Media | null = await this.mediaRepository.findOneBy({
         path: data.path,
       });
 
