@@ -26,9 +26,7 @@ export class UsersService {
       where: { phone: data.phone },
     });
 
-    if (existing) {
-      throw new CustomException(statusMessages.fa['409'], HttpStatus.CONFLICT);
-    }
+    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
     // hashed user password
     const hashedPassword: string = bcrypt.hashSync(data.password, 12);
