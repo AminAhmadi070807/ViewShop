@@ -1,5 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
+import { ParentProduct } from '../../products/entities/parent.product.entity';
 
 @Entity('media')
 export class Media {
@@ -14,4 +21,7 @@ export class Media {
 
   @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
   user: User;
+
+  @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
+  parentProducts: ParentProduct[];
 }

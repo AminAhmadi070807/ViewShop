@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -18,6 +19,7 @@ import { ProductVisibilityEnum } from '../../../common/enums/products/product/vi
 import { User } from '../../users/entities/user.entity';
 import { Product } from './product.entity';
 import { Category } from '../../categories/entities/category.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('parentProducts')
 export class ParentProduct {
@@ -160,6 +162,17 @@ export class ParentProduct {
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];
+
+  @ManyToMany(
+    (): typeof Media => Media,
+    (media: Media): ParentProduct[] => media.parentProducts,
+    {
+      onUpdate: 'CASCADE',
+      nullable: false,
+      eager: true,
+    },
+  )
+  medias: Media[];
 
   @CreateDateColumn()
   createdAt: Date;
