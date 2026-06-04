@@ -18,8 +18,7 @@ export class MainGuard implements CanActivate {
 
     if (this.isUuid(url[lastIndex])) url[lastIndex] = ':id';
     else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
-    else if (this.isTitle(url[lastIndex])) url[lastIndex] = ':title';
-    else if (url[lastIndex - 1].startsWith('verify')) {
+    else if (url[lastIndex].startsWith('verify')) {
       url[lastIndex] = url[lastIndex].split('?')[0];
     }
 

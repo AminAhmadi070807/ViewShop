@@ -69,8 +69,8 @@ export class MediaController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @Get('search/:title')
-  search(@Param() data: ValidateTitle) {
+  @Get('search')
+  search(@Body() data: ValidateTitle) {
     return this.coreService.send('MEDIA:SEARCH', data);
   }
 }
