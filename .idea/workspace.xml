@@ -4,40 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/eslint.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/nest-cli.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/app.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/test/app.e2e-spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/test/jest-e2e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/tsconfig.build.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/admin/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/eslint.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/nest-cli.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.module.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/app.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/test/app.e2e-spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/test/jest-e2e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/tsconfig.build.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SERVER/seller/tsconfig.json" beforeDir="false" />
-    </list>
+    <list default="true" id="a65c20a0-2f55-4e42-8792-051f4d7592da" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,12 +29,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1780552036" />
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1780552459" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="V1" />
-                    <option name="lastUsedInstant" value="1780552035" />
+                    <option name="lastUsedInstant" value="1780552265" />
                   </RecentBranch>
                 </list>
               </option>
@@ -107,7 +74,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.preferred.runtime.type.id": "node",
     "last_opened_file_path": "F:/ViewShop",
@@ -152,7 +119,7 @@
       <workItem from="1780455273857" duration="6462000" />
       <workItem from="1780469413475" duration="9631000" />
       <workItem from="1780508495611" duration="2897000" />
-      <workItem from="1780544088812" duration="7642000" />
+      <workItem from="1780544088812" duration="8194000" />
     </task>
     <servers />
   </component>
