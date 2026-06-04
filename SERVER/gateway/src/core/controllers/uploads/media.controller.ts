@@ -29,7 +29,7 @@ export class MediaController {
     if (!existsSync(uploadPath)) mkdirSync('./uploads', { recursive: true });
   }
 
-  @Post()
+  @Post('uploads')
   @ApiCreatedResponse({
     description: statusMessages.fa['200'],
   })
@@ -43,6 +43,12 @@ export class MediaController {
           type: 'string',
           format: 'binary',
           description: 'uploading file',
+        },
+        title: {
+          type: 'string',
+          minLength: 3,
+          maxLength: 24,
+          example: '',
         },
       },
     },
