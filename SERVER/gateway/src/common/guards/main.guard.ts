@@ -45,8 +45,4 @@ export class MainGuard implements CanActivate {
   private isPhoneNumber(value: string): boolean {
     return /^(\+98|0)?9\d{9}$/.test(value);
   }
-
-  private isTitle(value: string): boolean {
-    return /^([\d|\w]|['"-_ `]).{3,24}$/.test(value);
-  }
 }

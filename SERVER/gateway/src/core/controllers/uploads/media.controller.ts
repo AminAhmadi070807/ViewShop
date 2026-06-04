@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
@@ -13,7 +13,7 @@ import { mkdirSync } from 'fs';
 import { statusMessages } from '../../../common/messages/status.message';
 import path from 'node:path';
 import { CoreService } from '../../core.service';
-import { MediaDto } from './uploads.dto';
+import { MediaDto } from './media.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { ValidateTitle } from '../../../common/validation/title.dto';
