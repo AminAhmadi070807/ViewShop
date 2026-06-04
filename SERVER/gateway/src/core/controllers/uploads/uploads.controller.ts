@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBody,
@@ -16,6 +16,7 @@ import { CoreService } from '../../core.service';
 import { MediaDto } from './uploads.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ValidateTitle } from '../../../common/validation/title.dto';
 
 @Controller('core/media')
 @ApiInternalServerErrorResponse({
@@ -68,8 +69,8 @@ export class MediaController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @Get('search')
-  search() {
-    return this.coreService.send('MEDIA:SEARCH');
+  @Get('search/:title')
+  search(@Param() data: ValidateTitle) {
+    return this.coreService.send('MEDIA:SEARCH', data);
   }
 }
