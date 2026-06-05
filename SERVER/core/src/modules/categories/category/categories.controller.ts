@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CategoriesService } from './categories.service';
 import { CategoryDto, UpdateCategoryDto } from '../dto/category.dto';
+import { ValidateUUID } from '../../../common/validations/id.dto';
 
 @Controller()
 export class CategoriesController {
@@ -18,8 +19,8 @@ export class CategoriesController {
   }
 
   @MessagePattern('CATEGORY:ONE')
-  findOne(@Payload() id: string) {
-    return this.categoriesService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.categoriesService.findOne(data.id);
   }
 
   @MessagePattern('CATEGORY:UPDATE')
@@ -28,7 +29,7 @@ export class CategoriesController {
   }
 
   @MessagePattern('CATEGORY:DELETE')
-  remove(@Payload() id: string) {
-    return this.categoriesService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.categoriesService.remove(data.id);
   }
 }

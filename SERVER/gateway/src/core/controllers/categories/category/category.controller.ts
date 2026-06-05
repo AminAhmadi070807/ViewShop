@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { CategoryDto, UpdateCategoryDto } from './category.dto';
 import express from 'express';
@@ -54,5 +62,10 @@ export class CategoryController {
       link: data.link,
       icon: data.icon,
     });
+  }
+
+  @Delete('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('CATEGORY:DELETE', data);
   }
 }
