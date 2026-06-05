@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
-import { CategoryDto } from './category.dto';
+import { CategoryDto, UpdateCategoryDto } from './category.dto';
 import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
@@ -43,5 +43,15 @@ export class CategoryController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ONE', data);
+  }
+
+  @Post()
+  update(@Body() data: UpdateCategoryDto) {
+    return this.coreService.send('CATEGORY:CREATE', {
+      id: data.id,
+      title: data.title,
+      link: data.link,
+      icon: data.icon,
+    });
   }
 }
