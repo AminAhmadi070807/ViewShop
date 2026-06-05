@@ -100,7 +100,17 @@ export class CategoriesService {
     }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} category`;
+  async remove(id: string) {
+    try {
+      await this.categoryRepository.delete(id);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
