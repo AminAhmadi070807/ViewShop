@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { CategoryDto } from './category.dto';
 import express from 'express';
@@ -27,5 +27,10 @@ export class CategoryController {
       link: data.link,
       icon: data.icon,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('CATEGORY:FIND');
   }
 }
