@@ -65,6 +65,7 @@ export class CategoryController {
   }
 
   @Delete('/:id')
+  @ApiCreatedResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:DELETE', data);
   }
