@@ -7,10 +7,11 @@ import { ProductController } from './product.controller';
 import { ParentProductController } from './parent.product.controller';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
+import { Media } from '../media/entities/media.entity';
 
 @Module({
   controllers: [ParentProductController, ProductController],
   providers: [ParentProductsService, ProductService],
-  imports: [TypeOrmModule.forFeature([ParentProduct, User, Product])],
+  imports: [TypeOrmModule.forFeature([ParentProduct, User, Product, Media])],
 })
 export class ProductsModule {}

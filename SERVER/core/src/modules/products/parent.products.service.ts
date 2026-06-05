@@ -6,9 +6,10 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { Media } from '../media/entities/media.entity';
 
 @Injectable()
 export class ParentProductsService {
@@ -17,6 +18,8 @@ export class ParentProductsService {
     private readonly productRepository: Repository<ParentProduct>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Media)
+    private readonly mediaRepository: Repository<Media>,
   ) {}
 
   async create(data: ParentProductDto) {
@@ -100,7 +103,19 @@ export class ParentProductsService {
 
   async update(data: UpdateParentProductDto) {
     try {
-      await this.productRepository.update({ id: data.id }, data);
+      const images: Media[] = await this.mediaRepository.find({
+        where: {
+          id: In(data.medias),
+        },
+      });
+
+      await this.productRepository.update(
+        { id: data.id },
+        {
+          ...data,
+          medias: images,
+        },
+      );
 
       return {
         status: 204,

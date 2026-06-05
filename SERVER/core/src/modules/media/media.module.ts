@@ -8,5 +8,6 @@ import { Media } from './entities/media.entity';
   controllers: [MediaController],
   providers: [MediaService],
   imports: [TypeOrmModule.forFeature([Media])],
+  exports: [TypeOrmModule],
 })
 export class MediaModule {}
