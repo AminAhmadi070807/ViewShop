@@ -63,8 +63,24 @@ export class CategoriesService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} category`;
+  async findOne(id: string) {
+    try {
+      const category: Category | null = await this.categoryRepository.findOneBy(
+        {
+          id,
+        },
+      );
+
+      if (!category) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: category,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   update(data: CategoryDto) {
