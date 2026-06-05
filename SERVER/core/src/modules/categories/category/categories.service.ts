@@ -37,7 +37,7 @@ export class CategoriesService {
 
       return {
         status: 201,
-        data: newCategory,
+        body: newCategory,
         message: statusMessages.fa['201'],
       };
     } catch {
@@ -45,9 +45,7 @@ export class CategoriesService {
     }
   }
 
-  findAll() {
-    return `This action returns all categories`;
-  }
+  findAll() {}
 
   findOne(id: string) {
     return `This action returns a #${id} category`;
