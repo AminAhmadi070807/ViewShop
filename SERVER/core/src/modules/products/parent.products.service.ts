@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ParentProductDto } from './dto/parent.product.dto';
+import {
+  ParentProductDto,
+  UpdateParentProductDto,
+} from './dto/parent.product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
@@ -95,9 +98,9 @@ export class ParentProductsService {
     }
   }
 
-  async update(data: ParentProductDto) {
+  async update(data: UpdateParentProductDto) {
     try {
-      await this.productRepository.update({ alias: data.alias }, data);
+      await this.productRepository.update({ id: data.id }, data);
 
       return {
         status: 204,

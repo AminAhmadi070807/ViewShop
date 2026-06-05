@@ -128,3 +128,48 @@ export class ParentProductDto {
   @Min(0)
   max_price: number;
 }
+
+export class UpdateParentProductDto {
+  @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  id: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید', each: true })
+  medias: string[];
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(9)
+  @MaxLength(255)
+  title: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(255)
+  @MaxLength(5000)
+  description: string;
+
+  // product status
+  @IsNotEmpty()
+  @IsEnum(ProductStatusEnum)
+  status: ProductStatusEnum;
+
+  // product return policy type
+  @IsNotEmpty()
+  @IsEnum(ProductReturnPolicyTypeEnum)
+  return_policy_type: ProductReturnPolicyTypeEnum;
+
+  // product minimum price
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  min_price: number;
+
+  // product maximum price
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  max_price: number;
+}

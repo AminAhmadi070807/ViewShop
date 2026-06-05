@@ -5,7 +5,7 @@ import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
 
 @Controller('core/categories')
-export class MediaController {
+export class CategoryController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
