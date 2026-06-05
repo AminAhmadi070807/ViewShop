@@ -30,3 +30,21 @@ export class CategoryDto {
   @IsOptional({ message: 'ایکون یک فیلد اختیاری است' })
   icon?: string;
 }
+
+export class UpdateCategoryDto {
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(24)
+  title: string;
+
+  @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
+  @IsString({ message: 'نامک باید رشته باشد' })
+  @Matches(/^([a-zA-Z].{8,36} | '')$/)
+  link: string;
+
+  @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
+  @IsOptional({ message: 'ایکون یک فیلد اختیاری است' })
+  icon?: string;
+}
