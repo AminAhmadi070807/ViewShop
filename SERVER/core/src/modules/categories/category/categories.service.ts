@@ -45,7 +45,23 @@ export class CategoriesService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const categories: Category[] = await this.categoryRepository.find({
+        order: {
+          id: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: categories,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {
     return `This action returns a #${id} category`;
