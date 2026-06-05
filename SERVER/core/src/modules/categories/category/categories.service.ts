@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryDto } from '../dto/category.dto';
+import { CategoryDto, UpdateCategoryDto } from '../dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
 import { Repository } from 'typeorm';
@@ -83,8 +83,21 @@ export class CategoriesService {
     }
   }
 
-  update(data: CategoryDto) {
-    return data;
+  async update(data: UpdateCategoryDto) {
+    try {
+      await this.categoryRepository.update(
+        { id: data.id },
+        { link: data.link, title: data.title, icon: { id: data.icon } },
+      );
+
+      return {
+        status: 204,
+        body: null,
+        message: statusMessages.fa['204'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   remove(id: string) {

@@ -32,6 +32,11 @@ export class CategoryDto {
 }
 
 export class UpdateCategoryDto {
+  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
+  @IsString({ message: 'ایدی دسته بندی باید رشته باشد' })
+  @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
+  id: string;
+
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
