@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   Matches,
@@ -23,4 +24,9 @@ export class CategoryDto {
   @IsString({ message: 'ایدی کاربر باید رشته باشد' })
   @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
   user: string;
+
+  @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
+  @IsOptional({ message: 'ایکون یک فیلد اختیاری است' })
+  icon?: string;
 }

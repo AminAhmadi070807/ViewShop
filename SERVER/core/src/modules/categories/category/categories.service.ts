@@ -27,7 +27,19 @@ export class CategoriesService {
         user: {
           id: data.user,
         },
+        icon: {
+          id: data.icon,
+        },
       });
+
+      const newCategory: Category =
+        await this.categoryRepository.save(category);
+
+      return {
+        status: 201,
+        data: newCategory,
+        message: statusMessages.fa['201'],
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
