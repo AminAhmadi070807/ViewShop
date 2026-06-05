@@ -23,7 +23,14 @@ export class Media {
   @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
   user: User;
 
-  @ManyToOne(() => Category, (category: Category) => category.icon)
+  @ManyToOne(
+    (): typeof Category => Category,
+    (category: Category): Media => category.icon,
+    {
+      eager: true,
+      onUpdate: 'CASCADE',
+    },
+  )
   categories: Category[];
 
   @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
