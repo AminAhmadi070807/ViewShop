@@ -7,6 +7,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
@@ -38,6 +39,8 @@ export class CategoryController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ONE', data);
   }
