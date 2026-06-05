@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity('media')
 export class Media {
@@ -21,6 +22,9 @@ export class Media {
 
   @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
   user: User;
+
+  @ManyToOne(() => Category, (category: Category) => category.icon)
+  categories: Category[];
 
   @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
   parentProducts: ParentProduct[];

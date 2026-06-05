@@ -16,7 +16,7 @@ export class CategoryDto {
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z0-9].{8,36} | '')$/)
+  @Matches(/^([a-zA-Z].{8,36} | '')$/)
   link: string;
 
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })

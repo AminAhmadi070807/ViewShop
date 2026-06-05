@@ -20,6 +20,14 @@ export class CategoriesService {
       });
 
       if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const category: Category = this.categoryRepository.create({
+        title: data.title,
+        link: data.link,
+        user: {
+          id: data.user,
+        },
+      });
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

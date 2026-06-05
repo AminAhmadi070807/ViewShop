@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -26,6 +27,11 @@ export class ParentProductDto {
   @IsNotEmpty()
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید', each: true })
+  medias: string[];
 
   @IsNotEmpty()
   @IsString()
