@@ -45,7 +45,7 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:ONE', data);
   }
 
-  @Post()
+  @Post('update')
   @ApiCreatedResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateCategoryDto) {
     return this.coreService.send('CATEGORY:CREATE', {
