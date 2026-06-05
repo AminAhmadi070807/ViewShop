@@ -8,6 +8,7 @@ import {
 import { SubCategory } from './sub.category.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('categories')
 export class Category {
@@ -20,8 +21,11 @@ export class Category {
   @Column({ type: 'varchar', nullable: false })
   link: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  icon: string;
+  @ManyToOne(
+    (): typeof Media => Media,
+    (media: Media): Category[] => media.categories,
+  )
+  icon: Media;
 
   @ManyToOne(() => User, (user: User) => user.categories)
   user: User;

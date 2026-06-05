@@ -41,14 +41,6 @@ export class ParentProduct {
   })
   alias: string;
 
-  @Column({
-    type: 'varchar',
-    array: true,
-    nullable: false,
-    comment: 'product images',
-  })
-  images: string[];
-
   // product status
   @Column({
     type: 'enum',

@@ -11,6 +11,7 @@ import { JwtAccessTokenStrategy } from '../common/strategies/jwt.access.token.st
 import { JwtRefreshTokenStrategy } from '../common/strategies/jwt.refresh.token.strategy';
 import { AddressController } from './controllers/address/address.controller';
 import { MediaController } from './controllers/uploads/media.controller';
+import { CategoryController } from './controllers/categories/category/category.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -24,6 +25,7 @@ import { MediaController } from './controllers/uploads/media.controller';
     AuthController,
     AddressController,
     MediaController,
+    CategoryController,
   ],
   exports: [CoreService],
 })
