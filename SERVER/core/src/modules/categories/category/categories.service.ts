@@ -19,7 +19,7 @@ export class CategoriesService {
         where: [{ title: data.title }, { alias: data.alias }],
       });
 
-      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const category: Category = this.categoryRepository.create({
         title: data.title,
