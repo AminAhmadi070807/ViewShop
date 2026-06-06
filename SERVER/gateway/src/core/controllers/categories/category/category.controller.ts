@@ -36,7 +36,7 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:CREATE', {
       user: user.userId,
       title: data.title,
-      link: data.link,
+      alias: data.alias,
       icon: data.icon,
     });
   }
@@ -60,7 +60,7 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:CREATE', {
       id: data.id,
       title: data.title,
-      link: data.link,
+      alias: data.alias,
       icon: data.icon,
     });
   }
