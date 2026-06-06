@@ -54,6 +54,13 @@ export class CategoriesService {
         order: {
           id: 'DESC',
         },
+        relations: ['icon'],
+        select: {
+          icon: {
+            title: true,
+            path: true,
+          },
+        },
       });
 
       return {
