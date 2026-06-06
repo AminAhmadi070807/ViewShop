@@ -54,6 +54,7 @@ export class CategoriesService {
         order: {
           id: 'DESC',
         },
+        relations: ['user'],
         select: {
           icon: {
             title: true,
