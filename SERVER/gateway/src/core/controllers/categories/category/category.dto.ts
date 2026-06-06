@@ -1,6 +1,5 @@
 import {
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUUID,
   Matches,
@@ -48,8 +47,7 @@ export class CategoryDto {
   })
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
-  @IsOptional({ message: 'ایکون یک فیلد اختیاری است' })
-  icon?: string;
+  icon: string;
 }
 
 export class UpdateCategoryDto {
@@ -103,6 +101,5 @@ export class UpdateCategoryDto {
   })
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
-  @IsOptional({ message: 'ایکون یک فیلد اختیاری است' })
-  icon?: string;
+  icon: string;
 }

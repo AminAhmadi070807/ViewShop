@@ -16,14 +16,17 @@ export class CategoriesService {
   async create(data: CategoryDto) {
     try {
       const existing: Category | null = await this.categoryRepository.findOne({
-        where: [{ title: data.title }, { alias: data.alias }],
+        where: [
+          { title: data.title.trim() },
+          { alias: data.alias.trim().toLowerCase() },
+        ],
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const category: Category = this.categoryRepository.create({
-        title: data.title,
-        alias: data.alias,
+        title: data.title.trim(),
+        alias: data.alias.trim().toLowerCase(),
         user: {
           id: data.user,
         },
