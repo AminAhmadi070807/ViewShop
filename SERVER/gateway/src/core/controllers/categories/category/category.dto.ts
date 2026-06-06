@@ -35,7 +35,7 @@ export class CategoryDto {
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z]{3,36})$/)
+  @Matches(/^([a-zA-Z-_]{3,36})$/)
   alias: string;
 
   @ApiPropertyOptional({
@@ -89,7 +89,7 @@ export class UpdateCategoryDto {
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z]{3,36})$/)
+  @Matches(/^([a-zA-Z-_]{3,36})$/)
   alias: string;
 
   @ApiPropertyOptional({
