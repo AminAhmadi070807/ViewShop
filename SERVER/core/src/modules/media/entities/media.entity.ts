@@ -28,7 +28,6 @@ export class Media {
     (): typeof Category => Category,
     (category: Category): Media => category.icon,
     {
-      eager: true,
       onUpdate: 'CASCADE',
     },
   )
