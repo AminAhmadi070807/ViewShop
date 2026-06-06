@@ -34,7 +34,6 @@ export class Category {
 
   @ManyToOne(() => User, (user: User) => user.categories, {
     nullable: false,
-    eager: true,
     onUpdate: 'CASCADE',
   })
   user: User;
