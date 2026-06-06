@@ -18,7 +18,7 @@ export class CategoryDto {
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
   @Matches(/^([a-zA-Z].{8,36} | '')$/)
-  link: string;
+  alias: string;
 
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
   @IsString({ message: 'ایدی کاربر باید رشته باشد' })
@@ -46,7 +46,7 @@ export class UpdateCategoryDto {
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
   @Matches(/^([a-zA-Z].{8,36} | '')$/)
-  link: string;
+  alias: string;
 
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })

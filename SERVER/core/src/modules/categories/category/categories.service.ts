@@ -16,14 +16,14 @@ export class CategoriesService {
   async create(data: CategoryDto) {
     try {
       const existing: Category | null = await this.categoryRepository.findOne({
-        where: [{ title: data.title }, { link: data.link }],
+        where: [{ title: data.title }, { alias: data.alias }],
       });
 
       if (!existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const category: Category = this.categoryRepository.create({
         title: data.title,
-        link: data.link,
+        alias: data.alias,
         user: {
           id: data.user,
         },
@@ -87,7 +87,7 @@ export class CategoriesService {
     try {
       await this.categoryRepository.update(
         { id: data.id },
-        { link: data.link, title: data.title, icon: { id: data.icon } },
+        { alias: data.alias, title: data.title, icon: { id: data.icon } },
       );
 
       return {

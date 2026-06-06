@@ -19,7 +19,7 @@ export class Category {
   title: string;
 
   @Column({ type: 'varchar', nullable: false })
-  link: string;
+  alias: string;
 
   @ManyToOne(
     (): typeof Media => Media,
