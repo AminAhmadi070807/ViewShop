@@ -38,7 +38,9 @@ export class SubCategoryService {
         category,
         alias: data.alias,
         title: data.title,
-        icon: data.icon,
+        icon: {
+          id: data.icon,
+        },
         user: {
           id: data.user,
         },
