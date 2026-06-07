@@ -132,7 +132,27 @@ export class SubCategoryService {
     }
   }
 
-  update(data: UpdateSubCategoryDto) {}
+  async update(data: UpdateSubCategoryDto) {
+    try {
+      await this.subCategoryRepository.update(
+        { id: data.id },
+        {
+          alias: data.alias,
+          title: data.title,
+          icon: { id: data.icon },
+          category: { id: data.category },
+        },
+      );
+
+      return {
+        status: 204,
+        body: null,
+        message: statusMessages.fa['204'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: string) {}
 }
