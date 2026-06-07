@@ -61,8 +61,36 @@ export class SubCategoryService {
     }
   }
 
-  findAll() {
-    return `This action returns all categories`;
+  async findAll() {
+    try {
+      const subCategories: SubCategory[] =
+        await this.subCategoryRepository.find({
+          order: {
+            id: 'DESC',
+          },
+          relations: ['category', 'category:icon', 'user'],
+          select: {
+            category: {
+              id: true,
+              alias: true,
+              title: true,
+              icon: true,
+            },
+            user: {
+              fullName: true,
+              id: true,
+            },
+          },
+        });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: subCategories,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: string) {
