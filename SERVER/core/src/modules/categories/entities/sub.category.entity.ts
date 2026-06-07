@@ -8,6 +8,7 @@ import {
 import { Category } from './category.entity';
 import { User } from '../../users/entities/user.entity';
 import { Attribute } from './attribute.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('SubCategories')
 export class SubCategory {
@@ -17,8 +18,16 @@ export class SubCategory {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  icon: string;
+  @ManyToOne(
+    (): typeof Media => Media,
+    (media: Media): Category[] => media.categories,
+    {
+      eager: true,
+      onUpdate: 'CASCADE',
+      nullable: false,
+    },
+  )
+  icon: Media;
 
   @Column({ type: 'varchar', nullable: false })
   alias: string;
