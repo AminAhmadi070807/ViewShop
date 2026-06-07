@@ -16,14 +16,17 @@ export class CategoriesService {
   async create(data: CategoryDto) {
     try {
       const existing: Category | null = await this.categoryRepository.findOne({
-        where: [{ title: data.title }, { link: data.link }],
+        where: [
+          { title: data.title.trim() },
+          { alias: data.alias.trim().toLowerCase() },
+        ],
       });
 
-      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const category: Category = this.categoryRepository.create({
-        title: data.title,
-        link: data.link,
+        title: data.title.trim(),
+        alias: data.alias.trim().toLowerCase(),
         user: {
           id: data.user,
         },
@@ -50,6 +53,18 @@ export class CategoriesService {
       const categories: Category[] = await this.categoryRepository.find({
         order: {
           id: 'DESC',
+        },
+        relations: ['user'],
+        select: {
+          icon: {
+            title: true,
+            path: true,
+            categories: false,
+          },
+          user: {
+            id: true,
+            fullName: true,
+          },
         },
       });
 
@@ -87,7 +102,7 @@ export class CategoriesService {
     try {
       await this.categoryRepository.update(
         { id: data.id },
-        { link: data.link, title: data.title, icon: { id: data.icon } },
+        { alias: data.alias, title: data.title, icon: { id: data.icon } },
       );
 
       return {

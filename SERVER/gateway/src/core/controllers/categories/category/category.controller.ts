@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Req,
 } from '@nestjs/common';
@@ -35,7 +36,7 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:CREATE', {
       user: user.userId,
       title: data.title,
-      link: data.link,
+      alias: data.alias,
       icon: data.icon,
     });
   }
@@ -53,13 +54,13 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:ONE', data);
   }
 
-  @Post('update')
+  @Patch('update')
   @ApiCreatedResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateCategoryDto) {
     return this.coreService.send('CATEGORY:CREATE', {
       id: data.id,
       title: data.title,
-      link: data.link,
+      alias: data.alias,
       icon: data.icon,
     });
   }

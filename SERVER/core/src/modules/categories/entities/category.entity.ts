@@ -19,15 +19,23 @@ export class Category {
   title: string;
 
   @Column({ type: 'varchar', nullable: false })
-  link: string;
+  alias: string;
 
   @ManyToOne(
     (): typeof Media => Media,
     (media: Media): Category[] => media.categories,
+    {
+      eager: true,
+      onUpdate: 'CASCADE',
+      nullable: false,
+    },
   )
   icon: Media;
 
-  @ManyToOne(() => User, (user: User) => user.categories)
+  @ManyToOne(() => User, (user: User) => user.categories, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+  })
   user: User;
 
   @OneToMany(

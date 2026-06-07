@@ -4,7 +4,11 @@
 /build
 /uploads
 /uploads/*
+<<<<<<< HEAD
 /uploads/*.*
+=======
+/uploads/
+>>>>>>> 42f237cf9edc8d85b4f57becf391ff9d57459215
 
 # Logs
 logs
