@@ -40,10 +40,10 @@ export class UpdateCategoryDto {
   @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
   id: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(24)
+  @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
+  @IsString({ message: 'عنواب باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان حدقل باید 3 کارتر داشته باشد' })
+  @MaxLength(36, { message: 'عنوان حدکثر میتواند 36 کارکتر داشته باشد' })
   title: string;
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
