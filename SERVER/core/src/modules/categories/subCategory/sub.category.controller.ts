@@ -6,27 +6,27 @@ import { SubCategoryService } from './sub.category.service';
 export class SubCategoryController {
   constructor(private readonly subCategoryService: SubCategoryService) {}
 
-  @MessagePattern('CATEGORY:CREATE')
+  @MessagePattern('CATEGORY:SUB:CREATE')
   create() {
     return this.subCategoryService.create();
   }
 
-  @MessagePattern('CATEGORY:FIND')
+  @MessagePattern('CATEGORY:SUB:FIND')
   findAll() {
     return this.subCategoryService.findAll();
   }
 
-  @MessagePattern('CATEGORY:ONE')
+  @MessagePattern('CATEGORY:SUB:ONE')
   findOne(@Payload() id: number) {
     return this.subCategoryService.findOne(id);
   }
 
-  @MessagePattern('CATEGORY:UPDATE')
+  @MessagePattern('CATEGORY:SUB:UPDATE')
   update() {
     return this.subCategoryService.update();
   }
 
-  @MessagePattern('CATEGORY:DELETE')
+  @MessagePattern('CATEGORY:SUB:DELETE')
   remove(@Payload() id: number) {
     return this.subCategoryService.remove(id);
   }
