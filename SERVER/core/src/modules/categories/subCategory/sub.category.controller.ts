@@ -1,14 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubCategoryService } from './sub.category.service';
+import { SubCategoryDto } from '../dto/sub.category.dto';
 
 @Controller()
 export class SubCategoryController {
   constructor(private readonly subCategoryService: SubCategoryService) {}
 
   @MessagePattern('CATEGORY:SUB:CREATE')
-  create() {
-    return this.subCategoryService.create();
+  create(@Payload() data: SubCategoryDto) {
+    return this.subCategoryService.create(data);
   }
 
   @MessagePattern('CATEGORY:SUB:FIND')
@@ -17,17 +18,17 @@ export class SubCategoryController {
   }
 
   @MessagePattern('CATEGORY:SUB:ONE')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.subCategoryService.findOne(id);
   }
 
   @MessagePattern('CATEGORY:SUB:UPDATE')
-  update() {
-    return this.subCategoryService.update();
+  update(@Payload() data: SubCategoryDto) {
+    return this.subCategoryService.update(data);
   }
 
   @MessagePattern('CATEGORY:SUB:DELETE')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.subCategoryService.remove(id);
   }
 }
