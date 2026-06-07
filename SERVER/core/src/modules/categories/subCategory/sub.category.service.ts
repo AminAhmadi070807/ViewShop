@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubCategory } from '../entities/sub.category.entity';
 import { Repository } from 'typeorm';
-import { SubCategoryDto } from '../dto/sub.category.dto';
+import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
 import { statusMessages } from '../../../common/message/message.status';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { Category } from '../entities/category.entity';
@@ -132,7 +132,7 @@ export class SubCategoryService {
     }
   }
 
-  update(data: SubCategoryDto) {}
+  update(data: UpdateSubCategoryDto) {}
 
   remove(id: string) {}
 }

@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubCategoryService } from './sub.category.service';
-import { SubCategoryDto } from '../dto/sub.category.dto';
+import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
 
 @Controller()
 export class SubCategoryController {
@@ -23,7 +23,7 @@ export class SubCategoryController {
   }
 
   @MessagePattern('CATEGORY:SUB:UPDATE')
-  update(@Payload() data: SubCategoryDto) {
+  update(@Payload() data: UpdateSubCategoryDto) {
     return this.subCategoryService.update(data);
   }
 

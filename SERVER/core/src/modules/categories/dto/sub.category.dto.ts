@@ -39,7 +39,7 @@ export class SubCategoryDto {
   icon: string;
 }
 
-export class UpdateSubCategory extends PartialType(SubCategoryDto) {
+export class UpdateSubCategoryDto extends PartialType(SubCategoryDto) {
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی نمیتواند خالی باشد' })
   id: string;
