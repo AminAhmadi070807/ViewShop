@@ -9,7 +9,7 @@ import { Category } from './category.entity';
 import { User } from '../../users/entities/user.entity';
 import { Attribute } from './attribute.entity';
 
-@Entity('subCategories')
+@Entity('SubCategories')
 export class SubCategory {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,7 +21,7 @@ export class SubCategory {
   icon: string;
 
   @Column({ type: 'varchar', nullable: false })
-  link: string;
+  alias: string;
 
   @ManyToOne(
     (): typeof User => User,
