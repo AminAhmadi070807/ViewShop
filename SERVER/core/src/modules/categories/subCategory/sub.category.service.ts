@@ -93,8 +93,43 @@ export class SubCategoryService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} category`;
+  async findOne(id: string) {
+    try {
+      const subCategory: SubCategory | null =
+        await this.subCategoryRepository.findOne({
+          where: {
+            id: id,
+          },
+          order: {
+            id: 'DESC',
+          },
+          relations: ['category', 'category:icon', 'user'],
+          select: {
+            category: {
+              id: true,
+              alias: true,
+              title: true,
+              icon: true,
+            },
+            user: {
+              fullName: true,
+              id: true,
+            },
+          },
+        });
+
+      if (!subCategory) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: subCategory,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   update(data: SubCategoryDto) {}
