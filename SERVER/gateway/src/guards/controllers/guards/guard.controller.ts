@@ -16,6 +16,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiParam,
@@ -75,9 +76,8 @@ export class GuardController {
     });
   }
 
-  @ApiOkResponse({
-    description: statusMessages.fa['200'],
-    type: ValidateOkResult,
+  @ApiNoContentResponse({
+    description: statusMessages.fa['204'],
   })
   @Delete('/:id')
   remove(@Param() data: ValidateUUID): Observable<any> {
