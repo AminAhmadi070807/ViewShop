@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class SubCategoryDto {
+export class AttributeCategoryDto {
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
   @MinLength(3, { message: 'عنوان حدقل باید 3 کارتر داشته باشد' })
