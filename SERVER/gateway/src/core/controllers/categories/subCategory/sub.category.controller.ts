@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -52,5 +61,10 @@ export class SubCategoryController {
       user: user.userId,
       ...data,
     });
+  }
+
+  @Delete('/delete/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('CATEGORY:SUB:DELETE', data);
   }
 }
