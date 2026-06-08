@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { SubCategory } from './sub.category.entity';
 
-@Entity('attributes_category')
+@Entity('AttributesCategory')
 export class Attribute {
   @PrimaryGeneratedColumn('uuid')
   id: string;
