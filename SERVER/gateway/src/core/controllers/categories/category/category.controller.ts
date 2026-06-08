@@ -56,12 +56,15 @@ export class CategoryController {
 
   @Patch('update')
   @ApiCreatedResponse({ description: statusMessages.fa['204'] })
-  update(@Body() data: UpdateCategoryDto) {
+  update(@Body() data: UpdateCategoryDto, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
     return this.coreService.send('CATEGORY:CREATE', {
       id: data.id,
       title: data.title,
       alias: data.alias,
       icon: data.icon,
+      user: user.userId,
     });
   }
 
