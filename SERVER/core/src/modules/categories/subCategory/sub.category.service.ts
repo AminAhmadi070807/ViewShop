@@ -24,15 +24,16 @@ export class SubCategoryService {
           { title: data.title, category: { id: data.category } },
           { alias: data.alias, category: { id: data.category } },
         ]);
+
+      // check subCategory & category
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
       // find category from database
       const category: Category | null = await this.categoryRepository.findOneBy(
         { id: data.category },
       );
 
-      // check subCategory & category
-      if (existing || !category) {
-        return new CustomException(statusMessages.fa['409'], 409);
-      }
+      if (!category) return new CustomException(statusMessages.fa['409'], 409);
 
       const subCategory: SubCategory = this.subCategoryRepository.create({
         category,
