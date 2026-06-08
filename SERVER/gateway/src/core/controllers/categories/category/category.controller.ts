@@ -59,7 +59,7 @@ export class CategoryController {
   update(@Body() data: UpdateCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
-    return this.coreService.send('CATEGORY:CREATE', {
+    return this.coreService.send('CATEGORY:UPDATE', {
       id: data.id,
       title: data.title,
       alias: data.alias,
