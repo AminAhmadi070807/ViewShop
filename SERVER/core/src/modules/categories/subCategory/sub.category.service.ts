@@ -154,5 +154,17 @@ export class SubCategoryService {
     }
   }
 
-  remove(id: string) {}
+  async remove(id: string) {
+    try {
+      await this.subCategoryRepository.delete(id);
+
+      return {
+        status: 204,
+        body: null,
+        message: statusMessages.fa['204'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
