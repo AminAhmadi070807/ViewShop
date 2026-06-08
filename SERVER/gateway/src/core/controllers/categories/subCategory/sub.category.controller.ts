@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -27,5 +27,10 @@ export class SubCategoryController {
       user: user.userId,
       ...data,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('CATEGORY:SUB:FIND');
   }
 }
