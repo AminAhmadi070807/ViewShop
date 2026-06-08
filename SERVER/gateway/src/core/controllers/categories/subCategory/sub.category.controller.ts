@@ -44,7 +44,7 @@ export class SubCategoryController {
     return this.coreService.send('CATEGORY:SUB:FIND', data);
   }
 
-  @Patch()
+  @Patch('/update')
   update(@Body() data: UpdateSubCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
