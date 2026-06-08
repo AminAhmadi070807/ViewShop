@@ -13,6 +13,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -54,6 +55,7 @@ export class SubCategoryController {
   }
 
   @Patch('/update')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateSubCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
