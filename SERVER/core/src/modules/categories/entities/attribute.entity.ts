@@ -41,10 +41,14 @@ export class Attribute {
   )
   icon: Media;
 
-  @OneToMany((): typeof User => User, (user: User): User => user.attributes, {
-    eager: true,
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  user: Media;
+  @OneToMany(
+    (): typeof User => User,
+    (user: User): Attribute[] => user.attributes,
+    {
+      eager: true,
+      onUpdate: 'CASCADE',
+      nullable: false,
+    },
+  )
+  user: User;
 }
