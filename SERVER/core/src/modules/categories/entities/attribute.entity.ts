@@ -1,5 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { SubCategory } from './sub.category.entity';
+import { Media } from '../../media/entities/media.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('AttributesCategory')
 export class Attribute {
@@ -22,4 +30,21 @@ export class Attribute {
     },
   )
   subCategory: SubCategory;
+
+  @ManyToOne(
+    (): typeof Media => Media,
+    (media: Media): Attribute[] => media.attributes,
+    {
+      onUpdate: 'CASCADE',
+      nullable: false,
+    },
+  )
+  icon: Media;
+
+  @OneToMany((): typeof User => User, (user: User): User => user.attributes, {
+    eager: true,
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
+  user: Media;
 }
