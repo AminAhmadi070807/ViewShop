@@ -65,11 +65,13 @@ export class SubCategoryDto {
 }
 
 export class UpdateSubCategoryDto extends PartialType(SubCategoryDto) {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی نمیتواند خالی باشد' })
   id: string;
-
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
-  user: string;
 }
