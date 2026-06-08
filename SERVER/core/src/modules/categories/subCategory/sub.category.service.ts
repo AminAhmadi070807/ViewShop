@@ -89,7 +89,8 @@ export class SubCategoryService {
         message: statusMessages.fa['200'],
         body: subCategories,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

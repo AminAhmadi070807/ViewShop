@@ -51,7 +51,7 @@ export class SubCategoryController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('CATEGORY:SUB:FIND', data);
+    return this.coreService.send('CATEGORY:SUB:ONE', data);
   }
 
   @Patch('/update')
