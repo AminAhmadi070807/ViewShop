@@ -29,7 +29,12 @@ export class SubCategoryDto {
   @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
   user: string;
 
-  @IsNotEmpty({ message: 'ایدی دسته بندی والد نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی دسته بندی والد غیر معتبر هست' })
+  @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
+  @IsString({ message: 'ایدی ایکون باید رشته باشد' })
+  @IsUUID('4', { message: 'ایدی ایکون نادرست قابل قبول نیست' })
+  icon: string;
+
+  @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی زیر دسته بندی غیر معتبر هست' })
   subCategory: string;
 }
