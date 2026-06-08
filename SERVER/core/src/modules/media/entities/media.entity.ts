@@ -10,6 +10,7 @@ import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
+import { Attribute } from '../../categories/entities/attribute.entity';
 
 @Entity('media')
 export class Media {
@@ -42,6 +43,15 @@ export class Media {
     },
   )
   subCategories: SubCategory[];
+
+  @OneToMany(
+    (): typeof Attribute => Attribute,
+    (attribute: Attribute): Media => attribute.icon,
+    {
+      onUpdate: 'CASCADE',
+    },
+  )
+  attributes: Attribute[];
 
   @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
   parentProducts: ParentProduct[];
