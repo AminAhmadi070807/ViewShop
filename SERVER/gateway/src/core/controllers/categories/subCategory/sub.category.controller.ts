@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -8,7 +8,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
-import { SubCategoryDto } from './sub.category.dto';
+import { SubCategoryDto, UpdateSubCategoryDto } from './sub.category.dto';
 import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import { ValidateUUID } from '../../../../common/validation/uuid.dto';
@@ -42,5 +42,15 @@ export class SubCategoryController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:SUB:FIND', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateSubCategoryDto, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('CATEGORY:SUB:UPDATE', {
+      user: user.userId,
+      ...data,
+    });
   }
 }
