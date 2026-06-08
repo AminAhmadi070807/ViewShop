@@ -5,6 +5,7 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { SubCategoryDto } from './sub.category.dto';
@@ -30,6 +31,7 @@ export class SubCategoryController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CATEGORY:SUB:FIND');
   }
