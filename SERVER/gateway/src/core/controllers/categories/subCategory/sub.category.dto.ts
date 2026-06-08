@@ -7,6 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class SubCategoryDto {
   @ApiProperty({
@@ -61,4 +62,14 @@ export class SubCategoryDto {
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
+}
+
+export class UpdateSubCategoryDto extends PartialType(SubCategoryDto) {
+  @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی نمیتواند خالی باشد' })
+  id: string;
+
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
+  user: string;
 }
