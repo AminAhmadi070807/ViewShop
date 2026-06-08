@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -11,6 +11,7 @@ import { statusMessages } from '../../../../common/messages/status.message';
 import { SubCategoryDto } from './sub.category.dto';
 import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
+import { ValidateUUID } from '../../../../common/validation/uuid.dto';
 
 @Controller('core/sub/categories/')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -34,5 +35,10 @@ export class SubCategoryController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CATEGORY:SUB:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('CATEGORY:SUB:FIND', data);
   }
 }
