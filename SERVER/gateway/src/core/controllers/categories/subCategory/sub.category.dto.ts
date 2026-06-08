@@ -15,6 +15,7 @@ export class SubCategoryDto {
     nullable: false,
     minLength: 3,
     maxLength: 36,
+    example: '',
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
@@ -29,6 +30,7 @@ export class SubCategoryDto {
     minLength: 3,
     maxLength: 36,
     pattern: /^([a-zA-Z-_]{3,36})$/,
+    example: '',
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
@@ -44,6 +46,7 @@ export class SubCategoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'ایدی دسته بندی والد نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی دسته بندی والد غیر معتبر هست' })
@@ -53,6 +56,7 @@ export class SubCategoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
