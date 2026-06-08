@@ -69,7 +69,7 @@ export class SubCategoryService {
           order: {
             id: 'DESC',
           },
-          relations: ['category', 'category:icon', 'user'],
+          relations: ['category', 'user'],
           select: {
             category: {
               id: true,
