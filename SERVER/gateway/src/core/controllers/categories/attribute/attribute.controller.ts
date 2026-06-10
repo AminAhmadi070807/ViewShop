@@ -4,7 +4,7 @@ import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { AttributeCategoryDto } from './attribute.dto';
 
-@Controller('core/categories')
+@Controller('core/attribute/categories')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class AttributeController {
   constructor(private readonly coreService: CoreService) {}
