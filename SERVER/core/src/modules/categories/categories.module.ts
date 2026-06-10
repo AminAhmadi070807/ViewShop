@@ -18,6 +18,8 @@ import { Media } from '../media/entities/media.entity';
     AttributeController,
   ],
   providers: [CategoriesService, SubCategoryService, AttributeService],
-  imports: [TypeOrmModule.forFeature([Category, SubCategory, Attribute, Media])],
+  imports: [
+    TypeOrmModule.forFeature([Category, SubCategory, Attribute, Media]),
+  ],
 })
 export class CategoriesModule {}

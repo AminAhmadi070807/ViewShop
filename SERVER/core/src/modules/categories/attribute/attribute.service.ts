@@ -72,7 +72,33 @@ export class AttributeService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const attributes: Attribute[] = await this.attributeRepository.find({
+        order: {
+          id: 'DESC',
+        },
+        select: {
+          icon: {
+            id: true,
+            path: true,
+            title: true,
+          },
+          title: true,
+          alias: true,
+          id: true,
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: attributes,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
