@@ -8,17 +8,27 @@ export class AttributeController {
   constructor(private readonly attributeService: AttributeService) {}
 
   @MessagePattern('CATEGORY:ATTRIBUTE:CREATE')
-  create(@Payload() data: null) {}
+  create(@Payload() data: null) {
+    return this.attributeService.create(data);
+  }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:FIND')
-  findAll() {}
+  findAll() {
+    return this.attributeService.findAll();
+  }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:ONE')
-  findOne(@Payload() data: ValidateUUID) {}
+  findOne(@Payload() data: ValidateUUID) {
+    return this.attributeService.findOne(data.id);
+  }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:UPDATE')
-  update(@Payload() data: null) {}
+  update(@Payload() data: null) {
+    return this.attributeService.update(data);
+  }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:DELETE')
-  delete(@Payload() data: ValidateUUID) {}
+  delete(@Payload() data: ValidateUUID) {
+    return this.attributeService.delete(data.id);
+  }
 }
