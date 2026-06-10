@@ -100,7 +100,39 @@ export class AttributeService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const attribute: Attribute | null =
+        await this.attributeRepository.findOne({
+          where: {
+            id,
+          },
+          order: {
+            id: 'DESC',
+          },
+          select: {
+            icon: {
+              id: true,
+              path: true,
+              title: true,
+            },
+            title: true,
+            alias: true,
+            id: true,
+          },
+        });
+
+      if (!attribute) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: attribute,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   update(data: null) {}
 
