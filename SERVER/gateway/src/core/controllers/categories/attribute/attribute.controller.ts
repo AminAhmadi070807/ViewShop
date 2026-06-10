@@ -37,6 +37,7 @@ export class AttributeController {
   }
 
   @Delete('delete/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
