@@ -31,6 +31,7 @@ export class AttributeController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:ONE', data);
   }
