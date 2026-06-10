@@ -6,7 +6,7 @@ import { AttributeCategoryDto } from './attribute.dto';
 
 @Controller('core/categories')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-export class CategoryController {
+export class AttributeController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
