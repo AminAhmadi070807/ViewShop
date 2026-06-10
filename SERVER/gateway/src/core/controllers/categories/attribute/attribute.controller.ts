@@ -5,6 +5,7 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { AttributeCategoryDto } from './attribute.dto';
@@ -23,6 +24,7 @@ export class AttributeController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CATEGORY:ATTRIBUTE:FIND');
   }
