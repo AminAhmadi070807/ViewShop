@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -34,5 +34,10 @@ export class AttributeController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:ONE', data);
+  }
+
+  @Delete('delete/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
 }
