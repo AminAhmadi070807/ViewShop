@@ -13,6 +13,7 @@ import { AddressController } from './controllers/address/address.controller';
 import { MediaController } from './controllers/uploads/media.controller';
 import { CategoryController } from './controllers/categories/category/category.controller';
 import { SubCategoryController } from './controllers/categories/subCategory/sub.category.controller';
+import { AttributeController } from './controllers/categories/attribute/attribute.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -28,6 +29,7 @@ import { SubCategoryController } from './controllers/categories/subCategory/sub.
     MediaController,
     CategoryController,
     SubCategoryController,
+    AttributeController,
   ],
   exports: [CoreService],
 })
