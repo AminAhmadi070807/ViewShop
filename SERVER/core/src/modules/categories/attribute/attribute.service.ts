@@ -75,6 +75,7 @@ export class AttributeService {
   async findAll() {
     try {
       const attributes: Attribute[] = await this.attributeRepository.find({
+        relations: ['icon'],
         order: {
           id: 'DESC',
         },
