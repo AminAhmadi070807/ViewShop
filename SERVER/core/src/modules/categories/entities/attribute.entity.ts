@@ -41,7 +41,7 @@ export class Attribute {
   )
   icon: Media;
 
-  @OneToMany(
+  @ManyToOne(
     (): typeof User => User,
     (user: User): Attribute[] => user.attributes,
     {
