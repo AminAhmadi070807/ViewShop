@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
@@ -9,6 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { AttributeCategoryDto } from './attribute.dto';
+import { ValidateUUID } from '../../../../common/validation/uuid.dto';
 
 @Controller('core/attribute/categories')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -27,5 +28,10 @@ export class AttributeController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CATEGORY:ATTRIBUTE:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('CATEGORY:ATTRIBUTE:ONE', data);
   }
 }
