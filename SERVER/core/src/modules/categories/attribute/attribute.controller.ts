@@ -23,11 +23,6 @@ export class AttributeController {
     return this.attributeService.findOne(data.id);
   }
 
-  @MessagePattern('CATEGORY:ATTRIBUTE:UPDATE')
-  update(@Payload() data: null) {
-    return this.attributeService.update(data);
-  }
-
   @MessagePattern('CATEGORY:ATTRIBUTE:DELETE')
   delete(@Payload() data: ValidateUUID) {
     return this.attributeService.delete(data.id);

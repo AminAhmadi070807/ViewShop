@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AttributeCategoryDto } from '../dto/attribute.category.dto';
+import {
+  AttributeCategoryDto,
+} from '../dto/attribute.category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attribute } from '../entities/attribute.entity';
 import { Repository } from 'typeorm';
@@ -133,8 +135,6 @@ export class AttributeService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
-
-  update(data: null) {}
 
   delete(id: string) {}
 }
