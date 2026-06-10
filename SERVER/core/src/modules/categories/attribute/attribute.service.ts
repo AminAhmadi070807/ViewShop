@@ -3,15 +3,74 @@ import { AttributeCategoryDto } from '../dto/attribute.category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attribute } from '../entities/attribute.entity';
 import { Repository } from 'typeorm';
+import { CustomException } from '../../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../../common/message/message.status';
+import { SubCategory } from '../entities/sub.category.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Injectable()
 export class AttributeService {
   constructor(
     @InjectRepository(Attribute)
     private readonly attributeRepository: Repository<Attribute>,
+    @InjectRepository(SubCategory)
+    private readonly subCategoryRepository: Repository<SubCategory>,
+    @InjectRepository(Media)
+    private readonly mediaRepository: Repository<Media>,
   ) {}
 
-  create(data: AttributeCategoryDto) {}
+  async create(data: AttributeCategoryDto) {
+    try {
+      // find sub category from database
+      const subCategory: SubCategory | null =
+        await this.subCategoryRepository.findOneBy({ id: data.subCategory });
+      const media: Media | null = await this.mediaRepository.findOneBy({
+        id: data.icon,
+      });
+
+      // check sub category
+      if (!subCategory || !media) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      // find attribute from database
+      const existing: Attribute | null = await this.attributeRepository.findOne(
+        {
+          where: [
+            { subCategory: { id: data.subCategory }, alias: data.alias },
+            { subCategory: { id: data.subCategory }, alias: data.title },
+          ],
+        },
+      );
+
+      // check attribute
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const attribute: Attribute = this.attributeRepository.create({
+        alias: data.alias,
+        user: {
+          id: data.user,
+        },
+        subCategory: {
+          id: data.subCategory,
+        },
+        title: data.title,
+        icon: media,
+      });
+
+      const newAttribute = await this.attributeRepository.save(attribute);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: {
+          id: newAttribute.id,
+        },
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findAll() {}
 
