@@ -12,6 +12,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -52,7 +53,7 @@ export class AttributeController {
   }
 
   @Delete('delete/:id')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['200'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
