@@ -12,16 +12,10 @@ import {
   MinLength,
 } from 'class-validator';
 import {
-  ProductApprovalStatusEnum,
-  ProductStatusEnum,
-  ProductStockStatusEnum,
-} from '../../../../common/enums/products/status.enum';
-import {
   ProductReturnPolicyTypeEnum,
   ProductTypeEnum,
   ProductWarrantyTypeEnum,
 } from '../../../../common/enums/products/type.enum';
-import { ProductVisibilityEnum } from '../../../../common/enums/products/visibility.enum';
 
 export class ParentProductDto {
   @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
