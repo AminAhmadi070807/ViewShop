@@ -123,6 +123,11 @@ export class ParentProductDto {
   @IsNumber()
   @Min(0)
   max_price: number;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsUUID('4', { each: true })
+  media: string[];
 }
 
 export class UpdateParentProductDto {
