@@ -4,8 +4,8 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   ParentProductDto,
   UpdateParentProductDto,
-} from './dto/parent.product.dto';
-import { ValidateUUID } from '../../common/validations/id.dto';
+} from '../dto/parent.product.dto';
+import { ValidateUUID } from '../../../common/validations/id.dto';
 
 @Controller()
 export class ParentProductController {

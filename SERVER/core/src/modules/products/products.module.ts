@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ParentProductsService } from './parent.products.service';
+import { ParentProductsService } from './parent/parent.products.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
-import { ProductController } from './product.controller';
-import { ParentProductController } from './parent.product.controller';
-import { ProductService } from './product.service';
+import { ProductController } from './product/product.controller';
+import { ParentProductController } from './parent/parent.product.controller';
+import { ProductService } from './product/product.service';
 import { Product } from './entities/product.entity';
 import { Media } from '../media/entities/media.entity';
 

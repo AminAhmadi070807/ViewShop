@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import {
   ParentProductDto,
   UpdateParentProductDto,
-} from './dto/parent.product.dto';
+} from '../dto/parent.product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ParentProduct } from './entities/parent.product.entity';
-import { User } from '../users/entities/user.entity';
+import { ParentProduct } from '../entities/parent.product.entity';
+import { User } from '../../users/entities/user.entity';
 import { In, Repository } from 'typeorm';
-import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { statusMessages } from '../../common/message/message.status';
-import { Media } from '../media/entities/media.entity';
+import { CustomException } from '../../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../../common/message/message.status';
+import { Media } from '../../media/entities/media.entity';
 
 @Injectable()
 export class ParentProductsService {
