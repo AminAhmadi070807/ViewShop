@@ -8,10 +8,14 @@ import { ParentProductController } from './parent/parent.product.controller';
 import { ProductService } from './product/product.service';
 import { Product } from './entities/product.entity';
 import { Media } from '../media/entities/media.entity';
+import { CategoriesModule } from '../categories/categories.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
   providers: [ParentProductsService, ProductService],
-  imports: [TypeOrmModule.forFeature([ParentProduct, User, Product, Media])],
+  imports: [
+    TypeOrmModule.forFeature([ParentProduct, User, Product, Media]),
+    CategoriesModule,
+  ],
 })
 export class ProductsModule {}

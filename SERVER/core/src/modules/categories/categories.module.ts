@@ -21,5 +21,6 @@ import { Media } from '../media/entities/media.entity';
   imports: [
     TypeOrmModule.forFeature([Category, SubCategory, Attribute, Media]),
   ],
+  exports: [CategoriesService, SubCategoryService, AttributeService],
 })
 export class CategoriesModule {}
