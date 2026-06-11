@@ -10,6 +10,9 @@ import { In, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { Media } from '../../media/entities/media.entity';
+import { CategoriesService } from '../../categories/category/categories.service';
+import { SubCategoryService } from '../../categories/subCategory/sub.category.service';
+import { AttributeService } from '../../categories/attribute/attribute.service';
 
 @Injectable()
 export class ParentProductsService {
@@ -20,6 +23,9 @@ export class ParentProductsService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Media)
     private readonly mediaRepository: Repository<Media>,
+    private readonly categoryService: CategoriesService,
+    private readonly subCategoryService: SubCategoryService,
+    private readonly attributeService: AttributeService,
   ) {}
 
   async create(data: ParentProductDto) {
@@ -30,24 +36,18 @@ export class ParentProductsService {
 
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-      const aliasName: string = data.alias.replaceAll(' ', '-');
-
-      const existingProductAlias: ParentProduct | null =
+      const existing: ParentProduct | null =
         await this.productRepository.findOneBy({
-          alias: aliasName,
+          alias: data.alias,
         });
 
-      if (!existingProductAlias) {
-        return new CustomException(statusMessages.fa['409'], 409);
-      }
+      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      // const product: ParentProduct = this.productRepository.create({
-      //   ...data,
-      //   alias: aliasName,
-      //   user: user,
-      // });
+      const product: ParentProduct = this.productRepository.create({
+        user: user,
+      });
 
-      // await this.productRepository.save(product);
+      await this.productRepository.save(product);
 
       return {
         status: 201,
