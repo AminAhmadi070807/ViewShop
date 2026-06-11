@@ -6,6 +6,7 @@ import {
   IsString,
   IsUUID,
   Matches,
+  Max,
   MaxLength,
   Min,
   MinLength,
@@ -78,16 +79,12 @@ export class ParentProductDto {
   @IsEnum(ProductTypeEnum)
   product_type: ProductTypeEnum;
 
-  // product tax type
-  @IsNotEmpty()
-  @IsEnum(ProductTaxTypeEnum)
-  tax_type: ProductTaxTypeEnum;
-
   // product tax amount
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  tax_amount: number;
+  @Max(100)
+  tax_percent: number;
 
   // product warranty type
   @IsNotEmpty()

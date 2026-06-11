@@ -60,23 +60,13 @@ export class ParentProduct {
   })
   product_type: ProductTypeEnum;
 
-  // product tax type
-  @Column({
-    type: 'enum',
-    enum: ProductTaxTypeEnum,
-    nullable: false,
-    default: ProductTaxTypeEnum.PERCENTAGE,
-    comment: 'product tax type',
-  })
-  tax_type: ProductTaxTypeEnum;
-
   // product tax amount
   @Column({
     type: 'integer',
     nullable: false,
     comment: 'product tax type',
   })
-  tax_amount: number;
+  tax_percent: number;
 
   // product warranty type
   @Column({
