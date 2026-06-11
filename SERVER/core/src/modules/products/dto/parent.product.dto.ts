@@ -29,9 +29,22 @@ export class ParentProductDto {
   userId: string;
 
   @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
+  category: string;
+
+  @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
+  subCategory: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
+  attributes: string[];
+
+  @IsNotEmpty()
   @IsArray()
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید', each: true })
-  medias: string[];
+  media: string[];
 
   @IsNotEmpty()
   @IsString()
@@ -123,11 +136,6 @@ export class ParentProductDto {
   @IsNumber()
   @Min(0)
   max_price: number;
-
-  @IsNotEmpty()
-  @IsArray()
-  @IsUUID('4', { each: true })
-  media: string[];
 }
 
 export class UpdateParentProductDto {
