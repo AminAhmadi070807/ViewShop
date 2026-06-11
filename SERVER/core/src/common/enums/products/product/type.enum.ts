@@ -5,12 +5,6 @@ export enum ProductTypeEnum {
   PHYSICAL = 'PHYSICAL',
 }
 
-export enum ProductTaxTypeEnum {
-  PERCENTAGE = 'PERCENTAGE',
-  FIXED_AMOUNT = 'FIXED_AMOUNT',
-  NONE = 'NONE',
-}
-
 export enum ProductWarrantyTypeEnum {
   MANUFACTURER = 'MANUFACTURER',
   SELLER = 'SELLER',

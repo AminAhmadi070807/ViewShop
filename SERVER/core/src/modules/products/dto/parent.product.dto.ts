@@ -18,7 +18,6 @@ import {
 } from '../../../common/enums/products/product/status.enum';
 import {
   ProductReturnPolicyTypeEnum,
-  ProductTaxTypeEnum,
   ProductTypeEnum,
   ProductWarrantyTypeEnum,
 } from '../../../common/enums/products/product/type.enum';
