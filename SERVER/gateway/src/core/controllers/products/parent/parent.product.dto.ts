@@ -24,116 +24,111 @@ import {
 import { ProductVisibilityEnum } from '../../../../common/enums/products/visibility.enum';
 
 export class ParentProductDto {
-  @IsNotEmpty()
-  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
-  userId: string;
-
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   category: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   subCategory: string;
 
-  @IsNotEmpty()
-  @IsArray()
+  @IsNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'ایدی اتریبیوت هارا در ارایه ارسال کنید' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
   attributes: string[];
 
-  @IsNotEmpty()
-  @IsArray()
-  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید', each: true })
+  @IsNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
+  @IsArray({ message: 'ایدی مدیا هارا در ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'لطفا ایدی مدیا را درست وارد کنید', each: true })
   media: string[];
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(9)
-  @MaxLength(255)
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(9, { message: 'حدقل کارکتر عنوان باید 9 رشته باشد' })
+  @MaxLength(255, { message: 'حدکثر کارتر عنوان میتواند 255 باشد' })
   title: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(255)
-  @MaxLength(5000)
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(255, { message: 'حدقل توضیحات میتواند 255 کارکتر داشته باشد' })
+  @MaxLength(5000, { message: 'حدکثر توضیحات میتواند 5000 کارکتر داشته باشد' })
   description: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(9)
-  @MaxLength(255)
-  @Matches(/^[a-zA-Z0-9].{9,255}$/)
+  @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
+  @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'نام مستعار حدکثر میتواند 255 کارکتر داشته باشد' })
+  @Matches(/^[a-zA-Z-_]{9,255}$/, {
+    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
+  })
   alias: string;
 
-  // product status
-  @IsNotEmpty()
-  @IsEnum(ProductStatusEnum)
-  status: ProductStatusEnum;
-
-  // product stock status
-  @IsNotEmpty()
-  @IsEnum(ProductStockStatusEnum)
-  stock_status: ProductStockStatusEnum;
-
   // product stock quantity
-  @IsNotEmpty()
-  @IsNumber()
+  @IsNotEmpty({ message: 'مقدار موجودی نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'مقدار موجودی باید اعداد باشد' },
+  )
   @Min(0)
   stock_quantity: number;
 
-  // product approval status
-  @IsNotEmpty()
-  @IsEnum(ProductApprovalStatusEnum)
-  approval_status: ProductApprovalStatusEnum;
-
   // product type
-  @IsNotEmpty()
-  @IsEnum(ProductTypeEnum)
+  @IsNotEmpty({ message: 'نوع محصول نمیتواند خالی باشد' })
+  @IsEnum(ProductTypeEnum, {
+    message:
+      'نوع محصول باید یکی از این موارد باشد (PHYSICAL, DIGITAL, SERVICE, BUNDLE)',
+  })
   product_type: ProductTypeEnum;
 
   // product tax amount
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  @Max(100)
+  @IsNotEmpty({ message: 'لطفا پورسانت مالیات را مشخص کنید' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'لطفا مالیات را بین 0 تا 100 تاین کنید' },
+  )
+  @Min(0, { message: 'حدقل پورسانت مالیات 0 میباشد' })
+  @Max(100, { message: 'حداکثر پورسانت مالیات 100 میباشد' })
   tax_percent: number;
 
   // product warranty type
-  @IsNotEmpty()
-  @IsEnum(ProductWarrantyTypeEnum)
+  @IsNotEmpty({ message: 'لطفا نوع گرانتی را مشخص کنید' })
+  @IsEnum(ProductWarrantyTypeEnum, {
+    message:
+      'نوع گرانتی میتواند یکی از این موارد باشد (MANUFACTURER, SELLER, PLATFORM, NO_WARRANTY)',
+  })
   warranty_type: ProductWarrantyTypeEnum;
 
   // product return policy type
-  @IsNotEmpty()
-  @IsEnum(ProductReturnPolicyTypeEnum)
+  @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
+  @IsEnum(ProductReturnPolicyTypeEnum, {
+    message:
+      'نوع بازگشت میتواند یکی از این موارد باشد (STANDARD, EXTENDED, NO_RETURN, EXCHANGE_ONLY)',
+  })
   return_policy_type: ProductReturnPolicyTypeEnum;
 
-  // product visibility
-  @IsNotEmpty()
-  @IsEnum(ProductVisibilityEnum)
-  visibility: ProductVisibilityEnum;
-
   // product minimum quantity
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
+  @IsNotEmpty({ message: 'حدقل تعداد قابل ثبت' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدقل تعداد باید اعداد باشد' },
+  )
+  @Min(0, { message: 'حدقل تعداد نمیتواند پاین تر از 0 باشد' })
   minimum_quantity: number;
 
-  // product maximum quantity
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  maximum_quantity: number;
-
   // product minimum price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
+  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
+  )
+  @Min(1000, { message: 'حدکثر قیمت نمیتواند پاین تر از 1000 تومان باشد' })
   min_price: number;
 
   // product maximum price
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
+  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدکثر قیمت محصول قابل فروش باید اعداد باشد' },
+  )
   max_price: number;
 }
