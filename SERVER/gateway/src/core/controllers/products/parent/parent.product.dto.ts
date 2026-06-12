@@ -44,7 +44,7 @@ export class ParentProductDto {
     type: [String],
     required: true,
     nullable: true,
-    example: '',
+    example: [''],
     isArray: true,
   })
   @ArrayNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
@@ -56,7 +56,7 @@ export class ParentProductDto {
     type: [String],
     required: true,
     nullable: true,
-    example: '',
+    example: [''],
     isArray: true,
   })
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
@@ -123,7 +123,7 @@ export class ParentProductDto {
     required: true,
     nullable: true,
     enum: ProductTypeEnum,
-    example: '',
+    example: ProductTypeEnum.DIGITAL,
   })
   @IsNotEmpty({ message: 'نوع محصول نمیتواند خالی باشد' })
   @IsEnum(ProductTypeEnum, {
@@ -155,7 +155,7 @@ export class ParentProductDto {
     type: String,
     required: true,
     nullable: true,
-    example: '',
+    example: ProductWarrantyTypeEnum.PLATFORM,
     enum: ProductWarrantyTypeEnum,
   })
   @IsNotEmpty({ message: 'لطفا نوع گرانتی را مشخص کنید' })
@@ -170,7 +170,7 @@ export class ParentProductDto {
     type: String,
     required: true,
     nullable: true,
-    example: '',
+    example: ProductReturnPolicyTypeEnum.STANDARD,
     enum: ProductReturnPolicyTypeEnum,
   })
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
