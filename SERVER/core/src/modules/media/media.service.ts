@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MediaDto } from './dto/media.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Media } from './entities/media.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 

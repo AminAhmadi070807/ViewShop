@@ -13,6 +13,7 @@ import { Media } from '../../media/entities/media.entity';
 import { CategoriesService } from '../../categories/category/categories.service';
 import { SubCategoryService } from '../../categories/subCategory/sub.category.service';
 import { AttributeService } from '../../categories/attribute/attribute.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class ParentProductsService {
@@ -43,11 +44,20 @@ export class ParentProductsService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const product: ParentProduct = this.productRepository.create({
-        user: user,
-      });
+      const category = await this.categoryService.findOne(data.category);
+      const subCategory = await this.subCategoryService.findOne(
+        data.subCategory,
+      );
+      // const medias = await this.mediaRepository.findId(data.media);
 
-      await this.productRepository.save(product);
+      if (category instanceof RpcException) return category;
+      else if (subCategory instanceof RpcException) return subCategory;
+
+      // const product: ParentProduct = this.productRepository.create({
+      //   user: user,
+      // });
+
+      // await this.productRepository.save(product);
 
       return {
         status: 201,
