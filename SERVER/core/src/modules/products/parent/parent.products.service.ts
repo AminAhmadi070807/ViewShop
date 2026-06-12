@@ -41,7 +41,7 @@ export class ParentProductsService {
           alias: data.alias,
         });
 
-      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const product: ParentProduct = this.productRepository.create({
         user: user,
