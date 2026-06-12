@@ -14,6 +14,7 @@ import { MediaController } from './controllers/uploads/media.controller';
 import { CategoryController } from './controllers/categories/category/category.controller';
 import { SubCategoryController } from './controllers/categories/subCategory/sub.category.controller';
 import { AttributeController } from './controllers/categories/attribute/attribute.controller';
+import { ParentProductController } from './controllers/products/parent/parent.product.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -30,6 +31,7 @@ import { AttributeController } from './controllers/categories/attribute/attribut
     CategoryController,
     SubCategoryController,
     AttributeController,
+    ParentProductController,
   ],
   exports: [CoreService],
 })
