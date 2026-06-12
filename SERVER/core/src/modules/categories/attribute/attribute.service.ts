@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AttributeCategoryDto } from '../dto/attribute.category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attribute } from '../entities/attribute.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { SubCategory } from '../entities/sub.category.entity';
@@ -75,6 +75,38 @@ export class AttributeService {
   async findAll() {
     try {
       const attributes: Attribute[] = await this.attributeRepository.find({
+        relations: ['icon'],
+        order: {
+          id: 'DESC',
+        },
+        select: {
+          icon: {
+            id: true,
+            path: true,
+            title: true,
+          },
+          title: true,
+          alias: true,
+          id: true,
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: attributes,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findId(id: string[]) {
+    try {
+      const attributes: Attribute[] = await this.attributeRepository.find({
+        where: {
+          id: In(id),
+        },
         relations: ['icon'],
         order: {
           id: 'DESC',
