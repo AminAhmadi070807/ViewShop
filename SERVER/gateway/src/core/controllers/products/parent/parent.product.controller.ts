@@ -48,6 +48,10 @@ export class ParentProductController {
   }
 
   @Patch('update/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   update(@Body() data: UpdateParentProductDto, @Param() id: ValidateUUID) {
     return this.coreService.send('PRODUCT:PARENT:ONE', {
       id: id.id,
