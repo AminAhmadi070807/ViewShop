@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
-import { ParentProductDto } from './parent.product.dto';
+import { ParentProductDto, UpdateParentProductDto } from './parent.product.dto';
 import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
@@ -43,5 +43,13 @@ export class ParentProductController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:PARENT:ONE', data);
+  }
+
+  @Patch('update/:id')
+  update(@Body() data: UpdateParentProductDto, @Param() id: ValidateUUID) {
+    return this.coreService.send('PRODUCT:PARENT:ONE', {
+      id: id.id,
+      ...data,
+    });
   }
 }
