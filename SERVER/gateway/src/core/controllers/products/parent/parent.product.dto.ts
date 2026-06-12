@@ -1,4 +1,5 @@
 import {
+  ArrayNotEmpty,
   IsArray,
   IsEnum,
   IsNotEmpty,
@@ -40,25 +41,25 @@ export class ParentProductDto {
   subCategory: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
     required: true,
     nullable: true,
     example: '',
     isArray: true,
   })
-  @IsNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
+  @ArrayNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی اتریبیوت هارا در ارایه ارسال کنید' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
   attributes: string[];
 
   @ApiProperty({
-    type: String,
+    type: [String],
     required: true,
     nullable: true,
     example: '',
     isArray: true,
   })
-  @IsNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
+  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا هارا در ارایه ارسال کنید' })
   @IsUUID('4', { message: 'لطفا ایدی مدیا را درست وارد کنید', each: true })
   media: string[];
