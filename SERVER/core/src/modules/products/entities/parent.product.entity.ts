@@ -157,6 +157,11 @@ export class ParentProduct {
       onUpdate: 'CASCADE',
     },
   )
+  @JoinTable({
+    name: 'parentProducts_attributes',
+    joinColumn: { name: 'user_id' },
+    inverseJoinColumn: { name: 'role_id' },
+  })
   attributes: Attribute[];
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
