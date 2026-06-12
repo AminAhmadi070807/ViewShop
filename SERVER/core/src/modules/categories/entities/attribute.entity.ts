@@ -1,7 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { SubCategory } from './sub.category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
+import { ParentProduct } from '../../products/entities/parent.product.entity';
+import { ParentProductDto } from '../../products/dto/parent.product.dto';
 
 @Entity('AttributesCategory')
 export class Attribute {
@@ -24,6 +32,17 @@ export class Attribute {
     },
   )
   subCategory: SubCategory;
+
+  @ManyToMany(
+    (): typeof ParentProduct => ParentProduct,
+    (product: ParentProduct): Attribute[] => product.attributes,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      nullable: false,
+    },
+  )
+  parentProducts: ParentProduct[];
 
   @ManyToOne(
     (): typeof Media => Media,

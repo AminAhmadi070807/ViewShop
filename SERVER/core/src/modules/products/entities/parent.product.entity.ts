@@ -21,6 +21,7 @@ import { Product } from './product.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
+import { Attribute } from '../../categories/entities/attribute.entity';
 
 @Entity('parentProducts')
 export class ParentProduct {
@@ -147,6 +148,16 @@ export class ParentProduct {
     },
   )
   subCategory: Category;
+
+  @ManyToMany(
+    (): typeof Attribute => Attribute,
+    (attr: Attribute) => attr.parentProducts,
+    {
+      nullable: false,
+      onUpdate: 'CASCADE',
+    },
+  )
+  attributes: Attribute[];
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];
