@@ -19,6 +19,10 @@ import {
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 
 export class ParentProductDto {
+  @IsNotEmpty({ message: 'ایدی کاربر نباید خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نادرس است' })
+  userId: string;
+
   @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   category: string;
