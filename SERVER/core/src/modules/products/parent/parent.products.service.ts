@@ -32,25 +32,33 @@ export class ParentProductsService {
 
   async create(data: ParentProductDto) {
     try {
+      // get user from database
       const user: User | null = await this.userRepository.findOneBy({
         id: data.userId,
       });
 
+      // check user
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
+      // find product from database
       const existing: ParentProduct | null =
         await this.productRepository.findOneBy({
           alias: data.alias,
         });
 
+      // existing product
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
+      // get category from service
       const category = await this.categoryService.findOne(data.category);
+      // get sub category from service
       const subCategory = await this.subCategoryService.findOne(
         data.subCategory,
       );
+      // get medias from service
       const medias = await this.mediaRepository.findId(data.media);
 
+      // check category & sub category & medias error
       if (category instanceof RpcException) return category;
       else if (subCategory instanceof RpcException) return subCategory;
       else if (medias instanceof RpcException) return medias;
