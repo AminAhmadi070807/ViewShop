@@ -9,6 +9,7 @@ import { ProductService } from './product/product.service';
 import { Product } from './entities/product.entity';
 import { Media } from '../media/entities/media.entity';
 import { CategoriesModule } from '../categories/categories.module';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
@@ -16,6 +17,7 @@ import { CategoriesModule } from '../categories/categories.module';
   imports: [
     TypeOrmModule.forFeature([ParentProduct, User, Product, Media]),
     CategoriesModule,
+    MediaModule,
   ],
 })
 export class ProductsModule {}
