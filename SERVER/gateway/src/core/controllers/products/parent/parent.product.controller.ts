@@ -60,6 +60,7 @@ export class ParentProductController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:PARENT:ONE', data);
   }
