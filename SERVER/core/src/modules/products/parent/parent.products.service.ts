@@ -128,6 +128,12 @@ export class ParentProductsService {
             id: id,
           },
           relations: ['user'],
+          select: {
+            user: {
+              id: true,
+              fullName: true,
+            },
+          },
         },
       );
 
