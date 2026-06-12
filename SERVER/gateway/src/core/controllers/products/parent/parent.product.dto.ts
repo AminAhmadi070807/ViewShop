@@ -229,41 +229,84 @@ export class ParentProductDto {
 }
 
 export class UpdateParentProductDto {
-  @IsNotEmpty()
-  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
-  id: string;
-
+  @ApiProperty({
+    type: [String],
+    required: true,
+    nullable: false,
+    example: [''],
+  })
   @IsNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا هارا در ارایه ارسال کنید' })
   @IsUUID('4', { message: 'لطفا ایدی مدیا را درست وارد کنید', each: true })
   media: string[];
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+    minLength: 9,
+    maxLength: 255,
+  })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   @MinLength(9, { message: 'حدقل کارکتر عنوان باید 9 رشته باشد' })
   @MaxLength(255, { message: 'حدکثر کارتر عنوان میتواند 255 باشد' })
   title: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+    minLength: 255,
+    maxLength: 5000,
+  })
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(255, { message: 'حدقل توضیحات میتواند 255 کارکتر داشته باشد' })
   @MaxLength(5000, { message: 'حدکثر توضیحات میتواند 5000 کارکتر داشته باشد' })
   description: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   category: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   subCategory: string;
 
+  @ApiProperty({
+    type: [String],
+    required: true,
+    nullable: false,
+    example: [''],
+  })
   @IsNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی اتریبیوت هارا در ارایه ارسال کنید' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
   attributes: string[];
 
   // product status
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: ProductStatusEnum.ACTIVE,
+    enum: ProductStatusEnum,
+  })
   @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
   @IsEnum(ProductStatusEnum, {
     message:
@@ -272,6 +315,13 @@ export class UpdateParentProductDto {
   status: ProductStatusEnum;
 
   // product return policy type
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: ProductReturnPolicyTypeEnum.STANDARD,
+    enum: ProductReturnPolicyTypeEnum,
+  })
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
   @IsEnum(ProductReturnPolicyTypeEnum, {
     message:
@@ -280,6 +330,13 @@ export class UpdateParentProductDto {
   return_policy_type: ProductReturnPolicyTypeEnum;
 
   // product minimum price
+  @ApiProperty({
+    type: Number,
+    required: true,
+    nullable: false,
+    example: 1000,
+    minimum: 1000,
+  })
   @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
@@ -289,6 +346,11 @@ export class UpdateParentProductDto {
   min_price: number;
 
   // product maximum price
+  @ApiProperty({
+    type: Number,
+    required: true,
+    nullable: false,
+  })
   @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
