@@ -66,25 +66,25 @@ export class ParentProductsService {
       else if (medias instanceof RpcException) return medias;
       else if (attributes instanceof RpcException) return attributes;
 
-      // const product: ParentProduct = this.productRepository.create({
-      //   user: user,
-      //   category: category.body,
-      //   subCategory: subCategory.body,
-      //   medias: medias.body,
-      //   attributes,
-      //   title: data.title,
-      //   alias: data.alias,
-      //   description: data.description,
-      //   product_type: data.product_type,
-      //   max_price: data.max_price,
-      //   min_price: data.min_price,
-      //   minimum_quantity: data.minimum_quantity,
-      //   return_policy_type: data.return_policy_type,
-      //   tax_percent: data.tax_percent,
-      //   warranty_type: data.warranty_type,
-      // });
+      const product: ParentProduct = this.productRepository.create({
+        user: user,
+        category: category.body,
+        subCategory: subCategory.body,
+        medias: medias.body,
+        attributes: attributes.body,
+        title: data.title,
+        alias: data.alias,
+        description: data.description,
+        product_type: data.product_type,
+        max_price: data.max_price,
+        min_price: data.min_price,
+        minimum_quantity: data.minimum_quantity,
+        return_policy_type: data.return_policy_type,
+        tax_percent: data.tax_percent,
+        warranty_type: data.warranty_type,
+      });
 
-      // await this.productRepository.save(product);
+      await this.productRepository.save(product);
 
       return {
         status: 201,
