@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { ParentProductDto, UpdateParentProductDto } from './parent.product.dto';
 import express from 'express';
@@ -59,7 +68,7 @@ export class ParentProductController {
     });
   }
 
-  @Get('/:id')
+  @Delete('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:PARENT:ONE', data);
