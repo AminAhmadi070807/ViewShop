@@ -23,8 +23,7 @@ export class ParentProductsService {
     private readonly productRepository: Repository<ParentProduct>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Media)
-    private readonly mediaRepository: MediaService,
+    private readonly mediaService: MediaService,
     private readonly categoryService: CategoriesService,
     private readonly subCategoryService: SubCategoryService,
     private readonly attributeService: AttributeService,
@@ -56,7 +55,7 @@ export class ParentProductsService {
         data.subCategory,
       );
       // get medias from service
-      const medias = await this.mediaRepository.findId(data.media);
+      const medias = await this.mediaService.findId(data.media);
       // get attributes from service
       const attributes = await this.attributeService.findId(data.attributes);
 
@@ -91,7 +90,8 @@ export class ParentProductsService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -140,7 +140,7 @@ export class ParentProductsService {
 
   async update(data: UpdateParentProductDto) {
     try {
-      const images = await this.mediaRepository.findId(data.medias);
+      const images = await this.mediaService.findId(data.medias);
 
       if (images instanceof RpcException) return images;
 
