@@ -9,6 +9,7 @@ import { Category } from './category.entity';
 import { User } from '../../users/entities/user.entity';
 import { Attribute } from './attribute.entity';
 import { Media } from '../../media/entities/media.entity';
+import { ParentProduct } from '../../products/entities/parent.product.entity';
 
 @Entity('SubCategories')
 export class SubCategory {
@@ -43,6 +44,16 @@ export class SubCategory {
     onUpdate: 'CASCADE',
   })
   category: Category;
+
+  @OneToMany(
+    () => ParentProduct,
+    (product: ParentProduct) => product.subCategory,
+    {
+      nullable: false,
+      onUpdate: 'CASCADE',
+    },
+  )
+  parentProduct: ParentProduct[];
 
   @OneToMany(() => Attribute, (attribute: Attribute) => attribute.subCategory)
   attributes: Attribute[];

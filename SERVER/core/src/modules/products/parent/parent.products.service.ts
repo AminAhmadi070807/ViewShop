@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from '../entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { Media } from '../../media/entities/media.entity';
@@ -68,6 +68,20 @@ export class ParentProductsService {
 
       // const product: ParentProduct = this.productRepository.create({
       //   user: user,
+      //   category: category.body,
+      //   subCategory: subCategory.body,
+      //   medias: medias.body,
+      //   attributes,
+      //   title: data.title,
+      //   alias: data.alias,
+      //   description: data.description,
+      //   product_type: data.product_type,
+      //   max_price: data.max_price,
+      //   min_price: data.min_price,
+      //   minimum_quantity: data.minimum_quantity,
+      //   return_policy_type: data.return_policy_type,
+      //   tax_percent: data.tax_percent,
+      //   warranty_type: data.warranty_type,
       // });
 
       // await this.productRepository.save(product);

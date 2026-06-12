@@ -20,6 +20,7 @@ import { User } from '../../users/entities/user.entity';
 import { Product } from './product.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { Media } from '../../media/entities/media.entity';
+import { SubCategory } from '../../categories/entities/sub.category.entity';
 
 @Entity('parentProducts')
 export class ParentProduct {
@@ -92,7 +93,7 @@ export class ParentProduct {
     type: 'enum',
     enum: ProductVisibilityEnum,
     nullable: false,
-    default: ProductVisibilityEnum.PUBLIC,
+    default: ProductVisibilityEnum.PRIVATE,
     comment: 'product visibility',
   })
   visibility: ProductVisibilityEnum;
@@ -104,14 +105,6 @@ export class ParentProduct {
     comment: 'product minimum quantity.',
   })
   minimum_quantity: number;
-
-  // product maximum quantity
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product maximum quantity.',
-  })
-  maximum_quantity: number;
 
   // product min price
   @Column({
@@ -129,7 +122,10 @@ export class ParentProduct {
   })
   max_price: number;
 
-  @ManyToOne(() => User, (user: User) => user.parentProducts)
+  @ManyToOne(
+    (): typeof User => User,
+    (user: User): ParentProduct[] => user.parentProducts,
+  )
   user: User;
 
   @ManyToOne(
@@ -141,6 +137,16 @@ export class ParentProduct {
     },
   )
   category: Category;
+
+  @ManyToOne(
+    (): typeof SubCategory => SubCategory,
+    (sub: SubCategory) => sub.parentProduct,
+    {
+      nullable: false,
+      onUpdate: 'CASCADE',
+    },
+  )
+  subCategory: Category;
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];
