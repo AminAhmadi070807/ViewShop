@@ -102,6 +102,12 @@ export class ParentProductsService {
           id: 'DESC',
         },
         relations: ['user'],
+        select: {
+          user: {
+            id: true,
+            fullName: true,
+          },
+        },
       });
 
       return {
