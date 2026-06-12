@@ -6,6 +6,7 @@ import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -20,6 +21,7 @@ export class ParentProductController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNoContentResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
