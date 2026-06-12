@@ -57,11 +57,14 @@ export class ParentProductsService {
       );
       // get medias from service
       const medias = await this.mediaRepository.findId(data.media);
+      // get attributes from service
+      const attributes = await this.attributeService.findId(data.attributes);
 
       // check category & sub category & medias error
       if (category instanceof RpcException) return category;
       else if (subCategory instanceof RpcException) return subCategory;
       else if (medias instanceof RpcException) return medias;
+      else if (attributes instanceof RpcException) return attributes;
 
       // const product: ParentProduct = this.productRepository.create({
       //   user: user,
