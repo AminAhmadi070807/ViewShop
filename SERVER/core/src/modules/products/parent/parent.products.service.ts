@@ -14,6 +14,7 @@ import { CategoriesService } from '../../categories/category/categories.service'
 import { SubCategoryService } from '../../categories/subCategory/sub.category.service';
 import { AttributeService } from '../../categories/attribute/attribute.service';
 import { RpcException } from '@nestjs/microservices';
+import { MediaService } from '../../media/media.service';
 
 @Injectable()
 export class ParentProductsService {
@@ -23,7 +24,7 @@ export class ParentProductsService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     @InjectRepository(Media)
-    private readonly mediaRepository: Repository<Media>,
+    private readonly mediaRepository: MediaService,
     private readonly categoryService: CategoriesService,
     private readonly subCategoryService: SubCategoryService,
     private readonly attributeService: AttributeService,
@@ -48,10 +49,11 @@ export class ParentProductsService {
       const subCategory = await this.subCategoryService.findOne(
         data.subCategory,
       );
-      // const medias = await this.mediaRepository.findId(data.media);
+      const medias = await this.mediaRepository.findId(data.media);
 
       if (category instanceof RpcException) return category;
       else if (subCategory instanceof RpcException) return subCategory;
+      else if (medias instanceof RpcException) return medias;
 
       // const product: ParentProduct = this.productRepository.create({
       //   user: user,
@@ -113,17 +115,15 @@ export class ParentProductsService {
 
   async update(data: UpdateParentProductDto) {
     try {
-      const images: Media[] = await this.mediaRepository.find({
-        where: {
-          id: In(data.medias),
-        },
-      });
+      const images = await this.mediaRepository.findId(data.medias);
+
+      if (images instanceof RpcException) return images;
 
       await this.productRepository.update(
         { id: data.id },
         {
           ...data,
-          medias: images,
+          medias: images.body,
         },
       );
 
