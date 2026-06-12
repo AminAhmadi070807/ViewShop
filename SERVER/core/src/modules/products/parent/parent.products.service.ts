@@ -139,7 +139,7 @@ export class ParentProductsService {
 
   async update(data: UpdateParentProductDto) {
     try {
-      const images = await this.mediaService.findId(data.medias);
+      const images = await this.mediaService.findId(data.media);
 
       if (images instanceof RpcException) return images;
 
