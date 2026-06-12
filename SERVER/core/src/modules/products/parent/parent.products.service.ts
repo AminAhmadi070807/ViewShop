@@ -139,15 +139,31 @@ export class ParentProductsService {
 
   async update(data: UpdateParentProductDto) {
     try {
-      const images = await this.mediaService.findId(data.media);
+      // get category from service
+      const category = await this.categoryService.findOne(data.category);
+      // get sub category from service
+      const subCategory = await this.subCategoryService.findOne(
+        data.subCategory,
+      );
+      // get medias from service
+      const medias = await this.mediaService.findId(data.media);
+      // get attributes from service
+      const attributes = await this.attributeService.findId(data.attributes);
 
-      if (images instanceof RpcException) return images;
+      // check category & sub category & medias error
+      if (category instanceof RpcException) return category;
+      else if (subCategory instanceof RpcException) return subCategory;
+      else if (medias instanceof RpcException) return medias;
+      else if (attributes instanceof RpcException) return attributes;
 
       await this.productRepository.update(
         { id: data.id },
         {
           ...data,
-          medias: images.body,
+          attributes: attributes.body,
+          medias: medias.body,
+          subCategory: subCategory.body,
+          category: category.body,
         },
       );
 
