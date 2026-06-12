@@ -61,6 +61,31 @@ export class MediaService {
     }
   }
 
+  async findId(id: string[]) {
+    try {
+      const medias: Media[] = await this.mediaRepository.find({
+        where: {
+          id: In(id),
+        },
+        order: {
+          id: 'DESC',
+        },
+      });
+
+      if (!medias.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: medias,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async search(title: string) {
     try {
       const medias: Media[] = await this.mediaRepository.find({
