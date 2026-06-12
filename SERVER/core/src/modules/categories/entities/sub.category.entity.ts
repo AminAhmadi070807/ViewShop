@@ -3,6 +3,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
@@ -53,7 +54,7 @@ export class SubCategory {
       onUpdate: 'CASCADE',
     },
   )
-  parentProduct: ParentProduct[];
+  parentProduct: ParentProduct;
 
   @OneToMany(() => Attribute, (attribute: Attribute) => attribute.subCategory)
   attributes: Attribute[];

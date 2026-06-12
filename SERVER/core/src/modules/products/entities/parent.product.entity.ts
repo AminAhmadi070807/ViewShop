@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -147,7 +148,7 @@ export class ParentProduct {
       onUpdate: 'CASCADE',
     },
   )
-  subCategory: Category;
+  subCategory: SubCategory;
 
   @ManyToMany(
     (): typeof Attribute => Attribute,
