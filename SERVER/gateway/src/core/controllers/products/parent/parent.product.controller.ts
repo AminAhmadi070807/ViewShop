@@ -58,4 +58,9 @@ export class ParentProductController {
       ...data,
     });
   }
+
+  @Get('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('PRODUCT:PARENT:ONE', data);
+  }
 }
