@@ -11,5 +11,5 @@ export class ProductController {
   create(@Payload() data: ProductDto) {}
 
   @MessagePattern('PRODUCT:CHILD:FIND')
-  findOne(@Payload() data: ProductDto) {}
+  findAll(@Payload() data: ProductDto) {}
 }
