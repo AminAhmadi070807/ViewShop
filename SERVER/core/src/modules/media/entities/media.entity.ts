@@ -11,6 +11,7 @@ import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
 import { Attribute } from '../../categories/entities/attribute.entity';
+import { Product } from '../../products/entities/product.entity';
 
 @Entity('media')
 export class Media {
@@ -55,4 +56,7 @@ export class Media {
 
   @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
   parentProducts: ParentProduct[];
+
+  @ManyToMany(() => Product, (product: Product) => product.medias)
+  products: Product[];
 }

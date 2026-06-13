@@ -2,7 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,6 +16,7 @@ import {
 } from '../../../common/enums/products/product/status.enum';
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('products')
 export class Product {
@@ -27,13 +31,15 @@ export class Product {
   })
   alias: string;
 
-  @Column({
-    type: 'varchar',
-    array: true,
+  @ManyToMany(() => Media, (media: Media) => media.products, {
     nullable: false,
-    comment: 'product images',
   })
-  images: string[];
+  @JoinTable({
+    name: 'product_media',
+    joinColumn: { name: 'product_id' },
+    inverseJoinColumn: { name: 'media_id' },
+  })
+  medias: string[];
 
   @Column({ type: 'varchar', nullable: false, comment: 'product video' })
   video: string;
