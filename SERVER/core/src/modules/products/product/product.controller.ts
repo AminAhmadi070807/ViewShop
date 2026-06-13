@@ -9,4 +9,7 @@ export class ProductController {
 
   @MessagePattern('PRODUCT:CHILD:CREATE')
   create(@Payload() data: ProductDto) {}
+
+  @MessagePattern('PRODUCT:CHILD:FIND')
+  findOne(@Payload() data: ProductDto) {}
 }
