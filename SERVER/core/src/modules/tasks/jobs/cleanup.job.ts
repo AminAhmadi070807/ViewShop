@@ -16,8 +16,7 @@ export class CleanupJob {
       const checkDate = new Date(auth.createdAt);
       checkDate.setMonth(checkDate.getMonth() + 1);
 
-      if (new Date() > checkDate) {
-      }
+      if (new Date() > checkDate) await this.authRepository.delete(auth.id);
     }
   }
 }
