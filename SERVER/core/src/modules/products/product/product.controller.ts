@@ -15,4 +15,7 @@ export class ProductController {
 
   @MessagePattern('PRODUCT:CHILD:ONE')
   findOne(@Payload() data: ProductDto) {}
+
+  @MessagePattern('PRODUCT:CHILD:UPDATE')
+  update(@Payload() data: ProductDto) {}
 }
