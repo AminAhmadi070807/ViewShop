@@ -12,10 +12,10 @@ export class ProductController {
   create(@Payload() data: ProductDto) {}
 
   @MessagePattern('PRODUCT:CHILD:FIND')
-  findAll(@Payload() data: ProductDto) {}
+  findAll() {}
 
   @MessagePattern('PRODUCT:CHILD:ONE')
-  findOne(@Payload() data: ProductDto) {}
+  findOne(@Payload() data: ValidateUUID) {}
 
   @MessagePattern('PRODUCT:CHILD:UPDATE')
   update(@Payload() data: ProductDto) {}
