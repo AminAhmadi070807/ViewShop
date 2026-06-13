@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -39,10 +40,10 @@ export class Product {
     joinColumn: { name: 'product_id' },
     inverseJoinColumn: { name: 'media_id' },
   })
-  medias: string[];
+  medias: Media[];
 
-  @Column({ type: 'varchar', nullable: false, comment: 'product video' })
-  video: string;
+  @OneToOne(() => Media, (media: Media) => media.id, { nullable: true })
+  video: Media;
 
   // product status
   @Column({
