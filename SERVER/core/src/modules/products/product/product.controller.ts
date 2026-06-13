@@ -9,17 +9,22 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @MessagePattern('PRODUCT:CHILD:CREATE')
-  create(@Payload() data: ProductDto) {}
+  create(@Payload() data: ProductDto) {
+    return this.productService.create(data);
+  }
 
   @MessagePattern('PRODUCT:CHILD:FIND')
-  findAll() {}
+  findAll() {
+    return this.productService.findAll();
+  }
 
   @MessagePattern('PRODUCT:CHILD:ONE')
-  findOne(@Payload() data: ValidateUUID) {}
+  findOne(@Payload() data: ValidateUUID) {
+    return this.productService.findOne(data.id);
+  }
 
   @MessagePattern('PRODUCT:CHILD:UPDATE')
-  update(@Payload() data: ProductDto) {}
-
-  @MessagePattern('PRODUCT:CHILD:DELETE')
-  delete(@Payload() data: ValidateUUID) {}
+  update(@Payload() data: ProductDto) {
+    return this.productService.update(data);
+  }
 }
