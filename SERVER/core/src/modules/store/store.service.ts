@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStoreDto } from './dto/create-store.dto';
-import { UpdateStoreDto } from './dto/update-store.dto';
+import { StoreDto } from './dto/store.dto';
 
 @Injectable()
 export class StoreService {
-  create(createStoreDto: CreateStoreDto) {
+  create(data: StoreDto) {
     return 'This action adds a new store';
   }
 
@@ -14,13 +13,5 @@ export class StoreService {
 
   findOne(id: number) {
     return `This action returns a #${id} store`;
-  }
-
-  update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} store`;
   }
 }
