@@ -110,5 +110,5 @@ export class ProductService {
     }
   }
 
-  update(data: ProductDto) {}
+  async update(data: ProductDto) {}
 }
