@@ -29,6 +29,9 @@ export class Store {
   @Column({ type: 'varchar', nullable: false })
   fullName: string;
 
+  @Column({ type: 'enum' })
+  status: string;
+
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
   logo: Media;
 
