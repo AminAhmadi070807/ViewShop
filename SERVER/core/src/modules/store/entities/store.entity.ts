@@ -11,6 +11,7 @@ import {
 import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { Product } from '../../products/entities/product.entity';
+import { StoreStatusEnum } from '../../../common/enums/store/store.enum';
 
 @Entity('stores')
 export class Store {
@@ -29,8 +30,12 @@ export class Store {
   @Column({ type: 'varchar', nullable: false })
   fullName: string;
 
-  @Column({ type: 'enum' })
-  status: string;
+  @Column({
+    type: 'enum',
+    enum: StoreStatusEnum,
+    default: StoreStatusEnum.WAITING,
+  })
+  status: StoreStatusEnum;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
   logo: Media;
