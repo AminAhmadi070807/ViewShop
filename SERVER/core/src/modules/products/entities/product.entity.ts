@@ -41,9 +41,6 @@ export class Product {
   })
   medias: Media[];
 
-  @OneToOne(() => Media, (media: Media) => media.id, { nullable: true })
-  video: Media;
-
   // product status
   @Column({
     type: 'enum',

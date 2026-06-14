@@ -5,12 +5,15 @@ import { Product } from '../entities/product.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
+import { ParentProduct } from '../entities/parent.product.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(ParentProduct)
+    private readonly parentProductRepository: Repository<ParentProduct>,
   ) {}
 
   create(data: ProductDto) {}
