@@ -16,6 +16,7 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
+import { Store } from '../../store/entities/store.entity';
 
 @Entity('products')
 export class Product {
@@ -92,6 +93,9 @@ export class Product {
 
   @ManyToOne(() => ParentProduct, (product: ParentProduct) => product.products)
   parentProduct: ParentProduct;
+
+  @ManyToOne(() => Store, (store: Store) => store.products)
+  store: Store;
 
   @CreateDateColumn()
   createdAt: Date;

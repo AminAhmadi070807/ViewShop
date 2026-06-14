@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -9,6 +10,7 @@ import { SubCategory } from './sub.category.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
+import { Store } from '../../store/entities/store.entity';
 
 @Entity('categories')
 export class Category {
@@ -49,4 +51,7 @@ export class Category {
     (subCategory: SubCategory) => subCategory.category,
   )
   subCategories: SubCategory[];
+
+  @ManyToMany(() => Store, (store: Store) => store.categories)
+  stores: Store[];
 }
