@@ -7,17 +7,17 @@ import { StoreDto } from './dto/store.dto';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
-  @MessagePattern('createStore')
+  @MessagePattern('STORE:CREATE')
   create(@Payload() data: StoreDto) {
     return this.storeService.create(data);
   }
 
-  @MessagePattern('findAllStore')
+  @MessagePattern('STORE:FIND')
   findAll() {
     return this.storeService.findAll();
   }
 
-  @MessagePattern('findOneStore')
+  @MessagePattern('STORE:ONE')
   findOne(@Payload() id: number) {
     return this.storeService.findOne(id);
   }
