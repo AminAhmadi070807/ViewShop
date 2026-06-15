@@ -120,6 +120,12 @@ export class StoreDto {
 }
 
 export class UpdateStoreDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی نامعتبر هست' })
   id: string;
