@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsOptional,
+  IsPhoneNumber,
   IsString,
   IsUUID,
   Matches,
@@ -41,6 +42,14 @@ export class StoreDto {
     message: 'نام و نام خانوادگی صاحب حدکثر میتواند 30 کارکتر داشته باشد',
   })
   fullName: string;
+
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  user: string;
+
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  owner: string;
 
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
