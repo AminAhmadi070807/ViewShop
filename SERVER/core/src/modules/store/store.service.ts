@@ -66,8 +66,22 @@ export class StoreService {
     }
   }
 
-  findAll() {
-    return `This action returns all store`;
+  async findAll() {
+    try {
+      const stores: Store[] = await this.storeRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: stores,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: number) {
