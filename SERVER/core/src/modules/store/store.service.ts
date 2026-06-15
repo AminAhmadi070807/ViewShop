@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { StoreDto } from './dto/store.dto';
+import { StoreDto, UpdateStoreDto } from './dto/store.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Store } from './entities/store.entity';
 import { Repository } from 'typeorm';
@@ -110,6 +110,31 @@ export class StoreService {
         status: 200,
         message: statusMessages.fa['200'],
         body: store,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async update(data: UpdateStoreDto) {
+    try {
+      const media = await this.mediaService.findId([data.logo, data.banner]);
+
+      if (media instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      await this.storeRepository.update(data.id, {
+        logo: { id: data.logo },
+        banner: { id: data.banner },
+        title: data.title,
+        alias: data.alias,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
