@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoreDto } from './store.dto';
 import express from 'express';
@@ -29,5 +29,10 @@ export class StoreController {
       ...storeDto,
       user: user.userId,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('STORE:FIND');
   }
 }
