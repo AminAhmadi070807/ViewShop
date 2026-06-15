@@ -84,7 +84,23 @@ export class StoreService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
+  async findOne(id: string) {
+    try {
+      const store: Store | null = await this.storeRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!store) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: store,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
