@@ -72,6 +72,12 @@ export class StoreService {
         order: {
           createdAt: 'DESC',
         },
+        relations: ['logo', 'banner', 'categories'],
+        select: {
+          categories: { id: true, title: true, icon: { id: true, path: true } },
+          logo: { id: true, path: true },
+          banner: { id: true, path: true },
+        },
       });
 
       return {
