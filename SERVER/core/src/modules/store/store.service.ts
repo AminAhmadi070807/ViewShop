@@ -61,10 +61,9 @@ export class StoreService {
         banner: {
           id: data.banner,
         },
-        user: {
-          id: data.user,
+        owner: {
+          id: data.owner,
         },
-        owner: owner.body,
         categories: categories.body,
       });
 

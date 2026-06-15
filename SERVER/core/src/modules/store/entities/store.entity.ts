@@ -42,9 +42,6 @@ export class Store {
   logo: Media;
 
   @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
-  user: User;
-
-  @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
   owner: User;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
