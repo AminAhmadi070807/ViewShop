@@ -31,6 +31,36 @@ export class StoreService {
       if (media instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
+
+      const categories = await this.categoriesService.findId(data.categories);
+
+      if (categories instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const store: Store = this.storeRepository.create({
+        title: data.title,
+        alias: data.alias,
+        description: data.description,
+        fullName: data.fullName,
+        logo: {
+          id: data.logo,
+        },
+        banner: {
+          id: data.banner,
+        },
+        categories: categories.body,
+      });
+
+      const newStore: Store = await this.storeRepository.save(store);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: {
+          id: newStore.id,
+        },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

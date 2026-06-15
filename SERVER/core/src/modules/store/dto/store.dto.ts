@@ -48,7 +48,6 @@ export class StoreDto {
 
   @IsNotEmpty({ message: 'بنر فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'بنر فروشگاه نامعتبر هست' })
-  @IsOptional({ message: 'بنر فروشگاه اختیاری هست' })
   banner: string;
 
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
