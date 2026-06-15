@@ -157,7 +157,7 @@ export class StoreService {
     }
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     try {
       await this.storeRepository.update(id, {
         status: StoreStatusEnum.DELETED,

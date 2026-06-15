@@ -30,6 +30,6 @@ export class StoreController {
 
   @MessagePattern('STORE:DELETE')
   delete(@Payload() data: ValidateUUID) {
-    return this.storeService.findOne(data.id);
+    return this.storeService.delete(data.id);
   }
 }
