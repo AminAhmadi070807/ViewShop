@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { StoreDto } from './store.dto';
+import { StoreDto, UpdateStoreDto } from './store.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
@@ -44,5 +44,10 @@ export class StoreController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('STORE:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateStoreDto) {
+    return this.coreService.send('STORE:UPDATE', data);
   }
 }
