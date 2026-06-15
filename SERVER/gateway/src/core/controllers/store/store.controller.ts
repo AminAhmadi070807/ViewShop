@@ -11,12 +11,14 @@ import {
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/store')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
 export class StoreController {
   constructor(private readonly coreService: CoreService) {}
 
