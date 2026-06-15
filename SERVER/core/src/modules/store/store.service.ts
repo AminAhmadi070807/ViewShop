@@ -96,6 +96,12 @@ export class StoreService {
         where: {
           id,
         },
+        relations: ['logo', 'banner', 'categories'],
+        select: {
+          categories: { id: true, title: true, icon: { id: true, path: true } },
+          logo: { id: true, path: true },
+          banner: { id: true, path: true },
+        },
       });
 
       if (!store) return new CustomException(statusMessages.fa['404'], 404);
