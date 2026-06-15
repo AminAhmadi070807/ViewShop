@@ -59,6 +59,8 @@ export class StoreController {
   }
 
   @Delete('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('STORE:DELETE', data);
   }
