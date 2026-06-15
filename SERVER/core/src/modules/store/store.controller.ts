@@ -27,4 +27,9 @@ export class StoreController {
   update(@Payload() data: UpdateStoreDto) {
     return this.storeService.update(data);
   }
+
+  @MessagePattern('STORE:DELETE')
+  delete(@Payload() data: ValidateUUID) {
+    return this.storeService.findOne(data.id);
+  }
 }
