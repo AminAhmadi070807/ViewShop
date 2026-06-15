@@ -14,7 +14,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/store')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-export class MediaController {
+export class StoreController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
