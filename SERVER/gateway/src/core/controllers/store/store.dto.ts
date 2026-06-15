@@ -106,10 +106,11 @@ export class StoreDto {
   banner: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
+    isArray: true,
     required: true,
     nullable: false,
-    example: '',
+    example: [''],
   })
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @IsArray({ message: 'لطفا براساس ارایه ارسال کنید' })
