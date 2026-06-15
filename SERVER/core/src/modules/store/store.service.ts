@@ -8,6 +8,7 @@ import { statusMessages } from '../../common/message/message.status';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 @Injectable()
 export class StoreService {
@@ -129,6 +130,22 @@ export class StoreService {
         banner: { id: data.banner },
         title: data.title,
         alias: data.alias,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      await this.storeRepository.update(id, {
+        status: StoreStatusEnum.DELETED,
       });
 
       return {
