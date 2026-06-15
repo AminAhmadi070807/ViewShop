@@ -36,13 +36,8 @@ export class StoreController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
-  create(@Body() storeDto: StoreDto, @Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
-
-    return this.coreService.send('STORE:CREATE', {
-      ...storeDto,
-      user: user.userId,
-    });
+  create(@Body() data: StoreDto) {
+    return this.coreService.send('STORE:CREATE', data);
   }
 
   @Get()
