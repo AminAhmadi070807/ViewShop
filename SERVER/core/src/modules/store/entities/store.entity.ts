@@ -12,6 +12,7 @@ import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { Product } from '../../products/entities/product.entity';
 import { StoreStatusEnum } from '../../../common/enums/store/store.enum';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('stores')
 export class Store {
@@ -39,6 +40,12 @@ export class Store {
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
   logo: Media;
+
+  @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
+  user: User;
+
+  @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
+  owner: User;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
   banner: Media;
