@@ -47,7 +47,9 @@ export class ProductDto {
   @IsString()
   @MinLength(9)
   @MaxLength(255)
-  @Matches(/^[a-zA-Z0-9].{9,255}$/)
+  @Matches(/^[a-zA-Z0-9-_]{9,255}$/, {
+    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
+  })
   alias: string;
 
   // product status
