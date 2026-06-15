@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CategoryDto, UpdateCategoryDto } from '../dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 
@@ -67,6 +67,28 @@ export class CategoriesService {
           },
         },
       });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: categories,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findId(id: string[]) {
+    try {
+      const categories: Category[] = await this.categoryRepository.find({
+        where: {
+          id: In(id),
+        },
+      });
+
+      if (!categories.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 200,
