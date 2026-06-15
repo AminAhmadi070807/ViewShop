@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoreDto, UpdateStoreDto } from './store.dto';
 import express from 'express';
@@ -56,5 +56,10 @@ export class StoreController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   update(@Body() data: UpdateStoreDto) {
     return this.coreService.send('STORE:UPDATE', data);
+  }
+
+  @Delete('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('STORE:DELETE', data);
   }
 }
