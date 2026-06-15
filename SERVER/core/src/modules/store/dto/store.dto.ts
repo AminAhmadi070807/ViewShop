@@ -1,6 +1,8 @@
 import {
+  ArrayNotEmpty,
   IsArray,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   MaxLength,
@@ -10,43 +12,44 @@ import {
 export class StoreDto {
   @IsNotEmpty({ message: 'عنوان فروشگاه نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان فروشگاه باید رشته باشد' })
-  @MinLength(5, { message: '' })
-  @MaxLength(100, { message: '' })
+  @MinLength(5, { message: 'عنوان حدثل باید 5 کارکتر داشته باشد' })
+  @MaxLength(100, { message: 'عنوان حدکثر میتواند 100 کارکتر داشته باشد' })
   title: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsString({ message: '' })
-  @MinLength(5, { message: '' })
-  @MaxLength(100, { message: '' })
+  @IsNotEmpty({ message: 'نام مستعار فروشگاه نمیتواند خالی باشد' })
+  @IsString({ message: 'نام مستعار فروشگاه باید رشته باشد' })
+  @MinLength(5, { message: 'نام مستعار حدثل باید 5 کارکتر داشته باشد' })
+  @MaxLength(100, { message: 'نام مستعار حدکثر میتواند 100 کارکتر داشته باشد' })
   alias: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsString({ message: '' })
-  @MinLength(5, { message: '' })
-  @MaxLength(255, { message: '' })
+  @IsNotEmpty({ message: 'توضیحات فروشگاه نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات فروشگاه باید رشته باشد' })
+  @MinLength(5, { message: 'توضیحات حدثل باید 5 کارکتر داشته باشد' })
+  @MaxLength(100, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsString({ message: '' })
-  @MinLength(5, { message: '' })
-  @MaxLength(30, { message: '' })
+  @IsNotEmpty({ message: 'نام و نام خانوادگی صاحب فروشگاه نمیتواند خالی باشد' })
+  @IsString({ message: 'نام و نام خانوادگی صاحب فروشگاه باید رشته باشد' })
+  @MinLength(8, {
+    message: 'نام و نام خانوادگی صاحب حدثل باید 8 کارکتر داشته باشد',
+  })
+  @MaxLength(30, {
+    message: 'نام و نام خانوادگی صاحب حدکثر میتواند 30 کارکتر داشته باشد',
+  })
   fullName: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsUUID('4', { message: '' })
+  @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsUUID('4', { message: '' })
+  @IsNotEmpty({ message: 'بنر فروشگاه نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'بنر فروشگاه نامعتبر هست' })
+  @IsOptional({ message: 'بنر فروشگاه اختیاری هست' })
   banner: string;
 
-  @IsNotEmpty({ message: '' })
-  @IsArray({ message: '' })
-  @IsUUID('4', { message: '', each: true })
+  @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
+  @IsArray({ message: 'لطفا براساس ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'شناسه دسته بندی ها نامعتبر هست', each: true })
+  @IsOptional({ message: 'شنباسه دسته بندی اختیاری هست' })
   categories: string[];
-
-  @IsNotEmpty({ message: '' })
-  @IsArray({ message: '' })
-  @IsUUID('4', { message: '', each: true })
-  products: string[];
 }
