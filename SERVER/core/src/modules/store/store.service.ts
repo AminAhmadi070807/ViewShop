@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { StoreDto, UpdateStoreDto } from './dto/store.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Store } from './entities/store.entity';
@@ -9,6 +9,8 @@ import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
+import { UsersService } from '../users/users.service';
+import { UserOneInterface } from '../../common/interfaces/user.interface';
 
 @Injectable()
 export class StoreService {
@@ -17,10 +19,19 @@ export class StoreService {
     private readonly storeRepository: Repository<Store>,
     private readonly mediaService: MediaService,
     private readonly categoriesService: CategoriesService,
+    private readonly usersService: UsersService,
   ) {}
 
   async create(data: StoreDto) {
     try {
+      const owner: UserOneInterface = await this.usersService.findOne(
+        data.owner,
+      );
+
+      if (owner.status !== HttpStatus.OK) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
       const existing: Store | null = await this.storeRepository.findOneBy({
         alias: data.alias,
       });
@@ -50,6 +61,10 @@ export class StoreService {
         banner: {
           id: data.banner,
         },
+        user: {
+          id: data.user,
+        },
+        owner: owner.body,
         categories: categories.body,
       });
 

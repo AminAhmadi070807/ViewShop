@@ -3,7 +3,6 @@ import {
   IsArray,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   IsUUID,
   Matches,
