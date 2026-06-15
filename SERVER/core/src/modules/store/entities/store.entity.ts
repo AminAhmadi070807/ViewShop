@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToMany,
   OneToMany,
   OneToOne,
@@ -39,15 +41,23 @@ export class Store {
   status: StoreStatusEnum;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinColumn()
   logo: Media;
 
   @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinColumn()
   owner: User;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinColumn()
   banner: Media;
 
   @ManyToMany(() => Category, (category: Category) => category.stores)
+  @JoinTable({
+    name: 'stores_categories',
+    joinColumn: { name: 'store_id' },
+    inverseJoinColumn: { name: 'category_id' },
+  })
   categories: Category[];
 
   @OneToMany(() => Product, (product: Product) => product.store)
