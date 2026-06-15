@@ -42,6 +42,10 @@ export class StoreDto {
   })
   fullName: string;
 
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  owner: string;
+
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
