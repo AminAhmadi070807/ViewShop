@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ProductDto, UpdateProductDto } from '../dto/product.dto';
+import {
+  ProductDto,
+  UpdateProductDto,
+  UpdateStatusProductDto,
+} from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
 import { Repository } from 'typeorm';
@@ -137,6 +141,14 @@ export class ProductService {
         message: statusMessages.fa['204'],
         body: null,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async updateStatus(data: UpdateStatusProductDto) {
+    try {
+      const result = await this.productRepository
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

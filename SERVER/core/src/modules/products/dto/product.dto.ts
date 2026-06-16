@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -10,6 +11,7 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
+import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 
 export class ProductDto {
   @IsNotEmpty()
@@ -84,4 +86,18 @@ export class UpdateProductDto {
   @IsNumber()
   @Min(0)
   discount_amount: number;
+}
+
+export class UpdateStatusProductDto {
+  @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  id: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(ProductStatusEnum, {
+    message:
+      'وضیعت محصول فقط میتواند یکی از این موارد باشد (PENDING_APPROVAL, DELETED, DRAFT, INACTIVE, ACTIVE)',
+  })
+  status: ProductStatusEnum;
 }
