@@ -6,7 +6,7 @@ import {
 } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { ParentProduct } from '../entities/parent.product.entity';
@@ -148,7 +148,15 @@ export class ProductService {
 
   async updateStatus(data: UpdateStatusProductDto) {
     try {
-      const result = await this.productRepository
+      await this.productRepository.update(data.id, {
+        status: data.status,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
