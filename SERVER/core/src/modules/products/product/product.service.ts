@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProductDto } from '../dto/product.dto';
+import { ProductDto, UpdateProductDto } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +8,7 @@ import { statusMessages } from '../../../common/message/message.status';
 import { ParentProduct } from '../entities/parent.product.entity';
 import { MediaService } from '../../media/media.service';
 import { RpcException } from '@nestjs/microservices';
+import { StoreService } from '../../store/store.service';
 
 @Injectable()
 export class ProductService {
@@ -17,6 +18,7 @@ export class ProductService {
     @InjectRepository(ParentProduct)
     private readonly parentProductRepository: Repository<ParentProduct>,
     private readonly mediaService: MediaService,
+    private readonly storeService: StoreService,
   ) {}
 
   async create(data: ProductDto) {
@@ -52,12 +54,19 @@ export class ProductService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
+      const store = await this.storeService.findOne(data.store);
+
+      if (store instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
       const product: Product = this.productRepository.create({
         user: { id: data.userId },
         parentProduct: parentProduct,
         medias: media.body,
         alias: data.alias,
         price: data.price,
+        store: store.body,
       });
 
       const newProduct = await this.productRepository.save(product);
@@ -110,5 +119,26 @@ export class ProductService {
     }
   }
 
-  async update(data: ProductDto) {}
+  async update(data: UpdateProductDto) {
+    try {
+      const medias = await this.mediaService.findId(data.medias);
+
+      if (medias instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      await this.productRepository.update(data.id, {
+        medias: medias.body,
+        discount_amount: data.discount_amount,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }

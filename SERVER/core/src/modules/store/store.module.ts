@@ -16,5 +16,6 @@ import { UsersModule } from '../users/users.module';
     CategoriesModule,
     UsersModule,
   ],
+  exports: [StoreService],
 })
 export class StoreModule {}
