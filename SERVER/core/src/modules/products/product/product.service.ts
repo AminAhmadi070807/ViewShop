@@ -6,13 +6,14 @@ import {
 } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { ParentProduct } from '../entities/parent.product.entity';
 import { MediaService } from '../../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { StoreService } from '../../store/store.service';
+import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 
 @Injectable()
 export class ProductService {
@@ -134,6 +135,7 @@ export class ProductService {
       await this.productRepository.update(data.id, {
         medias: medias.body,
         discount_amount: data.discount_amount,
+        status: ProductStatusEnum.PENDING_APPROVAL,
       });
 
       return {
