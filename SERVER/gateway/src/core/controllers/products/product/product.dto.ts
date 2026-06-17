@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -12,6 +13,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { ProductStatusEnum } from '../../../../common/enums/products/status.enum';
 
 export class ProductDto {
   @ApiProperty({
@@ -107,4 +109,18 @@ export class UpdateProductDto {
   @Min(0, { message: 'حدثل درصد تخفیف 0 هست' })
   @Max(100, { message: 'درصد تخفیف نمیتواند بالاتر از 100 باشد' })
   discount_percent: number;
+}
+
+export class UpdateStatusProductDto {
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(ProductStatusEnum, {
+    message:
+      'وضیعت محصول فقط میتواند یکی از این موارد باشد (PENDING_APPROVAL, DELETED, DRAFT, INACTIVE, ACTIVE)',
+  })
+  status: ProductStatusEnum;
 }
