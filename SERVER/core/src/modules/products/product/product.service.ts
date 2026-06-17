@@ -162,8 +162,7 @@ export class ProductService {
         message: statusMessages.fa['204'],
         body: null,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

@@ -57,7 +57,7 @@ export class ProductController {
     return this.coreService.send('PRODUCT:CHILD:UPDATE', data);
   }
 
-  @Patch('status/:is')
+  @Patch('status')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   updateStatus(@Body() data: UpdateStatusProductDto) {
     return this.coreService.send('PRODUCT:CHILD:UPDATE:STATUS', data);
