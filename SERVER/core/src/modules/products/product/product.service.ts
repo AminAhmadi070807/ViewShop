@@ -94,6 +94,21 @@ export class ProductService {
         order: {
           createdAt: 'DESC',
         },
+        relations: ['medias', 'store'],
+        select: {
+          medias: {
+            id: true,
+            path: true,
+            title: true,
+          },
+          store: {
+            id: true,
+            title: true,
+            logo: true,
+            banner: true,
+            alias: true,
+          },
+        },
       });
 
       return {
