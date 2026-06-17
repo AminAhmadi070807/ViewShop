@@ -6,6 +6,7 @@ import {
   IsString,
   IsUUID,
   Matches,
+  Max,
   MaxLength,
   Min,
   MinLength,
@@ -89,8 +90,8 @@ export class ProductDto {
 }
 
 export class UpdateProductDto {
-  @IsNotEmpty()
-  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
@@ -98,8 +99,12 @@ export class UpdateProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
-  @IsNotEmpty({ message: '' })
-  @IsNumber({ allowNaN: false, allowInfinity: true }, { message: '' })
-  @Min(0, { message: '' })
-  discount_amount: number;
+  @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'درصد تخفیف باید اعداد باشد' },
+  )
+  @Min(0, { message: 'حدثل درصد تخفیف 0 هست' })
+  @Max(100, { message: 'درصد تخفیف نمیتواند بالاتر از 100 باشد' })
+  discount_percent: number;
 }
