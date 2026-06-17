@@ -45,4 +45,10 @@ export class ProductController {
   update(@Body() data: UpdateProductDto) {
     return this.coreService.send('PRODUCT:UPDATE', data);
   }
+
+  @Patch('status/:is')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  updateStatus(@Body() data: null) {
+    return this.coreService.send('PRODUCT:UPDATE:STATUS', data);
+  }
 }
