@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
-import { ProductDto } from './product.dto';
+import { ProductDto, UpdateProductDto } from './product.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -40,7 +40,7 @@ export class ProductController {
   }
 
   @Patch()
-  update() {
+  update(@Body() data: UpdateProductDto) {
     return this.coreService.send('PRODUCT:UPDATE');
   }
 }
