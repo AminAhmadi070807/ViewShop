@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { ProductDto } from './product.dto';
 import {
@@ -10,6 +10,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
+import { ValidateUUID } from '../../../../common/validation/uuid.dto';
 
 @Controller('core/parent/product')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -29,5 +30,10 @@ export class ProductController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('PRODUCT:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('PRODUCT:ONE', data);
   }
 }
