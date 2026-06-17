@@ -130,10 +130,23 @@ export class UpdateProductDto {
 }
 
 export class UpdateStatusProductDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
+  @ApiProperty({
+    type: String,
+    enum: ProductStatusEnum,
+    example: ProductStatusEnum.ACTIVE,
+    nullable: false,
+    required: true,
+  })
   @IsNotEmpty()
   @IsString()
   @IsEnum(ProductStatusEnum, {
