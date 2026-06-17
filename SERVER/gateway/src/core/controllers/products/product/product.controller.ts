@@ -6,6 +6,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -40,7 +41,8 @@ export class ProductController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateProductDto) {
-    return this.coreService.send('PRODUCT:UPDATE');
+    return this.coreService.send('PRODUCT:UPDATE', data);
   }
 }
