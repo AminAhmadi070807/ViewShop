@@ -37,10 +37,10 @@ export class ProductDto {
   parentProductId: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
     required: true,
     nullable: false,
-    example: '',
+    example: [''],
     isArray: true,
   })
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
@@ -92,15 +92,33 @@ export class ProductDto {
 }
 
 export class UpdateProductDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
+  @ApiProperty({
+    type: [String],
+    required: true,
+    nullable: false,
+    example: [''],
+  })
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
+  @ApiProperty({
+    type: Number,
+    required: true,
+    nullable: false,
+    example: 0,
+  })
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
