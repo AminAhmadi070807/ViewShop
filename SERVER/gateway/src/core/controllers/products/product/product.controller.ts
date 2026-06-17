@@ -34,25 +34,25 @@ export class ProductController {
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
-    return this.coreService.send('PRODUCT:FIND');
+    return this.coreService.send('PRODUCT:CHILD:FIND');
   }
 
   @Get('/:id')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('PRODUCT:ONE', data);
+    return this.coreService.send('PRODUCT:CHILD:ONE', data);
   }
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateProductDto) {
-    return this.coreService.send('PRODUCT:UPDATE', data);
+    return this.coreService.send('PRODUCT:CHILD:UPDATE', data);
   }
 
   @Patch('status/:is')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   updateStatus(@Body() data: UpdateStatusProductDto) {
-    return this.coreService.send('PRODUCT:UPDATE:STATUS', data);
+    return this.coreService.send('PRODUCT:CHILD:UPDATE:STATUS', data);
   }
 }
