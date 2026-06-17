@@ -53,11 +53,10 @@ export class ProductDto {
   @Min(0)
   price: number;
 
-  // product discount amount
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  discount_amount: number;
+  discount_percent: number;
 }
 
 export class UpdateProductDto {

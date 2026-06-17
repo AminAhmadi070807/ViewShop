@@ -86,7 +86,7 @@ export class Product {
     comment: 'product discount amount type',
     default: 0,
   })
-  discount_amount: number;
+  discount_percent: number;
 
   @ManyToOne(() => User, (user: User) => user.products)
   user: User;
