@@ -134,7 +134,7 @@ export class ProductService {
 
       await this.productRepository.update(data.id, {
         medias: medias.body,
-        discount_amount: data.discount_amount,
+        discount_percent: data.discount_percent,
         status: ProductStatusEnum.PENDING_APPROVAL,
       });
 
