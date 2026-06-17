@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { ProductDto } from './product.dto';
 import {
@@ -37,5 +37,10 @@ export class ProductController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:ONE', data);
+  }
+
+  @Patch()
+  update() {
+    return this.coreService.send('PRODUCT:UPDATE');
   }
 }
