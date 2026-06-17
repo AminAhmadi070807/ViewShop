@@ -87,3 +87,19 @@ export class ProductDto {
   @Min(0, { message: '' })
   discount_amount: number;
 }
+
+export class UpdateProductDto {
+  @IsNotEmpty()
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  id: string;
+
+  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
+  @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
+  @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
+  medias: string[];
+
+  @IsNotEmpty({ message: '' })
+  @IsNumber({ allowNaN: false, allowInfinity: true }, { message: '' })
+  @Min(0, { message: '' })
+  discount_amount: number;
+}
