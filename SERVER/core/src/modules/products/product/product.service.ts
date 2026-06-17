@@ -147,18 +147,23 @@ export class ProductService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      await this.productRepository.update(data.id, {
-        medias: medias.body,
-        discount_percent: data.discount_percent,
-        status: ProductStatusEnum.PENDING_APPROVAL,
-      });
+      const product = await this.productRepository.findOneBy({ id: data.id });
+
+      if (!product) return new CustomException(statusMessages.fa['404'], 404);
+
+      product.medias = medias.body;
+      product.discount_percent = data.discount_percent;
+      product.status = ProductStatusEnum.PENDING_APPROVAL;
+
+      await this.productRepository.save(product);
 
       return {
         status: 204,
         message: statusMessages.fa['204'],
         body: null,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
