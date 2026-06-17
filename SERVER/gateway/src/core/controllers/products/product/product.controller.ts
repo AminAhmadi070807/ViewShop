@@ -28,7 +28,7 @@ export class ProductController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ProductDto) {
-    return this.coreService.send('PRODUCT:CREATE', data);
+    return this.coreService.send('PRODUCT:CHILD:CREATE', data);
   }
 
   @Get()

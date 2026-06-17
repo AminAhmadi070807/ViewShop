@@ -83,7 +83,8 @@ export class ProductService {
           id: newProduct.id,
         },
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
