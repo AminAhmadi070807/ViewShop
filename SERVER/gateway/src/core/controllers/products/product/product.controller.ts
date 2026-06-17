@@ -17,7 +17,7 @@ import {
 import { statusMessages } from '../../../../common/messages/status.message';
 import { ValidateUUID } from '../../../../common/validation/uuid.dto';
 
-@Controller('core/parent/product')
+@Controller('core/product')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class ProductController {
   constructor(private readonly coreService: CoreService) {}
