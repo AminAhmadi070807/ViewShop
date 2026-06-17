@@ -16,6 +16,7 @@ import { SubCategoryController } from './controllers/categories/subCategory/sub.
 import { AttributeController } from './controllers/categories/attribute/attribute.controller';
 import { ParentProductController } from './controllers/products/parent/parent.product.controller';
 import { StoreController } from './controllers/store/store.controller';
+import { ProductController } from './controllers/products/product/product.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -34,6 +35,7 @@ import { StoreController } from './controllers/store/store.controller';
     AttributeController,
     ParentProductController,
     StoreController,
+    ProductController,
   ],
   exports: [CoreService],
 })
