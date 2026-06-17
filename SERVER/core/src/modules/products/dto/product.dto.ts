@@ -33,12 +33,6 @@ export class ProductDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(255)
-  @MaxLength(5000)
-  description: string;
-
-  @IsNotEmpty()
-  @IsString()
   @MinLength(9)
   @MaxLength(255)
   @Matches(/^[a-zA-Z0-9-_]{9,255}$/, {
