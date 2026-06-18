@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { CommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ProductService } from '../products/product/product.service';
@@ -58,8 +58,48 @@ export class CommentService {
     }
   }
 
-  findAll() {
-    return `This action returns all comment`;
+  async findAll() {
+    try {
+      const comments: Comment[] = await this.commentRepository.find({
+        where: {
+          parentComment: IsNull(),
+        },
+        relations: ['user', 'parentComment', 'product'],
+        order: {
+          createdAt: 'DESC',
+        },
+        select: {
+          id: true,
+          user: {
+            id: true,
+            fullName: true,
+          },
+          parentComment: {
+            id: true,
+            description: true,
+            score: true,
+            user: {
+              id: true,
+              fullName: true,
+            },
+          },
+          product: {
+            id: true,
+          },
+          status: true,
+          description: true,
+          score: true,
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: comments,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: number) {
