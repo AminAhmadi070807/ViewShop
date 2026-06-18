@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -36,4 +37,14 @@ export class CommentDto {
   @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
   @IsOptional({ message: 'ایدی کامنت اختیاری است' })
   parentComment: string;
+}
+
+export class UpdateCommentDto {
+  @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
+  id: string;
+
+  @IsNotEmpty({ message: 'وضیعت کامنت نمیتواند خالی باشد' })
+  @IsBoolean({ message: 'لطفا وضیع کامنت را براساس (true, false) وارد کنید' })
+  status: boolean;
 }

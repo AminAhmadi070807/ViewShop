@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { CommentDto } from './comment.dto';
+import { CommentDto, UpdateCommentDto } from './comment.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
@@ -38,5 +38,10 @@ export class ProductController {
   @Get('/:productId')
   findComment(@Param() data: ValidateUUID) {
     return this.coreService.send('COMMENT:FIND:PRODUCT', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateCommentDto) {
+    return this.coreService.send('COMMENT:UPDATE', data);
   }
 }
