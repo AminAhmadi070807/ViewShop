@@ -5,6 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,6 +18,7 @@ import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
+import { Comment } from '../../comment/entities/comment.entity';
 
 @Entity('products')
 export class Product {
@@ -90,6 +92,9 @@ export class Product {
 
   @ManyToOne(() => User, (user: User) => user.products)
   user: User;
+
+  @OneToMany(() => Comment, (comment: Comment) => comment.product)
+  comments: Comment;
 
   @ManyToOne(() => ParentProduct, (product: ParentProduct) => product.products)
   parentProduct: ParentProduct;
