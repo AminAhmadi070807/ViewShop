@@ -1,7 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CommentService } from './comment.service';
-import { CommentDto } from './dto/comment.dto';
+import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class CommentController {
@@ -18,17 +19,17 @@ export class CommentController {
   }
 
   @MessagePattern('COMMENT:FIND:PRODUCT')
-  findProductComments(@Payload() id: number) {
-    return this.commentService.findOne(id);
+  findProductComments(@Payload() data: ValidateUUID) {
+    return this.commentService.findProductComments(data.id);
   }
 
   @MessagePattern('COMMENT:UPDATE')
-  update(@Payload() data: CommentDto) {
+  update(@Payload() data: UpdateCommentDto) {
     return this.commentService.update(data);
   }
 
   @MessagePattern('COMMENT:DELETE')
-  remove(@Payload() id: number) {
-    return this.commentService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.commentService.remove(data.id);
   }
 }
