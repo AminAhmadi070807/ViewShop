@@ -26,7 +26,7 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 @Controller('core/comments')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
-export class ProductController {
+export class CommentController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
