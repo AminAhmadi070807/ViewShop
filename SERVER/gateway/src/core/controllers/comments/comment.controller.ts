@@ -47,6 +47,7 @@ export class ProductController {
   }
 
   @Get('/:productId')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findComment(@Param() data: ValidateUUID) {
     return this.coreService.send('COMMENT:FIND:PRODUCT', data);
   }
