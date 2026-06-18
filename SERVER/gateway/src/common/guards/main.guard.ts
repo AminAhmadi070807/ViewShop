@@ -16,7 +16,6 @@ export class MainGuard implements CanActivate {
     const url: string[] = req.url.split('/');
 
     const lastIndex: number = url.length - 1;
-    console.log(req.url);
 
     if (this.isUuid(url[lastIndex])) url[lastIndex] = ':id';
     else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
