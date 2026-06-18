@@ -31,7 +31,11 @@ export class Comment {
   })
   user: User;
 
-  @ManyToOne(() => Comment, { nullable: true })
+  @ManyToOne(() => Comment, {
+    nullable: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   parentComment: Comment;
 
   @Column({ type: 'boolean', nullable: false, default: false })
