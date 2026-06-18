@@ -102,8 +102,51 @@ export class CommentService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
+  async findProductComments(id: string) {
+    try {
+      const comments: Comment[] = await this.commentRepository.find({
+        where: {
+          product: {
+            id,
+          },
+          parentComment: IsNull(),
+        },
+        relations: ['user', 'parentComment', 'product'],
+        order: {
+          createdAt: 'DESC',
+        },
+        select: {
+          id: true,
+          user: {
+            id: true,
+            fullName: true,
+          },
+          parentComment: {
+            id: true,
+            description: true,
+            score: true,
+            user: {
+              id: true,
+              fullName: true,
+            },
+          },
+          product: {
+            id: true,
+          },
+          status: true,
+          description: true,
+          score: true,
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: comments,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   update(data: CommentDto) {
