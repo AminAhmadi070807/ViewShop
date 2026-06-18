@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { CommentDto } from './dto/comment.dto';
+import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
@@ -149,7 +149,19 @@ export class CommentService {
     }
   }
 
-  async update(data: UpdateCommentStatus) {}
+  async update(data: UpdateCommentDto) {
+    try {
+      await this.commentRepository.update(data.id, { status: data.status });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: number) {
     return `This action removes a #${id} comment`;
