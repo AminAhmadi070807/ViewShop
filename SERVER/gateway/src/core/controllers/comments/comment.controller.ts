@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { CommentDto } from './comment.dto';
 import express from 'express';
@@ -10,6 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/comments')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -32,5 +33,10 @@ export class ProductController {
   @Get()
   findAll() {
     return this.coreService.send('COMMENT:FIND');
+  }
+
+  @Get('/:productId')
+  findComment(@Param() data: ValidateUUID) {
+    return this.coreService.send('COMMENT:FIND:PRODUCT', data);
   }
 }
