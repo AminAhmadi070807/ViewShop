@@ -60,6 +60,7 @@ export class ProductController {
   }
 
   @Delete('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('COMMENT:DELETE', data);
   }
