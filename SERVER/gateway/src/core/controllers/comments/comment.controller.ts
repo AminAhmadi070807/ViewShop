@@ -15,6 +15,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -53,6 +54,7 @@ export class ProductController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateCommentDto) {
     return this.coreService.send('COMMENT:UPDATE', data);
   }
