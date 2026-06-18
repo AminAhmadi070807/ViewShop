@@ -149,9 +149,7 @@ export class CommentService {
     }
   }
 
-  update(data: CommentDto) {
-    return `This action updates a #${data} comment`;
-  }
+  async update(data: UpdateCommentStatus) {}
 
   remove(id: number) {
     return `This action removes a #${id} comment`;
