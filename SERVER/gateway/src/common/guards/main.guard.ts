@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
+import { validate } from 'uuid';
 
 @Injectable()
 export class MainGuard implements CanActivate {
@@ -15,6 +16,7 @@ export class MainGuard implements CanActivate {
     const url: string[] = req.url.split('/');
 
     const lastIndex: number = url.length - 1;
+    console.log(req.url);
 
     if (this.isUuid(url[lastIndex])) url[lastIndex] = ':id';
     else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
@@ -37,9 +39,7 @@ export class MainGuard implements CanActivate {
   }
 
   private isUuid(value: string): boolean {
-    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-      value,
-    );
+    return validate(value);
   }
 
   private isPhoneNumber(value: string): boolean {
