@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { CommentDto, UpdateCommentDto } from './comment.dto';
 import express from 'express';
@@ -43,5 +52,10 @@ export class ProductController {
   @Patch()
   update(@Body() data: UpdateCommentDto) {
     return this.coreService.send('COMMENT:UPDATE', data);
+  }
+
+  @Delete('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('COMMENT:DELETE', data);
   }
 }
