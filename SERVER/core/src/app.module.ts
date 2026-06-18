@@ -12,6 +12,7 @@ import { MediaModule } from './modules/media/media.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { StoreModule } from './modules/store/store.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { StoreModule } from './modules/store/store.module';
     ScheduleModule.forRoot(),
     TasksModule,
     StoreModule,
+    CommentModule,
   ],
 })
 export class AppModule {}
