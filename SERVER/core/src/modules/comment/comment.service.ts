@@ -120,7 +120,7 @@ export class CommentService {
           },
           parentComment: IsNull(),
         },
-        relations: ['user', 'parentComment', 'product'],
+        relations: ['user', 'product'],
         order: {
           createdAt: 'DESC',
         },
@@ -129,15 +129,6 @@ export class CommentService {
           user: {
             id: true,
             fullName: true,
-          },
-          parentComment: {
-            id: true,
-            description: true,
-            score: true,
-            user: {
-              id: true,
-              fullName: true,
-            },
           },
           product: {
             id: true,
@@ -170,7 +161,7 @@ export class CommentService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: comments,
+        body: commentsArray,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
