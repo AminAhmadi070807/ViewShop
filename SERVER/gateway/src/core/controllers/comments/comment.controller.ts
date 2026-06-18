@@ -7,11 +7,13 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/comments')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
 export class ProductController {
   constructor(private readonly coreService: CoreService) {}
 
