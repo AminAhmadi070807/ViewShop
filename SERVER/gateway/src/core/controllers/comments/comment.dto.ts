@@ -10,8 +10,16 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CommentDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: '',
+    minLength: 5,
+    maxLength: 255,
+  })
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(5, { message: 'توضیحات حدقل باید 5 کاراکتر داشته باشد' })
@@ -20,6 +28,13 @@ export class CommentDto {
   })
   description: string;
 
+  @ApiProperty({
+    type: Number,
+    required: true,
+    example: 5,
+    minimum: 1,
+    maximum: 5,
+  })
   @IsNotEmpty({ message: 'نمره نمیتواند خالی باشد' })
   @IsNumber(
     { allowInfinity: true, allowNaN: false },
@@ -29,10 +44,20 @@ export class CommentDto {
   @Max(5, { message: 'نمره حدکثر میتواند 5 باشد' })
   score: number;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی محصول نامعتبر است' })
   product: string;
 
+  @ApiPropertyOptional({
+    type: String,
+    required: true,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
   @IsOptional({ message: 'ایدی کامنت اختیاری است' })
