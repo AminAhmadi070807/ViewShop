@@ -66,7 +66,7 @@ export class CommentService {
         where: {
           parentComment: IsNull(),
         },
-        relations: ['user', 'parentComment', 'product'],
+        relations: ['user', 'product'],
         order: {
           createdAt: 'DESC',
         },
@@ -75,15 +75,6 @@ export class CommentService {
           user: {
             id: true,
             fullName: true,
-          },
-          parentComment: {
-            id: true,
-            description: true,
-            score: true,
-            user: {
-              id: true,
-              fullName: true,
-            },
           },
           product: {
             id: true,
@@ -94,10 +85,26 @@ export class CommentService {
         },
       });
 
+      const commentsArray = [];
+      for (const comment of comments) {
+        const comments: Comment[] = await this.commentRepository.find({
+          where: {
+            parentComment: {
+              id: comment.id,
+            },
+          },
+        });
+
+        commentsArray.push({
+          ...comment,
+          child: comments,
+        });
+      }
+
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: comments,
+        body: commentsArray,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
