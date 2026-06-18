@@ -3,7 +3,11 @@ import { CoreService } from '../../core.service';
 import { CommentDto } from './comment.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/comments')
@@ -12,6 +16,8 @@ export class ProductController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: CommentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
