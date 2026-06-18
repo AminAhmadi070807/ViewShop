@@ -65,10 +65,20 @@ export class CommentDto {
 }
 
 export class UpdateCommentDto {
+  @ApiPropertyOptional({
+    type: String,
+    required: true,
+    example: '',
+  })
   @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
   id: string;
 
+  @ApiPropertyOptional({
+    type: Boolean,
+    required: true,
+    example: true,
+  })
   @IsNotEmpty({ message: 'وضیعت کامنت نمیتواند خالی باشد' })
   @IsBoolean({ message: 'لطفا وضیع کامنت را براساس (true, false) وارد کنید' })
   status: boolean;
