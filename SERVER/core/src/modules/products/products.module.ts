@@ -21,5 +21,6 @@ import { StoreModule } from '../store/store.module';
     MediaModule,
     StoreModule,
   ],
+  exports: [ProductService],
 })
 export class ProductsModule {}
