@@ -20,7 +20,7 @@ export class CommentController {
 
   @MessagePattern('COMMENT:FIND:PRODUCT')
   findProductComments(@Payload() data: ValidateUUID) {
-    return this.commentService.findProductComments(data.id);
+    return this.commentService.childComments(data.id);
   }
 
   @MessagePattern('COMMENT:UPDATE')

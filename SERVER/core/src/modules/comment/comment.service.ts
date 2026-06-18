@@ -102,7 +102,7 @@ export class CommentService {
     }
   }
 
-  async findProductComments(id: string) {
+  async childComments(id: string) {
     try {
       const comments: Comment[] = await this.commentRepository.find({
         where: {
