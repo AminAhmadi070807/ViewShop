@@ -3,8 +3,11 @@ import { CoreService } from '../../core.service';
 import { CommentDto } from './comment.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/comments')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class ProductController {
   constructor(private readonly coreService: CoreService) {}
 
