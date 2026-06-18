@@ -45,6 +45,7 @@ export class CommentService {
       comment.user = user.body;
       comment.description = data.description;
       comment.score = Number(data.score);
+      comment.product = product.body;
 
       await this.commentRepository.save(comment);
 
@@ -53,7 +54,8 @@ export class CommentService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
