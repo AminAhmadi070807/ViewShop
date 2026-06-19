@@ -1,15 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoryService } from './story.service';
-import { CreateStoryDto } from './dto/create-story.dto';
-import { UpdateStoryDto } from './dto/update-story.dto';
+import { StoryDto } from './dto/story.dto';
 
 @Controller()
 export class StoryController {
   constructor(private readonly storyService: StoryService) {}
 
   @MessagePattern('STORY:CREATE')
-  create(@Payload() createStoryDto: CreateStoryDto) {
+  create(@Payload() createStoryDto: StoryDto) {
     return this.storyService.create(createStoryDto);
   }
 

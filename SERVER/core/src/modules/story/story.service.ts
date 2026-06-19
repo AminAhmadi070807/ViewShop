@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStoryDto } from './dto/create-story.dto';
-import { UpdateStoryDto } from './dto/update-story.dto';
+import { StoryDto } from './dto/story.dto';
 
 @Injectable()
 export class StoryService {
-  create(createStoryDto: CreateStoryDto) {
+  create(createStoryDto: StoryDto) {
     return 'This action adds a new story';
   }
 
@@ -14,10 +13,6 @@ export class StoryService {
 
   findOne(id: number) {
     return `This action returns a #${id} story`;
-  }
-
-  update(id: number, updateStoryDto: UpdateStoryDto) {
-    return `This action updates a #${id} story`;
   }
 
   remove(id: number) {
