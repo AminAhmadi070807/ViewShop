@@ -13,6 +13,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { StoreModule } from './modules/store/store.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { StoryModule } from './modules/story/story.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CommentModule } from './modules/comment/comment.module';
     TasksModule,
     StoreModule,
     CommentModule,
+    StoryModule,
   ],
 })
 export class AppModule {}
