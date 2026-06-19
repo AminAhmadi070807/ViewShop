@@ -8,6 +8,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -46,6 +47,7 @@ export class StoryController {
   }
 
   @Get('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('STORY:DELETE', data);
   }
