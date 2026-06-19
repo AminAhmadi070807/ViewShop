@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoryDto } from './story.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller()
 export class StoryController {
@@ -19,7 +20,12 @@ export class StoryController {
   }
 
   @Get()
-  find() {
+  findAll() {
     return this.coreService.send('STORY:FIND:ALL');
+  }
+
+  @Get('/:id')
+  findStore(@Param() data: ValidateUUID) {
+    return this.coreService.send('STORY:FIND:STORE', data);
   }
 }
