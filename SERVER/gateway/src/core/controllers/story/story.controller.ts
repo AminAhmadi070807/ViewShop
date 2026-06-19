@@ -28,4 +28,9 @@ export class StoryController {
   findStore(@Param() data: ValidateUUID) {
     return this.coreService.send('STORY:FIND:STORE', data);
   }
+
+  @Get('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('STORY:DELETE', data);
+  }
 }
