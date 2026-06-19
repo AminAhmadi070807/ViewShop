@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { StoryDto } from './dto/story.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Story } from './entities/story.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StoryService {
-  create(createStoryDto: StoryDto) {
-    return 'This action adds a new story';
-  }
+  constructor(
+    @InjectRepository(Story)
+    private readonly storyRepository: Repository<Story>,
+  ) {}
 
-  findAll() {
-    return `This action returns all story`;
-  }
+  create(data: StoryDto) {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} story`;
-  }
+  findAll() {}
 
-  remove(id: number) {
-    return `This action removes a #${id} story`;
-  }
+  findOne(id: string) {}
+
+  remove(id: string) {}
 }
