@@ -18,12 +18,12 @@ export class StoryController {
   }
 
   @MessagePattern('STORY:FIND:STORE')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.storyService.findOne(id);
   }
 
   @MessagePattern('STORY:DELETE')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.storyService.remove(id);
   }
 }

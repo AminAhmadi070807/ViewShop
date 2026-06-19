@@ -44,7 +44,7 @@ export class Story {
   })
   video: Media;
 
-  @Column({ type: 'smallint', nullable: false })
+  @Column({ type: 'smallint', nullable: false, default: 0 })
   like: number;
 
   @ManyToOne(() => Category, { nullable: false, eager: true })
@@ -53,11 +53,11 @@ export class Story {
   })
   category: Category;
 
-  @Column({ type: 'uuid', nullable: false, unique: true })
+  @Column({ type: 'uuid', nullable: true })
   payment: string;
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  alias: string;
+  @Column({ type: 'bigint', nullable: false, unique: true })
+  alias: number;
 
   @CreateDateColumn()
   createdAt: Date;
