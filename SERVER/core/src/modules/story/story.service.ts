@@ -15,7 +15,23 @@ export class StoryService {
 
   create(data: StoryDto) {}
 
-  findAll() {}
+  async findAll() {
+    try {
+      const stories: Story[] = await this.storyRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        body: stories,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async findOne(alias: string) {
     try {

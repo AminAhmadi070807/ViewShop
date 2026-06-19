@@ -47,7 +47,7 @@ export class Story {
   @Column({ type: 'smallint', nullable: false })
   like: number;
 
-  @ManyToOne(() => Category, { nullable: false })
+  @ManyToOne(() => Category, { nullable: false, eager: true })
   @JoinColumn({
     name: 'story_category',
   })
