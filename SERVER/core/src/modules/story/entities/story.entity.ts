@@ -36,13 +36,13 @@ export class Story {
   @JoinColumn({
     name: 'story_banner',
   })
-  media: Media;
+  banner: Media;
 
   @OneToOne(() => Media, { nullable: false, eager: true })
   @JoinColumn({
     name: 'story_video',
   })
-  story: Media;
+  video: Media;
 
   @Column({ type: 'smallint', nullable: false })
   like: number;
