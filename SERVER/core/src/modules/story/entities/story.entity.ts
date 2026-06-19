@@ -53,6 +53,9 @@ export class Story {
   })
   category: Category;
 
+  @Column({ type: 'uuid', nullable: false, unique: true })
+  payment: string;
+
   @CreateDateColumn()
   createdAt: Date;
 }
