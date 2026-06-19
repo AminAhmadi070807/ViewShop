@@ -5,7 +5,10 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -17,6 +20,9 @@ export class StoryController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: StoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
