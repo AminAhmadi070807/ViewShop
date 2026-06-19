@@ -17,7 +17,23 @@ export class StoryService {
 
   findAll() {}
 
-  findOne(id: string) {}
+  async findOne(alias: string) {
+    try {
+      const story: Story | null = await this.storyRepository.findOneBy({
+        alias,
+      });
+
+      if (!story) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: statusMessages.fa['200'],
+        body: story,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
