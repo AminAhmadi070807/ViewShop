@@ -56,6 +56,9 @@ export class Story {
   @Column({ type: 'uuid', nullable: false, unique: true })
   payment: string;
 
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  alias: string;
+
   @CreateDateColumn()
   createdAt: Date;
 }
