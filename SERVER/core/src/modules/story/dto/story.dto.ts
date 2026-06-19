@@ -1,54 +1,35 @@
 import {
-  Column,
-  CreateDateColumn,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-} from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Media } from '../../media/entities/media.entity';
-import { Category } from '../../categories/entities/category.entity';
-import {
   IsNotEmpty,
-  IsNumber,
   IsString,
   IsUUID,
-  Max,
   MaxLength,
-  Min,
   MinLength,
 } from 'class-validator';
 
 export class StoryDto {
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(24)
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان حدثل باید 3 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'عنوان نمیتواند بیشتر از 24 کارکتر داشته باشد' })
   title: string;
 
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
   user: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'لینک باید رشته باشد' })
   link: string;
 
-  @IsNotEmpty()
-  @IsUUID()
-  media: string;
+  @IsNotEmpty({ message: 'بنر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی بنر نامعتبر هست' })
+  banner: string;
 
-  @IsNotEmpty()
-  @IsUUID()
-  story: string;
+  @IsNotEmpty({ message: 'ویدیو نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی ویدیو نامعتبر هست' })
+  video: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  @Max(1)
-  like: number;
-
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'دسته بندی نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
 }
