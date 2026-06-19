@@ -4,11 +4,15 @@ import { StoryDto } from './story.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller()
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
 export class StoryController {
   constructor(private readonly coreService: CoreService) {}
 
