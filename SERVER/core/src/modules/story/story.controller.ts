@@ -8,27 +8,22 @@ import { UpdateStoryDto } from './dto/update-story.dto';
 export class StoryController {
   constructor(private readonly storyService: StoryService) {}
 
-  @MessagePattern('createStory')
+  @MessagePattern('STORY:CREATE')
   create(@Payload() createStoryDto: CreateStoryDto) {
     return this.storyService.create(createStoryDto);
   }
 
-  @MessagePattern('findAllStory')
+  @MessagePattern('STORY:FIND:ALL')
   findAll() {
     return this.storyService.findAll();
   }
 
-  @MessagePattern('findOneStory')
+  @MessagePattern('STORY:FIND:STORE')
   findOne(@Payload() id: number) {
     return this.storyService.findOne(id);
   }
 
-  @MessagePattern('updateStory')
-  update(@Payload() updateStoryDto: UpdateStoryDto) {
-    return this.storyService.update(updateStoryDto.id, updateStoryDto);
-  }
-
-  @MessagePattern('removeStory')
+  @MessagePattern('STORY:DELETE')
   remove(@Payload() id: number) {
     return this.storyService.remove(id);
   }
