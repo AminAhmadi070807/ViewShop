@@ -24,7 +24,7 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/store')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 export class StoreController {
   constructor(private readonly coreService: CoreService) {}
 

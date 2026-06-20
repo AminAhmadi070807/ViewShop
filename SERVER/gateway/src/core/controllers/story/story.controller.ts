@@ -25,7 +25,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/story')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 export class StoryController {
   constructor(private readonly coreService: CoreService) {}
 
