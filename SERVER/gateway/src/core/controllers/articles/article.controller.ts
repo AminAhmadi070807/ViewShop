@@ -54,8 +54,8 @@ export class ArticleController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  findOne() {
-    return this.coreService.send('ARTICLE:ONE');
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('ARTICLE:ONE', data);
   }
 
   @Patch()
