@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import {
   ArticleDto,
@@ -16,6 +25,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/articles')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -62,5 +72,10 @@ export class ArticleController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   updateStatus(@Body() data: UpdateArticleStatusDto) {
     return this.coreService.send('ARTICLE:UPDATE:STATUS', data);
+  }
+
+  @Delete('/:id')
+  remove(@Param() data: ValidateUUID) {
+    return this.coreService.send('ARTICLE:DELETE', data);
   }
 }
