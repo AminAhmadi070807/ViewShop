@@ -33,7 +33,17 @@ export class ArticlesService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const article: Article | null = await this.articleRepository.findOneBy({
+        id,
+      });
+
+      if (!article) return new CustomException(statusMessages.fa['500'], 500);
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   update(data: ArticleDto) {}
 
