@@ -3,6 +3,8 @@ import { ArticleDto } from './dto/article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class ArticlesService {
@@ -13,7 +15,23 @@ export class ArticlesService {
 
   create(data: ArticleDto) {}
 
-  findAll() {}
+  async findAll() {
+    try {
+      const articles: Article[] = await this.articleRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: articles,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
