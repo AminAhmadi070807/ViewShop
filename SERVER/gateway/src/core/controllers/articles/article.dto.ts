@@ -8,7 +8,10 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { UpdateArticleStatusEnum } from '../../../common/enums/articles/articles.enum';
+import {
+  ArticleStatusEnum,
+  UpdateArticleStatusEnum,
+} from '../../../common/enums/articles/articles.enum';
 
 export class ArticleDto {
   @ApiProperty({
@@ -173,4 +176,30 @@ export class UpdateArticleDto {
   @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
+}
+
+export class UpdateArticleStatusDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
+  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
+  id: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: ArticleStatusEnum.PUBLISHED,
+    enum: ArticleStatusEnum,
+  })
+  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
+  @IsEnum(ArticleStatusEnum, {
+    message:
+      'وضیعت باید یکی از این ها باشد (COMPLETION, DELETED, PUBLISHED, DRAFT)',
+  })
+  status: ArticleStatusEnum;
 }
