@@ -32,4 +32,9 @@ export class ArticleController {
   update(@Body() data: UpdateArticleDto) {
     return this.coreService.send('ARTICLE:UPDATE', data);
   }
+
+  @Patch('status')
+  updateStatus(@Body() data: UpdateArticleDto) {
+    return this.coreService.send('ARTICLE:UPDATE:STATUS', data);
+  }
 }
