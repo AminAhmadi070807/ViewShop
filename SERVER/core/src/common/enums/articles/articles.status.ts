@@ -4,3 +4,8 @@ export enum ArticleStatusEnum {
   DELETED = 'DELETED',
   CONPLETION = 'COMPLETION',
 }
+
+export enum UpdateArticleStatusEnum {
+  DRAFT = 'DRAFT',
+  CONPLETION = 'COMPLETION',
+}
