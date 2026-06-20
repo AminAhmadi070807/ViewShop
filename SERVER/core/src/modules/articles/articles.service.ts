@@ -13,7 +13,12 @@ export class ArticlesService {
     private readonly articleRepository: Repository<Article>,
   ) {}
 
-  create(data: ArticleDto) {}
+  async create(data: ArticleDto) {
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async findAll() {
     try {
