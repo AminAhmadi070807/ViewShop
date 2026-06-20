@@ -75,6 +75,7 @@ export class ArticleController {
   }
 
   @Delete('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   remove(@Param() data: ValidateUUID) {
     return this.coreService.send('ARTICLE:DELETE', data);
   }
