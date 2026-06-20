@@ -5,7 +5,6 @@ import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
 export class ArticlesService {
