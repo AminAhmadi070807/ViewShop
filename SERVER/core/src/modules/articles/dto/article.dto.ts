@@ -50,6 +50,10 @@ export class ArticleDto {
 
 export class UpdateArticleDto {
   @IsNotEmpty()
+  @IsUUID()
+  id: string;
+
+  @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @MaxLength(60)
