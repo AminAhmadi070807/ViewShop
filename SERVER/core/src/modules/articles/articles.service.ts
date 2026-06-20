@@ -36,7 +36,7 @@ export class ArticlesService {
         store instanceof RpcException ||
         media instanceof RpcException
       ) {
-        return new CustomException(statusMessages.fa['500'], 500);
+        return new CustomException(statusMessages.fa['404'], 404);
       }
 
       const article: Article = this.articleRepository.create({
