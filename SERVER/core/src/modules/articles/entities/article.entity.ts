@@ -10,6 +10,7 @@ import { Category } from '../../categories/entities/category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
 import { ArticleStatusEnum } from '../../../common/enums/articles/articles.status';
+import { Store } from '../../store/entities/store.entity';
 
 @Entity('articles')
 export class Article {
@@ -22,14 +23,8 @@ export class Article {
   @Column({ type: 'varchar', nullable: false, array: true })
   slug: [string];
 
-  @ManyToOne(() => Category, { nullable: false, eager: true })
-  category: Category;
-
   @Column({ type: 'smallint', nullable: false, default: 0 })
   views: number;
-
-  @ManyToOne(() => Media, { nullable: false, eager: true })
-  cover: Media;
 
   @Column({ type: 'text', nullable: false })
   description: string;
@@ -37,15 +32,24 @@ export class Article {
   @Column({ type: 'smallint', nullable: false, default: 5 })
   score: number;
 
-  @ManyToOne(() => User, { nullable: false, eager: true })
-  author: User;
-
   @Column({
     type: 'enum',
     enum: ArticleStatusEnum,
     default: ArticleStatusEnum.DRAFT,
   })
   status: ArticleStatusEnum;
+
+  @ManyToOne(() => Media, { nullable: false, eager: true })
+  cover: Media;
+
+  @ManyToOne(() => Store, { nullable: false })
+  store: Store;
+
+  @ManyToOne(() => User, { nullable: false, eager: true })
+  author: User;
+
+  @ManyToOne(() => Category, { nullable: false, eager: true })
+  category: Category;
 
   @CreateDateColumn()
   createdAt: Date;
