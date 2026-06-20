@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ArticleDto } from './dto/article.dto';
+import { ArticleDto, UpdateArticleStatusDto } from './dto/article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
 export class ArticlesService {
@@ -46,6 +47,25 @@ export class ArticlesService {
   }
 
   update(data: ArticleDto) {}
+
+  async updateStatus(data: UpdateArticleStatusDto) {
+    try {
+      const article: Article | null = await this.articleRepository.findOneBy({
+        id: data.id,
+        status: data.status,
+      });
+
+      if (!article) return new CustomException(statusMessages.fa['500'], 500);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
