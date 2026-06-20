@@ -7,12 +7,16 @@ import {
 } from './article.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ApiCreatedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/articles')
 export class ArticleController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: ArticleDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
