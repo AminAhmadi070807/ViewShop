@@ -22,4 +22,9 @@ export class ArticleController {
   findAll() {
     return this.coreService.send('ARTICLE:FIND');
   }
+
+  @Get('/:id')
+  findOne() {
+    return this.coreService.send('ARTICLE:ONE');
+  }
 }
