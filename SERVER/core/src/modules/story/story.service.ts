@@ -95,7 +95,8 @@ export class StoryService {
         body: story,
         message: statusMessages.fa['200'],
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
