@@ -7,10 +7,17 @@ import {
 } from './article.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ApiCreatedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/articles')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
+@ApiBadRequestResponse({ description: statusMessages.fa['403'] })
 export class ArticleController {
   constructor(private readonly coreService: CoreService) {}
 
