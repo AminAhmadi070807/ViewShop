@@ -10,6 +10,7 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
+import { StoryStatusEnum } from '../../../common/enums/story/status.enum';
 
 @Entity('stories')
 export class Story {
@@ -55,6 +56,13 @@ export class Story {
 
   @Column({ type: 'uuid', nullable: true })
   payment: string;
+
+  @Column({
+    type: 'enum',
+    enum: StoryStatusEnum,
+    default: StoryStatusEnum.PENDING,
+  })
+  status: StoryStatusEnum;
 
   @Column({ type: 'bigint', nullable: false, unique: true })
   alias: number;
