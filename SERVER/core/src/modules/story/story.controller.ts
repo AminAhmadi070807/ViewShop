@@ -18,9 +18,9 @@ export class StoryController {
     return this.storyService.findAll();
   }
 
-  @MessagePattern('STORY:FIND:STORE')
+  @MessagePattern('STORY:ONE')
   findStore(@Payload() data: ValidateUUID) {
-    return this.storyService.findStore(data.id);
+    return this.storyService.findOne(data.id);
   }
 
   @MessagePattern('STORY:DELETE')

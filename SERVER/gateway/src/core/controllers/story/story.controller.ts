@@ -51,7 +51,7 @@ export class StoryController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findStore(@Param() data: ValidateUUID) {
-    return this.coreService.send('STORY:FIND:STORE', data);
+    return this.coreService.send('STORY:ONE', data);
   }
 
   @Delete('/:id')

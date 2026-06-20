@@ -84,7 +84,7 @@ export class StoryService {
     }
   }
 
-  async findStore(id: string) {
+  async findOne(id: string) {
     try {
       const story: Story | null = await this.storyRepository.findOneBy({ id });
 
