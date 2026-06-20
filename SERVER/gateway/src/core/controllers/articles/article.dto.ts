@@ -17,10 +17,10 @@ export class ArticleDto {
     maxLength: 60,
     example: '',
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(60)
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل عنوان باید 8 کارکتر داشته باشد' })
+  @MaxLength(60, { message: 'عنوان حدکثر میتواند 60 کارکتر داشته بادشد' })
   title: string;
 
   @ApiProperty({
@@ -31,11 +31,14 @@ export class ArticleDto {
     maxLength: 12,
     example: '',
   })
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
-  @MinLength(2, { each: true })
-  @MaxLength(12, { each: true })
+  @IsNotEmpty({ message: 'تگ ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'تگ هاباید رشته در ارایه باشد' })
+  @IsString({ each: true, message: 'تگ ها باید رشته باشد' })
+  @MinLength(2, { each: true, message: 'حدثل یک تگ باید 2 کارکتر داشته باشد' })
+  @MaxLength(12, {
+    each: true,
+    message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
+  })
   slug: [string];
 
   @ApiProperty({
@@ -43,11 +46,11 @@ export class ArticleDto {
     required: true,
     nullable: false,
     example: '',
-    minLength: 255,
+    minLength: 8,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(255)
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل توضیحات اولیه باید 8 کارکتر داشته باشد' })
   description: string;
 
   @ApiProperty({
@@ -56,8 +59,8 @@ export class ArticleDto {
     nullable: false,
     example: '',
   })
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی کاور نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاور نامعتبر هست' })
   cover: string;
 
   @ApiProperty({
@@ -66,8 +69,8 @@ export class ArticleDto {
     nullable: false,
     example: '',
   })
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی فروشگاه نامعتبر هست' })
   store: string;
 
   @ApiProperty({
@@ -76,7 +79,7 @@ export class ArticleDto {
     nullable: false,
     example: '',
   })
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
 }
