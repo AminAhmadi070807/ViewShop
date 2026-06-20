@@ -1,6 +1,10 @@
 import { Body, Controller, Get, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { ArticleDto, UpdateArticleDto } from './article.dto';
+import {
+  ArticleDto,
+  UpdateArticleDto,
+  UpdateArticleStatusDto,
+} from './article.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 
@@ -34,7 +38,7 @@ export class ArticleController {
   }
 
   @Patch('status')
-  updateStatus(@Body() data: UpdateArticleDto) {
+  updateStatus(@Body() data: UpdateArticleStatusDto) {
     return this.coreService.send('ARTICLE:UPDATE:STATUS', data);
   }
 }
