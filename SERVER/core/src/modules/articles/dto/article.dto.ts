@@ -88,11 +88,14 @@ export class UpdateArticleDto {
 }
 
 export class UpdateArticleStatusDto {
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty()
-  @IsEnum(ArticleStatusEnum)
+  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
+  @IsEnum(ArticleStatusEnum, {
+    message:
+      'وضیعت باید یکی از این ها باشد (COMPLETION, DELETED, PUBLISHED, DRAFT)',
+  })
   status: ArticleStatusEnum;
 }
