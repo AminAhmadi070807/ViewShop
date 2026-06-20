@@ -72,14 +72,6 @@ export class UpdateArticleDto {
   cover: string;
 
   @IsNotEmpty()
-  @IsUUID()
-  store: string;
-
-  @IsNotEmpty()
-  @IsUUID()
-  author: string;
-
-  @IsNotEmpty()
   @IsEnum(UpdateArticleStatusEnum)
   status: UpdateArticleStatusEnum;
 
