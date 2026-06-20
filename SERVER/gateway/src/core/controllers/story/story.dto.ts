@@ -15,6 +15,7 @@ export class StoryDto {
     nullable: false,
     minLength: 3,
     maxLength: 24,
+    example: '',
   })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
@@ -26,6 +27,7 @@ export class StoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsUrl(
@@ -41,6 +43,7 @@ export class StoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'بنر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی بنر نامعتبر هست' })
@@ -50,6 +53,7 @@ export class StoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'ویدیو نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ویدیو نامعتبر هست' })
@@ -59,6 +63,7 @@ export class StoryDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
