@@ -5,16 +5,50 @@ import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { CategoriesService } from '../categories/category/categories.service';
+import { StoreService } from '../store/store.service';
+import { MediaService } from '../media/media.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class ArticlesService {
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
+    private readonly categoryService: CategoriesService,
+    private readonly storeService: StoreService,
+    private readonly mediaService: MediaService,
   ) {}
 
   async create(data: ArticleDto) {
     try {
+      const category = await this.categoryService.findOne(data.category);
+      const store = await this.storeService.findOne(data.store);
+      const media = await this.mediaService.findId([data.cover]);
+
+      if (
+        category instanceof RpcException ||
+        store instanceof RpcException ||
+        media instanceof RpcException
+      ) {
+        return new CustomException(statusMessages.fa['500'], 500);
+      }
+
+      const article: Article = this.articleRepository.create({
+        category: category.body,
+        cover: media.body[0],
+        store: store.body,
+      });
+
+      const newArticle = await this.articleRepository.save(article);
+
+      return {
+        status: 201,
+        body: {
+          id: newArticle.id,
+        },
+        message: statusMessages.fa['201'],
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
