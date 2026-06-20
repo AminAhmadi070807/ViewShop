@@ -1,26 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
+import { ArticleDto } from './dto/article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
 @Injectable()
 export class ArticlesService {
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
-  }
+  create(data: ArticleDto) {}
 
-  findAll() {
-    return `This action returns all articles`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`;
-  }
+  findOne(id: string) {}
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
-  }
+  update(data: ArticleDto) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
-  }
+  remove(id: string) {}
 }
