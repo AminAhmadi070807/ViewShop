@@ -34,6 +34,9 @@ export class Article {
   @Column({ type: 'text', nullable: false })
   description: string;
 
+  @Column({ type: 'smallint', nullable: false, default: 5 })
+  score: number;
+
   @ManyToOne(() => User, { nullable: false, eager: true })
   author: User;
 
