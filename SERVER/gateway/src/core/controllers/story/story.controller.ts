@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoryDto } from './story.dto';
 import express from 'express';
@@ -15,7 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
-@Controller()
+@Controller('core/story')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
 export class StoryController {
@@ -46,7 +54,7 @@ export class StoryController {
     return this.coreService.send('STORY:FIND:STORE', data);
   }
 
-  @Get('/:id')
+  @Delete('/:id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('STORY:DELETE', data);
