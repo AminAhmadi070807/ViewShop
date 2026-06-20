@@ -13,6 +13,7 @@ import { CategoriesService } from '../categories/category/categories.service';
 import { StoreService } from '../store/store.service';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
+import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
 export class ArticlesService {
@@ -126,6 +127,12 @@ export class ArticlesService {
       });
 
       if (!article) return new CustomException(statusMessages.fa['404'], 404);
+
+      if (data.status === ArticleStatusEnum.PUBLISHED) {
+        article.publishedAt = new Date();
+      }
+
+      article.status = ArticleStatusEnum.PUBLISHED;
 
       return {
         status: 204,
