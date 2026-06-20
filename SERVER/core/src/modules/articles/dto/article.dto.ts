@@ -52,38 +52,43 @@ export class ArticleDto {
 }
 
 export class UpdateArticleDto {
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(60)
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل عنوان باید 8 کارکتر داشته باشد' })
+  @MaxLength(60, { message: 'عنوان حدکثر میتواند 60 کارکتر داشته بادشد' })
   title: string;
 
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
-  @MinLength(8, { each: true })
-  @MaxLength(60, { each: true })
+  @IsNotEmpty({ message: 'تگ ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'تگ هاباید رشته در ارایه باشد' })
+  @IsString({ each: true, message: 'تگ ها باید رشته باشد' })
+  @MinLength(2, { each: true, message: 'حدثل یک تگ باید 2 کارکتر داشته باشد' })
+  @MaxLength(12, {
+    each: true,
+    message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
+  })
   slug: [string];
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل توضیحات اولیه باید 8 کارکتر داشته باشد' })
   description: string;
 
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی کاور نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاور نامعتبر هست' })
   cover: string;
 
-  @IsNotEmpty()
-  @IsEnum(UpdateArticleStatusEnum)
+  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
+  @IsEnum(UpdateArticleStatusEnum, {
+    message: 'وضیعت باید یکی از این ها باشد (COMPLETION, DRAFT)',
+  })
   status: UpdateArticleStatusEnum;
 
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
 }
 
