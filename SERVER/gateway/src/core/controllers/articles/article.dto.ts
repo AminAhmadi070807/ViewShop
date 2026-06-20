@@ -78,15 +78,5 @@ export class ArticleDto {
   })
   @IsNotEmpty()
   @IsUUID()
-  author: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty()
-  @IsUUID()
   category: string;
 }
