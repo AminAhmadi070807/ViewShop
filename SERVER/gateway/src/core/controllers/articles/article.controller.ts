@@ -11,6 +11,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -18,12 +19,12 @@ import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/articles')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-@ApiBadRequestResponse({ description: statusMessages.fa['403'] })
 export class ArticleController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: ArticleDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
@@ -48,6 +49,9 @@ export class ArticleController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateArticleDto) {
     return this.coreService.send('ARTICLE:UPDATE', data);
   }
