@@ -112,6 +112,7 @@ export class ArticlesService {
         title: data.title,
         description: data.description,
         slug: data.slug,
+        shortDescription: data.shortDescription,
       });
 
       return {
