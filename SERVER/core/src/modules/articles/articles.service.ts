@@ -49,6 +49,7 @@ export class ArticlesService {
           id: data.author,
         },
         slug: data.slug,
+        shortDescription: data.shortDescription,
       });
 
       await this.articleRepository.save(article);
