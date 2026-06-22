@@ -45,13 +45,11 @@ export class ArticlesService {
         store: store.body,
       });
 
-      const newArticle = await this.articleRepository.save(article);
+      await this.articleRepository.save(article);
 
       return {
         status: 201,
-        body: {
-          id: newArticle.id,
-        },
+        body: null,
         message: statusMessages.fa['201'],
       };
     } catch {
