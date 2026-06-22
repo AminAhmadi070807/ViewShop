@@ -29,12 +29,13 @@ export class ArticleDto {
   title: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
+    isArray: true,
     required: true,
     nullable: false,
     minLength: 2,
     maxLength: 12,
-    example: '',
+    example: [''],
   })
   @IsNotEmpty({ message: 'تگ ها نمیتواند خالی باشد' })
   @IsArray({ message: 'تگ هاباید رشته در ارایه باشد' })
