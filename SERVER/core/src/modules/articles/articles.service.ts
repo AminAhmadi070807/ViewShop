@@ -43,6 +43,12 @@ export class ArticlesService {
         category: category.body,
         cover: media.body[0],
         store: store.body,
+        title: data.title,
+        description: data.description,
+        author: {
+          id: data.author,
+        },
+        slug: data.slug,
       });
 
       await this.articleRepository.save(article);
