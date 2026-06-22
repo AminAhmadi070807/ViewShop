@@ -6,7 +6,7 @@ import {
 } from './dto/article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
@@ -133,18 +133,17 @@ export class ArticlesService {
 
   async updateStatus(data: UpdateArticleStatusDto) {
     try {
-      const article: Article | null = await this.articleRepository.findOneBy({
-        id: data.id,
-        status: data.status,
-      });
+      const article: UpdateResult = await this.articleRepository.update(
+        data.id,
+        {
+          status: data.status,
+          publishedAt: new Date().toISOString(),
+        },
+      );
 
-      if (!article) return new CustomException(statusMessages.fa['404'], 404);
-
-      if (data.status === ArticleStatusEnum.PUBLISHED) {
-        article.publishedAt = new Date();
+      if (!article.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
       }
-
-      article.status = ArticleStatusEnum.PUBLISHED;
 
       return {
         status: 204,
