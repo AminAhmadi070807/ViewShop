@@ -4,8 +4,8 @@ import { ArticlesController } from './articles.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { CategoriesModule } from '../categories/categories.module';
-import { StoreService } from '../store/store.service';
-import { MediaService } from '../media/media.service';
+import { StoreModule } from '../store/store.module';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   controllers: [ArticlesController],
@@ -13,8 +13,8 @@ import { MediaService } from '../media/media.service';
   imports: [
     TypeOrmModule.forFeature([Article]),
     CategoriesModule,
-    StoreService,
-    MediaService,
+    StoreModule,
+    MediaModule,
   ],
 })
 export class ArticlesModule {}
