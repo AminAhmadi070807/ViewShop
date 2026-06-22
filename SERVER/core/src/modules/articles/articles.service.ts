@@ -13,6 +13,7 @@ import { CategoriesService } from '../categories/category/categories.service';
 import { StoreService } from '../store/store.service';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
+import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
 export class ArticlesService {
@@ -114,6 +115,7 @@ export class ArticlesService {
           description: data.description,
           slug: data.slug,
           shortDescription: data.shortDescription,
+          status: ArticleStatusEnum.COMPLETION,
         },
       );
 
