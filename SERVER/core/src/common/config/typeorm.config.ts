@@ -14,6 +14,7 @@ export const TypeOrmModuleConfig: TypeOrmModuleAsyncOptions = {
     synchronize:
       config.get<'development' | 'production'>('NODE_ENV', 'development') ===
       'development',
+    migrate: true,
   }),
   inject: [ConfigService],
 };
