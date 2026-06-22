@@ -13,7 +13,6 @@ import { CategoriesService } from '../categories/category/categories.service';
 import { StoreService } from '../store/store.service';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
-import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
 export class ArticlesService {
@@ -102,24 +101,25 @@ export class ArticlesService {
 
   async update(data: UpdateArticleDto) {
     try {
-      const article: Article | null = await this.articleRepository.findOneBy({
-        id: data.id,
-      });
-
-      if (!article) return new CustomException(statusMessages.fa['404'], 404);
-
-      await this.articleRepository.update(data.id, {
-        cover: {
-          id: data.cover,
+      const article: UpdateResult = await this.articleRepository.update(
+        data.id,
+        {
+          cover: {
+            id: data.cover,
+          },
+          category: {
+            id: data.category,
+          },
+          title: data.title,
+          description: data.description,
+          slug: data.slug,
+          shortDescription: data.shortDescription,
         },
-        category: {
-          id: data.category,
-        },
-        title: data.title,
-        description: data.description,
-        slug: data.slug,
-        shortDescription: data.shortDescription,
-      });
+      );
+
+      if (!article.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
