@@ -86,7 +86,18 @@ export class UpdateArticleDto {
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(8, { message: 'حدقل توضیحات اولیه باید 8 کارکتر داشته باشد' })
+  @MaxLength(5000, {
+    message: 'توضیحات نمیتواند بیشتر از 5000 کارکتر داشته باشد',
+  })
   description: string;
+
+  @IsNotEmpty({ message: 'توضیح کوتاه نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیح کوتاه باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل توضیح کوتاه اولیه باید 8 کارکتر داشته باشد' })
+  @MaxLength(255, {
+    message: 'توضیح کوتاه نمیتواند بیشتر از 255 کارکتر داشته باشد',
+  })
+  shortDescription: string;
 
   @IsNotEmpty({ message: 'ایدی کاور نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کاور نامعتبر هست' })
