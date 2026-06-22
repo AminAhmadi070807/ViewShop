@@ -29,6 +29,9 @@ export class Article {
   @Column({ type: 'text', nullable: false })
   description: string;
 
+  @Column({ type: 'varchar', nullable: false })
+  shortDescription: string;
+
   @Column({ type: 'smallint', nullable: false, default: 5 })
   score: number;
 
