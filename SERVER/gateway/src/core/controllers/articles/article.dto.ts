@@ -139,7 +139,8 @@ export class UpdateArticleDto {
     type: String,
     required: true,
     nullable: false,
-    example: '',
+    isArray: true,
+    example: [''],
     minLength: 2,
     maxLength: 12,
   })
@@ -159,11 +160,28 @@ export class UpdateArticleDto {
     nullable: false,
     example: '',
     minLength: 8,
+    maxLength: 5000,
   })
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(8, { message: 'حدقل توضیحات اولیه باید 8 کارکتر داشته باشد' })
   description: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+    minLength: 8,
+    maxLength: 255,
+  })
+  @IsNotEmpty({ message: 'توضیح کوتاه نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیح کوتاه باید رشته باشد' })
+  @MinLength(8, { message: 'حدقل توضیح کوتاه اولیه باید 8 کارکتر داشته باشد' })
+  @MaxLength(255, {
+    message: 'توضیح کوتاه نمیتواند بیشتر از 255 کارکتر داشته باشد',
+  })
+  shortDescription: string;
 
   @ApiProperty({
     type: String,
