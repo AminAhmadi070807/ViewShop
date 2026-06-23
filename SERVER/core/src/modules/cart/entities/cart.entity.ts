@@ -1,7 +1,6 @@
 import {
   Column,
   Entity,
-  ObjectId,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -9,12 +8,12 @@ import {
 @Entity('cart')
 export class Cart {
   @PrimaryGeneratedColumn('uuid')
-  id: ObjectId;
+  id: string;
 
   @Column({ nullable: false, type: 'simple-json', onUpdate: 'CASCADE' })
   metadata: [
     {
-      product: ObjectId;
+      product: string;
       quantity: number;
       price: number;
     },
