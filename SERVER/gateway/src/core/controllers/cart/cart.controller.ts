@@ -32,4 +32,9 @@ export class CartController {
   findAll() {
     return this.coreService.send('CART:FIND');
   }
+
+  @Get()
+  findOne() {
+    return this.coreService.send('CART:ONE');
+  }
 }
