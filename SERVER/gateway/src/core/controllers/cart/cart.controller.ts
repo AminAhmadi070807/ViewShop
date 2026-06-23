@@ -27,13 +27,13 @@ export class CartController {
     });
   }
 
-  @Get('all')
+  @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CART:FIND');
   }
 
-  @Get('one')
+  @Get('user')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findOne(@Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
