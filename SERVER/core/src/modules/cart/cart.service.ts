@@ -35,10 +35,24 @@ export class CartService {
           (metaData) => metaData.product === data.product,
         );
 
+        let totalPrice: number = 0;
+        for (const metaData of existing.metadata) {
+          const product = await this.productService.findOne(metaData.product);
+
+          if (product instanceof RpcException) {
+            return new CustomException(statusMessages.fa['404'], 404);
+          }
+
+          const price = Number(data.quantity) * Number(product.body.price);
+
+          totalPrice = totalPrice + Number(price);
+        }
+
         if (existProduct) {
           existing.metadata.forEach((metaData) => {
             if (metaData.product === data.product) {
               metaData.quantity = data.quantity;
+              metaData.price = price;
             }
           });
         } else {
@@ -47,6 +61,7 @@ export class CartService {
             product: data.product,
             price,
           });
+          existing.price = totalPrice;
         }
 
         await this.cartRepository.save(existing);
@@ -75,7 +90,7 @@ export class CartService {
     }
   }
 
-  findAll() {}
+  async findAll() {}
 
   findOne(id: string) {}
 
