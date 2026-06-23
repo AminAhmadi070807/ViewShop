@@ -91,7 +91,23 @@ export class CartService {
     }
   }
 
-  async findAll() {}
+  async findAll() {
+    try {
+      const carts: Cart[] = await this.cartRepository.find({
+        order: {
+          updatedAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        body: carts,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
