@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CartService } from './cart.service';
 import { CartDto } from './dto/cart.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class CartController {
@@ -18,12 +19,12 @@ export class CartController {
   }
 
   @MessagePattern('CART:ONE')
-  findOne(@Payload() id: number) {
-    return this.cartService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.cartService.findOne(data.id);
   }
 
   @MessagePattern('CART:DELETE')
-  remove(@Payload() id: number) {
-    return this.cartService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.cartService.remove(data.id);
   }
 }
