@@ -16,7 +16,7 @@ export class CartDto {
   product: string;
 
   @ApiProperty({
-    type: String,
+    type: Number,
     required: true,
     nullable: false,
     example: 1,
