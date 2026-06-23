@@ -22,12 +22,34 @@ export class CartService {
         id: data.id,
       });
 
-      if (existing) {}
-
       const product = await this.productService.findOne(data.product);
 
       if (product instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const price = Number(data.quantity) * Number(product.body.price);
+
+      if (existing) {
+        const existProduct: boolean = existing.metadata.some(
+          (metaData) => metaData.product === data.product,
+        );
+
+        if (existProduct) {
+          existing.metadata.forEach((metaData) => {
+            if (metaData.product === data.product) {
+              metaData.quantity = data.quantity;
+            }
+          });
+        } else {
+          existing.metadata.push({
+            quantity: data.quantity,
+            product: data.product,
+            price,
+          });
+        }
+
+        await this.cartRepository.save(existing);
       }
 
       const cart: Cart = this.cartRepository.create({
@@ -36,7 +58,7 @@ export class CartService {
           {
             product: data.product,
             quantity: data.quantity,
-            price: Number(data.quantity) * Number(product.body.price),
+            price,
           },
         ],
       });
