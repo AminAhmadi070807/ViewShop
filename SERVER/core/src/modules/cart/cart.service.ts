@@ -43,7 +43,7 @@ export class CartService {
             return new CustomException(statusMessages.fa['404'], 404);
           }
 
-          const price = Number(data.quantity) * Number(product.body.price);
+          const price = Number(metaData.quantity) * Number(product.body.price);
 
           totalPrice = totalPrice + Number(price);
         }
@@ -61,8 +61,9 @@ export class CartService {
             product: data.product,
             price,
           });
-          existing.price = totalPrice;
         }
+
+        existing.price = totalPrice;
 
         await this.cartRepository.save(existing);
       }
