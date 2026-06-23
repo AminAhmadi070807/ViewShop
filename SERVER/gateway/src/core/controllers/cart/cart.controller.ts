@@ -3,10 +3,15 @@ import { CoreService } from '../../core.service';
 import { CartDto } from './cart.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/cart')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class CartController {
   constructor(private readonly coreService: CoreService) {}
 
