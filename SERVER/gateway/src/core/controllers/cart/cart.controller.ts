@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { CartDto } from './cart.dto';
 import express from 'express';
@@ -27,14 +27,17 @@ export class CartController {
     });
   }
 
-  @Get()
+  @Get('all')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('CART:FIND');
   }
 
-  @Get()
-  findOne() {
-    return this.coreService.send('CART:ONE');
+  @Get('one')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  findOne(@Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('CART:ONE', { id: user.userId });
   }
 }
