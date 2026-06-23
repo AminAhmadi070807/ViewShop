@@ -20,6 +20,7 @@ import { ProductController } from './controllers/products/product/product.contro
 import { CommentController } from './controllers/comments/comment.controller';
 import { StoryController } from './controllers/story/story.controller';
 import { ArticleController } from './controllers/articles/article.controller';
+import { CartController } from './controllers/cart/cart.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -42,6 +43,7 @@ import { ArticleController } from './controllers/articles/article.controller';
     CommentController,
     StoryController,
     ArticleController,
+    CartController,
   ],
   exports: [CoreService],
 })
