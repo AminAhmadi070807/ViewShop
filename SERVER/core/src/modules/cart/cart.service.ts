@@ -11,19 +11,11 @@ export class CartService {
     private readonly cartRepository: Repository<Cart>,
   ) {}
 
-  create(data: CartDto) {
-    return 'This action adds a new cart';
-  }
+  create(data: CartDto) {}
 
-  findAll() {
-    return `This action returns all cart`;
-  }
+  findAll() {}
 
-  findOne(id: string) {
-    return `This action returns a #${id} cart`;
-  }
+  findOne(id: string) {}
 
-  remove(id: string) {
-    return `This action removes a #${id} cart`;
-  }
+  remove(id: string) {}
 }
