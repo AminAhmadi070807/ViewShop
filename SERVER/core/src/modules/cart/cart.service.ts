@@ -77,6 +77,7 @@ export class CartService {
             price,
           },
         ],
+        price,
       });
 
       await this.cartRepository.save(cart);
