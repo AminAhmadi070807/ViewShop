@@ -109,7 +109,19 @@ export class CartService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const cart: Cart | null = await this.cartRepository.findOneBy({ id });
 
-  remove(id: string) {}
+      if (!cart) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        body: cart,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }

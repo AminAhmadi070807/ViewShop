@@ -22,9 +22,4 @@ export class CartController {
   findOne(@Payload() data: ValidateUUID) {
     return this.cartService.findOne(data.id);
   }
-
-  @MessagePattern('CART:DELETE')
-  remove(@Payload() data: ValidateUUID) {
-    return this.cartService.remove(data.id);
-  }
 }
