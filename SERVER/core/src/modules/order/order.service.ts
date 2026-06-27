@@ -65,7 +65,7 @@ export class OrderService {
 
   async findAll() {
     try {
-      const carts = await this.orderRepository.find({
+      const carts: Order[] = await this.orderRepository.find({
         order: {
           createdAt: 'DESC',
         },
