@@ -6,10 +6,6 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
-import {
-  UserInterface,
-  UserOneInterface,
-} from '../../common/interfaces/user.interface';
 import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
@@ -20,7 +16,7 @@ export class UsersService {
   ) {}
 
   // create new user
-  async create(data: CreateUserDto): Promise<UserInterface> {
+  async create(data: CreateUserDto) {
     // existing user
     const existing: User | null = await this.userRepository.findOne({
       where: { phone: data.phone },
@@ -54,7 +50,7 @@ export class UsersService {
   }
 
   // getting all users
-  async findAll(): Promise<UserInterface> {
+  async findAll() {
     try {
       // get all user from database
       const user: User[] = await this.userRepository.find({
@@ -85,7 +81,7 @@ export class UsersService {
   }
 
   // get one user by id
-  async findOne(id: string): Promise<UserOneInterface> {
+  async findOne(id: string) {
     const user: User | null = await this.userRepository.findOne({
       where: {
         id,
@@ -102,7 +98,7 @@ export class UsersService {
   }
 
   // get one user by phone number
-  async findByPhone(phone: string): Promise<UserOneInterface> {
+  async findByPhone(phone: string) {
     // find one user by phone number
     const user: User | null = await this.userRepository.findOne({
       where: {
@@ -121,7 +117,7 @@ export class UsersService {
   }
 
   // update user information
-  async update(id: string, data: UpdateUserDto): Promise<UserInterface> {
+  async update(id: string, data: UpdateUserDto) {
     try {
       await this.userRepository.update(id, data);
 
@@ -140,7 +136,7 @@ export class UsersService {
   }
 
   // remove user by id
-  async remove(id: string): Promise<UserInterface> {
+  async remove(id: string) {
     try {
       await this.userRepository.delete(id);
 

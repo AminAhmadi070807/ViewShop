@@ -3,7 +3,6 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserInterface } from '../../common/interfaces/user.interface';
 
 @Controller()
 export class UsersController {
@@ -11,7 +10,7 @@ export class UsersController {
 
   @MessagePattern('USER:CREATE')
   async create(@Payload() data: CreateUserDto) {
-    const user: UserInterface = await this.usersService.create(data);
+    const user = await this.usersService.create(data);
 
     return {
       status: user.status,

@@ -10,7 +10,6 @@ import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 import { UsersService } from '../users/users.service';
-import { UserOneInterface } from '../../common/interfaces/user.interface';
 
 @Injectable()
 export class StoreService {
@@ -24,9 +23,7 @@ export class StoreService {
 
   async create(data: StoreDto) {
     try {
-      const owner: UserOneInterface = await this.usersService.findOne(
-        data.owner,
-      );
+      const owner = await this.usersService.findOne(data.owner);
 
       if (owner.status !== HttpStatus.OK) {
         return new CustomException(statusMessages.fa['404'], 404);
