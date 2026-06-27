@@ -54,7 +54,7 @@ export class OrderService {
       await this.orderRepository.save(order);
 
       return {
-        status: 200,
+        status: 201,
         body: null,
         message: statusMessages.fa['200'],
       };
