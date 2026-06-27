@@ -7,6 +7,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -47,6 +48,7 @@ export class OrderController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateOrderDto) {
     return this.coreService.send('ORDER:UPDATE', data);
   }
