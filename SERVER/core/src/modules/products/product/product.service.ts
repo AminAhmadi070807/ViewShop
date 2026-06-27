@@ -143,6 +143,15 @@ export class ProductService {
     try {
       const product: Product[] = await this.productRepository.find({
         where: { id: In(id) },
+        select: {
+          medias: { path: true, title: true },
+          price: true,
+          discount_percent: true,
+          alias: true,
+          id: true,
+          store: { title: true, logo: true, banner: true, alias: true },
+          status: true,
+        },
       });
 
       if (!product.length)

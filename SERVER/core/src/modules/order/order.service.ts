@@ -97,14 +97,40 @@ export class OrderService {
 
   async findOne(id: string) {
     try {
-      const cart: Order | null = await this.orderRepository.findOneBy({ id });
+      const result: Order | null = await this.orderRepository.findOne({
+        where: { id },
+        select: {
+          id: true,
+          status: true,
+          cart: true,
+          price: true,
+          address: true,
+          user: {
+            id: true,
+            fullName: true,
+            phone: true,
+            role: true,
+          },
+        },
+      });
 
-      if (!cart) return new CustomException(statusMessages.fa['404'], 404);
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      const productId: string[] = result.cart.map((item) => item.product);
+
+      const products = await this.productService.findById(productId);
+
+      if (products instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: cart,
+        body: {
+          ...result,
+          cart: products,
+        },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
