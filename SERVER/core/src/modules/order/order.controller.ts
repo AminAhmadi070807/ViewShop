@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrderService } from './order.service';
-import { OrderDto } from './dto/order.dto';
+import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -21,5 +21,10 @@ export class OrderController {
   @MessagePattern('ORDER:ONE')
   findOne(@Payload() data: ValidateUUID) {
     return this.orderService.findOne(data.id);
+  }
+
+  @MessagePattern('ORDER:UPDATE')
+  update(@Payload() data: UpdateOrderDto) {
+    return this.orderService.update(data);
   }
 }
