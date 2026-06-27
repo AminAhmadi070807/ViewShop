@@ -39,9 +39,7 @@ export class OrderService {
         userId: data.user,
       });
 
-      if (address.status !== 200) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      } else if (address.body.user.id !== data.user) {
+      if (address instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
