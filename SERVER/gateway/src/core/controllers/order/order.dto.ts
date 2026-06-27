@@ -9,8 +9,8 @@ export class OrderDto {
     nullable: false,
     required: true,
   })
-  @IsNotEmpty({ message: 'ایدی ادرس نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی ادرس نامعتبر هست' })
+  @IsNotEmpty({ message: 'شناسه ادرس نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه ادرس نامعتبر است' })
   address: string;
 }
 

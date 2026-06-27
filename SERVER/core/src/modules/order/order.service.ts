@@ -41,6 +41,8 @@ export class OrderService {
 
       if (address.status !== 200) {
         return new CustomException(statusMessages.fa['404'], 404);
+      } else if (address.body.user.id !== data.user) {
+        return new CustomException(statusMessages.fa['404'], 404);
       }
 
       const order: Order = this.orderRepository.create({
