@@ -26,7 +26,7 @@ export class Order {
   @Column({ type: 'simple-json', nullable: false })
   cart: [
     {
-      productId: string;
+      product: string;
       price: number;
       quantity: number;
     },

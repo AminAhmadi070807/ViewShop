@@ -10,6 +10,7 @@ import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
 import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
+import e from 'express';
 
 @Injectable()
 export class OrderService {
@@ -60,7 +61,8 @@ export class OrderService {
         body: null,
         message: statusMessages.fa['200'],
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
