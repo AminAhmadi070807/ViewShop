@@ -71,6 +71,18 @@ export class OrderService {
         order: {
           createdAt: 'DESC',
         },
+        select: {
+          status: true,
+          user: {
+            id: true,
+            fullName: true,
+            phone: true,
+            role: true,
+          },
+          price: true,
+          address: true,
+          id: true,
+        },
       });
 
       return {
