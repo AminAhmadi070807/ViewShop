@@ -124,13 +124,27 @@ export class OrderService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
+      const productArray: object[] = [];
+
+      for (const product of products.body) {
+        for (const item of result.cart) {
+          if (item.product === product.id) {
+            productArray.push({
+              ...result,
+              cart: {
+                ...product,
+                quantity: +item.quantity,
+                totalPrice: item.price,
+              },
+            });
+          }
+        }
+      }
+
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: {
-          ...result,
-          cart: products,
-        },
+        body: productArray,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
