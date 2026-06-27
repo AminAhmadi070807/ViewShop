@@ -16,7 +16,7 @@ export class UpdateOrderDto {
   @IsUUID('4', { message: 'ایدی سفارش نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty()
-  @IsEnum(OrderStatusEnum)
+  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
+  @IsEnum(OrderStatusEnum, { message: 'لطفا وضیعت را به درستی انتخاب نماید' })
   status: OrderStatusEnum;
 }
