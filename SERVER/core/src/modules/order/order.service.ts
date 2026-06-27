@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { OrderDto } from './dto/order.dto';
+import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { Repository } from 'typeorm';
@@ -91,6 +91,22 @@ export class OrderService {
         status: 200,
         message: statusMessages.fa['200'],
         body: cart,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async update(data: UpdateOrderDto) {
+    try {
+      await this.orderRepository.update(data.id, {
+        status: data.status,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
