@@ -6,11 +6,15 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/order')
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class OrderController {
   constructor(private readonly coreService: CoreService) {}
 
