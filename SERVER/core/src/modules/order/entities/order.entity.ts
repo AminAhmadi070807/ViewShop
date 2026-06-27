@@ -39,7 +39,7 @@ export class Order {
   })
   status: OrderStatusEnum;
 
-  @Column({ type: 'smallint', nullable: false })
+  @Column({ type: 'bigint', nullable: false })
   price: number;
 
   @CreateDateColumn()

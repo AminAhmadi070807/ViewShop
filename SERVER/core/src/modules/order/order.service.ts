@@ -46,7 +46,7 @@ export class OrderService {
       const order: Order = this.orderRepository.create({
         status: OrderStatusEnum.PENDING,
         user: user.body,
-        price: cart.body.price,
+        price: +cart.body.price,
         cart: cart.body.metadata,
         address: address.body,
       });
@@ -58,7 +58,8 @@ export class OrderService {
         body: null,
         message: statusMessages.fa['200'],
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
