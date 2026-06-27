@@ -1,53 +1,11 @@
-import { OrderStatusEnum } from '../../../common/enums/order/order.status.enum';
-import {
-  ArrayNotEmpty,
-  IsArray,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsUUID,
-  Min,
-  ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
-
-class CartItemDto {
-  @IsUUID()
-  productId: string;
-
-  @IsNumber()
-  @Min(0)
-  price: number;
-
-  @IsInt()
-  @Min(1)
-  quantity: number;
-}
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class OrderDto {
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی ادرس نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی ادرس نامعتبر هست' })
   address: string;
 
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
   user: string;
-
-  @IsArray()
-  @ArrayNotEmpty()
-  @ValidateNested({ each: true })
-  @Type(() => CartItemDto)
-  cart: CartItemDto[];
-
-  @IsNotEmpty()
-  @IsString()
-  @IsEnum(OrderStatusEnum)
-  status: OrderStatusEnum;
-
-  @IsNotEmpty()
-  @IsNumber()
-  @IsInt()
-  price: number;
 }
