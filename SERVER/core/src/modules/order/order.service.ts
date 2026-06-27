@@ -63,8 +63,22 @@ export class OrderService {
     }
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll() {
+    try {
+      const carts = await this.orderRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: carts,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: number) {
