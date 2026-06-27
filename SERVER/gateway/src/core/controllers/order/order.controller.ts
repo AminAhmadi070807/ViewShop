@@ -40,6 +40,8 @@ export class OrderController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('ORDER:ONE', data);
   }
