@@ -10,6 +10,7 @@ import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
 import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
+import { ProductService } from '../products/product/product.service';
 
 @Injectable()
 export class OrderService {
@@ -19,6 +20,7 @@ export class OrderService {
     private readonly userService: UsersService,
     private readonly cartService: CartService,
     private readonly addressService: AddressesService,
+    private readonly productService: ProductService,
   ) {}
 
   async create(data: OrderDto) {
