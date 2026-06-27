@@ -58,8 +58,13 @@ export class AddressesService {
 
   async findUserAddress(data: FindUserAddressDto) {
     try {
-      const address: Address | null = await this.addressRepository.findOneBy({
-        user: { id: data.userId },
+      const address: Address | null = await this.addressRepository.findOne({
+        where: {
+          user: { id: data.userId },
+        },
+        order: {
+          createdAt: 'DESC',
+        },
       });
 
       if (!address) return new CustomException(statusMessages.fa['404'], 404);
