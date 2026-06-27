@@ -57,17 +57,21 @@ export class AddressesService {
   }
 
   async findUserAddress(data: FindUserAddressDto) {
-    const address: Address | null = await this.addressRepository.findOneBy({
-      user: { id: data.userId },
-    });
+    try {
+      const address: Address | null = await this.addressRepository.findOneBy({
+        user: { id: data.userId },
+      });
 
-    if (!address) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!address) return new CustomException(statusMessages.fa['404'], 404);
 
-    return {
-      status: 200,
-      message: statusMessages.fa['200'],
-      body: address,
-    };
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: address,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async remove(id: string) {
