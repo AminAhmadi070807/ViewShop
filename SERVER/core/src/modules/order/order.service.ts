@@ -58,8 +58,7 @@ export class OrderService {
         body: null,
         message: statusMessages.fa['200'],
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
