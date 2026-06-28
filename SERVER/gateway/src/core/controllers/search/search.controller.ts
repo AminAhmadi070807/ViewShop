@@ -1,5 +1,5 @@
 import { CoreService } from '../../core.service';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
@@ -11,5 +11,10 @@ export class SearchController {
   @Get()
   findAll() {
     return this.coreService.send('SEARCH:FIND');
+  }
+
+  @Get('search')
+  search(@Query('search') search: string) {
+    return this.coreService.send('SEARCH:SEARCH', search);
   }
 }
