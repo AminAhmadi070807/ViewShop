@@ -7,22 +7,22 @@ import { SearchDto } from './dto/search.dto';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
-  @MessagePattern('createSearch')
+  @MessagePattern('SEARCH:CREATE')
   create(@Payload() createSearchDto: SearchDto) {
     return this.searchService.create(createSearchDto);
   }
 
-  @MessagePattern('findAllSearch')
+  @MessagePattern('SEARCH:FIND')
   findAll() {
     return this.searchService.findAll();
   }
 
-  @MessagePattern('findOneSearch')
+  @MessagePattern('SEARCH:SEARCH')
   findOne(@Payload() id: number) {
     return this.searchService.findOne(id);
   }
 
-  @MessagePattern('removeSearch')
+  @MessagePattern('SEARCH:DELETE')
   remove(@Payload() id: number) {
     return this.searchService.remove(id);
   }
