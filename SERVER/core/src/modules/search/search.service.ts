@@ -3,7 +3,7 @@ import { SearchDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {
-  create(createSearchDto: SearchDto) {
+  create(data: SearchDto) {
     return 'This action adds a new search';
   }
 
