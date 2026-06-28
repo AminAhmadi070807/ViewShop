@@ -104,8 +104,35 @@ export class LikeService {
         where: {
           user: { id: userId },
         },
+        relations: [
+          'product',
+          'user',
+          'product.parentProduct',
+          'product.medias',
+          'product.store',
+        ],
         order: {
           createdAt: 'DESC',
+        },
+        select: {
+          product: {
+            id: true,
+            price: true,
+            medias: {
+              title: true,
+              path: true,
+            },
+            parentProduct: {
+              title: true,
+            },
+            status: true,
+            store: {
+              id: true,
+              alias: true,
+              title: true,
+              logo: true,
+            },
+          },
         },
       });
 
