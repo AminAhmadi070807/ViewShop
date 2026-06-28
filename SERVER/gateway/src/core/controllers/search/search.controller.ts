@@ -1,12 +1,5 @@
 import { CoreService } from '../../core.service';
-import {
-  Controller,
-  Delete,
-  Get,
-  HttpStatus,
-  Param,
-  Query,
-} from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import {
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
