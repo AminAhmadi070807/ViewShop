@@ -8,8 +8,8 @@ export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
   @MessagePattern('createLike')
-  create(@Payload() createLikeDto: LikeDto) {
-    return this.likeService.create(createLikeDto);
+  create(@Payload() data: LikeDto) {
+    return this.likeService.create(data);
   }
 
   @MessagePattern('findAllLike')
@@ -18,7 +18,7 @@ export class LikeController {
   }
 
   @MessagePattern('findOneLike')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.likeService.findOne(id);
   }
 }
