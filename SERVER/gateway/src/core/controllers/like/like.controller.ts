@@ -32,6 +32,7 @@ export class LikeController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('LIKE:FIND');
   }
