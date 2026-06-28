@@ -3,6 +3,7 @@ import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
+  ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
@@ -18,6 +19,7 @@ export class SearchController {
   }
 
   @Get('search')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   search(@Query('search') search: string) {
     return this.coreService.send('SEARCH:SEARCH', search);
   }
