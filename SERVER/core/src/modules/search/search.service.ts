@@ -4,12 +4,14 @@ import { Search } from './entities/search.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { ParentProductsService } from '../products/parent/parent.products.service';
 
 @Injectable()
 export class SearchService {
   constructor(
     @InjectRepository(Search)
     private readonly searchRepository: Repository<Search>,
+    private readonly parentProductService: ParentProductsService,
   ) {}
 
   async findAll() {
@@ -31,9 +33,7 @@ export class SearchService {
     }
   }
 
-  search(search: string) {
-    return `This action returns a #${search} search`;
-  }
+  search(search: string) {}
 
   remove(id: number) {
     return `This action removes a #${id} search`;
