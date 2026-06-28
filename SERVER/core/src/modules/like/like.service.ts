@@ -3,7 +3,6 @@ import { LikeDto } from './dto/like.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like } from './entities/like.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
 import { ProductService } from '../products/product/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
@@ -14,7 +13,6 @@ export class LikeService {
   constructor(
     @InjectRepository(Like)
     private readonly likeRepository: Repository<Like>,
-    private readonly userService: UsersService,
     private readonly productService: ProductService,
   ) {}
 

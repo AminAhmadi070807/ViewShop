@@ -9,6 +9,6 @@ import { ProductsModule } from '../products/products.module';
 @Module({
   controllers: [LikeController],
   providers: [LikeService],
-  imports: [TypeOrmModule.forFeature([Like]), UsersModule, ProductsModule],
+  imports: [TypeOrmModule.forFeature([Like]), ProductsModule],
 })
 export class LikeModule {}
