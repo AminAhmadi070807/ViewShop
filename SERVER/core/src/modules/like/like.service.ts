@@ -55,8 +55,22 @@ export class LikeService {
     }
   }
 
-  findAll() {
-    return `This action returns all like`;
+  async findAll() {
+    try {
+      const likes: Like[] = await this.likeRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: likes,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findUser(id: string) {
