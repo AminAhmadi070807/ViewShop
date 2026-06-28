@@ -1,5 +1,5 @@
 import { CoreService } from '../../core.service';
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { LikeDto } from './like.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
@@ -11,6 +11,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/likes')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -35,5 +36,10 @@ export class LikeController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('LIKE:FIND');
+  }
+
+  @Get('/:id')
+  findUser(@Param() data: ValidateUUID) {
+    return this.coreService.send('LIKE:USER', data);
   }
 }
