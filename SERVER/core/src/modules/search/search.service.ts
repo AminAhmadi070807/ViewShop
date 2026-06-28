@@ -35,12 +35,29 @@ export class SearchService {
 
   async search(search: string) {
     try {
-      const result = await this.parentProductService.findAll(search);
+      const existing: Search | null = await this.searchRepository.findOneBy({
+        search,
+      });
+
+      if (existing) {
+        existing.numberOfSearch = +existing.numberOfSearch + 1;
+
+        await this.searchRepository.save(existing);
+      }
+
+      const newSearch: Search = this.searchRepository.create({
+        numberOfSearch: 1,
+        search: search.trim(),
+      });
+
+      await this.searchRepository.save(newSearch);
+
+      const productResult = await this.parentProductService.findAll(search);
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: result.body,
+        body: productResult.body,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
