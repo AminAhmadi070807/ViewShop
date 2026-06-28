@@ -20,7 +20,7 @@ export class Like {
     onUpdate: 'CASCADE',
   })
   @JoinColumn()
-  products: Product;
+  product: Product;
 
   @ManyToOne(() => User, {
     nullable: false,
