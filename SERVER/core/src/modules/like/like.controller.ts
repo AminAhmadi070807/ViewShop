@@ -7,18 +7,18 @@ import { LikeDto } from './dto/like.dto';
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
-  @MessagePattern('createLike')
-  create(@Payload() data: LikeDto) {
+  @MessagePattern('LIKE:TOGGLE')
+  toggle(@Payload() data: LikeDto) {
     return this.likeService.create(data);
   }
 
-  @MessagePattern('findAllLike')
+  @MessagePattern('LIKE:FIND')
   findAll() {
     return this.likeService.findAll();
   }
 
-  @MessagePattern('findOneLike')
-  findOne(@Payload() id: string) {
+  @MessagePattern('LIKE:USER')
+  findUser(@Payload() id: string) {
     return this.likeService.findOne(id);
   }
 }
