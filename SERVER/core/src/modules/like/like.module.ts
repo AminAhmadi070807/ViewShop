@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { LikeService } from './like.service';
 import { LikeController } from './like.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Like } from 'typeorm';
+import { Like } from './entities/like.entity';
 import { ProductsModule } from '../products/products.module';
 
 @Module({
