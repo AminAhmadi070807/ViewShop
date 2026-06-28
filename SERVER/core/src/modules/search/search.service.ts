@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { SearchDto } from './dto/search.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Search } from './entities/search.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SearchService {
-  create(data: SearchDto) {
-    return 'This action adds a new search';
-  }
+  constructor(
+    @InjectRepository(Search)
+    private readonly searchRepository: Repository<Search>,
+  ) {}
 
   findAll() {
     return `This action returns all search`;
