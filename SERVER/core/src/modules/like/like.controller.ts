@@ -9,7 +9,7 @@ export class LikeController {
 
   @MessagePattern('LIKE:TOGGLE')
   toggle(@Payload() data: LikeDto) {
-    return this.likeService.create(data);
+    return this.likeService.toggle(data);
   }
 
   @MessagePattern('LIKE:FIND')
@@ -19,6 +19,6 @@ export class LikeController {
 
   @MessagePattern('LIKE:USER')
   findUser(@Payload() id: string) {
-    return this.likeService.findOne(id);
+    return this.likeService.findUser(id);
   }
 }

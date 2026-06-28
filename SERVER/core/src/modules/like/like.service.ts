@@ -15,7 +15,7 @@ export class LikeService {
     private readonly productService: ProductService,
   ) {}
 
-  create(data: LikeDto) {
+  toggle(data: LikeDto) {
     return 'This action adds a new like';
   }
 
@@ -23,7 +23,7 @@ export class LikeService {
     return `This action returns all like`;
   }
 
-  findOne(id: string) {
+  findUser(id: string) {
     return `This action returns a #${id} like`;
   }
 }
