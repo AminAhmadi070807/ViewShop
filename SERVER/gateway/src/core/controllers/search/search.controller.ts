@@ -1,6 +1,9 @@
 import { CoreService } from '../../core.service';
 import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
-import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
@@ -20,6 +23,7 @@ export class SearchController {
   }
 
   @Delete('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('SEARCH:DELETE', data);
   }
