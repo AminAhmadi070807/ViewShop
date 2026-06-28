@@ -23,6 +23,7 @@ import { ArticleController } from './controllers/articles/article.controller';
 import { CartController } from './controllers/cart/cart.controller';
 import { OrderController } from './controllers/order/order.controller';
 import { LikeController } from './controllers/like/like.controller';
+import { SearchController } from './controllers/search/search.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -48,6 +49,7 @@ import { LikeController } from './controllers/like/like.controller';
     CartController,
     OrderController,
     LikeController,
+    SearchController,
   ],
   exports: [CoreService],
 })
