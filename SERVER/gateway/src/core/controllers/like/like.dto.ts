@@ -8,16 +8,6 @@ export class LikeDto {
     required: true,
     example: '',
   })
-  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
-  user: string;
-
-  @ApiProperty({
-    type: String,
-    nullable: false,
-    required: true,
-    example: '',
-  })
   @IsNotEmpty({ message: 'شناسه محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر هست' })
   product: string;
