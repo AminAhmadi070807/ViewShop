@@ -43,14 +43,14 @@ export class SearchService {
         existing.numberOfSearch = +existing.numberOfSearch + 1;
 
         await this.searchRepository.save(existing);
+      } else {
+        const newSearch: Search = this.searchRepository.create({
+          numberOfSearch: 1,
+          search: search.trim(),
+        });
+
+        await this.searchRepository.save(newSearch);
       }
-
-      const newSearch: Search = this.searchRepository.create({
-        numberOfSearch: 1,
-        search: search.trim(),
-      });
-
-      await this.searchRepository.save(newSearch);
 
       const productResult = await this.parentProductService.findAll(search);
 
