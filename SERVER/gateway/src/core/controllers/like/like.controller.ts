@@ -39,6 +39,7 @@ export class LikeController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findUser(@Param() data: ValidateUUID) {
     return this.coreService.send('LIKE:USER', data);
   }
