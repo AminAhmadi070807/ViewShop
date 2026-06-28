@@ -1,7 +1,8 @@
 import { CoreService } from '../../core.service';
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('search')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -16,5 +17,10 @@ export class SearchController {
   @Get('search')
   search(@Query('search') search: string) {
     return this.coreService.send('SEARCH:SEARCH', search);
+  }
+
+  @Delete('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('SEARCH:DELETE', data);
   }
 }
