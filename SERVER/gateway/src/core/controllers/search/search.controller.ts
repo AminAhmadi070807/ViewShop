@@ -14,6 +14,7 @@ export class SearchController {
   constructor(private readonly coreService: CoreService) {}
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('SEARCH:FIND');
   }
