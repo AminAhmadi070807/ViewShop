@@ -26,20 +26,20 @@ export class LikeService {
 
       const existing: Like | null = await this.likeRepository.findOneBy({
         user: { id: data.user },
-        products: { id: data.product },
+        product: { id: data.product },
       });
 
       if (!existing) {
         const like: Like = this.likeRepository.create({
           user: { id: data.user },
-          products: product.body,
+          product: product.body,
         });
 
         await this.likeRepository.save(like);
       } else {
         await this.likeRepository.delete({
           user: { id: data.user },
-          products: { id: data.product },
+          product: { id: data.product },
         });
       }
 
@@ -56,8 +56,35 @@ export class LikeService {
   async findAll() {
     try {
       const likes: Like[] = await this.likeRepository.find({
+        relations: [
+          'product',
+          'user',
+          'product.parentProduct',
+          'product.medias',
+          'product.store',
+        ],
         order: {
           createdAt: 'DESC',
+        },
+        select: {
+          product: {
+            id: true,
+            price: true,
+            medias: {
+              title: true,
+              path: true,
+            },
+            parentProduct: {
+              title: true,
+            },
+            status: true,
+            store: {
+              id: true,
+              alias: true,
+              title: true,
+              logo: true,
+            },
+          },
         },
       });
 
