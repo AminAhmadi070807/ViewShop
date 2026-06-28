@@ -6,10 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from '../entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
-import { Media } from '../../media/entities/media.entity';
 import { CategoriesService } from '../../categories/category/categories.service';
 import { SubCategoryService } from '../../categories/subCategory/sub.category.service';
 import { AttributeService } from '../../categories/attribute/attribute.service';
@@ -95,9 +94,14 @@ export class ParentProductsService {
     }
   }
 
-  async findAll() {
+  async findAll(title?: string) {
     try {
+      const where: FindOptionsWhere<ParentProduct> = {};
+
+      if (title) where.title = ILike(`%${title}%`);
+
       const result: ParentProduct[] = await this.productRepository.find({
+        where,
         order: {
           id: 'DESC',
         },
