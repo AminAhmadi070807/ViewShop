@@ -1,5 +1,5 @@
 import { CoreService } from '../../core.service';
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { LikeDto } from './like.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
@@ -29,5 +29,10 @@ export class LikeController {
       user: user.userId,
       product: data.product,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('LIKE:FIND');
   }
 }
