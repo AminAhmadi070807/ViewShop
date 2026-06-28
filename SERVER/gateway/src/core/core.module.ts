@@ -22,6 +22,7 @@ import { StoryController } from './controllers/story/story.controller';
 import { ArticleController } from './controllers/articles/article.controller';
 import { CartController } from './controllers/cart/cart.controller';
 import { OrderController } from './controllers/order/order.controller';
+import { LikeController } from './controllers/like/like.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -46,6 +47,7 @@ import { OrderController } from './controllers/order/order.controller';
     ArticleController,
     CartController,
     OrderController,
+    LikeController,
   ],
   exports: [CoreService],
 })
