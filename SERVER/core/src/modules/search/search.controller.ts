@@ -18,8 +18,8 @@ export class SearchController {
   }
 
   @MessagePattern('SEARCH:SEARCH')
-  findOne(@Payload() id: number) {
-    return this.searchService.findOne(id);
+  search(@Payload() search: string) {
+    return this.searchService.search(search);
   }
 
   @MessagePattern('SEARCH:DELETE')
