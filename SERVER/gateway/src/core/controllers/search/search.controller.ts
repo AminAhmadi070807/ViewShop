@@ -1,5 +1,5 @@
 import { CoreService } from '../../core.service';
-import { Body, Controller, Delete, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import {
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -23,10 +23,10 @@ export class SearchController {
     return this.coreService.send('SEARCH:FIND');
   }
 
-  @Get('search')
+  @Get('/search')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  search(@Body() data: SearchDto) {
-    return this.coreService.send('SEARCH:SEARCH', data);
+  search(@Query() data: SearchDto) {
+    return this.coreService.send('SEARCH:SEARCH', data.title);
   }
 
   @Delete('/:id')

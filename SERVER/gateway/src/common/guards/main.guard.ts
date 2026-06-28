@@ -21,6 +21,8 @@ export class MainGuard implements CanActivate {
     else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
     else if (url[lastIndex].startsWith('verify')) {
       url[lastIndex] = url[lastIndex].split('?')[0];
+    } else if (url[lastIndex - 1] === 'search') {
+      url[lastIndex] = 'search';
     }
 
     const user: JwtPayload = req.user as JwtPayload;
