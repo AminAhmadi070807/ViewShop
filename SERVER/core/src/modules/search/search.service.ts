@@ -20,7 +20,7 @@ export class SearchService {
         order: {
           numberOfSearch: 'DESC',
         },
-        skip: 15,
+        take: 15,
       });
 
       return {
