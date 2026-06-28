@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { LikeService } from './like.service';
 import { LikeDto } from './dto/like.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class LikeController {
@@ -18,7 +19,7 @@ export class LikeController {
   }
 
   @MessagePattern('LIKE:USER')
-  findUser(@Payload() id: string) {
-    return this.likeService.findUser(id);
+  findUser(@Payload() data: ValidateUUID) {
+    return this.likeService.findUser(data.id);
   }
 }
