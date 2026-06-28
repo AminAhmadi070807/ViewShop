@@ -33,7 +33,19 @@ export class SearchService {
     }
   }
 
-  search(search: string) {}
+  async search(search: string) {
+    try {
+      const result = await this.parentProductService.findAll(search);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result.body,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: number) {
     return `This action removes a #${id} search`;
