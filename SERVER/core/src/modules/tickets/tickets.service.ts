@@ -36,8 +36,22 @@ export class TicketsService {
     }
   }
 
-  findAll() {
-    return `This action returns all tickets`;
+  async findAll() {
+    try {
+      const tickets: Ticket[] = await this.ticketRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        body: tickets,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   findOne(id: string) {
