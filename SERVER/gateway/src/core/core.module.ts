@@ -24,6 +24,7 @@ import { CartController } from './controllers/cart/cart.controller';
 import { OrderController } from './controllers/order/order.controller';
 import { LikeController } from './controllers/like/like.controller';
 import { SearchController } from './controllers/search/search.controller';
+import { TicketController } from './controllers/tickets/ticket.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -50,6 +51,7 @@ import { SearchController } from './controllers/search/search.controller';
     OrderController,
     LikeController,
     SearchController,
+    TicketController,
   ],
   exports: [CoreService],
 })
