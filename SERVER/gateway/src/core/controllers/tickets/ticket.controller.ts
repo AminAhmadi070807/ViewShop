@@ -56,8 +56,13 @@ export class TicketController {
   @Patch()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  update(@Body() data: UpdateTicketDto) {
-    return this.coreService.send('TICKETS:UPDATE', data);
+  update(@Body() data: UpdateTicketDto, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('TICKETS:UPDATE', {
+      user: user.userId,
+      ...data,
+    });
   }
 
   @Delete('/:id')
