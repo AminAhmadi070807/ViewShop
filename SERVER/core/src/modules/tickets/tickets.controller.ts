@@ -7,27 +7,27 @@ import { TicketDto } from './dto/ticket.dto';
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
-  @MessagePattern('createTicket')
+  @MessagePattern('TICKETS:CREATE')
   create(@Payload() createTicketDto: TicketDto) {
     return this.ticketsService.create(createTicketDto);
   }
 
-  @MessagePattern('findAllTickets')
+  @MessagePattern('TICKETS:FIND')
   findAll() {
     return this.ticketsService.findAll();
   }
 
-  @MessagePattern('findOneTicket')
-  findOne(@Payload() id: number) {
+  @MessagePattern('TICKETS:ONE')
+  findOne(@Payload() id: string) {
     return this.ticketsService.findOne(id);
   }
 
-  @MessagePattern('updateTicket')
+  @MessagePattern('TICKETS:UPDATE')
   update(@Payload() data: TicketDto) {
     return this.ticketsService.update(data);
   }
 
-  @MessagePattern('removeTicket')
+  @MessagePattern('TICKETS:DELETE')
   remove(@Payload() id: string) {
     return this.ticketsService.remove(id);
   }
