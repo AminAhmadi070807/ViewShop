@@ -3,11 +3,17 @@ import {
   IsEnum,
   IsNotEmpty,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 export class TicketDto {
+  @IsNotEmpty({ message: 'دپارتمن نمیتواند خالی باشد' })
+  @IsString({ message: 'دپارتمن باید رشته باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
+  user: string;
+
   @IsNotEmpty({ message: 'دپارتمن نمیتواند خالی باشد' })
   @IsString({ message: 'دپارتمن باید رشته باشد' })
   @IsEnum(TicketsDepartmentEnum, { message: 'مقدار دپارتمن نادرست است' })
