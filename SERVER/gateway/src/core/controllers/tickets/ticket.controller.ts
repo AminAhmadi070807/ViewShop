@@ -3,12 +3,15 @@ import { CoreService } from '../../core.service';
 import { TicketDto } from './ticket.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ApiCreatedResponse } from '@nestjs/swagger';
+import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/tickets')
 export class TicketController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   create(@Body() data: TicketDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
