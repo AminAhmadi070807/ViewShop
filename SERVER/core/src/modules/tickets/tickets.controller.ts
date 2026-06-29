@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { TicketsService } from './tickets.service';
-import { CreateTicketDto } from './dto/create-ticket.dto';
+import { TicketDto } from './dto/ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Controller()
@@ -9,7 +9,7 @@ export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
   @MessagePattern('createTicket')
-  create(@Payload() createTicketDto: CreateTicketDto) {
+  create(@Payload() createTicketDto: TicketDto) {
     return this.ticketsService.create(createTicketDto);
   }
 
