@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { TicketDto, UpdateTicketDto } from './ticket.dto';
 import express from 'express';
@@ -48,5 +57,10 @@ export class TicketController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateTicketDto) {
     return this.coreService.send('TICKETS:UPDATE', data);
+  }
+
+  @Delete('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('TICKETS:DELETE', data);
   }
 }
