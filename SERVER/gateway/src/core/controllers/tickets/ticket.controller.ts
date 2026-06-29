@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { TicketDto } from './ticket.dto';
+import { TicketDto, UpdateTicketDto } from './ticket.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
@@ -41,5 +41,10 @@ export class TicketController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('TICKETS:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateTicketDto) {
+    return this.coreService.send('TICKETS:UPDATE', data);
   }
 }
