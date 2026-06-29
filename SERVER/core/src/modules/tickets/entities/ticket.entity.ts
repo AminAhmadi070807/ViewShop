@@ -32,12 +32,14 @@ export class Ticket {
   })
   status: TicketsStatusEnum;
 
-  @ManyToOne(() => Ticket, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: true,
-  })
-  ticket: Ticket | null;
+  @Column({ type: 'simple-json', nullable: false, array: true })
+  data: [
+    {
+      date: string;
+      description: string;
+      media: string;
+    },
+  ];
 
   @CreateDateColumn()
   createdAt: Date;
