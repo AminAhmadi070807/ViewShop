@@ -6,6 +6,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -28,6 +29,7 @@ export class TicketController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('TICKETS:FIND');
   }
