@@ -72,9 +72,7 @@ export class TicketsService {
     }
   }
 
-  update(data: TicketDto) {
-    return data;
-  }
+  update(data: TicketDto) {}
 
   async remove(id: string) {
     try {

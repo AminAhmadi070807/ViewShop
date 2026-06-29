@@ -2,6 +2,7 @@ import { TicketsDepartmentEnum } from '../../../common/enums/tickets/tickets.enu
 import {
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   MaxLength,
@@ -30,4 +31,21 @@ export class TicketDto {
   @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر باشد' })
   @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
+}
+
+export class UpdateTicketDto {
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
+  user: string;
+
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر باشد' })
+  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
+  description: string;
+
+  @IsNotEmpty({ message: 'شناسه مدیا نمیتواند خالی باشد هست' })
+  @IsUUID('4', { message: 'شناسه مدیا نامعتبر هست' })
+  @IsOptional({ message: 'شناسه مدیا اختیاری هست' })
+  media: string;
 }
