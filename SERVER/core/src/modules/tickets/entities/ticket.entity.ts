@@ -38,7 +38,7 @@ export class Ticket {
     {
       date: string;
       description: string;
-      media: string;
+      media: string | null;
     },
   ];
 

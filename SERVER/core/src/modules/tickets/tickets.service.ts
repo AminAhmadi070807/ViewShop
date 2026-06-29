@@ -72,7 +72,33 @@ export class TicketsService {
     }
   }
 
-  update(data: UpdateTicketDto) {}
+  async update(data: UpdateTicketDto) {
+    try {
+      const ticket: Ticket | null = await this.ticketRepository.findOne({
+        where: {
+          id: data.id,
+        },
+      });
+
+      if (!ticket) return new CustomException(statusMessages.fa['404'], 404);
+
+      ticket.data.push({
+        description: data.description,
+        date: new Date().toLocaleString(),
+        media: data.media,
+      });
+
+      await this.ticketRepository.save(ticket);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: ticket,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
