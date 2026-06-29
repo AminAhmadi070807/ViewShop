@@ -20,6 +20,7 @@ import { OrderModule } from './modules/order/order.module';
 import { LikeModule } from './modules/like/like.module';
 import { SearchModule } from './modules/search/search.module';
 import { TicketsModule } from './modules/tickets/tickets.module';
+import { BrandsModule } from './modules/brands/brands.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { TicketsModule } from './modules/tickets/tickets.module';
     LikeModule,
     SearchModule,
     TicketsModule,
+    BrandsModule,
   ],
 })
 export class AppModule {}
