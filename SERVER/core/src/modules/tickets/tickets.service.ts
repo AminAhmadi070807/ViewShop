@@ -54,8 +54,22 @@ export class TicketsService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} ticket`;
+  async findOne(id: string) {
+    try {
+      const ticket: Ticket | null = await this.ticketRepository.findOneBy({
+        id,
+      });
+
+      if (!ticket) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: ticket,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   update(data: TicketDto) {
