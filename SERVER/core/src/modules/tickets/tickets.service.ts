@@ -31,7 +31,8 @@ export class TicketsService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
