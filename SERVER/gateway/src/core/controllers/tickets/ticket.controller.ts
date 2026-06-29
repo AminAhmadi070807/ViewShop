@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { TicketDto } from './ticket.dto';
 import express from 'express';
@@ -25,5 +25,10 @@ export class TicketController {
       user: user.userId,
       ...data,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('TICKETS:FIND');
   }
 }
