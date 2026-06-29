@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TicketDto } from './dto/ticket.dto';
+import { TicketDto, UpdateTicketDto } from './dto/ticket.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ticket } from './entities/ticket.entity';
 import { Repository } from 'typeorm';
@@ -72,7 +72,7 @@ export class TicketsService {
     }
   }
 
-  update(data: TicketDto) {}
+  update(data: UpdateTicketDto) {}
 
   async remove(id: string) {
     try {

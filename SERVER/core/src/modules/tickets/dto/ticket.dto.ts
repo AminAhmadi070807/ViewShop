@@ -34,6 +34,10 @@ export class TicketDto {
 }
 
 export class UpdateTicketDto {
+  @IsNotEmpty({ message: 'شناسه تیکت نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه تیکت نامعتبر هست' })
+  id: string;
+
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
   user: string;
