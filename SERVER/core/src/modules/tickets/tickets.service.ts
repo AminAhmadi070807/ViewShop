@@ -76,7 +76,17 @@ export class TicketsService {
     return data;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} ticket`;
+  async remove(id: string) {
+    try {
+      await this.ticketRepository.delete(id);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
