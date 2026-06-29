@@ -8,8 +8,8 @@ export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
   @MessagePattern('TICKETS:CREATE')
-  create(@Payload() createTicketDto: TicketDto) {
-    return this.ticketsService.create(createTicketDto);
+  create(@Payload() data: TicketDto) {
+    return this.ticketsService.create(data);
   }
 
   @MessagePattern('TICKETS:FIND')
