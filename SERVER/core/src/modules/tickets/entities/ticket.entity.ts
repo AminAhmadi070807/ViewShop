@@ -20,8 +20,8 @@ export class Ticket {
   @Column({ type: 'enum', nullable: false, enum: TicketsDepartmentEnum })
   department: TicketsDepartmentEnum;
 
-  @Column({ type: 'string', nullable: true })
-  title: string | null;
+  @Column({ type: 'varchar', nullable: false })
+  title: string;
 
   @Column({ type: 'varchar', nullable: false })
   description: string;
