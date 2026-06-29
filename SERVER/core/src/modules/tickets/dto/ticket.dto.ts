@@ -51,5 +51,5 @@ export class UpdateTicketDto {
   @IsNotEmpty({ message: 'شناسه مدیا نمیتواند خالی باشد هست' })
   @IsUUID('4', { message: 'شناسه مدیا نامعتبر هست' })
   @IsOptional({ message: 'شناسه مدیا اختیاری هست' })
-  media: string;
+  media?: string;
 }

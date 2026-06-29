@@ -86,7 +86,7 @@ export class TicketsService {
       ticket.data.push({
         description: data.description,
         date: new Date().toLocaleString(),
-        media: data.media,
+        media: data.media ? data.media : null,
       });
 
       await this.ticketRepository.save(ticket);
