@@ -15,6 +15,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -60,6 +61,7 @@ export class TicketController {
   }
 
   @Delete('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('TICKETS:DELETE', data);
   }
