@@ -3,10 +3,16 @@ import { CoreService } from '../../core.service';
 import { TicketDto } from './ticket.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/tickets')
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class TicketController {
   constructor(private readonly coreService: CoreService) {}
 
