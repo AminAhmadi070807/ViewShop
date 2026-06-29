@@ -11,9 +11,7 @@ export class TicketsService {
     private readonly ticketRepository: Repository<Ticket>,
   ) {}
 
-  create(data: TicketDto) {
-    return 'This action adds a new ticket';
-  }
+  create(data: TicketDto) {}
 
   findAll() {
     return `This action returns all tickets`;

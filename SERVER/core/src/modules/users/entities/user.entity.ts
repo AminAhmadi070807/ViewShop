@@ -15,6 +15,7 @@ import { Category } from '../../categories/entities/category.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Attribute } from '../../categories/entities/attribute.entity';
+import { Ticket } from '../../tickets/entities/ticket.entity';
 
 @Entity('users')
 export class User {
@@ -76,6 +77,9 @@ export class User {
     (attribute: Attribute): User => attribute.user,
   )
   attributes: Attribute[];
+
+  @OneToMany((): typeof Ticket => Ticket, (ticket: Ticket): User => ticket.user)
+  tickets: Ticket[];
 
   @OneToMany(() => Media, (media: Media) => media.user)
   medias: Media[];

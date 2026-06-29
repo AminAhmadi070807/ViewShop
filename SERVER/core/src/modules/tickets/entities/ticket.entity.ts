@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -9,6 +10,7 @@ import {
   TicketsDepartmentEnum,
   TicketsStatusEnum,
 } from '../../../common/enums/tickets/tickets.enum';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('tickets')
 export class Ticket {
@@ -39,6 +41,12 @@ export class Ticket {
       media: string;
     },
   ];
+
+  @ManyToOne(() => User, (user: User) => user.tickets, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;
