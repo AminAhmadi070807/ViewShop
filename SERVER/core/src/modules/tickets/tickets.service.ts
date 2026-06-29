@@ -87,6 +87,7 @@ export class TicketsService {
         date: new Date().toLocaleString(),
         media: data.media ? data.media : null,
       });
+      console.log(ticket);
 
       await this.ticketRepository.save(ticket);
 
@@ -95,7 +96,8 @@ export class TicketsService {
         message: statusMessages.fa['200'],
         body: ticket,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

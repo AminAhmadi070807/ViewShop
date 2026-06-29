@@ -33,7 +33,7 @@ export class Ticket {
   })
   status: TicketsStatusEnum;
 
-  @Column({ type: 'simple-json', nullable: true, array: true, default: [] })
+  @Column({ type: 'simple-json', nullable: true, default: [] })
   data: [
     {
       date: string;
