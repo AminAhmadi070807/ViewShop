@@ -2,7 +2,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { TicketsService } from './tickets.service';
 import { TicketDto } from './dto/ticket.dto';
-import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Controller()
 export class TicketsController {
@@ -24,12 +23,12 @@ export class TicketsController {
   }
 
   @MessagePattern('updateTicket')
-  update(@Payload() updateTicketDto: UpdateTicketDto) {
-    return this.ticketsService.update(updateTicketDto.id, updateTicketDto);
+  update(@Payload() data: TicketDto) {
+    return this.ticketsService.update(data);
   }
 
   @MessagePattern('removeTicket')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.ticketsService.remove(id);
   }
 }
