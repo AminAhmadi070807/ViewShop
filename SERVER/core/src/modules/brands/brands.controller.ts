@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BrandsService } from './brands.service';
-import { BrandDto } from './dto/brand.dto';
+import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
 
 @Controller()
 export class BrandsController {
@@ -23,7 +23,7 @@ export class BrandsController {
   }
 
   @MessagePattern('updateBrand')
-  update(@Payload() data: BrandDto) {
+  update(@Payload() data: UpdateBrandDto) {
     return this.brandsService.update(data);
   }
 
