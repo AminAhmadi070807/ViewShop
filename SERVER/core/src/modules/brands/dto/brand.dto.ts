@@ -2,10 +2,12 @@ import {
   IsNotEmpty,
   IsString,
   IsUrl,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class BrandDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
@@ -32,4 +34,10 @@ export class BrandDto {
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
   @IsUrl({}, { message: 'لینک نامعتبر هست' })
   link: string;
+}
+
+export class UpdateBrandDto extends PartialType(BrandDto) {
+  @IsNotEmpty({ message: 'ایدی برند نمیتواند خالی باشد' })
+  @IsUUID('4')
+  id: string;
 }
