@@ -79,6 +79,12 @@ export class BrandDto {
 }
 
 export class UpdateBrandDto extends PartialType(BrandDto) {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'شناسه برند نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه برند نامعبتر هست' })
   id: string;
