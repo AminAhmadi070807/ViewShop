@@ -31,12 +31,12 @@ export class BrandDto {
     nullable: false,
     example: '',
     minLength: 50,
-    maxLength: 255,
+    maxLength: 1000,
   })
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(50, { message: 'توضیحات حدقل باید 50 کارکتر داشته باشد' })
-  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
+  @MaxLength(1000, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
   @ApiProperty({
