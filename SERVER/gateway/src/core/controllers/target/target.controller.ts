@@ -33,6 +33,8 @@ export class TargetController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('TARGET:ONE', data);
   }
