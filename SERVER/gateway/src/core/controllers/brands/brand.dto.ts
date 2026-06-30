@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsString,
   IsUrl,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -28,6 +29,10 @@ export class BrandDto {
     message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
   })
   alias: string;
+
+  @IsNotEmpty({ message: 'ایدی لوگو نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی لوگو نامعبر است' })
+  logo: string;
 
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
   @IsUrl({}, { message: 'لینک نامعتبر هست' })
