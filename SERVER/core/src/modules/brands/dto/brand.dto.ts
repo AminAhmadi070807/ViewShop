@@ -19,7 +19,7 @@ export class BrandDto {
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(50, { message: 'توضیحات حدقل باید 50 کارکتر داشته باشد' })
-  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
+  @MaxLength(1000, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
