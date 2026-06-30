@@ -13,6 +13,12 @@ export class BrandDto {
   @MaxLength(24, { message: 'عنوان حدکثر میتواند 24 کارکتر داشته باشد' })
   title: string;
 
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(50, { message: 'توضیحات حدقل باید 1 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 24 کارکتر داشته باشد' })
+  description: string;
+
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(1, { message: 'نام مستعار حدقل باید 1 کارکتر داشته باشد' })
