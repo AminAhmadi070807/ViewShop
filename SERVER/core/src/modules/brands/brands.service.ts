@@ -82,14 +82,15 @@ export class BrandsService {
 
   async update(data: UpdateBrandDto) {
     try {
+      const { logo, ...rest } = data;
+
       const brand: UpdateResult = await this.brandRepository.update(data.id, {
-        title: data.title,
-        description: data.description,
-        link: data.link,
-        logo: {
-          id: data.logo,
-        },
-        alias: data.alias,
+        ...rest,
+        ...(logo && {
+          logo: {
+            id: data.logo,
+          },
+        }),
       });
 
       if (!brand.affected) {
