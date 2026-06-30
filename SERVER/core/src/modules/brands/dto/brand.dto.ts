@@ -31,6 +31,10 @@ export class BrandDto {
   })
   alias: string;
 
+  @IsNotEmpty({ message: 'ایدی لوگو نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی لوگو نامعبر است' })
+  logo: string;
+
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
   @IsUrl({}, { message: 'لینک نامعتبر هست' })
   link: string;
