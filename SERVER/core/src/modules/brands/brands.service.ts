@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BrandDto } from './dto/brand.dto';
+import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brand } from './entities/brand.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -72,7 +72,26 @@ export class BrandsService {
     }
   }
 
-  update(data: BrandDto) {}
+  async update(data: UpdateBrandDto) {
+    try {
+      const brand: UpdateResult = await this.brandRepository.update(
+        data.id,
+        data,
+      );
+
+      if (!brand.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['200'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
