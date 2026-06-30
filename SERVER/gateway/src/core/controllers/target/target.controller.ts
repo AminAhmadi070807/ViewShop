@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { TargetDto } from './target.dto';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { UpdateTicketDto } from '../tickets/ticket.dto';
 
 @Controller('core/target')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -37,5 +38,10 @@ export class TargetController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('TARGET:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateTicketDto) {
+    return this.coreService.send('TARGET:UPDATE', data);
   }
 }
