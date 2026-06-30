@@ -15,10 +15,22 @@ export class BrandsService {
 
   async create(data: BrandDto) {
     try {
-      const existing = await this.brandRepository.findOneBy([
+      const existing: Brand | null = await this.brandRepository.findOneBy([
         { alias: data.alias },
         { title: data.title },
       ]);
+
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const brand: Brand = this.brandRepository.create(data);
+
+      await this.brandRepository.save(brand);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: brand,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
