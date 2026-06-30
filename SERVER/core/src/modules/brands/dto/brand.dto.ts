@@ -31,8 +31,8 @@ export class BrandDto {
   })
   alias: string;
 
-  @IsNotEmpty({ message: 'ایدی لوگو نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی لوگو نامعبر است' })
+  @IsNotEmpty({ message: 'شناسه لوگو نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه لوگو نامعبر است' })
   logo: string;
 
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
@@ -41,7 +41,7 @@ export class BrandDto {
 }
 
 export class UpdateBrandDto extends PartialType(BrandDto) {
-  @IsNotEmpty({ message: 'ایدی برند نمیتواند خالی باشد' })
-  @IsUUID('4')
+  @IsNotEmpty({ message: 'شناسه برند نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه برند نامعبتر هست' })
   id: string;
 }
