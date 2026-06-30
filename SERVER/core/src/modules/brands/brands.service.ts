@@ -54,7 +54,23 @@ export class BrandsService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const brand: Brand | null = await this.brandRepository.findOneBy({
+        id: id,
+      });
+
+      if (!brand) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: brand,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   update(data: BrandDto) {}
 
