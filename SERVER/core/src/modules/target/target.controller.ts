@@ -29,7 +29,7 @@ export class TargetController {
   }
 
   @MessagePattern('removeTarget')
-  remove(@Payload() id: string) {
-    return this.targetService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.targetService.remove(data.id);
   }
 }
