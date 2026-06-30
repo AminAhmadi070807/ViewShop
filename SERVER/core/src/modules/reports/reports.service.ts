@@ -11,17 +11,11 @@ export class ReportsService {
     private readonly reportsRepository: Repository<Report>,
   ) {}
 
-  create(data: ReportDto) {
-    return 'This action adds a new report';
-  }
+  create(data: ReportDto) {}
 
-  findAll() {
-    return `This action returns all reports`;
-  }
+  findAll() {}
 
-  findOne(id: string) {
-    return `This action returns a #${id} report`;
-  }
+  findOne(id: string) {}
 
   answer(data: ReportDto) {}
 }
