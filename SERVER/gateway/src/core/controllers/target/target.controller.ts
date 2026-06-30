@@ -1,10 +1,17 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { TargetDto } from './target.dto';
-import { ApiCreatedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/target')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
 export class TargetController {
   constructor(private readonly coreService: CoreService) {}
 
