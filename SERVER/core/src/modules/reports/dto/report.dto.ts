@@ -7,23 +7,23 @@ import {
 } from 'class-validator';
 
 export class ReportDto {
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
   user: string;
 
-  @IsNotEmpty()
-  @IsUUID()
+  @IsNotEmpty({ message: 'شناسه هدف نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه هدف نامعتبر هست' })
   target: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(50)
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'عنوان نمیتواند بیشتر از 50 کارکتر داشته باشد' })
   title: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(255)
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(3, { message: 'توضیحات حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'توضیحات نمیتواند بیشتر از 50 کارکتر داشته باشد' })
   description: string;
 }
