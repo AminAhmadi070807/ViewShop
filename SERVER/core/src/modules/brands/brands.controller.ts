@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BrandsService } from './brands.service';
 import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class BrandsController {
@@ -18,8 +19,8 @@ export class BrandsController {
   }
 
   @MessagePattern('BRAND:ONE')
-  findOne(@Payload() id: string) {
-    return this.brandsService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.brandsService.findOne(data.id);
   }
 
   @MessagePattern('BRAND:UPDATE')
@@ -28,7 +29,7 @@ export class BrandsController {
   }
 
   @MessagePattern('BRAND:DELETE')
-  remove(@Payload() id: string) {
-    return this.brandsService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.brandsService.remove(data.id);
   }
 }

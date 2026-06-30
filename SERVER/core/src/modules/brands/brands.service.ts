@@ -39,8 +39,7 @@ export class BrandsService {
         message: statusMessages.fa['201'],
         body: brand,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
