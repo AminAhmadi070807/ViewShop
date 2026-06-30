@@ -7,22 +7,22 @@ import { ReportDto } from './dto/report.dto';
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
-  @MessagePattern('createReport')
+  @MessagePattern('REPORT:CREATE')
   create(@Payload() data: ReportDto) {
     return this.reportsService.create(data);
   }
 
-  @MessagePattern('findAllReports')
+  @MessagePattern('REPORT:FIND')
   findAll() {
     return this.reportsService.findAll();
   }
 
-  @MessagePattern('findOneReport')
+  @MessagePattern('REPORT:ONE')
   findOne(@Payload() id: string) {
     return this.reportsService.findOne(id);
   }
 
-  @MessagePattern('updateReport')
+  @MessagePattern('REPORT:ANSWER')
   answer(@Payload() data: ReportDto) {
     return this.reportsService.answer(data);
   }
