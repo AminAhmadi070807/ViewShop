@@ -4,6 +4,7 @@ import { BrandDto, UpdateBrandDto } from './brand.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
@@ -35,6 +36,8 @@ export class BrandController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateBrandDto) {
     return this.coreService.send('BRAND:UPDATE', data);
   }
