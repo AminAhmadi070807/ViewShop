@@ -1,14 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BrandsService } from './brands.service';
-import { CreateBrandDto } from './dto/create-brand.dto';
+import { BrandDto } from './dto/brand.dto';
 
 @Controller()
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   @MessagePattern('createBrand')
-  create(@Payload() data: CreateBrandDto) {
+  create(@Payload() data: BrandDto) {
     return this.brandsService.create(data);
   }
 
@@ -23,7 +23,7 @@ export class BrandsController {
   }
 
   @MessagePattern('updateBrand')
-  update(@Payload() data: CreateBrandDto) {
+  update(@Payload() data: BrandDto) {
     return this.brandsService.update(data);
   }
 

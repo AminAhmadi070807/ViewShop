@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBrandDto } from './dto/create-brand.dto';
-import { UpdateBrandDto } from './dto/update-brand.dto';
+import { BrandDto } from './dto/brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brand } from './entities/brand.entity';
 import { Repository } from 'typeorm';
@@ -12,13 +11,13 @@ export class BrandsService {
     private readonly brandRepository: Repository<Brand>,
   ) {}
 
-  create(data: CreateBrandDto) {}
+  create(data: BrandDto) {}
 
   findAll() {}
 
   findOne(id: string) {}
 
-  update(data: UpdateBrandDto) {}
+  update(data: BrandDto) {}
 
   remove(id: string) {}
 }
