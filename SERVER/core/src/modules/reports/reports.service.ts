@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReportDto } from './dto/create-report.dto';
-import { UpdateReportDto } from './dto/update-report.dto';
+import { ReportDto } from './dto/report.dto';
 
 @Injectable()
 export class ReportsService {
-  create(createReportDto: CreateReportDto) {
+  create(data: ReportDto) {
     return 'This action adds a new report';
   }
 
@@ -12,15 +11,9 @@ export class ReportsService {
     return `This action returns all reports`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} report`;
   }
 
-  update(id: number, updateReportDto: UpdateReportDto) {
-    return `This action updates a #${id} report`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} report`;
-  }
+  answer(data: ReportDto) {}
 }
