@@ -31,7 +31,7 @@ export class Brand {
     nullable: false,
   })
   @JoinColumn()
-  media: Media;
+  logo: Media;
 
   @CreateDateColumn()
   createdAt: Date;

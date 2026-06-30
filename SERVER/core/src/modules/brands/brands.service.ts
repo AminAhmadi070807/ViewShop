@@ -22,7 +22,15 @@ export class BrandsService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const brand: Brand = this.brandRepository.create(data);
+      const brand: Brand = this.brandRepository.create({
+        title: data.title,
+        description: data.description,
+        alias: data.alias,
+        link: data.link,
+        logo: {
+          id: data.logo,
+        },
+      });
 
       await this.brandRepository.save(brand);
 
@@ -31,7 +39,8 @@ export class BrandsService {
         message: statusMessages.fa['201'],
         body: brand,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -74,10 +83,15 @@ export class BrandsService {
 
   async update(data: UpdateBrandDto) {
     try {
-      const brand: UpdateResult = await this.brandRepository.update(
-        data.id,
-        data,
-      );
+      const brand: UpdateResult = await this.brandRepository.update(data.id, {
+        title: data.title,
+        description: data.description,
+        link: data.link,
+        logo: {
+          id: data.logo,
+        },
+        alias: data.alias,
+      });
 
       if (!brand.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
