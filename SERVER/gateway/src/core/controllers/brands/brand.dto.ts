@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class BrandDto {
   @ApiProperty({
@@ -75,4 +76,10 @@ export class BrandDto {
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
   @IsUrl({}, { message: 'لینک نامعتبر هست' })
   link: string;
+}
+
+export class UpdateBrandDto extends PartialType(BrandDto) {
+  @IsNotEmpty({ message: 'شناسه برند نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه برند نامعبتر هست' })
+  id: string;
 }
