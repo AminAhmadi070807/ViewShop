@@ -7,27 +7,27 @@ import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
-  @MessagePattern('createBrand')
+  @MessagePattern('BRAND:CREATE')
   create(@Payload() data: BrandDto) {
     return this.brandsService.create(data);
   }
 
-  @MessagePattern('findAllBrands')
+  @MessagePattern('BRAND:FIND')
   findAll() {
     return this.brandsService.findAll();
   }
 
-  @MessagePattern('findOneBrand')
+  @MessagePattern('BRAND:ONE')
   findOne(@Payload() id: string) {
     return this.brandsService.findOne(id);
   }
 
-  @MessagePattern('updateBrand')
+  @MessagePattern('BRAND:UPDATE')
   update(@Payload() data: UpdateBrandDto) {
     return this.brandsService.update(data);
   }
 
-  @MessagePattern('removeBrand')
+  @MessagePattern('BRAND:DELETE')
   remove(@Payload() id: string) {
     return this.brandsService.remove(id);
   }
