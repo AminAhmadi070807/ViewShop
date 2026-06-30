@@ -6,6 +6,7 @@ import {
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -25,6 +26,7 @@ export class TargetController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('TARGET:FIND');
   }
