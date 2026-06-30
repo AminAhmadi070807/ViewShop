@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsString,
   IsUrl,
+  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -23,6 +24,9 @@ export class BrandDto {
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(1, { message: 'نام مستعار حدقل باید 1 کارکتر داشته باشد' })
   @MaxLength(24, { message: 'نام مستعار حدکثر میتواند 24 کارکتر داشته باشد' })
+  @Matches(/^[a-zA-Z0-9-_]{1,24}$/, {
+    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
+  })
   alias: string;
 
   @IsNotEmpty({ message: 'لینک وبسایت اصلی نمیتواند خالی باشد' })
