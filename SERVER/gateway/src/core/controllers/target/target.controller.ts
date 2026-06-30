@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { TargetDto } from './target.dto';
 import {
@@ -22,5 +22,10 @@ export class TargetController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: TargetDto) {
     return this.coreService.send('TARGET:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('TARGET:FIND');
   }
 }
