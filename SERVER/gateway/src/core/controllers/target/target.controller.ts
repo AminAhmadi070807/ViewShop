@@ -3,6 +3,7 @@ import { CoreService } from '../../core.service';
 import { TargetDto } from './target.dto';
 import {
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiUnauthorizedResponse,
@@ -17,6 +18,7 @@ export class TargetController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: TargetDto) {
     return this.coreService.send('TARGET:CREATE', data);
