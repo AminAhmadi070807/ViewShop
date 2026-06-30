@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { BrandDto, UpdateBrandDto } from './brand.dto';
 import {
@@ -40,5 +48,10 @@ export class BrandController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateBrandDto) {
     return this.coreService.send('BRAND:UPDATE', data);
+  }
+
+  @Delete('/:id')
+  remove(@Param() data: ValidateUUID) {
+    return this.coreService.send('BRAND:DELETE', data);
   }
 }
