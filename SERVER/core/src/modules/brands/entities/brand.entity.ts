@@ -15,6 +15,9 @@ export class Brand {
   title: string;
 
   @Column({ type: 'varchar', nullable: false })
+  description: string;
+
+  @Column({ type: 'varchar', nullable: false })
   alias: string;
 
   @Column({ type: 'varchar', nullable: false })
