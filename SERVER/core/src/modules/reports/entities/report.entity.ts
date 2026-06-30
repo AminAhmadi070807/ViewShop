@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -18,6 +19,7 @@ export class Report {
     onUpdate: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn()
   user: User;
 
   @Column({ type: 'varchar', nullable: false })
@@ -34,6 +36,7 @@ export class Report {
     onUpdate: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn()
   admin: User;
 
   @Column({ type: 'varchar', nullable: false })
