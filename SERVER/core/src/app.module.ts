@@ -22,6 +22,7 @@ import { SearchModule } from './modules/search/search.module';
 import { TicketsModule } from './modules/tickets/tickets.module';
 import { BrandsModule } from './modules/brands/brands.module';
 import { ReportsModule } from './modules/reports/reports.module';
+import { TargetModule } from './modules/target/target.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { ReportsModule } from './modules/reports/reports.module';
     TicketsModule,
     BrandsModule,
     ReportsModule,
+    TargetModule,
   ],
 })
 export class AppModule {}
