@@ -2,15 +2,14 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
-import { UpdateBrandDto } from './dto/update-brand.dto';
 
 @Controller()
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   @MessagePattern('createBrand')
-  create(@Payload() createBrandDto: CreateBrandDto) {
-    return this.brandsService.create(createBrandDto);
+  create(@Payload() data: CreateBrandDto) {
+    return this.brandsService.create(data);
   }
 
   @MessagePattern('findAllBrands')
@@ -19,17 +18,17 @@ export class BrandsController {
   }
 
   @MessagePattern('findOneBrand')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.brandsService.findOne(id);
   }
 
   @MessagePattern('updateBrand')
-  update(@Payload() updateBrandDto: UpdateBrandDto) {
-    return this.brandsService.update(updateBrandDto.id, updateBrandDto);
+  update(@Payload() data: CreateBrandDto) {
+    return this.brandsService.update(data);
   }
 
   @MessagePattern('removeBrand')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.brandsService.remove(id);
   }
 }

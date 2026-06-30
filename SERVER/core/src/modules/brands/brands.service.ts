@@ -12,23 +12,13 @@ export class BrandsService {
     private readonly brandRepository: Repository<Brand>,
   ) {}
 
-  create(createBrandDto: CreateBrandDto) {
-    return 'This action adds a new brand';
-  }
+  create(data: CreateBrandDto) {}
 
-  findAll() {
-    return `This action returns all brands`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} brand`;
-  }
+  findOne(id: string) {}
 
-  update(id: number, updateBrandDto: UpdateBrandDto) {
-    return `This action updates a #${id} brand`;
-  }
+  update(data: UpdateBrandDto) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} brand`;
-  }
+  remove(id: string) {}
 }
