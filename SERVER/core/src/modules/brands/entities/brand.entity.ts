@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Media } from '../../media/entities/media.entity';
 
 @Entity('brands')
 export class Brand {
@@ -22,6 +25,13 @@ export class Brand {
 
   @Column({ type: 'varchar', nullable: false })
   link: string;
+
+  @OneToOne(() => Media, {
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
+  @JoinColumn()
+  media: Media;
 
   @CreateDateColumn()
   createdAt: Date;
