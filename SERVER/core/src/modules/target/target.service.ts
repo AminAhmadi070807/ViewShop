@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { TargetDto } from './dto/target.dto';
+import { TargetDto, UpdateTargetDto } from './dto/target.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Target } from './entities/target.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -71,7 +71,25 @@ export class TargetService {
     }
   }
 
-  update(data: TargetDto) {}
+  async update(data: UpdateTargetDto) {
+    try {
+      const result: UpdateResult = await this.targetRepository.update(data.id, {
+        title: data.title,
+      });
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: string) {}
 }
