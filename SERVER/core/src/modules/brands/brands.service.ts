@@ -36,7 +36,23 @@ export class BrandsService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const brands: Brand[] = await this.brandRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: brands,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
