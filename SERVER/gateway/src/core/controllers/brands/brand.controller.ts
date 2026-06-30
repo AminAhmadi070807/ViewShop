@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { BrandDto } from './brand.dto';
 import {
@@ -7,6 +7,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/brands')
 export class BrandController {
@@ -23,5 +24,10 @@ export class BrandController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('BRAND:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('BRAND:ONE', data);
   }
 }
