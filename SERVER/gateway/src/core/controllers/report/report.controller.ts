@@ -5,6 +5,7 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -32,6 +33,7 @@ export class ReportController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('REPORT:FIND');
   }
