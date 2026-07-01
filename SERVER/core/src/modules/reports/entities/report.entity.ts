@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
+import { Target } from '../../target/entities/target.entity';
 
 @Entity('reports')
 export class Report {
@@ -22,8 +24,9 @@ export class Report {
   @JoinColumn()
   user: User;
 
-  @Column({ type: 'varchar', nullable: false })
-  targetId: string;
+  @ManyToOne(() => Target, { onUpdate: 'CASCADE', nullable: false })
+  @JoinColumn()
+  target: Target;
 
   @Column({ type: 'varchar', nullable: false })
   reason: string;
