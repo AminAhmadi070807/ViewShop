@@ -65,7 +65,7 @@ export class WishlistController {
     return this.coreService.send('WISHLIST:UPDATE', data);
   }
 
-  @Delete()
+  @Delete('/:id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('WISHLIST:DELETE', data);
