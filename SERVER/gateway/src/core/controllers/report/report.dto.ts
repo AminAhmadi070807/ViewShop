@@ -48,3 +48,17 @@ export class ReportDto {
   })
   description: string;
 }
+
+export class AnswerReportDto {
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
+  id: string;
+
+  @IsNotEmpty({ message: 'جواب نمیتواند خالی باشد' })
+  @IsString({ message: 'جواب باید رشته باشد' })
+  @MinLength(3, { message: 'جواب حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(255, {
+    message: 'جواب نمیتواند بیشتر از 255 کارکتر داشته باشد',
+  })
+  answer: string;
+}
