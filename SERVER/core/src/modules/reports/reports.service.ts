@@ -5,15 +5,45 @@ import { Report } from './entities/report.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { TargetService } from '../target/target.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class ReportsService {
   constructor(
     @InjectRepository(Report)
     private readonly reportsRepository: Repository<Report>,
+    private readonly targetService: TargetService,
   ) {}
 
-  create(data: ReportDto) {}
+  async create(data: ReportDto) {
+    try {
+      const target = await this.targetService.findOne(data.target);
+
+      if (target instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const report: Report = this.reportsRepository.create({
+        user: {
+          id: data.user,
+        },
+        description: data.description,
+        targetId: data.target,
+        reason: data.title,
+      });
+
+      await this.reportsRepository.save(report);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async findAll() {
     try {
