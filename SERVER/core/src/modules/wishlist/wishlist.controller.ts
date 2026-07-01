@@ -1,15 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { WishlistService } from './wishlist.service';
-import { CreateWishlistDto } from './dto/create-wishlist.dto';
-import { UpdateWishlistDto } from './dto/update-wishlist.dto';
+import { WishlistDto } from './dto/wishlist.dto';
 
 @Controller()
 export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @MessagePattern('createWishlist')
-  create(@Payload() createWishlistDto: CreateWishlistDto) {
+  create(@Payload() createWishlistDto: WishlistDto) {
     return this.wishlistService.create(createWishlistDto);
   }
 
@@ -19,17 +18,17 @@ export class WishlistController {
   }
 
   @MessagePattern('findOneWishlist')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.wishlistService.findOne(id);
   }
 
   @MessagePattern('updateWishlist')
-  update(@Payload() updateWishlistDto: UpdateWishlistDto) {
-    return this.wishlistService.update(updateWishlistDto.id, updateWishlistDto);
+  update(@Payload() data: WishlistDto) {
+    return this.wishlistService.update(data);
   }
 
   @MessagePattern('removeWishlist')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.wishlistService.remove(id);
   }
 }
