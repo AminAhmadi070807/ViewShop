@@ -23,6 +23,7 @@ import { TicketsModule } from './modules/tickets/tickets.module';
 import { BrandsModule } from './modules/brands/brands.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { TargetModule } from './modules/target/target.module';
+import { WishlistModule } from './modules/wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { TargetModule } from './modules/target/target.module';
     BrandsModule,
     ReportsModule,
     TargetModule,
+    WishlistModule,
   ],
 })
 export class AppModule {}
