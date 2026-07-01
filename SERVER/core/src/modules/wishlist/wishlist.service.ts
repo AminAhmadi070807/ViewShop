@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { WishlistDto } from './dto/wishlist.dto';
+import { UpdateWishlistDto, WishlistDto } from './dto/wishlist.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wishlist } from './entities/wishlist.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { ProductService } from '../products/product/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
@@ -122,7 +122,28 @@ export class WishlistService {
     }
   }
 
-  update(data: WishlistDto) {}
+  async update(data: UpdateWishlistDto) {
+    try {
+      const result: UpdateResult = await this.wishlistRepository.update(
+        data.id,
+        {
+          title: data.title,
+        },
+      );
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
