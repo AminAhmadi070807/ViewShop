@@ -85,20 +85,22 @@ export class ReportsService {
 
   async answer(data: AnswerReportDto) {
     try {
-      const result: UpdateResult = await this.reportsRepository.update(
-        data.id,
-        {
-          answer: data.answer,
-          admin: {
-            id: data.id,
-          },
-          isAnswer: true,
-        },
-      );
+      const report: Report | null = await this.reportsRepository.findOneBy({
+        id: data.id,
+      });
 
-      if (!result.affected) {
-        return new CustomException(statusMessages.fa['404'], 404);
+      if (!report) return new CustomException(statusMessages.fa['404'], 404);
+      else if (report.isAnswer) {
+        return new CustomException(statusMessages.fa['409'], 409);
       }
+
+      await this.reportsRepository.update(data.id, {
+        answer: data.answer,
+        admin: {
+          id: data.id,
+        },
+        isAnswer: true,
+      });
 
       return {
         status: 204,
