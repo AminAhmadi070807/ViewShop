@@ -37,12 +37,12 @@ export class Report {
   @OneToOne(() => User, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn()
   admin: User;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   answer: string;
 
   @Column({ type: 'boolean', default: false })
