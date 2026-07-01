@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { WishlistDto } from './wishlist.dto';
+import { UpdateWishlistDto, WishlistDto } from './wishlist.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
@@ -46,5 +46,10 @@ export class WishlistController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('WISHLIST:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateWishlistDto) {
+    return this.coreService.send('WISHLIST:UPDATE', data);
   }
 }
