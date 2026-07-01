@@ -29,7 +29,7 @@ export class ReportsService {
           id: data.user,
         },
         description: data.description,
-        targetId: data.target,
+        target: target.body,
         reason: data.title,
       });
 
