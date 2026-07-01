@@ -8,27 +8,27 @@ import { ValidateUUID } from '../../common/validations/id.dto';
 export class TargetController {
   constructor(private readonly targetService: TargetService) {}
 
-  @MessagePattern('createTarget')
+  @MessagePattern('TARGET:CREATE')
   create(@Payload() data: TargetDto) {
     return this.targetService.create(data);
   }
 
-  @MessagePattern('findAllTarget')
+  @MessagePattern('TARGET:FIND')
   findAll() {
     return this.targetService.findAll();
   }
 
-  @MessagePattern('findOneTarget')
+  @MessagePattern('TARGET:ONE')
   findOne(@Payload() data: ValidateUUID) {
     return this.targetService.findOne(data.id);
   }
 
-  @MessagePattern('updateTarget')
+  @MessagePattern('TARGET:UPDATE')
   update(@Payload() data: UpdateTargetDto) {
     return this.targetService.update(data);
   }
 
-  @MessagePattern('removeTarget')
+  @MessagePattern('TARGET:DELETE')
   remove(@Payload() data: ValidateUUID) {
     return this.targetService.remove(data.id);
   }
