@@ -26,6 +26,8 @@ import { LikeController } from './controllers/like/like.controller';
 import { SearchController } from './controllers/search/search.controller';
 import { TicketController } from './controllers/tickets/ticket.controller';
 import { BrandController } from './controllers/brands/brand.controller';
+import { TargetController } from './controllers/target/target.controller';
+import { ReportController } from './controllers/report/report.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -54,6 +56,8 @@ import { BrandController } from './controllers/brands/brand.controller';
     SearchController,
     TicketController,
     BrandController,
+    TargetController,
+    ReportController,
   ],
   exports: [CoreService],
 })
