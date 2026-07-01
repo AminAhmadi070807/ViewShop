@@ -31,6 +31,10 @@ export class ReportDto {
 export class AnswerReportDto {
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
+  id: string;
+
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
   user: string;
 
   @IsNotEmpty({ message: 'جواب نمیتواند خالی باشد' })
