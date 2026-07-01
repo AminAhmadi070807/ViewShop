@@ -8,6 +8,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -49,6 +50,8 @@ export class WishlistController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateWishlistDto) {
     return this.coreService.send('WISHLIST:UPDATE', data);
   }
