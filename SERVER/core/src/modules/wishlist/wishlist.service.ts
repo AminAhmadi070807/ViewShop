@@ -55,7 +55,23 @@ export class WishlistService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const wishlist: Wishlist[] = await this.wishlistRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: wishlist,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
