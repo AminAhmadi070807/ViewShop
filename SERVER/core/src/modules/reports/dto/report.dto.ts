@@ -24,7 +24,9 @@ export class ReportDto {
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(3, { message: 'توضیحات حدقل باید 3 کارکتر داشته باشد' })
-  @MaxLength(255, { message: 'توضیحات نمیتواند بیشتر از 255 کارکتر داشته باشد' })
+  @MaxLength(255, {
+    message: 'توضیحات نمیتواند بیشتر از 255 کارکتر داشته باشد',
+  })
   description: string;
 }
 
