@@ -7,27 +7,27 @@ import { WishlistDto } from './dto/wishlist.dto';
 export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
-  @MessagePattern('createWishlist')
+  @MessagePattern('WISHLIST:CREATE')
   create(@Payload() createWishlistDto: WishlistDto) {
     return this.wishlistService.create(createWishlistDto);
   }
 
-  @MessagePattern('findAllWishlist')
+  @MessagePattern('WISHLIST:FIND')
   findAll() {
     return this.wishlistService.findAll();
   }
 
-  @MessagePattern('findOneWishlist')
+  @MessagePattern('WISHLIST:ONE')
   findOne(@Payload() id: string) {
     return this.wishlistService.findOne(id);
   }
 
-  @MessagePattern('updateWishlist')
+  @MessagePattern('WISHLIST:UPDATE')
   update(@Payload() data: WishlistDto) {
     return this.wishlistService.update(data);
   }
 
-  @MessagePattern('removeWishlist')
+  @MessagePattern('WISHLIST:DELETE')
   remove(@Payload() id: string) {
     return this.wishlistService.remove(id);
   }
