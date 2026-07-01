@@ -40,8 +40,7 @@ export class ReportsService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -98,7 +97,7 @@ export class ReportsService {
       await this.reportsRepository.update(data.id, {
         answer: data.answer,
         admin: {
-          id: data.id,
+          id: data.user,
         },
         isAnswer: true,
       });
