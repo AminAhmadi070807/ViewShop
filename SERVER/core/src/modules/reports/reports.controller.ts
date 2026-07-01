@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ReportsService } from './reports.service';
-import { ReportDto } from './dto/report.dto';
+import { AnswerReportDto, ReportDto } from './dto/report.dto';
 
 @Controller()
 export class ReportsController {
@@ -23,7 +23,7 @@ export class ReportsController {
   }
 
   @MessagePattern('REPORT:ANSWER')
-  answer(@Payload() data: ReportDto) {
+  answer(@Payload() data: AnswerReportDto) {
     return this.reportsService.answer(data);
   }
 }
