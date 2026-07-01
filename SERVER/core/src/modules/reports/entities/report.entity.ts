@@ -45,6 +45,9 @@ export class Report {
   @Column({ type: 'varchar', nullable: false })
   answer: string;
 
+  @Column({ type: 'boolean', default: false })
+  isAnswer: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
