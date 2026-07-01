@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { TargetDto } from './target.dto';
+import { TargetDto, UpdateTargetDto } from './target.dto';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -52,7 +52,7 @@ export class TargetController {
   @Patch()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  update(@Body() data: UpdateTicketDto) {
+  update(@Body() data: UpdateTargetDto) {
     return this.coreService.send('TARGET:UPDATE', data);
   }
 
