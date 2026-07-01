@@ -18,9 +18,6 @@ export class Wishlist {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'smallint', nullable: false, default: 1 })
-  score: number;
-
   @ManyToOne(() => User, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
