@@ -8,8 +8,8 @@ export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @MessagePattern('WISHLIST:CREATE')
-  create(@Payload() createWishlistDto: WishlistDto) {
-    return this.wishlistService.create(createWishlistDto);
+  create(@Payload() data: WishlistDto) {
+    return this.wishlistService.create(data);
   }
 
   @MessagePattern('WISHLIST:FIND')
