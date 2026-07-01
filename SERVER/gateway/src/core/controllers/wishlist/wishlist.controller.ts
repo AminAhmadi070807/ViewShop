@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { WishlistDto } from './wishlist.dto';
 import express from 'express';
@@ -13,6 +13,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/wishlist')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -38,5 +39,10 @@ export class WishlistController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('WISHLIST:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('WISHLIST:ONE', data);
   }
 }
