@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ReportDto } from './dto/report.dto';
+import { AnswerReportDto, ReportDto } from './dto/report.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from './entities/report.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { TargetService } from '../target/target.service';
@@ -83,5 +83,29 @@ export class ReportsService {
     }
   }
 
-  answer(data: ReportDto) {}
+  async answer(data: AnswerReportDto) {
+    try {
+      const result: UpdateResult = await this.reportsRepository.update(
+        data.id,
+        {
+          answer: data.answer,
+          admin: {
+            id: data.id,
+          },
+        },
+      );
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
