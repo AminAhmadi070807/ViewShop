@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { WishlistService } from './wishlist.service';
 import { UpdateWishlistDto, WishlistDto } from './dto/wishlist.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class WishlistController {
@@ -18,8 +19,8 @@ export class WishlistController {
   }
 
   @MessagePattern('WISHLIST:ONE')
-  findOne(@Payload() id: string) {
-    return this.wishlistService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.wishlistService.findOne(data.id);
   }
 
   @MessagePattern('WISHLIST:UPDATE')
@@ -28,7 +29,7 @@ export class WishlistController {
   }
 
   @MessagePattern('WISHLIST:DELETE')
-  remove(@Payload() id: string) {
-    return this.wishlistService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.wishlistService.remove(data.id);
   }
 }
