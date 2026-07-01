@@ -20,7 +20,6 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { UpdateTicketDto } from '../tickets/ticket.dto';
 
 @Controller('core/target')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })

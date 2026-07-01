@@ -15,7 +15,6 @@ export class TargetService {
 
   async create(data: TargetDto) {
     try {
-      console.log(data);
       const existing: Target | null = await this.targetRepository.findOneBy({
         title: data.title.trim(),
       });
@@ -31,8 +30,7 @@ export class TargetService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -84,9 +82,9 @@ export class TargetService {
       }
 
       return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
