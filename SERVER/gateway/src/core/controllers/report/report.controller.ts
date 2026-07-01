@@ -4,6 +4,7 @@ import { AnswerReportDto, ReportDto } from './report.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -47,6 +48,10 @@ export class ReportController {
   }
 
   @Patch()
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   answer(@Body() data: AnswerReportDto) {
     return this.coreService.send('REPORT:ANSWER', data);
   }
