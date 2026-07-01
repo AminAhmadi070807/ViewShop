@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { WishlistService } from './wishlist.service';
-import { WishlistDto } from './dto/wishlist.dto';
+import { UpdateWishlistDto, WishlistDto } from './dto/wishlist.dto';
 
 @Controller()
 export class WishlistController {
@@ -23,7 +23,7 @@ export class WishlistController {
   }
 
   @MessagePattern('WISHLIST:UPDATE')
-  update(@Payload() data: WishlistDto) {
+  update(@Payload() data: UpdateWishlistDto) {
     return this.wishlistService.update(data);
   }
 
