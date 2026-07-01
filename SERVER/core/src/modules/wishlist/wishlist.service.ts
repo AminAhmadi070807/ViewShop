@@ -73,7 +73,54 @@ export class WishlistService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const result: Wishlist | null = await this.wishlistRepository.findOne({
+        where: {
+          id,
+        },
+        relations: [
+          'product',
+          'user',
+          'product.parentProduct',
+          'product.store',
+        ],
+        select: {
+          product: {
+            id: true,
+            medias: true,
+            price: true,
+            discount_percent: true,
+            alias: true,
+            store: {
+              id: true,
+              title: true,
+              alias: true,
+            },
+            parentProduct: {
+              id: true,
+              title: true,
+            },
+          },
+          user: {
+            id: true,
+            fullName: true,
+            phone: true,
+          },
+        },
+      });
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   update(data: WishlistDto) {}
 
