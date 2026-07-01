@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UpdateWishlistDto, WishlistDto } from './wishlist.dto';
 import express from 'express';
@@ -54,5 +63,10 @@ export class WishlistController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateWishlistDto) {
     return this.coreService.send('WISHLIST:UPDATE', data);
+  }
+
+  @Delete()
+  delete(@Param() data: ValidateUUID) {
+    return this.coreService.send('WISHLIST:DELETE', data);
   }
 }
