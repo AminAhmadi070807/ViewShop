@@ -92,6 +92,7 @@ export class ReportsService {
           admin: {
             id: data.id,
           },
+          isAnswer: true,
         },
       );
 
