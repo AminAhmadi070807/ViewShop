@@ -49,7 +49,7 @@ export class TargetController {
   }
 
   @Patch()
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateTargetDto) {
     return this.coreService.send('TARGET:UPDATE', data);
