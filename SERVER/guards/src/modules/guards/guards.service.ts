@@ -119,70 +119,74 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
-    // get patch from database
-    const guard: Guard | null = await this.guardsRepository.findOne({
-      where: {
-        patch: data.patch.toLowerCase(),
-        service: data.service,
-        method: data.method,
-      },
-      relations: ['roles'],
-      select: {
-        roles: {
-          id: true,
-          title: true,
+    try {
+      // get patch from database
+      const guard: Guard | null = await this.guardsRepository.findOne({
+        where: {
+          patch: data.patch.toLowerCase(),
+          service: data.service,
+          method: data.method,
         },
-      },
-    });
-
-    // check guard
-    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
-    else if (guard.public) return true;
-
-    // get user from database
-    const user: User | null = await this.userRepository.findOne({
-      where: {
-        user: data.userId,
-      },
-      relations: ['roles'],
-      select: {
-        roles: {
-          id: true,
-          title: true,
-          score: true,
+        relations: ['roles'],
+        select: {
+          roles: {
+            id: true,
+            title: true,
+          },
         },
-        banned: true,
-        id: true,
-        user: true,
-      },
-    });
+      });
 
-    // check user & user banned
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
-    else if (user.banned) {
-      throw new CustomException(statusMessages.fa['403'], 404);
-    }
+      // check guard
+      if (!guard) return new CustomException(statusMessages.fa['404'], 404);
+      else if (guard.public) return true;
 
-    // validate user access to this patch
-    let validate: boolean = false;
+      // get user from database
+      const user: User | null = await this.userRepository.findOne({
+        where: {
+          user: data.userId,
+        },
+        relations: ['roles'],
+        select: {
+          roles: {
+            id: true,
+            title: true,
+            score: true,
+          },
+          banned: true,
+          id: true,
+          user: true,
+        },
+      });
 
-    for (const role of guard.roles) {
-      for (const userRole of user.roles) {
-        if (role.score <= userRole.score) {
-          validate = true;
-          break;
+      // check user & user banned
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
+      else if (user.banned) {
+        return new CustomException(statusMessages.fa['403'], 404);
+      }
+
+      // validate user access to this patch
+      let validate: boolean = false;
+
+      for (const role of guard.roles) {
+        for (const userRole of user.roles) {
+          if (role.score <= userRole.score) {
+            validate = true;
+            break;
+          }
         }
       }
+
+      // send forbidden error if user isn't access to this route
+      if (!validate) return new CustomException(statusMessages.fa['403'], 403);
+
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: true,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    // send forbidden error if user isn't access to this route
-    if (!validate) throw new CustomException(statusMessages.fa['403'], 403);
-
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: true,
-    };
   }
 
   async remove(id: string) {
