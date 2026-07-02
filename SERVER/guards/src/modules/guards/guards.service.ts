@@ -53,33 +53,12 @@ export class GuardsService {
     };
   }
 
-  async findAll(data: ValidateOptionalTitle) {
-    let guards: Guard[];
-
-    if (data.title) {
-      const role: Role | null = await this.roleRepository.findOneBy({
-        title: data.title,
-      });
-
-      if (!role) throw new CustomException(statusMessages.fa['404'], 404);
-
-      guards = await this.guardsRepository.find({
-        where: {
-          roles: {
-            id: role.id,
-          },
-        },
-        order: {
-          id: 'DESC',
-        },
-      });
-    } else {
-      guards = await this.guardsRepository.find({
-        order: {
-          id: 'DESC',
-        },
-      });
-    }
+  async findAll() {
+    const guards: Guard[] = await this.guardsRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
 
     return {
       status: HttpStatus.OK,
