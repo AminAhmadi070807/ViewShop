@@ -22,27 +22,13 @@ export class Singular {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn()
+  @JoinTable()
   permissions: Permission[];
 
-  @ManyToMany(() => Role, (role: Role) => role.singulars, {
+  @ManyToMany(() => Role, {
     nullable: false,
   })
-  @JoinTable({
-    name: 'singular_roles',
-    joinColumns: [
-      {
-        name: 'singular_id',
-        referencedColumnName: 'id',
-      },
-    ],
-    inverseJoinColumns: [
-      {
-        name: 'role_id',
-        referencedColumnName: 'id',
-      },
-    ],
-  })
+  @JoinTable()
   roles: Role[];
 
   @CreateDateColumn()
