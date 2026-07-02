@@ -150,22 +150,26 @@ export class UsersService {
   }
 
   async toggleBanned(data: ValidateUUID) {
-    const user: User | null = await this.userRepository.findOne({
-      where: {
-        id: data.id,
-      },
-    });
+    try {
+      const user: User | null = await this.userRepository.findOne({
+        where: {
+          id: data.id,
+        },
+      });
 
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-    user.banned = !user.banned;
+      user.banned = !user.banned;
 
-    await this.userRepository.save(user);
+      await this.userRepository.save(user);
 
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
