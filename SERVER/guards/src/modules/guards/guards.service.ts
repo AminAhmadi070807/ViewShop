@@ -7,7 +7,6 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { Role } from '../roles/entities/role.entity';
 import { User } from '../users/entities/user.entity';
-import { ValidateOptionalTitle } from '../../common/validations/title.dto';
 
 @Injectable()
 export class GuardsService {

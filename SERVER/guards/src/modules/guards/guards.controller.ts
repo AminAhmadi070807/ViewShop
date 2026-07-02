@@ -3,7 +3,6 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { GuardsService } from './guards.service';
 import { GuardDto, ValidateGuard } from './dto/guard.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { ValidateOptionalTitle } from '../../common/validations/title.dto';
 
 @Controller()
 export class GuardsController {
@@ -15,8 +14,8 @@ export class GuardsController {
   }
 
   @MessagePattern('GUARD:FIND')
-  findAll(@Payload() data: ValidateOptionalTitle) {
-    return this.guardsService.findAll(data);
+  findAll() {
+    return this.guardsService.findAll();
   }
 
   @MessagePattern('GUARD:ONE')
