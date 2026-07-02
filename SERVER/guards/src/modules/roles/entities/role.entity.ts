@@ -34,10 +34,10 @@ export class Role {
   @JoinColumn()
   users: User[];
 
-  @ManyToMany(() => Singular, (singular: Singular) => singular.roles, {
+  @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinTable()
   singulars: Singular[];
 
   @CreateDateColumn()
