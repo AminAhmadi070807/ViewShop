@@ -60,7 +60,7 @@ export class UsersService {
   async findAll() {
     try {
       const users: User[] = await this.userRepository.find({
-        relations: ['roles'],
+        relations: ['role'],
         select: {
           role: {
             id: true,

@@ -31,7 +31,7 @@ export class Guard {
   @JoinTable()
   roles: Role[];
 
-  @ManyToOne(() => Singular, { onUpdate: 'CASCADE', nullable: true })
+  @ManyToOne(() => Singular, { onUpdate: 'CASCADE', nullable: false })
   @JoinColumn()
   feature: Singular;
 
