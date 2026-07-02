@@ -89,33 +89,37 @@ export class GuardsService {
   }
 
   async findOne(id: string) {
-    const guard: Guard | null = await this.guardsRepository.findOne({
-      where: {
-        id,
-      },
-      relations: ['roles'],
-      select: {
-        roles: {
-          id: true,
-          users: {
+    try {
+      const guard: Guard | null = await this.guardsRepository.findOne({
+        where: {
+          id,
+        },
+        relations: ['roles'],
+        select: {
+          roles: {
             id: true,
-            user: true,
-          },
-          singulars: {
-            id: true,
-            title: true,
+            users: {
+              id: true,
+              user: true,
+            },
+            singulars: {
+              id: true,
+              title: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!guard) return new CustomException(statusMessages.fa['404'], 404);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: guard,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: guard,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async validate(data: ValidateGuard) {
