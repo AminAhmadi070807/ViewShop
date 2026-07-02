@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -23,7 +24,7 @@ export class Role {
   @ManyToMany(() => Guard, {
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinTable()
   guards: Guard[];
 
   @Column({ type: 'smallint', nullable: false, default: 0 })
