@@ -5,8 +5,6 @@ import { Guard } from './entities/guard.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
-import { Role } from '../roles/entities/role.entity';
-import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { RolesService } from '../roles/roles.service';
 import { RpcException } from '@nestjs/microservices';

@@ -24,7 +24,7 @@ export class Role {
   @ManyToMany(() => Guard, {
     onUpdate: 'CASCADE',
   })
-  @JoinTable()
+  @JoinColumn()
   guards: Guard[];
 
   @Column({ type: 'smallint', nullable: false, default: 0 })

@@ -2,13 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
+import { Singular } from '../../singular/entities/singular.entity';
 
 @Entity('guards')
 export class Guard {
@@ -27,6 +30,10 @@ export class Guard {
   })
   @JoinTable()
   roles: Role[];
+
+  @ManyToOne(() => Singular, { onUpdate: 'CASCADE', nullable: true })
+  @JoinColumn()
+  feature: Singular;
 
   @Column({ type: 'boolean', nullable: false, default: false })
   public: boolean;
