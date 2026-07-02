@@ -93,7 +93,7 @@ export class UsersService {
         where: {
           id,
         },
-        relations: ['roles'],
+        relations: ['role'],
         select: {
           role: {
             id: true,
