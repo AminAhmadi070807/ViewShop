@@ -103,50 +103,54 @@ export class UsersService {
   }
 
   async toggleUserRole(data: UpdateUserDto) {
-    // find one user from database
-    const user: User | null = await this.userRepository.findOne({
-      where: {
-        id: data.userId,
-      },
-      relations: ['roles'],
-      select: {
-        id: true,
-        banned: true,
-      },
-    });
-    // find role from database
-    const role: Role | null = await this.roleRepository.findOne({
-      where: {
-        id: data.roleId,
-      },
-      relations: ['users'],
-      select: {
-        id: true,
-        title: true,
-      },
-    });
+    try {
+      // find one user from database
+      const user: User | null = await this.userRepository.findOne({
+        where: {
+          id: data.userId,
+        },
+        relations: ['roles'],
+        select: {
+          id: true,
+          banned: true,
+        },
+      });
+      // find role from database
+      const role: Role | null = await this.roleRepository.findOne({
+        where: {
+          id: data.roleId,
+        },
+        relations: ['users'],
+        select: {
+          id: true,
+          title: true,
+        },
+      });
 
-    // check user
-    if (!user || !role) {
-      throw new CustomException(statusMessages.fa['404'], 404);
+      // check user
+      if (!user || !role) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const isRoleExist: boolean = user.roles.some((role: Role) => {
+        return role.id === data.roleId;
+      });
+
+      if (isRoleExist) {
+        user.roles = user.roles.filter((role: Role) => role.id !== data.roleId);
+      } else user.roles.push(role);
+
+      // sava data in user & role
+      await this.userRepository.save(user);
+
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        data: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    const isRoleExist: boolean = user.roles.some((role: Role) => {
-      return role.id === data.roleId;
-    });
-
-    if (isRoleExist) {
-      user.roles = user.roles.filter((role: Role) => role.id !== data.roleId);
-    } else user.roles.push(role);
-
-    // sava data in user & role
-    await this.userRepository.save(user);
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      data: null,
-    };
   }
 
   async toggleBanned(data: ValidateUUID) {
