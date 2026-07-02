@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -19,15 +20,17 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @ManyToMany(() => Guard, (guard: Guard) => guard.roles, {
+  @ManyToMany(() => Guard, {
     onUpdate: 'CASCADE',
   })
+  @JoinColumn()
   guards: Guard[];
 
   @Column({ type: 'smallint', nullable: false, default: 0 })
   score: number;
 
-  @ManyToMany(() => User, (user: User) => user.roles)
+  @ManyToMany(() => User)
+  @JoinColumn()
   users: User[];
 
   @OneToMany(() => Singular, (singular: Singular) => singular.roles, {
