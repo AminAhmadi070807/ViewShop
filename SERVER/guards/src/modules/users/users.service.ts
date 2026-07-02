@@ -21,36 +21,40 @@ export class UsersService {
   ) {}
 
   async create(data: CreateUserDto) {
-    // check user in core database
-    await firstValueFrom(this.coreService.send('USER:ONE', data.id));
+    try {
+      // check user in core database
+      await firstValueFrom(this.coreService.send('USER:ONE', data.id));
 
-    // check user in guard database
-    const existing: User | null = await this.userRepository.findOneBy({
-      id: data.id,
-    });
-
-    // create new user
-    if (!existing) {
-      const numberOfUsers: number = await this.userRepository.count({});
-
-      const role: Role = (await this.roleRepository.findOneBy({
-        title: numberOfUsers ? 'USER' : 'AdMIN',
-      })) as Role;
-
-      const user: User = this.userRepository.create({
+      // check user in guard database
+      const existing: User | null = await this.userRepository.findOneBy({
         id: data.id,
-        roles: [role],
       });
 
-      await this.userRepository.save(user);
-    }
+      // create new user
+      if (!existing) {
+        const numberOfUsers: number = await this.userRepository.count({});
 
-    // send success request
-    return {
-      status: HttpStatus.OK,
-      body: null,
-      message: statusMessages.fa['200'],
-    };
+        const role: Role = (await this.roleRepository.findOneBy({
+          title: numberOfUsers ? 'USER' : 'AdMIN',
+        })) as Role;
+
+        const user: User = this.userRepository.create({
+          id: data.id,
+          roles: [role],
+        });
+
+        await this.userRepository.save(user);
+      }
+
+      // send success request
+      return {
+        status: HttpStatus.OK,
+        body: null,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findAll() {
