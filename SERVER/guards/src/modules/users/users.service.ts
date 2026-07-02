@@ -54,29 +54,33 @@ export class UsersService {
   }
 
   async findAll() {
-    const users: User[] = await this.userRepository.find({
-      relations: ['roles'],
-      select: {
-        roles: {
-          id: true,
-          title: true,
-          singulars: {
+    try {
+      const users: User[] = await this.userRepository.find({
+        relations: ['roles'],
+        select: {
+          roles: {
             id: true,
             title: true,
-            permissions: {
+            singulars: {
               id: true,
               title: true,
+              permissions: {
+                id: true,
+                title: true,
+              },
             },
           },
         },
-      },
-    });
+      });
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      data: users,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        data: users,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findOne(id: string) {
