@@ -123,25 +123,12 @@ export class GuardsService {
       else if (guard.public) return true;
 
       // get user from database
-      const user: User | null = await this.userRepository.findOne({
-        where: {
-          id: data.userId,
-        },
-        relations: ['roles'],
-        select: {
-          role: {
-            id: true,
-            title: true,
-            score: true,
-          },
-          banned: true,
-          id: true,
-        },
-      });
+      const user = await this.userService.findOne(data.userId);
 
       // check user & user banned
-      if (!user) return new CustomException(statusMessages.fa['404'], 404);
-      else if (user.banned) {
+      if (user instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      } else if (user.data.banned) {
         return new CustomException(statusMessages.fa['403'], 404);
       }
 

@@ -38,8 +38,7 @@ export class GuardDto {
 export class ValidateGuard {
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  @IsOptional()
-  userId?: string;
+  userId: string;
 
   @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر باید رشته باشد' })
