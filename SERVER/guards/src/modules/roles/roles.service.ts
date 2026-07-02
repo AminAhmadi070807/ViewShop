@@ -51,26 +51,30 @@ export class RolesService {
   }
 
   async findOne(id: string) {
-    const role: Role | null = await this.roleRepository.findOne({
-      where: {
-        id,
-      },
-      relations: ['singulars'],
-      select: {
-        singulars: {
-          id: true,
-          title: true,
+    try {
+      const role: Role | null = await this.roleRepository.findOne({
+        where: {
+          id,
         },
-      },
-    });
+        relations: ['singulars'],
+        select: {
+          singulars: {
+            id: true,
+            title: true,
+          },
+        },
+      });
 
-    if (!role) throw new CustomException(statusMessages.fa['404'], 409);
+      if (!role) return new CustomException(statusMessages.fa['404'], 409);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: role,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: role,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async update(data: RoleDto) {
