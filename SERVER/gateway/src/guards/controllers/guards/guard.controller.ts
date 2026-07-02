@@ -10,7 +10,7 @@ import {
 import { GuardsService } from '../../guards.service';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { GuardDto, ValidateGuard, ValidateOkResult } from './guard.dto';
+import { GuardDto, ValidateGuard } from './guard.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import {
   ApiCreatedResponse,
@@ -35,20 +35,20 @@ export class GuardController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @Public()
-  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   create(@Body() data: GuardDto): Observable<any> {
     return this.guardsService.send('GUARD:CREATE', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll(): Observable<any> {
     return this.guardsService.send('GUARD:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiParam({
     name: 'id',
     type: 'string',
@@ -59,11 +59,8 @@ export class GuardController {
     return this.guardsService.send('GUARD:ONE', data);
   }
 
-  @ApiOkResponse({
-    description: statusMessages.fa['200'],
-    type: ValidateOkResult,
-  })
   @Post('validate')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   validate(
     @Body() data: ValidateGuard,
     @Req() req: express.Request,
