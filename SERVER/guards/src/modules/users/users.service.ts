@@ -26,7 +26,7 @@ export class UsersService {
 
     // check user in guard database
     const existing: User | null = await this.userRepository.findOneBy({
-      user: data.id,
+      id: data.id,
     });
 
     // create new user
@@ -38,7 +38,7 @@ export class UsersService {
       })) as Role;
 
       const user: User = this.userRepository.create({
-        user: data.id,
+        id: data.id,
         roles: [role],
       });
 
@@ -106,12 +106,11 @@ export class UsersService {
     // find one user from database
     const user: User | null = await this.userRepository.findOne({
       where: {
-        user: data.userId,
+        id: data.userId,
       },
       relations: ['roles'],
       select: {
         id: true,
-        user: true,
         banned: true,
       },
     });
@@ -153,7 +152,7 @@ export class UsersService {
   async toggleBanned(data: ValidateUUID) {
     const user: User | null = await this.userRepository.findOne({
       where: {
-        user: data.id,
+        id: data.id,
       },
     });
 

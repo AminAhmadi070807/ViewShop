@@ -12,9 +12,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'uuid', nullable: false, unique: true })
-  user: string;
-
   @Column({ type: 'boolean', nullable: false, default: false })
   banned: boolean;
 
