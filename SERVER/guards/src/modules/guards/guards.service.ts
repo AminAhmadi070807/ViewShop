@@ -7,16 +7,17 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { Role } from '../roles/entities/role.entity';
 import { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
+import { RolesService } from '../roles/roles.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class GuardsService {
   constructor(
     @InjectRepository(Guard)
     private readonly guardsRepository: Repository<Guard>,
-    @InjectRepository(Role)
-    private readonly roleRepository: Repository<Role>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly roleService: RolesService,
+    private readonly userService: UsersService,
   ) {}
 
   async create(data: GuardDto) {
@@ -29,16 +30,16 @@ export class GuardsService {
 
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
-    const role: Role | null = await this.roleRepository.findOneBy({
-      id: data.roleId,
-    });
+    const role = await this.roleService.findOne(data.roleId);
 
-    if (!role) throw new CustomException(statusMessages.fa['404'], 409);
+    if (role.status !== HttpStatus.OK) {
+      return new CustomException(statusMessages.fa['404'], 409);
+    }
 
     const guard: Guard = this.guardsRepository.create({
       patch: data.patch.toLowerCase(),
       public: data.public || false,
-      roles: [role],
+      roles: [role.body],
       service: data.service,
       method: data.method,
     });
