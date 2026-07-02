@@ -40,7 +40,7 @@ export class UsersService {
 
         const user: User = this.userRepository.create({
           id: data.id,
-          roles: [role],
+          role: role,
         });
 
         await this.userRepository.save(user);
@@ -62,7 +62,7 @@ export class UsersService {
       const users: User[] = await this.userRepository.find({
         relations: ['roles'],
         select: {
-          roles: {
+          role: {
             id: true,
             title: true,
             singulars: {
@@ -95,7 +95,7 @@ export class UsersService {
         },
         relations: ['roles'],
         select: {
-          roles: {
+          role: {
             id: true,
             title: true,
           },
@@ -144,13 +144,7 @@ export class UsersService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const isRoleExist: boolean = user.roles.some((role: Role) => {
-        return role.id === data.roleId;
-      });
-
-      if (isRoleExist) {
-        user.roles = user.roles.filter((role: Role) => role.id !== data.roleId);
-      } else user.roles.push(role);
+      user.role = role;
 
       // sava data in user & role
       await this.userRepository.save(user);
