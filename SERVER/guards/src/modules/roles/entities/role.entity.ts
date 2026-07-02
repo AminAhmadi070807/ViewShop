@@ -29,7 +29,7 @@ export class Role {
   @Column({ type: 'smallint', nullable: false, default: 0 })
   score: number;
 
-  @ManyToMany(() => User)
+  @OneToMany(() => User, (user: User) => user.role)
   @JoinColumn()
   users: User[];
 
