@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  JoinTable,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,11 +15,7 @@ export class User {
   @Column({ type: 'boolean', nullable: false, default: false })
   banned: boolean;
 
-  @ManyToOne(() => Role, (role: Role) => role.users, { eager: true })
-  @JoinTable({
-    name: 'users_roles',
-    joinColumn: { name: 'user_id' },
-    inverseJoinColumn: { name: 'role_id' },
-  })
+  @ManyToOne(() => Role, { eager: true })
+  @JoinColumn()
   role: Role;
 }
