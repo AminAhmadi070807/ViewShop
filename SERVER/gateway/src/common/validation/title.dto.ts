@@ -5,7 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ValidateTitle {
   @ApiProperty({
@@ -24,6 +24,14 @@ export class ValidateTitle {
 }
 
 export class ValidateOptionalTitle {
+  @ApiPropertyOptional({
+    type: String,
+    nullable: false,
+    minLength: 3,
+    maxLength: 24,
+    description: 'عنوان نقش',
+    example: '',
+  })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
