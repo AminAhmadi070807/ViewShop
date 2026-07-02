@@ -99,58 +99,54 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
-    try {
-      // get patch from database
-      const guard: Guard | null = await this.guardsRepository.findOne({
-        where: {
-          patch: data.patch.toLowerCase(),
-          service: data.service,
-          method: data.method,
+    // get patch from database
+    const guard: Guard | null = await this.guardsRepository.findOne({
+      where: {
+        patch: data.patch.toLowerCase(),
+        service: data.service,
+        method: data.method,
+      },
+      relations: ['roles'],
+      select: {
+        roles: {
+          id: true,
+          title: true,
         },
-        relations: ['roles'],
-        select: {
-          roles: {
-            id: true,
-            title: true,
-          },
-        },
-      });
+      },
+    });
 
-      // check guard
-      if (!guard) return new CustomException(statusMessages.fa['404'], 404);
-      else if (guard.public) return true;
+    // check guard
+    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+    else if (guard.public) return true;
 
-      // get user from database
-      const user = await this.userService.findOne(data.userId);
+    // get user from database
+    const user = await this.userService.findOne(data.userId);
 
-      // check user & user banned
-      if (user instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      } else if (user.data.banned) {
-        return new CustomException(statusMessages.fa['403'], 404);
-      }
-
-      // validate user access to this patch
-      let validate: boolean = false;
-
-      for (const role of guard.roles) {
-        if (role.score <= user.data.role.score) {
-          validate = true;
-          break;
-        }
-      }
-
-      // send forbidden error if user isn't access to this route
-      if (!validate) return new CustomException(statusMessages.fa['403'], 403);
-
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: true,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
+    // check user & user banned
+    if (user instanceof RpcException) {
+      throw new CustomException(statusMessages.fa['404'], 404);
+    } else if (user.data.banned) {
+      throw new CustomException(statusMessages.fa['403'], 403);
     }
+
+    // validate user access to this patch
+    let validate: boolean = false;
+
+    for (const role of guard.roles) {
+      if (role.score <= user.data.role.score) {
+        validate = true;
+        break;
+      }
+    }
+
+    // send forbidden error if user isn't access to this route
+    if (!validate) throw new CustomException(statusMessages.fa['403'], 403);
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: true,
+    };
   }
 
   async remove(id: string) {

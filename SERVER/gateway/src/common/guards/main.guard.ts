@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  HttpStatus,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -34,7 +35,7 @@ export class MainGuard implements CanActivate {
 
       const user: JwtPayload = req.user as JwtPayload;
 
-      await firstValueFrom(
+      const result = await firstValueFrom(
         this.guardService.send('GUARD:VALIDATE', {
           patch: url.join('/'),
           userId: user?.userId,
