@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -17,9 +18,10 @@ export class Permission {
   @Column({ type: 'enum', enum: PermissionEnum, nullable: false })
   title: PermissionEnum;
 
-  @ManyToMany(() => Singular, (singular: Singular) => singular.permissions, {
+  @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
   })
+  @JoinColumn()
   singulars: Singular[];
 
   @CreateDateColumn()

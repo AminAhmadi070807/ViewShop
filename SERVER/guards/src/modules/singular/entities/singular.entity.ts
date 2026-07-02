@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
@@ -17,29 +18,11 @@ export class Singular {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToMany(
-    () => Permission,
-    (permission: Permission) => permission.singulars,
-    {
-      onUpdate: 'CASCADE',
-      nullable: false,
-    },
-  )
-  @JoinTable({
-    name: 'singular_permission',
-    joinColumns: [
-      {
-        name: 'singular_id',
-        referencedColumnName: 'id',
-      },
-    ],
-    inverseJoinColumns: [
-      {
-        name: 'permission_id',
-        referencedColumnName: 'id',
-      },
-    ],
+  @ManyToMany(() => Permission, {
+    onUpdate: 'CASCADE',
+    nullable: false,
   })
+  @JoinColumn()
   permissions: Permission[];
 
   @ManyToMany(() => Role, (role: Role) => role.singulars, {
