@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -21,7 +22,7 @@ export class Permission {
   @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinTable()
   singulars: Singular[];
 
   @CreateDateColumn()
