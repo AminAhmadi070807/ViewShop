@@ -128,7 +128,7 @@ export class GuardsService {
         },
         relations: ['roles'],
         select: {
-          roles: {
+          role: {
             id: true,
             title: true,
             score: true,
@@ -148,11 +148,9 @@ export class GuardsService {
       let validate: boolean = false;
 
       for (const role of guard.roles) {
-        for (const userRole of user.roles) {
-          if (role.score <= userRole.score) {
-            validate = true;
-            break;
-          }
+        if (role.score <= user.role.score) {
+          validate = true;
+          break;
         }
       }
 
