@@ -21,15 +21,11 @@ export class Guard {
   @Column({ type: 'enum', enum: MethodEnum, nullable: false })
   method: MethodEnum;
 
-  @ManyToMany(() => Role, (role: Role) => role.guards, {
+  @ManyToMany(() => Role, {
     eager: true,
     onUpdate: 'CASCADE',
   })
-  @JoinTable({
-    name: 'guard_roles',
-    joinColumn: { name: 'guard_id' },
-    inverseJoinColumn: { name: 'role_id' },
-  })
+  @JoinTable()
   roles: Role[];
 
   @Column({ type: 'boolean', nullable: false, default: false })
