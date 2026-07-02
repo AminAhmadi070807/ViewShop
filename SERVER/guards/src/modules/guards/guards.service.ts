@@ -32,7 +32,7 @@ export class GuardsService {
 
     const role = await this.roleService.findOne(data.roleId);
 
-    if (role.status !== HttpStatus.OK) {
+    if (role instanceof RpcException) {
       return new CustomException(statusMessages.fa['404'], 409);
     }
 
