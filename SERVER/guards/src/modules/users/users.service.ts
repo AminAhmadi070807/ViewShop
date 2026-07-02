@@ -35,7 +35,7 @@ export class UsersService {
         const numberOfUsers: number = await this.userRepository.count({});
 
         const role: Role = (await this.roleRepository.findOneBy({
-          title: numberOfUsers ? 'USER' : 'AdMIN',
+          title: numberOfUsers ? 'USER' : 'ADMIN',
         })) as Role;
 
         const user: User = this.userRepository.create({

@@ -78,7 +78,6 @@ export class GuardsService {
             id: true,
             users: {
               id: true,
-              user: true,
             },
             singulars: {
               id: true,
@@ -125,7 +124,7 @@ export class GuardsService {
       // get user from database
       const user: User | null = await this.userRepository.findOne({
         where: {
-          user: data.userId,
+          id: data.userId,
         },
         relations: ['roles'],
         select: {
@@ -136,7 +135,6 @@ export class GuardsService {
           },
           banned: true,
           id: true,
-          user: true,
         },
       });
 
