@@ -80,26 +80,30 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const user: User | null = await this.userRepository.findOne({
-      where: {
-        id,
-      },
-      relations: ['roles'],
-      select: {
-        roles: {
-          id: true,
-          title: true,
+    try {
+      const user: User | null = await this.userRepository.findOne({
+        where: {
+          id,
         },
-      },
-    });
+        relations: ['roles'],
+        select: {
+          roles: {
+            id: true,
+            title: true,
+          },
+        },
+      });
 
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      data: user,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        data: user,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async toggleUserRole(data: UpdateUserDto) {
