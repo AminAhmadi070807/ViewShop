@@ -136,7 +136,7 @@ export class GuardsService {
       let validate: boolean = false;
 
       for (const role of guard.roles) {
-        if (role.score <= user.role.score) {
+        if (role.score <= user.data.role.score) {
           validate = true;
           break;
         }
