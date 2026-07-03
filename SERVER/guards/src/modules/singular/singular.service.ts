@@ -10,17 +10,18 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { RolesService } from '../roles/roles.service';
 import { PermissionsService } from '../permissions/permissions.service';
 import { RpcException } from '@nestjs/microservices';
-import { FeaturesService } from '../features/features.service';
+import { Feature } from '../features/entities/feature.entity';
 
 @Injectable()
 export class SingularService {
   constructor(
     @InjectRepository(Singular)
     private readonly singularRepository: Repository<Singular>,
+    @InjectRepository(Feature)
+    private readonly featureRepository: Repository<Feature>,
     @Inject(forwardRef(() => RolesService))
     private readonly roleService: RolesService,
     private readonly permissionService: PermissionsService,
-    private readonly featureService: FeaturesService,
   ) {}
 
   // create new singular

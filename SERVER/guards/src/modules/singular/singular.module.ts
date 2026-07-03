@@ -5,16 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Singular } from './entities/singular.entity';
 import { PermissionsModule } from '../permissions/permissions.module';
 import { RolesModule } from '../roles/roles.module';
-import { FeaturesModule } from '../features/features.module';
+import { Feature } from '../features/entities/feature.entity';
 
 @Module({
   controllers: [SingularController],
   providers: [SingularService],
   imports: [
-    TypeOrmModule.forFeature([Singular]),
+    TypeOrmModule.forFeature([Singular, Feature]),
     PermissionsModule,
     forwardRef(() => RolesModule),
-    FeaturesModule,
   ],
   exports: [SingularService],
 })
