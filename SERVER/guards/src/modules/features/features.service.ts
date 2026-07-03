@@ -10,7 +10,7 @@ export class FeaturesService {
 
   findOne(id: string) {}
 
-  update(data: UpdateFeatureDto) {}
+  update(data: CreateFeatureDto) {}
 
   remove(id: string) {}
 }
