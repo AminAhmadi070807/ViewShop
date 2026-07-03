@@ -21,9 +21,18 @@ export class GuardsService {
   ) {}
 
   async create(data: GuardDto) {
+    const feature = await this.featureService.findOne(data.feature);
+    const permission = await this.permissionService.findOne(data.permission);
+
+    if (feature instanceof RpcException || permission instanceof RpcException) {
+      return new CustomException(statusMessages.fa['404'], 404);
+    }
+
     const existing: Guard | null = await this.guardsRepository.findOne({
       where: {
         method: data.method,
+        feature: { id: data.feature },
+        permission: { id: data.permission },
       },
     });
 
@@ -33,6 +42,8 @@ export class GuardsService {
       public: data.public || false,
       service: data.service,
       method: data.method,
+      feature: feature.body,
+      permission: permission.body,
     });
 
     await this.guardsRepository.save(guard);
