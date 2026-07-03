@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Singular } from '../../singular/entities/singular.entity';
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity('permissions')
 export class Permission {
@@ -16,7 +17,7 @@ export class Permission {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToMany(() => Singular, {
+  @ManyToMany(() => Role, {
     onUpdate: 'CASCADE',
   })
   singulars: Singular[];
