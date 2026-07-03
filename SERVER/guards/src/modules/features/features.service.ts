@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFeatureDto } from './dto/create-feature.dto';
-import { UpdateFeatureDto } from './dto/update-feature.dto';
+import { FeatureDto } from './dto/feature.dto';
 
 @Injectable()
 export class FeaturesService {
-  create(data: CreateFeatureDto) {}
+  create(data: FeatureDto) {}
 
   findAll() {}
 
   findOne(id: string) {}
 
-  update(data: CreateFeatureDto) {}
+  update(data: FeatureDto) {}
 
   remove(id: string) {}
 }
