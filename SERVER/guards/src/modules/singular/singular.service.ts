@@ -148,6 +148,7 @@ export class SingularService {
     }
   }
 
+  // remove singular
   async remove(data: ValidateUUID) {
     try {
       await this.singularRepository.delete(data.id);
