@@ -15,7 +15,7 @@ export class Guard {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   path: string;
 
   @Column({ type: 'enum', enum: MethodEnum, nullable: false })
