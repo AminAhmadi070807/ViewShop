@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Feature } from './entities/feature.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { ValidateTitle } from '../../common/validations/title.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
@@ -74,7 +74,26 @@ export class FeaturesService {
     }
   }
 
-  update(data: UpdateFeatureDto) {}
+  async update(data: UpdateFeatureDto) {
+    try {
+      const result: UpdateResult = await this.featureRepository.update(
+        data.id,
+        { title: data.title },
+      );
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: string) {}
 }
