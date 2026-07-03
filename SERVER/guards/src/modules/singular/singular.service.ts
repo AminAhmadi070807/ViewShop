@@ -106,15 +106,14 @@ export class SingularService {
     );
 
     // check existing
+    let result: boolean;
     if (existing) {
-      const result: boolean = await this.removePermission(permission, singular);
-
-      if (!result) return new CustomException(statusMessages.fa['500'], 500);
+      result = await this.removePermission(permission, singular);
     } else {
-      const result: boolean = await this.addPermission(permission, singular);
-
-      if (!result) return new CustomException(statusMessages.fa['500'], 500);
+      result = await this.addPermission(permission, singular);
     }
+
+    if (!result) return new CustomException(statusMessages.fa['500'], 500);
 
     return {
       status: HttpStatus.NO_CONTENT,
