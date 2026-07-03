@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { FeatureDto } from './dto/feature.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Feature } from './entities/feature.entity';
 import { Repository } from 'typeorm';
+import { ValidateTitle } from '../../common/validations/title.dto';
 
 @Injectable()
 export class FeaturesService {
@@ -11,13 +11,13 @@ export class FeaturesService {
     private readonly featureRepository: Repository<Feature>,
   ) {}
 
-  create(data: FeatureDto) {}
+  create(data: ValidateTitle) {}
 
   findAll() {}
 
   findOne(id: string) {}
 
-  update(data: FeatureDto) {}
+  update(data: ValidateTitle) {}
 
   remove(id: string) {}
 }
