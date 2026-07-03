@@ -2,8 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RolesService } from './roles.service';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { RoleDto } from '../../common/validations/role.dto';
-import { RolesDto } from './dto/roles.dto';
+import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
 
 @Controller()
 export class RolesController {
@@ -25,7 +24,7 @@ export class RolesController {
   }
 
   @MessagePattern('ROLE:UPDATE')
-  update(@Payload() data: RoleDto) {
+  update(@Payload() data: UpdateRolesDto) {
     return this.rolesService.update(data);
   }
 
