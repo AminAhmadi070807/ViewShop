@@ -22,38 +22,45 @@ export class SingularService {
 
   // create new singular
   async create(data: SingularDto) {
-    const existing: Singular | null = await this.singularRepository.findOneBy({
-      title: data.title.toUpperCase(),
-      roles: {
+    try {
+      const role = await this.roleRepository.findOneBy({
         id: data.roleId,
-      },
-    });
+      });
 
-    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+      if (!role) return new CustomException(statusMessages.fa['404'], 404);
 
-    const role: Role | null = await this.roleRepository.findOneBy({
-      id: data.roleId,
-    });
-    const permission: Permission | null =
-      await this.permissionRepository.findOneBy({ id: data.permissionId });
+      const permission = await this.permissionRepository.findOneBy({
+        id: data.permissionId,
+      });
 
-    if (!role || !permission) {
-      throw new CustomException(statusMessages.fa['404'], 404);
+      if (!permission) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const existing: Singular | null = await this.singularRepository.findOneBy(
+        {
+          title: data.title.toUpperCase(),
+        },
+      );
+
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const singular: Singular = this.singularRepository.create({
+        title: data.title.toUpperCase(),
+        roles: [role],
+        permissions: [permission],
+      });
+
+      await this.singularRepository.save(singular);
+
+      return {
+        status: HttpStatus.CREATED,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    const singular: Singular = this.singularRepository.create({
-      title: data.title.toUpperCase(),
-      roles: [role],
-      permissions: [permission],
-    });
-
-    await this.singularRepository.save(singular);
-
-    return {
-      status: HttpStatus.CREATED,
-      message: statusMessages.fa['201'],
-      body: null,
-    };
   }
 
   // findAll singular
