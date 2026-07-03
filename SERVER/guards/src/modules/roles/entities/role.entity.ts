@@ -2,12 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Singular } from '../../singular/entities/singular.entity';
 import { Feature } from '../../features/entities/feature.entity';
 
 @Entity('roles')
@@ -28,11 +26,6 @@ export class Role {
     nullable: false,
   })
   features: Feature[];
-
-  @ManyToMany(() => Singular, {
-    onUpdate: 'CASCADE',
-  })
-  singulars: Singular[];
 
   @CreateDateColumn()
   createdAt: Date;
