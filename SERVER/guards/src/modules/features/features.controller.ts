@@ -3,33 +3,34 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FeaturesService } from './features.service';
 import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class FeaturesController {
   constructor(private readonly featuresService: FeaturesService) {}
 
-  @MessagePattern('createFeature')
+  @MessagePattern('FEATURE:CREATE')
   create(@Payload() createFeatureDto: CreateFeatureDto) {
     return this.featuresService.create(createFeatureDto);
   }
 
-  @MessagePattern('findAllFeatures')
+  @MessagePattern('FEATURE:FIND')
   findAll() {
     return this.featuresService.findAll();
   }
 
-  @MessagePattern('findOneFeature')
-  findOne(@Payload() id: number) {
-    return this.featuresService.findOne(id);
+  @MessagePattern('FEATURE:ONE')
+  findOne(@Payload() data: ValidateUUID) {
+    return this.featuresService.findOne(data.id);
   }
 
-  @MessagePattern('updateFeature')
+  @MessagePattern('FEATURE:UPDATE')
   update(@Payload() updateFeatureDto: UpdateFeatureDto) {
     return this.featuresService.update(updateFeatureDto.id, updateFeatureDto);
   }
 
-  @MessagePattern('removeFeature')
-  remove(@Payload() id: number) {
-    return this.featuresService.remove(id);
+  @MessagePattern('FEATURE:DELETE')
+  remove(@Payload() data: ValidateUUID) {
+    return this.featuresService.remove(data.id);
   }
 }
