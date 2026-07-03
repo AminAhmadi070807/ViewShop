@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { ValidateTitle } from '../../../common/validation/title.dto';
 import {
@@ -22,5 +22,10 @@ export class FeatureController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ValidateTitle) {
     return this.guardService.send('FEATURE:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.guardService.send('FEATURE:FIND');
   }
 }
