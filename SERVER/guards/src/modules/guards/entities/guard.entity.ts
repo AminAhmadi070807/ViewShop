@@ -17,9 +17,6 @@ export class Guard {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  path: string;
-
   @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
   feature: Singular;
 
