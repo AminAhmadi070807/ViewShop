@@ -121,6 +121,18 @@ export class SingularService {
     };
   }
 
+  async addPermission(permission: Permission, singular: Singular) {
+    try {
+      singular.permissions.push(permission);
+
+      await this.singularRepository.save(singular);
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   async remove(data: ValidateUUID) {
     try {
       await this.singularRepository.delete(data.id);
