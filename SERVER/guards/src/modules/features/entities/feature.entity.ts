@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Guard } from '../../guards/entities/guard.entity';
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity('features')
 export class Feature {
@@ -21,6 +22,9 @@ export class Feature {
     nullable: true,
   })
   guards: Guard[];
+
+  @OneToMany(() => Role, (role: Role) => role.features, { nullable: false })
+  roles: Role[];
 
   @CreateDateColumn()
   createdAt: Date;

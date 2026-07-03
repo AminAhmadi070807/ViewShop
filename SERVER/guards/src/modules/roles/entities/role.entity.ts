@@ -4,10 +4,12 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Singular } from '../../singular/entities/singular.entity';
+import { Feature } from '../../features/entities/feature.entity';
 
 @Entity('roles')
 export class Role {
@@ -22,6 +24,11 @@ export class Role {
 
   @Column({ type: 'smallint', nullable: false, default: 0 })
   score: number;
+
+  @ManyToOne(() => Feature, (feature: Feature) => feature.roles, {
+    nullable: false,
+  })
+  features: Feature[];
 
   @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
