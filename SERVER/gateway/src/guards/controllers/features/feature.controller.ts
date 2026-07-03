@@ -50,6 +50,7 @@ export class FeatureController {
   }
 
   @Get('/:id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Param() data: ValidateUUID) {
     return this.guardService.send('FEATURE:DELETE', data);
   }
