@@ -31,8 +31,15 @@ export class SingularService {
       const permission = await this.permissionService.findOne(
         data.permissionId,
       );
+      const feature = await this.featureRepository.findOneBy({
+        title: data.title,
+      });
 
-      if (role instanceof RpcException || permission instanceof RpcException) {
+      if (
+        role instanceof RpcException ||
+        permission instanceof RpcException ||
+        !feature
+      ) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
