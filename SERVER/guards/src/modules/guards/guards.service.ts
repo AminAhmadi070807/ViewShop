@@ -1,16 +1,19 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { GuardDto } from './dto/guard.dto';
+import { GuardDto, ValidateGuard } from './dto/guard.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Guard } from './entities/guard.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
+import { UsersService } from '../users/users.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class GuardsService {
   constructor(
     @InjectRepository(Guard)
     private readonly guardsRepository: Repository<Guard>,
+    private readonly userService: UsersService,
   ) {}
 
   async create(data: GuardDto) {
@@ -71,6 +74,37 @@ export class GuardsService {
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
+  }
+
+  async validate(data: ValidateGuard) {
+    // get patch from database
+    const guard: Guard | null = await this.guardsRepository.findOne({
+      where: {
+        path: data.patch.toLowerCase(),
+        service: data.service,
+        method: data.method,
+      },
+    });
+
+    // check guard
+    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
+    else if (guard.public) return true;
+
+    // get user from database
+    const user = await this.userService.findOne(data.userId);
+
+    // check user & user banned
+    if (user instanceof RpcException) {
+      throw new CustomException(statusMessages.fa['404'], 404);
+    } else if (user.data.banned) {
+      throw new CustomException(statusMessages.fa['403'], 403);
+    }
+
+    return {
+      status: HttpStatus.OK,
+      message: statusMessages.fa['200'],
+      body: true,
+    };
   }
 
   async remove(id: string) {
