@@ -106,14 +106,14 @@ export class UsersService {
     }
   }
 
-  async toggleUserRole(data: UpdateUserDto) {
+  async updateRole(data: UpdateUserDto) {
     try {
       // find one user from database
       const user: User | null = await this.userRepository.findOne({
         where: {
           id: data.userId,
         },
-        relations: ['roles'],
+        relations: ['role'],
         select: {
           id: true,
           banned: true,

@@ -23,9 +23,9 @@ export class UsersController {
     return this.usersService.findOne(data.id);
   }
 
-  @MessagePattern('USER:TOGGLE:ROLE')
-  toggleUserRole(@Payload() data: UpdateUserDto) {
-    return this.usersService.toggleUserRole(data);
+  @MessagePattern('USER:UPDATE:ROLE')
+  updateRole(@Payload() data: UpdateUserDto) {
+    return this.usersService.updateRole(data);
   }
 
   @MessagePattern('USER:TOGGLE:BANNED')
