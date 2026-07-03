@@ -10,5 +10,6 @@ import { Permission } from '../permissions/entities/permission.entity';
   controllers: [SingularController],
   providers: [SingularService],
   imports: [TypeOrmModule.forFeature([Singular, Role, Permission])],
+  exports: [SingularService],
 })
 export class SingularModule {}
