@@ -81,46 +81,44 @@ export class SingularService {
 
   // toggle permission in singular
   async togglePermission(data: UpdateSingularDto) {
-    // get permission from database by id
-    const permission: Permission | null =
-      await this.permissionRepository.findOne({
+    try {
+      const permission = await this.permissionRepository.findOne({
         where: { id: data.permissionId },
       });
 
-    // check permission
-    if (!permission) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!permission) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
-    // get singular from database by id
-    const singular: Singular | null = await this.singularRepository.findOne({
-      where: {
-        id: data.singularId,
-      },
-      relations: ['permissions'],
-    });
+      const singular = await this.singularRepository.findOne({
+        where: {
+          id: data.singularId,
+        },
+        relations: ['permissions'],
+      });
 
-    // check singular
-    if (!singular) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!singular) return new CustomException(statusMessages.fa['404'], 404);
 
-    // existing singular in permission already
-    const existing: boolean = singular.permissions.some(
-      (p: Permission): boolean => {
-        return p.id === data.permissionId;
-      },
-    );
+      const existing: boolean = singular.permissions.some(
+        (p: Permission): boolean => {
+          return p.id === data.permissionId;
+        },
+      );
 
-    // check existing
-    let result: boolean;
+      let result: boolean;
+      if (existing) result = await this.removePermission(permission, singular);
+      else result = await this.addPermission(permission, singular);
 
-    if (existing) result = await this.removePermission(permission, singular);
-    else result = await this.addPermission(permission, singular);
+      if (!result) return new CustomException(statusMessages.fa['500'], 500);
 
-    if (!result) return new CustomException(statusMessages.fa['500'], 500);
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   // add permission to singular
