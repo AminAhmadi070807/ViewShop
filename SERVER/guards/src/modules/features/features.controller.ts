@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FeaturesService } from './features.service';
 import { ValidateUUID } from '../../common/validations/id.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
+import { UpdateFeatureDto } from './dto/feature.dto';
 
 @Controller()
 export class FeaturesController {
@@ -24,7 +25,7 @@ export class FeaturesController {
   }
 
   @MessagePattern('FEATURE:UPDATE')
-  update(@Payload() data: ValidateTitle) {
+  update(@Payload() data: UpdateFeatureDto) {
     return this.featuresService.update(data);
   }
 
