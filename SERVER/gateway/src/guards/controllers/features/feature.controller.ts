@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { ValidateTitle } from '../../../common/validation/title.dto';
 import {
@@ -10,6 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('guard/feature')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -29,5 +30,10 @@ export class FeatureController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.guardService.send('FEATURE:FIND');
+  }
+
+  @Get('/:id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.guardService.send('FEATURE:ONE', data);
   }
 }
