@@ -7,6 +7,7 @@ import { RoleController } from './controllers/roles/role.controller';
 import { SingularController } from './controllers/singulares/singular.controller';
 import { UserController } from './controllers/users/user.controller';
 import { GuardController } from './controllers/guards/guard.controller';
+import { FeatureController } from './controllers/features/feature.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync(ClientsModuleConfig)],
@@ -17,6 +18,7 @@ import { GuardController } from './controllers/guards/guard.controller';
     SingularController,
     UserController,
     GuardController,
+    FeatureController,
   ],
   exports: [GuardsService],
 })

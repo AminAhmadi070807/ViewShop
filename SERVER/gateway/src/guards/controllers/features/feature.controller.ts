@@ -15,7 +15,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { UpdateFeatureDto } from './feature.dto';
 
-@Controller('guard/feature')
+@Controller('guards/feature')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
