@@ -21,7 +21,6 @@ export class GuardsService {
   async create(data: GuardDto) {
     const existing: Guard | null = await this.guardsRepository.findOne({
       where: {
-        path: data.path.toLowerCase(),
         method: data.method,
       },
     });
@@ -29,7 +28,6 @@ export class GuardsService {
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
     const guard: Guard = this.guardsRepository.create({
-      path: data.path.toLowerCase(),
       public: data.public || false,
       service: data.service,
       method: data.method,
@@ -82,7 +80,6 @@ export class GuardsService {
     // get patch from database
     const guard: Guard | null = await this.guardsRepository.findOne({
       where: {
-        path: data.patch.toLowerCase(),
         service: data.service,
         method: data.method,
       },
