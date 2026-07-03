@@ -3,15 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Role } from '../../roles/entities/role.entity';
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 import { Singular } from '../../singular/entities/singular.entity';
+import { Feature } from '../../features/entities/feature.entity';
 
 @Entity('guards')
 export class Guard {
@@ -24,14 +22,7 @@ export class Guard {
   @Column({ type: 'enum', enum: MethodEnum, nullable: false })
   method: MethodEnum;
 
-  @ManyToMany(() => Role, {
-    eager: true,
-    onUpdate: 'CASCADE',
-  })
-  @JoinTable()
-  roles: Role[];
-
-  @ManyToOne(() => Singular, { onUpdate: 'CASCADE', nullable: false })
+  @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
   @JoinColumn()
   feature: Singular;
 
