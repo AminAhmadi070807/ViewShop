@@ -15,16 +15,14 @@ export class RolesService {
 
   async create(data: RolesDto) {
     try {
-      const title: string = data.title.toUpperCase();
-
       const existing: Role | null = await this.roleRepository.findOneBy({
-        title,
+        title: data.title.toUpperCase(),
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const role: Role = this.roleRepository.create({
-        title: data.title.trim(),
+        title: data.title.trim().toUpperCase(),
         description: data.description.trim(),
       });
 
