@@ -48,4 +48,9 @@ export class FeatureController {
   update(@Body() data: UpdateFeatureDto) {
     return this.guardService.send('FEATURE:UPDATE', data);
   }
+
+  @Get('/:id')
+  delete(@Param() data: ValidateUUID) {
+    return this.guardService.send('FEATURE:DELETE', data);
+  }
 }
