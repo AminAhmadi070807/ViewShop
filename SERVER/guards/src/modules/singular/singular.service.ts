@@ -120,6 +120,7 @@ export class SingularService {
     };
   }
 
+  // add permission to singular
   async addPermission(permission: Permission, singular: Singular) {
     try {
       singular.permissions.push(permission);
@@ -132,6 +133,7 @@ export class SingularService {
     }
   }
 
+  // remove permission from singular
   async removePermission(permission: Permission, singular: Singular) {
     try {
       singular.permissions = singular.permissions.filter(
