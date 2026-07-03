@@ -8,6 +8,7 @@ import { statusMessages } from '../../common/messages/status.message';
 import { UsersService } from '../users/users.service';
 import { RpcException } from '@nestjs/microservices';
 import { FeaturesService } from '../features/features.service';
+import { PermissionsService } from '../permissions/permissions.service';
 
 @Injectable()
 export class GuardsService {
@@ -16,6 +17,7 @@ export class GuardsService {
     private readonly guardsRepository: Repository<Guard>,
     private readonly userService: UsersService,
     private readonly featureService: FeaturesService,
+    private readonly permissionService: PermissionsService,
   ) {}
 
   async create(data: GuardDto) {
