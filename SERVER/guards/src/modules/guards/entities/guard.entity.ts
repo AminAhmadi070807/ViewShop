@@ -9,6 +9,8 @@ import {
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 import { Singular } from '../../singular/entities/singular.entity';
 import { Feature } from '../../features/entities/feature.entity';
+import { Role } from '../../roles/entities/role.entity';
+import { Permission } from '../../permissions/entities/permission.entity';
 
 @Entity('guards')
 export class Guard {
@@ -26,6 +28,9 @@ export class Guard {
 
   @Column({ type: 'enum', enum: MethodEnum, nullable: false })
   method: MethodEnum;
+
+  @ManyToOne(() => Role, { nullable: false })
+  permission: Permission;
 
   @Column({ type: 'boolean', nullable: false, default: false })
   public: boolean;
