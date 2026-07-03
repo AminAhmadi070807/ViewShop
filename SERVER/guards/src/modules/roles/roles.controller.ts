@@ -2,15 +2,15 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RolesService } from './roles.service';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { ValidateTitle } from '../../common/validations/title.dto';
 import { RoleDto } from '../../common/validations/role.dto';
+import { RolesDto } from './dto/roles.dto';
 
 @Controller()
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @MessagePattern('ROLE:CREATE')
-  create(@Payload() data: ValidateTitle) {
+  create(@Payload() data: RolesDto) {
     return this.rolesService.create(data);
   }
 

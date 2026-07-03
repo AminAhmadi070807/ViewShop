@@ -4,8 +4,8 @@ import { Role } from './entities/role.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
-import { ValidateTitle } from '../../common/validations/title.dto';
 import { RoleDto } from '../../common/validations/role.dto';
+import { RolesDto } from './dto/roles.dto';
 
 @Injectable()
 export class RolesService {
@@ -14,7 +14,7 @@ export class RolesService {
     private roleRepository: Repository<Role>,
   ) {}
 
-  async create(data: ValidateTitle) {
+  async create(data: RolesDto) {
     const title: string = data.title.toUpperCase();
 
     const existing: Role | null = await this.roleRepository.findOneBy({
@@ -24,7 +24,8 @@ export class RolesService {
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
     const role: Role = this.roleRepository.create({
-      title,
+      title: data.title.trim(),
+      description: data.description.trim(),
     });
 
     await this.roleRepository.save(role);
