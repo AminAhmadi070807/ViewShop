@@ -24,12 +24,6 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   description: string;
 
-  @ManyToMany(() => Guard, {
-    onUpdate: 'CASCADE',
-  })
-  @JoinColumn()
-  guards: Guard[];
-
   @Column({ type: 'smallint', nullable: false, default: 0 })
   score: number;
 
