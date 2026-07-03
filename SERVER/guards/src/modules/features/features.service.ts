@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { ValidateTitle } from '../../common/validations/title.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
+import { UpdateFeatureDto } from './dto/feature.dto';
 
 @Injectable()
 export class FeaturesService {
@@ -73,7 +74,7 @@ export class FeaturesService {
     }
   }
 
-  update(data: ValidateTitle) {}
+  update(data: UpdateFeatureDto) {}
 
   remove(id: string) {}
 }
