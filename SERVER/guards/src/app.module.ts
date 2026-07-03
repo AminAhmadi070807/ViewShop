@@ -10,6 +10,7 @@ import { ClientsModule } from '@nestjs/microservices';
 import { ClientsModuleConfig } from './common/config/client.config';
 import { CoreModule } from './core/core.module';
 import { SingularModule } from './modules/singular/singular.module';
+import { FeaturesModule } from './modules/features/features.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { SingularModule } from './modules/singular/singular.module';
     UsersModule,
     CoreModule,
     SingularModule,
+    FeaturesModule,
   ],
   controllers: [],
   providers: [],
