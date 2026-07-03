@@ -7,6 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { UsersService } from '../users/users.service';
 import { RpcException } from '@nestjs/microservices';
+import { FeaturesService } from '../features/features.service';
 
 @Injectable()
 export class GuardsService {
@@ -14,6 +15,7 @@ export class GuardsService {
     @InjectRepository(Guard)
     private readonly guardsRepository: Repository<Guard>,
     private readonly userService: UsersService,
+    private readonly featureService: FeaturesService,
   ) {}
 
   async create(data: GuardDto) {
@@ -104,11 +106,11 @@ export class GuardsService {
       throw new CustomException(statusMessages.fa['403'], 403);
     }
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: true,
-    };
+    return this.featureService.validate(
+      guard.feature.id,
+      user.data.role.id,
+      guard.permission.id,
+    );
   }
 
   async remove(id: string) {
