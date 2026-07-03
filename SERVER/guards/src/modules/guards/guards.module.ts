@@ -4,10 +4,11 @@ import { GuardsController } from './guards.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Guard } from './entities/guard.entity';
 import { UsersModule } from '../users/users.module';
+import { FeaturesModule } from '../features/features.module';
 
 @Module({
   controllers: [GuardsController],
   providers: [GuardsService],
-  imports: [TypeOrmModule.forFeature([Guard]), UsersModule],
+  imports: [TypeOrmModule.forFeature([Guard]), UsersModule, FeaturesModule],
 })
 export class GuardsModule {}
