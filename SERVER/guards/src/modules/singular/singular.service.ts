@@ -107,9 +107,14 @@ export class SingularService {
 
     // check existing
     if (existing) {
-    } else singular.permissions.push(permission);
+      const result: boolean = await this.removePermission(permission, singular);
 
-    await this.singularRepository.save(singular);
+      if (!result) return new CustomException(statusMessages.fa['500'], 500);
+    } else {
+      const result: boolean = await this.addPermission(permission, singular);
+
+      if (!result) return new CustomException(statusMessages.fa['500'], 500);
+    }
 
     return {
       status: HttpStatus.NO_CONTENT,
