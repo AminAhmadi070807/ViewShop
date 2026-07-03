@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PermissionEnum } from '../../../common/enums/permission/permission.enum';
 import { Singular } from '../../singular/entities/singular.entity';
 
 @Entity('permissions')
@@ -14,8 +13,8 @@ export class Permission {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'enum', enum: PermissionEnum, nullable: false })
-  title: PermissionEnum;
+  @Column({ type: 'varchar', nullable: false })
+  title: string;
 
   @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
