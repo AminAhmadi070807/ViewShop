@@ -107,7 +107,7 @@ export class RolesService {
       await this.roleRepository.delete(id);
 
       return {
-        status: HttpStatus.OK,
+        status: HttpStatus.NO_CONTENT,
         message: statusMessages.fa['204'],
         body: null,
       };
