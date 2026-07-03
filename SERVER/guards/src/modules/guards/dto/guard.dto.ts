@@ -2,7 +2,6 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUUID,
   Matches,
@@ -15,15 +14,15 @@ export class GuardDto {
   @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
     message: 'لطفا یک مسیر درست وارد کنید',
   })
-  patch: string;
+  path: string;
 
   @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
   @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
   method: MethodEnum;
 
-  @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  roleId: string;
+  @IsNotEmpty({ message: 'ایدی قابلیت نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یک قابلیت معتبر وارد کنید' })
+  featureId: string;
 
   @IsBoolean({ message: 'لطفا عمومی بودن مسیر را با true, false مشخص کنید' })
   public: boolean;
