@@ -2,7 +2,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FeaturesService } from './features.service';
 import { CreateFeatureDto } from './dto/create-feature.dto';
-import { UpdateFeatureDto } from './dto/update-feature.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -10,8 +9,8 @@ export class FeaturesController {
   constructor(private readonly featuresService: FeaturesService) {}
 
   @MessagePattern('FEATURE:CREATE')
-  create(@Payload() createFeatureDto: CreateFeatureDto) {
-    return this.featuresService.create(createFeatureDto);
+  create(@Payload() data: CreateFeatureDto) {
+    return this.featuresService.create(data);
   }
 
   @MessagePattern('FEATURE:FIND')
@@ -25,8 +24,8 @@ export class FeaturesController {
   }
 
   @MessagePattern('FEATURE:UPDATE')
-  update(@Payload() updateFeatureDto: UpdateFeatureDto) {
-    return this.featuresService.update(updateFeatureDto.id, updateFeatureDto);
+  update(@Payload() data: CreateFeatureDto) {
+    return this.featuresService.update(data);
   }
 
   @MessagePattern('FEATURE:DELETE')
