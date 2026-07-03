@@ -38,17 +38,21 @@ export class PermissionsService {
   }
 
   async findAll() {
-    const permissions: Permission[] = await this.permissionRepository.find({
-      order: {
-        createdAt: -1,
-      },
-    });
+    try {
+      const permissions: Permission[] = await this.permissionRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: permissions,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: permissions,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findOne(id: string) {
