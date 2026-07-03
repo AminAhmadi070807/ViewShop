@@ -21,6 +21,9 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  description: string;
+
   @ManyToMany(() => Guard, {
     onUpdate: 'CASCADE',
   })
