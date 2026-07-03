@@ -14,10 +14,9 @@ export class PermissionsService {
   ) {}
 
   async create(data: CreatePermissionDto) {
-    const existing: Permission | null =
-      await this.permissionRepository.findOneBy({
-        title: data.title,
-      });
+    const existing = await this.permissionRepository.findOneBy({
+      title: data.title,
+    });
 
     if (existing) throw new CustomException(statusMessages.fa['409'], 409);
 
