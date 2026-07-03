@@ -34,7 +34,7 @@ export class Singular {
   data: [
     {
       role: string;
-      permissions: [{ title: string, id: string }];
+      permissions: [{ title: string; id: string }];
     },
   ];
 

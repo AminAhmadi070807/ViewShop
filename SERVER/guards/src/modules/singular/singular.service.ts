@@ -49,6 +49,12 @@ export class SingularService {
         title: data.title.toUpperCase(),
         roles: [role],
         permissions: [permission],
+        data: [
+          {
+            role: role.id,
+            permissions: [{ title: permission.title, id: permission.id }],
+          },
+        ],
       });
 
       await this.singularRepository.save(singular);
