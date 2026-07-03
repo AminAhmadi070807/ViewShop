@@ -14,26 +14,30 @@ export class RolesService {
   ) {}
 
   async create(data: RolesDto) {
-    const title: string = data.title.toUpperCase();
+    try {
+      const title: string = data.title.toUpperCase();
 
-    const existing: Role | null = await this.roleRepository.findOneBy({
-      title,
-    });
+      const existing: Role | null = await this.roleRepository.findOneBy({
+        title,
+      });
 
-    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-    const role: Role = this.roleRepository.create({
-      title: data.title.trim(),
-      description: data.description.trim(),
-    });
+      const role: Role = this.roleRepository.create({
+        title: data.title.trim(),
+        description: data.description.trim(),
+      });
 
-    await this.roleRepository.save(role);
+      await this.roleRepository.save(role);
 
-    return {
-      status: HttpStatus.CREATED,
-      message: statusMessages.fa['201'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.CREATED,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findAll() {
