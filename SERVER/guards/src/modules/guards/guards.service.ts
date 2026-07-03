@@ -58,7 +58,7 @@ export class GuardsService {
   async findAll() {
     const guards: Guard[] = await this.guardsRepository.find({
       order: {
-        id: 'DESC',
+        createdAt: 'DESC',
       },
     });
 
