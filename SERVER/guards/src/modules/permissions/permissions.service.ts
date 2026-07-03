@@ -79,12 +79,16 @@ export class PermissionsService {
   }
 
   async remove(id: string) {
-    await this.permissionRepository.delete(id);
+    try {
+      await this.permissionRepository.delete(id);
 
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
