@@ -5,17 +5,14 @@ import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
-import { PermissionsService } from '../permissions/permissions.service';
-import { RpcException } from '@nestjs/microservices';
-import { FeaturesService } from '../features/features.service';
+import { SingularService } from '../singular/singular.service';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
-    private readonly permissionService: PermissionsService,
-    private readonly featureService: FeaturesService,
+    private readonly singularRepository: SingularService,
   ) {}
 
   async create(data: RolesDto) {
@@ -97,6 +94,58 @@ export class RolesService {
         message: statusMessages.fa['204'],
         body: null,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async validate(id: string, feature: string, permission: string) {
+    try {
+      const role: Role | null = await this.roleRepository.findOne({
+        where: {
+          id,
+        },
+        relations: ['features', 'singulars', 'singulars.permissions'],
+        select: {
+          id: true,
+          singulars: {
+            id: true,
+            permissions: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      if (!role) return new CustomException(statusMessages.fa['404'], 404);
+
+      let permissionId: string | null = null;
+      let singularId: string | null = null;
+
+      role.singulars.forEach((singular) => {
+        if (singular.title === feature) {
+          singularId = singular.id;
+          for (const item of singular.permissions) {
+            if (item.title === permission) {
+              permissionId = item.id;
+              break;
+            }
+          }
+        } else {
+          permissionId = null;
+          singularId = null;
+        }
+      });
+
+      if (!permissionId || !singularId) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return this.singularRepository.validate(
+        singularId,
+        role.id,
+        permissionId,
+      );
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
