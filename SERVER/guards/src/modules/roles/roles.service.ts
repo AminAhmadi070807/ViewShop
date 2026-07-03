@@ -1,10 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
-import { RoleDto } from '../../common/validations/role.dto';
 import { RolesDto } from './dto/roles.dto';
 
 @Injectable()
@@ -79,18 +78,13 @@ export class RolesService {
   }
 
   async update(data: RoleDto) {
-    const role: Role | null = await this.roleRepository.findOne({
-      where: {
-        id: data.roleId,
-      },
-      relations: ['permissions'],
-    });
-
-    if (!role) throw new CustomException(statusMessages.fa['404'], 404);
-
-    await this.roleRepository.update(data.roleId, {
+    const result: UpdateResult = await this.roleRepository.update(data.roleId, {
       singulars: [{ id: data.singularId }],
     });
+
+    if (!result.affected) {
+      throw new CustomException(statusMessages.fa['404'], 404);
+    }
 
     return {
       status: HttpStatus.NO_CONTENT,
