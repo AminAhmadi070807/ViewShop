@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { SingularDto, UpdateSingularDto } from './dto/singular.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Singular } from './entities/singular.entity';
@@ -17,6 +17,7 @@ export class SingularService {
   constructor(
     @InjectRepository(Singular)
     private readonly singularRepository: Repository<Singular>,
+    @Inject(forwardRef(() => RolesService))
     private readonly roleService: RolesService,
     private readonly permissionService: PermissionsService,
     private readonly featureService: FeaturesService,

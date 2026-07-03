@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
 import { Repository, UpdateResult } from 'typeorm';
@@ -12,7 +12,8 @@ export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
-    private readonly singularRepository: SingularService,
+    @Inject(forwardRef(() => SingularService))
+    private readonly singularService: SingularService,
   ) {}
 
   async create(data: RolesDto) {
@@ -141,11 +142,7 @@ export class RolesService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return this.singularRepository.validate(
-        singularId,
-        role.id,
-        permissionId,
-      );
+      return this.singularService.validate(singularId, role.id, permissionId);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
