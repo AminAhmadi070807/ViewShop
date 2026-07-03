@@ -62,7 +62,6 @@ export class SingularService {
         roles: {
           id: true,
           title: true,
-          singulars: false,
         },
         permissions: {
           id: true,
