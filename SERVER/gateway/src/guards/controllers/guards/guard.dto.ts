@@ -30,9 +30,19 @@ export class GuardDto {
     nullable: false,
     example: '',
   })
-  @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
   featureId: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
+  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  permissionId: string;
 
   @ApiProperty({
     type: Boolean,
