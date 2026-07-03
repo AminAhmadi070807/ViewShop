@@ -30,6 +30,14 @@ export class Singular {
   @JoinTable()
   roles: Role[];
 
+  @Column({ type: 'simple-json', nullable: false })
+  data: [
+    {
+      role: string;
+      permissions: [{ title: string, id: string }];
+    },
+  ];
+
   @CreateDateColumn()
   createdAt: Date;
 }
