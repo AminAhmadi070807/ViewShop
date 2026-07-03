@@ -37,17 +37,21 @@ export class RolesService {
   }
 
   async findAll() {
-    const roles: Role[] = await this.roleRepository.find({
-      order: {
-        createdAt: 'DESC',
-      },
-    });
+    try {
+      const roles: Role[] = await this.roleRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
 
-    return {
-      status: HttpStatus.OK,
-      data: roles,
-      message: statusMessages.fa['200'],
-    };
+      return {
+        status: HttpStatus.OK,
+        data: roles,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findOne(id: string) {
