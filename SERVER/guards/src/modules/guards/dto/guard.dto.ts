@@ -26,7 +26,7 @@ export class GuardDto {
 
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {
-    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, PAYMENT)',
+    message: 'سسرویس نامعتبر است',
   })
   service: GuardEnum;
 }
