@@ -107,9 +107,6 @@ export class SingularService {
 
     // check existing
     if (existing) {
-      singular.permissions = singular.permissions.filter(
-        (p): boolean => p.id !== data.permissionId,
-      );
     } else singular.permissions.push(permission);
 
     await this.singularRepository.save(singular);
@@ -124,6 +121,20 @@ export class SingularService {
   async addPermission(permission: Permission, singular: Singular) {
     try {
       singular.permissions.push(permission);
+
+      await this.singularRepository.save(singular);
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async removePermission(permission: Permission, singular: Singular) {
+    try {
+      singular.permissions = singular.permissions.filter(
+        (p): boolean => p.id !== permission.id,
+      );
 
       await this.singularRepository.save(singular);
 
