@@ -56,20 +56,26 @@ export class PermissionsService {
   }
 
   async findOne(id: string) {
-    const permission: Permission | null =
-      await this.permissionRepository.findOne({
-        where: {
-          id: id,
-        },
-      });
+    try {
+      const permission: Permission | null =
+        await this.permissionRepository.findOne({
+          where: {
+            id: id,
+          },
+        });
 
-    if (!permission) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!permission) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: permission,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: permission,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async remove(id: string) {
