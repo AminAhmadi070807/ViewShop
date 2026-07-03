@@ -6,12 +6,14 @@ import { ValidateTitle } from '../../common/validations/title.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { UpdateFeatureDto } from './dto/feature.dto';
+import { RolesService } from '../roles/roles.service';
 
 @Injectable()
 export class FeaturesService {
   constructor(
     @InjectRepository(Feature)
     private readonly featureRepository: Repository<Feature>,
+    private readonly roleService: RolesService,
   ) {}
 
   async create(data: ValidateTitle) {
@@ -90,6 +92,23 @@ export class FeaturesService {
         message: statusMessages.fa['204'],
         body: null,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async validate(id: string, role: string, permission: string) {
+    try {
+      const feature: Feature | null = await this.featureRepository.findOne({
+        where: {
+          id,
+        },
+        relations: ['roles'],
+      });
+
+      if (!feature) return new CustomException(statusMessages.fa['404'], 404);
+
+      return this.roleService.validate(role, feature.title, permission);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
