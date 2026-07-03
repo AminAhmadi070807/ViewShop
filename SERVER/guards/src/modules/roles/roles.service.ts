@@ -4,7 +4,7 @@ import { Role } from './entities/role.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
-import { RolesDto } from './dto/roles.dto';
+import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
 
 @Injectable()
 export class RolesService {
@@ -77,9 +77,10 @@ export class RolesService {
     }
   }
 
-  async update(data: RoleDto) {
-    const result: UpdateResult = await this.roleRepository.update(data.roleId, {
-      singulars: [{ id: data.singularId }],
+  async update(data: UpdateRolesDto) {
+    const result: UpdateResult = await this.roleRepository.update(data.id, {
+      title: data.title,
+      description: data.description,
     });
 
     if (!result.affected) {
