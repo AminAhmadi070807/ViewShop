@@ -9,20 +9,17 @@ import {
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 
 export class GuardDto {
-  @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
-  @IsString()
-  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
-    message: 'لطفا یک مسیر درست وارد کنید',
-  })
-  path: string;
-
   @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
   @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
   method: MethodEnum;
 
-  @IsNotEmpty({ message: 'ایدی قابلیت نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا یک قابلیت معتبر وارد کنید' })
+  @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
   featureId: string;
+
+  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
+  permission: string;
 
   @IsBoolean({ message: 'لطفا عمومی بودن مسیر را با true, false مشخص کنید' })
   public: boolean;
