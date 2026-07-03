@@ -58,25 +58,29 @@ export class SingularService {
 
   // findAll singular
   async findAll() {
-    const singulars = await this.singularRepository.find({
-      relations: ['roles', 'permissions'],
-      select: {
-        roles: {
-          id: true,
-          title: true,
+    try {
+      const singulars = await this.singularRepository.find({
+        relations: ['roles', 'permissions'],
+        select: {
+          roles: {
+            id: true,
+            title: true,
+          },
+          permissions: {
+            id: true,
+            title: true,
+          },
         },
-        permissions: {
-          id: true,
-          title: true,
-        },
-      },
-    });
+      });
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['201'],
-      body: singulars,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['201'],
+        body: singulars,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   // toggle permission in singular
