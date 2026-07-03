@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -18,4 +19,7 @@ export class User {
   @ManyToOne(() => Role, { eager: true })
   @JoinColumn()
   role: Role;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
