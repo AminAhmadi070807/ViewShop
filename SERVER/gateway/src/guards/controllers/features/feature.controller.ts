@@ -33,6 +33,8 @@ export class FeatureController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiOkResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.guardService.send('FEATURE:ONE', data);
   }
