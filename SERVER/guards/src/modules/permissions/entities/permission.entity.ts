@@ -21,7 +21,6 @@ export class Permission {
   @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
   })
-  @JoinTable()
   singulars: Singular[];
 
   @CreateDateColumn()
