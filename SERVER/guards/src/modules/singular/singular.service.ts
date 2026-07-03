@@ -52,7 +52,7 @@ export class SingularService {
         data: [
           {
             role: role.id,
-            permissions: [{ title: permission.title, id: permission.id }],
+            permissions: [{ id: permission.id }],
           },
         ],
       });
@@ -163,6 +163,63 @@ export class SingularService {
       return true;
     } catch {
       return false;
+    }
+  }
+
+  async validate(id: string, roleId: string, permissionId: string) {
+    try {
+      const singular: Singular | null = await this.singularRepository.findOne({
+        where: {
+          id: id,
+        },
+        relations: ['roles', 'permissions'],
+        select: {
+          id: true,
+          title: true,
+          roles: {
+            id: true,
+          },
+          permissions: {
+            id: true,
+            title: true,
+          },
+        },
+      });
+
+      if (!singular) return new CustomException(statusMessages.fa['404'], 404);
+
+      if (!singular.roles.length || !singular.permissions.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      let data: { id: string }[] = [];
+      singular.data.forEach((item) => {
+        if (item.role === roleId) data = item.permissions;
+      });
+
+      let validate: boolean = false;
+      for (const item of data) {
+        if (item.id === permissionId) {
+          validate = true;
+          break;
+        }
+      }
+
+      if (!validate) {
+        return {
+          status: HttpStatus.FORBIDDEN,
+          message: statusMessages.fa['403'],
+          body: validate,
+        };
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: validate,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
