@@ -14,23 +14,27 @@ export class PermissionsService {
   ) {}
 
   async create(data: CreatePermissionDto) {
-    const existing = await this.permissionRepository.findOneBy({
-      title: data.title,
-    });
+    try {
+      const existing = await this.permissionRepository.findOneBy({
+        title: data.title,
+      });
 
-    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-    const permission: Permission = this.permissionRepository.create({
-      title: data.title,
-    });
+      const permission: Permission = this.permissionRepository.create({
+        title: data.title,
+      });
 
-    await this.permissionRepository.save(permission);
+      await this.permissionRepository.save(permission);
 
-    return {
-      status: HttpStatus.CREATED,
-      message: statusMessages.fa['201'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.CREATED,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findAll() {
