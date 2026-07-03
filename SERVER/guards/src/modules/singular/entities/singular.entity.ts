@@ -24,7 +24,7 @@ export class Singular {
   @JoinTable()
   permissions: Permission[];
 
-  @ManyToMany(() => Role, {
+  @ManyToMany(() => Role, (role: Role) => role.singulars, {
     nullable: false,
   })
   @JoinTable()
