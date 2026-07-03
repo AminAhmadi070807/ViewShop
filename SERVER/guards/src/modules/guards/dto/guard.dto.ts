@@ -15,7 +15,7 @@ export class GuardDto {
 
   @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
-  featureId: string;
+  feature: string;
 
   @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
