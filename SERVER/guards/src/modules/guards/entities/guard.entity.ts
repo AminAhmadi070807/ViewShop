@@ -16,7 +16,7 @@ export class Guard {
   id: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
-  patch: string;
+  path: string;
 
   @Column({ type: 'enum', enum: MethodEnum, nullable: false })
   method: MethodEnum;
