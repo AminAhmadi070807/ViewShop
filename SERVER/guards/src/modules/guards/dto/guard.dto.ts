@@ -36,13 +36,6 @@ export class ValidateGuard {
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   userId: string;
 
-  @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
-  @IsString({ message: 'مسیر باید رشته باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
-    message: 'لطفا یک مسیر درست وارد کنید',
-  })
-  patch: string;
-
   @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
   @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
   method: MethodEnum;
