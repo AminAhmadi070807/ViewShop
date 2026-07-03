@@ -120,9 +120,9 @@ export class GuardsService {
     }
 
     return this.featureService.validate(
-      guard.feature.id,
+      data.feature,
       user.data.role.id,
-      guard.permission.id,
+      data.permission,
     );
   }
 
