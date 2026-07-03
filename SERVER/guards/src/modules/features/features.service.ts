@@ -4,23 +4,13 @@ import { UpdateFeatureDto } from './dto/update-feature.dto';
 
 @Injectable()
 export class FeaturesService {
-  create(createFeatureDto: CreateFeatureDto) {
-    return 'This action adds a new feature';
-  }
+  create(data: CreateFeatureDto) {}
 
-  findAll() {
-    return `This action returns all features`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} feature`;
-  }
+  findOne(id: string) {}
 
-  update(id: number, updateFeatureDto: UpdateFeatureDto) {
-    return `This action updates a #${id} feature`;
-  }
+  update(data: UpdateFeatureDto) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} feature`;
-  }
+  remove(id: string) {}
 }
