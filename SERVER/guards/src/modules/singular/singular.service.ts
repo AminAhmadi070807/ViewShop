@@ -107,11 +107,9 @@ export class SingularService {
 
     // check existing
     let result: boolean;
-    if (existing) {
-      result = await this.removePermission(permission, singular);
-    } else {
-      result = await this.addPermission(permission, singular);
-    }
+
+    if (existing) result = await this.removePermission(permission, singular);
+    else result = await this.addPermission(permission, singular);
 
     if (!result) return new CustomException(statusMessages.fa['500'], 500);
 
