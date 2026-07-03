@@ -65,14 +65,6 @@ export class UsersService {
           role: {
             id: true,
             title: true,
-            singulars: {
-              id: true,
-              title: true,
-              permissions: {
-                id: true,
-                title: true,
-              },
-            },
           },
         },
       });
