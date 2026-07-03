@@ -5,54 +5,49 @@ import { Singular } from './entities/singular.entity';
 import { Repository } from 'typeorm';
 import { statusMessages } from '../../common/messages/status.message';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { Role } from '../roles/entities/role.entity';
 import { Permission } from '../permissions/entities/permission.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { RolesService } from '../roles/roles.service';
+import { PermissionsService } from '../permissions/permissions.service';
+import { RpcException } from '@nestjs/microservices';
+import { FeaturesService } from '../features/features.service';
 
 @Injectable()
 export class SingularService {
   constructor(
     @InjectRepository(Singular)
     private readonly singularRepository: Repository<Singular>,
-    @InjectRepository(Role)
-    private readonly roleRepository: Repository<Role>,
-    @InjectRepository(Permission)
-    private readonly permissionRepository: Repository<Permission>,
+    private readonly roleService: RolesService,
+    private readonly permissionService: PermissionsService,
+    private readonly featureService: FeaturesService,
   ) {}
 
   // create new singular
   async create(data: SingularDto) {
     try {
-      const role = await this.roleRepository.findOneBy({
-        id: data.roleId,
-      });
+      const role = await this.roleService.findOne(data.roleId);
+      const permission = await this.permissionService.findOne(
+        data.permissionId,
+      );
 
-      if (!role) return new CustomException(statusMessages.fa['404'], 404);
-
-      const permission = await this.permissionRepository.findOneBy({
-        id: data.permissionId,
-      });
-
-      if (!permission) {
+      if (role instanceof RpcException || permission instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const existing: Singular | null = await this.singularRepository.findOneBy(
-        {
-          title: data.title.toUpperCase(),
-        },
-      );
+      const existing = await this.singularRepository.findOneBy({
+        title: data.title.toUpperCase(),
+      });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const singular: Singular = this.singularRepository.create({
         title: data.title.toUpperCase(),
-        roles: [role],
-        permissions: [permission],
+        roles: [role.body],
+        permissions: [permission.body],
         data: [
           {
-            role: role.id,
-            permissions: [{ id: permission.id }],
+            role: role.body.id,
+            permissions: [{ id: permission.body.id }],
           },
         ],
       });
@@ -99,14 +94,9 @@ export class SingularService {
   // toggle permission in singular
   async togglePermission(data: UpdateSingularDto) {
     try {
-      const permission = await this.permissionRepository.findOne({
-        where: { id: data.permissionId },
-      });
-
-      if (!permission) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
+      const permission = await this.permissionService.findOne(
+        data.permissionId,
+      );
       const singular = await this.singularRepository.findOne({
         where: {
           id: data.singularId,
@@ -114,7 +104,8 @@ export class SingularService {
         relations: ['permissions'],
       });
 
-      if (!singular) return new CustomException(statusMessages.fa['404'], 404);
+      if (permission instanceof RpcException || !singular)
+        return new CustomException(statusMessages.fa['404'], 404);
 
       const existing: boolean = singular.permissions.some(
         (p: Permission): boolean => {
@@ -123,8 +114,9 @@ export class SingularService {
       );
 
       let result: boolean;
-      if (existing) result = await this.removePermission(permission, singular);
-      else result = await this.addPermission(permission, singular);
+      if (existing) {
+        result = await this.removePermission(permission.body, singular);
+      } else result = await this.addPermission(permission.body, singular);
 
       if (!result) return new CustomException(statusMessages.fa['500'], 500);
 
