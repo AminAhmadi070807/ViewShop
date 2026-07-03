@@ -68,7 +68,6 @@ export class GuardController {
     const user: JwtPayload = req.user as JwtPayload;
     return this.guardsService.send('GUARD:VALIDATE', {
       userId: user.userId,
-      patch: data.patch,
       service: data.service,
     });
   }
