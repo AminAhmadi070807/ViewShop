@@ -18,17 +18,17 @@ export class Guard {
   @Column({ type: 'varchar', nullable: false })
   path: string;
 
-  @Column({ type: 'enum', enum: MethodEnum, nullable: false })
-  method: MethodEnum;
-
   @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
   feature: Singular;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  public: boolean;
-
   @Column({ type: 'enum', enum: GuardEnum, nullable: false })
   service: GuardEnum;
+
+  @Column({ type: 'enum', enum: MethodEnum, nullable: false })
+  method: MethodEnum;
+
+  @Column({ type: 'boolean', nullable: false, default: false })
+  public: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
