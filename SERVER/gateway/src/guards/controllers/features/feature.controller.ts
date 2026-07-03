@@ -2,6 +2,8 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { ValidateTitle } from '../../../common/validation/title.dto';
 import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
@@ -16,6 +18,8 @@ export class FeatureController {
   constructor(private readonly guardService: GuardsService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ValidateTitle) {
     return this.guardService.send('FEATURE:CREATE', data);
   }
