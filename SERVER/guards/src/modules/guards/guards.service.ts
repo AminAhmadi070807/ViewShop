@@ -84,6 +84,10 @@ export class GuardsService {
         service: data.service,
         method: data.method,
       },
+      relations: ['feature'],
+      select: {
+        feature: { id: true },
+      },
     });
 
     // check guard
