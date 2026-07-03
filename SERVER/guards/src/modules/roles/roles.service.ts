@@ -99,12 +99,16 @@ export class RolesService {
   }
 
   async remove(id: string) {
-    await this.roleRepository.delete(id);
+    try {
+      await this.roleRepository.delete(id);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
