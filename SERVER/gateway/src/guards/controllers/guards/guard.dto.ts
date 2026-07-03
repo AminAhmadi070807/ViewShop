@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   IsString,
   IsUUID,
-  Matches,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import {
@@ -15,19 +14,6 @@ import { HttpStatus } from '@nestjs/common';
 import { statusMessages } from '../../../common/messages/status.message';
 
 export class GuardDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-    description: 'patch',
-  })
-  @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
-    message: 'لطفا یک مسیر درست وارد کنید',
-  })
-  patch: string;
-
   @ApiProperty({
     type: String,
     enum: MethodEnum,
@@ -43,18 +29,16 @@ export class GuardDto {
     required: true,
     nullable: false,
     example: '',
-    description: 'roleId',
   })
   @IsNotEmpty({ message: 'ایدی نقش نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  roleId: string;
+  featureId: string;
 
   @ApiProperty({
     type: Boolean,
     required: true,
     nullable: false,
     example: false,
-    description: 'is public route',
   })
   @IsBoolean({ message: 'لطفا عمومی بودن مسیر را با true, false مشخص کنید' })
   public: boolean;
@@ -74,20 +58,6 @@ export class GuardDto {
 }
 
 export class ValidateGuard {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-    description: 'validate route',
-  })
-  @IsNotEmpty({ message: 'مسیر نمیتواند خالی باشد' })
-  @IsString({ message: 'مسیر باید رشته باشد' })
-  @Matches(/^\/api\/v\d\/(guards|core|payment)(\/.*)$/, {
-    message: 'لطفا یک مسیر درست وارد کنید',
-  })
-  patch: string;
-
   @ApiProperty({
     type: String,
     required: true,
