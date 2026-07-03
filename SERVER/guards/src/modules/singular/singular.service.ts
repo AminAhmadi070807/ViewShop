@@ -122,12 +122,16 @@ export class SingularService {
   }
 
   async remove(data: ValidateUUID) {
-    await this.singularRepository.delete(data.id);
+    try {
+      await this.singularRepository.delete(data.id);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
