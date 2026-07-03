@@ -166,6 +166,7 @@ export class SingularService {
     }
   }
 
+  // validate user access to feature
   async validate(id: string, roleId: string, permissionId: string) {
     try {
       const singular: Singular | null = await this.singularRepository.findOne({
