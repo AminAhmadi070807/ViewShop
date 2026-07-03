@@ -5,12 +5,14 @@ import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
+import { SingularService } from '../singular/singular.service';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
+    private readonly singularService: SingularService
   ) {}
 
   async create(data: RolesDto) {
