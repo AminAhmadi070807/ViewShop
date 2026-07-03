@@ -1,11 +1,4 @@
-import {
-  IsBoolean,
-  IsEnum,
-  IsNotEmpty,
-  IsString,
-  IsUUID,
-  Matches,
-} from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsUUID } from 'class-validator';
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 
 export class GuardDto {
@@ -39,6 +32,14 @@ export class ValidateGuard {
   @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
   @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
   method: MethodEnum;
+
+  @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
+  feature: string;
+
+  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
+  permission: string;
 
   @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
   @IsEnum(GuardEnum, {
