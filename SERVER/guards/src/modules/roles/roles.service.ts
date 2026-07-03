@@ -64,13 +64,6 @@ export class RolesService {
         where: {
           id,
         },
-        relations: ['singulars'],
-        select: {
-          singulars: {
-            id: true,
-            title: true,
-          },
-        },
       });
 
       if (!role) return new CustomException(statusMessages.fa['404'], 409);
