@@ -6,13 +6,15 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/messages/status.message';
 import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
 import { SingularService } from '../singular/singular.service';
+import { PermissionsService } from '../permissions/permissions.service';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
-    private readonly singularService: SingularService
+    private readonly singularService: SingularService,
+    private readonly permissionService: PermissionsService,
   ) {}
 
   async create(data: RolesDto) {
