@@ -78,20 +78,24 @@ export class RolesService {
   }
 
   async update(data: UpdateRolesDto) {
-    const result: UpdateResult = await this.roleRepository.update(data.id, {
-      title: data.title,
-      description: data.description,
-    });
+    try {
+      const result: UpdateResult = await this.roleRepository.update(data.id, {
+        title: data.title,
+        description: data.description,
+      });
 
-    if (!result.affected) {
-      throw new CustomException(statusMessages.fa['404'], 404);
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
   }
 
   async remove(id: string) {
