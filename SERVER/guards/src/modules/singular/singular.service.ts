@@ -20,6 +20,7 @@ export class SingularService {
     private readonly permissionRepository: Repository<Permission>,
   ) {}
 
+  // create new singular
   async create(data: SingularDto) {
     const existing: Singular | null = await this.singularRepository.findOneBy({
       title: data.title.toUpperCase(),
@@ -55,6 +56,7 @@ export class SingularService {
     };
   }
 
+  // findAll singular
   async findAll() {
     const singulars = await this.singularRepository.find({
       relations: ['roles', 'permissions'],
@@ -77,6 +79,7 @@ export class SingularService {
     };
   }
 
+  // toggle permission in singular
   async togglePermission(data: UpdateSingularDto) {
     // get permission from database by id
     const permission: Permission | null =
