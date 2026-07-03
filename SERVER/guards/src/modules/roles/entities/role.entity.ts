@@ -33,7 +33,6 @@ export class Role {
   @ManyToMany(() => Singular, {
     onUpdate: 'CASCADE',
   })
-  @JoinTable()
   singulars: Singular[];
 
   @CreateDateColumn()
