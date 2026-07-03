@@ -6,6 +6,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -35,7 +36,7 @@ export class FeatureController {
 
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiOkResponse({ description: statusMessages.fa['404'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.guardService.send('FEATURE:ONE', data);
   }
