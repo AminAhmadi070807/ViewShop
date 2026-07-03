@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -23,7 +22,6 @@ export class Guard {
   method: MethodEnum;
 
   @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
-  @JoinColumn()
   feature: Singular;
 
   @Column({ type: 'boolean', nullable: false, default: false })
