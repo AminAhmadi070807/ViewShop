@@ -95,10 +95,13 @@ export class GuardsService {
       where: {
         service: data.service,
         method: data.method,
+        permission: { id: data.permission },
+        feature: { id: data.feature },
       },
-      relations: ['feature'],
+      relations: ['feature', 'permission'],
       select: {
         feature: { id: true },
+        permission: { id: true },
       },
     });
 
