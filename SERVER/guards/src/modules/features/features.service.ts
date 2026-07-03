@@ -95,5 +95,17 @@ export class FeaturesService {
     }
   }
 
-  remove(id: string) {}
+  async remove(id: string) {
+    try {
+      await this.featureRepository.delete(id);
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
