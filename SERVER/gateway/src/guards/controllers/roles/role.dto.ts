@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsString,
   IsUUID,
+  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -44,6 +45,7 @@ export class CreateRoleDto {
     maxLength: 24,
     example: '',
   })
+  @Matches(/[a-zA-Z]{3,24}/, { message: 'لطفا از کلمات انگلیسی استفاده کنید' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
