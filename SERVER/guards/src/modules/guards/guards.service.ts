@@ -101,40 +101,44 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
-    // get patch from database
-    const guard: Guard | null = await this.guardsRepository.findOne({
-      where: {
-        service: data.service,
-        method: data.method,
-        permission: { title: data.permission },
-        feature: { title: data.feature },
-      },
-      relations: ['feature', 'permission'],
-      select: {
-        feature: { id: true },
-        permission: { id: true },
-      },
-    });
+    try {
+      // get patch from database
+      const guard: Guard | null = await this.guardsRepository.findOne({
+        where: {
+          service: data.service,
+          method: data.method,
+          permission: { title: data.permission },
+          feature: { title: data.feature },
+        },
+        relations: ['feature', 'permission'],
+        select: {
+          feature: { id: true },
+          permission: { id: true },
+        },
+      });
 
-    // check guard
-    if (!guard) throw new CustomException(statusMessages.fa['404'], 404);
-    else if (guard.public) return true;
+      // check guard
+      if (!guard) return new CustomException(statusMessages.fa['404'], 404);
+      else if (guard.public) return true;
 
-    // get user from database
-    const user = await this.userService.findOne(data.userId);
+      // get user from database
+      const user = await this.userService.findOne(data.userId);
 
-    // check user & user banned
-    if (user instanceof RpcException) {
-      throw new CustomException(statusMessages.fa['404'], 404);
-    } else if (user.data.banned) {
-      throw new CustomException(statusMessages.fa['403'], 403);
+      // check user & user banned
+      if (user instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      } else if (user.data.banned) {
+        return new CustomException(statusMessages.fa['403'], 403);
+      }
+
+      return this.featureService.validate(
+        guard.feature.id,
+        user.data.role.id,
+        guard.permission.id,
+      );
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    return this.featureService.validate(
-      guard.feature.id,
-      user.data.role.id,
-      guard.permission.id,
-    );
   }
 
   async remove(id: string) {
