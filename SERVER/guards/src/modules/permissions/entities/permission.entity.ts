@@ -2,11 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Singular } from '../../singular/entities/singular.entity';
 
 @Entity('permissions')
 export class Permission {
@@ -15,11 +13,6 @@ export class Permission {
 
   @Column({ type: 'varchar', nullable: false })
   title: string;
-
-  @ManyToOne(() => Singular, {
-    onUpdate: 'CASCADE',
-  })
-  singulars: Singular[];
 
   @CreateDateColumn()
   createdAt: Date;
