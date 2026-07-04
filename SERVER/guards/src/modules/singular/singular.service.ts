@@ -92,17 +92,6 @@ export class SingularService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const existing: boolean = singular.data.some((item): boolean => {
-        return data.permissionId in item.permissions;
-      });
-
-      let result: boolean;
-      if (existing) {
-        result = await this.addPermission(permission.body, singular);
-      } else result = await this.removePermission(permission.body, singular);
-
-      if (!result) return new CustomException(statusMessages.fa['500'], 500);
-
       return {
         status: HttpStatus.NO_CONTENT,
         message: statusMessages.fa['204'],
