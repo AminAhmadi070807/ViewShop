@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Feature } from './entities/feature.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { ValidateTitle } from '../../common/validations/title.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
-import { UpdateFeatureDto } from './dto/feature.dto';
+import { FeatureDto, UpdateFeatureDto } from './dto/feature.dto';
 import { RolesService } from '../roles/roles.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class FeaturesService {
@@ -16,13 +16,17 @@ export class FeaturesService {
     private readonly roleService: RolesService,
   ) {}
 
-  async create(data: ValidateTitle) {
+  async create(data: FeatureDto) {
     try {
       const existing: Feature | null = await this.featureRepository.findOneBy({
         title: data.title,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const role = await this.roleService.findOne(data.roleId);
+
+      if (role instanceof RpcException) return role;
 
       const result: Feature = this.featureRepository.create({
         title: data.title,
