@@ -24,7 +24,7 @@ export class FeaturesService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const role = await this.roleService.findOne(data.roleId);
+      const role = await this.roleService.findByIds(data.roles);
 
       if (role instanceof RpcException) return role;
 

@@ -1,4 +1,6 @@
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsNotEmpty,
   IsString,
   IsUUID,
@@ -7,9 +9,10 @@ import {
 } from 'class-validator';
 
 export class FeatureDto {
-  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
-  roleId: string;
+  @ArrayNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsArray({ message: 'لطفا شناسه را براساس ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است', each: true })
+  roles: string;
 
   @IsNotEmpty()
   @IsString()
