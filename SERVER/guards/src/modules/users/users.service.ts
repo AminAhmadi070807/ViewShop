@@ -9,6 +9,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { Role } from '../roles/entities/role.entity';
 import { firstValueFrom } from 'rxjs';
 import { ValidateUUID } from '../../common/validations/id.dto';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class UsersService {
@@ -23,8 +24,11 @@ export class UsersService {
   async create(data: CreateUserDto) {
     try {
       // check user in core database
-      await firstValueFrom(this.coreService.send('USER:ONE', data.id));
+      const result: CustomException | object = (await firstValueFrom(
+        this.coreService.send('USER:ONE', data.id),
+      )) as CustomException | object;
 
+      if (result instanceof RpcException) return result;
       // check user in guard database
       const existing: User | null = await this.userRepository.findOneBy({
         id: data.id,

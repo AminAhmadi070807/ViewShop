@@ -131,15 +131,13 @@ export class GuardsService {
         if (result instanceof RpcException) {
           return new CustomException(statusMessages.fa['404'], 404);
         }
-
-        user = result.body;
       } else if (user.data.banned) {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
       return this.featureService.validate(
         guard.feature.id,
-        user.data.role.id,
+        data.userId,
         guard.permission.id,
       );
     } catch {
