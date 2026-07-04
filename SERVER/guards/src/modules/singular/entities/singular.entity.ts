@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,6 +16,9 @@ export class Singular {
   @OneToOne(() => Feature, (feature: Feature) => feature.singular, {
     nullable: false,
     onUpdate: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'singular_feature',
   })
   feature: Feature;
 
