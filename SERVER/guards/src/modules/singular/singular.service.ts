@@ -101,12 +101,13 @@ export class SingularService {
         relations: ['permissions'],
       });
 
-      if (permission instanceof RpcException || !singular)
+      if (permission instanceof RpcException || !singular) {
         return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       const existing: boolean = singular.data.some(
         (item): boolean => {
-          return item.permissions === data.permissionId;
+          return item.permission === data.permissionId;
         },
       );
 
