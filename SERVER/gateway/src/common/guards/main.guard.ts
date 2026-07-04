@@ -27,15 +27,15 @@ export class MainGuard implements CanActivate {
 
     const user: JwtPayload = req.user as JwtPayload;
 
-    // await firstValueFrom(
-    //   this.guardService.send('GUARD:VALIDATE', {
-    //     userId: user?.userId,
-    //     feature: url[4].toUpperCase(),
-    //     permission: url[4].toUpperCase() + ':' + url[5].toUpperCase(),
-    //     service: url[3].toUpperCase(),
-    //     method: req.method.toUpperCase(),
-    //   }),
-    // );
+    await firstValueFrom(
+      this.guardService.send('GUARD:VALIDATE', {
+        userId: user?.userId,
+        feature: url[4].toUpperCase(),
+        permission: url[4].toUpperCase() + ':' + url[5].toUpperCase(),
+        service: url[3].toUpperCase(),
+        method: req.method.toUpperCase(),
+      }),
+    );
 
     return true;
   }
