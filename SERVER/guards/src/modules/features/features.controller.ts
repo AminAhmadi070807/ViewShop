@@ -2,8 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FeaturesService } from './features.service';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { ValidateTitle } from '../../common/validations/title.dto';
-import { UpdateFeatureDto } from './dto/feature.dto';
+import { FeatureDto, UpdateFeatureDto } from './dto/feature.dto';
 
 @Controller()
 export class FeaturesController {
