@@ -129,13 +129,17 @@ export class GuardsService {
         const result = await this.userService.create({ id: data.userId });
 
         if (result instanceof RpcException) return result;
-      } else if (user.data.banned) {
+      } else if (existing.data.banned) {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
+      const user = await this.userService.findOne(data.userId);
+
+      if (user instanceof RpcException) return user;
+
       return this.featureService.validate(
         guard.feature.id,
-        data.userId,
+        user.data.role.id,
         guard.permission.id,
       );
     } catch {
