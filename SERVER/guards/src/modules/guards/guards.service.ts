@@ -149,13 +149,13 @@ export class GuardsService {
         if (permission === guard.permission.id) validate = true;
       }
 
-      if (!validate) return new CustomException(statusMessages.fa["403"], 403)
+      if (!validate) return new CustomException(statusMessages.fa['403'], 403);
 
       return {
         status: 200,
-        message: statusMessages.fa["200"],
+        message: statusMessages.fa['200'],
         body: true,
-      }
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
