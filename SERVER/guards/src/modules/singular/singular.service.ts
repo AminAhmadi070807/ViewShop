@@ -10,6 +10,8 @@ import { RolesService } from '../roles/roles.service';
 import { PermissionsService } from '../permissions/permissions.service';
 import { RpcException } from '@nestjs/microservices';
 import { Feature } from '../features/entities/feature.entity';
+import { Role } from '../roles/entities/role.entity';
+import { Permission } from '../permissions/entities/permission.entity';
 
 @Injectable()
 export class SingularService {
@@ -62,12 +64,49 @@ export class SingularService {
         order: {
           createdAt: 'DESC',
         },
+        relations: ['feature'],
+        select: {
+          feature: {
+            id: true,
+            title: true,
+            updatedAt: false,
+            createdAt: false,
+          },
+        },
       });
+
+      const result: object[] = [];
+      for (const singular of singulars) {
+        const data: { role: Role; permissions: Permission[] }[] = [];
+        for (const item of singular.data) {
+          const role = await this.roleService.findOne(item.role);
+
+          if (role instanceof RpcException) return role;
+
+          const permissions = await this.permissionService.findById(
+            item.permissions,
+          );
+
+          if (permissions instanceof RpcException) return permissions;
+
+          data.push({
+            role: role.body,
+            permissions: permissions.body,
+          });
+        }
+
+        result.push({
+          id: singular.id,
+          feature: singular.feature,
+          data: data,
+          createdAt: singular.createdAt,
+        });
+      }
 
       return {
         status: HttpStatus.OK,
         message: statusMessages.fa['201'],
-        body: singulars,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
