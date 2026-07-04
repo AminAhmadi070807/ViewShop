@@ -51,7 +51,7 @@ export class RolesService {
 
       return {
         status: HttpStatus.OK,
-        data: roles,
+        body: roles,
         message: statusMessages.fa['200'],
       };
     } catch {
@@ -73,7 +73,7 @@ export class RolesService {
 
       return {
         status: HttpStatus.OK,
-        data: roles,
+        body: roles,
         message: statusMessages.fa['200'],
       };
     } catch {
