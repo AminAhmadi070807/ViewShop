@@ -119,24 +119,11 @@ export class UsersService {
           banned: true,
         },
       });
-      // find role from database
-      const role: Role | null = await this.roleRepository.findOne({
-        where: {
-          id: data.roleId,
-        },
-        relations: ['users'],
-        select: {
-          id: true,
-          title: true,
-        },
-      });
 
       // check user
-      if (!user || !role) {
+      if (!user) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
-
-      user.role = role;
 
       // sava data in user & role
       await this.userRepository.save(user);

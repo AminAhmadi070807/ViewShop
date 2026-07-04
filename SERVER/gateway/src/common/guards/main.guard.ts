@@ -31,7 +31,7 @@ export class MainGuard implements CanActivate {
       this.guardService.send('GUARD:VALIDATE', {
         userId: user?.userId,
         feature: url[4].toUpperCase(),
-        permission: url[4].toUpperCase() + ':' + url[5].toUpperCase(),
+        permission: url[5].toUpperCase(),
         service: url[3].toUpperCase(),
         method: req.method.toUpperCase(),
       }),

@@ -97,6 +97,7 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
+    console.log(data);
     // get patch from database
     const guard: Guard | null = await this.guardsRepository.findOne({
       where: {
