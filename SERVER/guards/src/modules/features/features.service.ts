@@ -108,7 +108,7 @@ export class FeaturesService {
         where: {
           id,
         },
-        relations: ['roles'],
+        relations: ['roles', 'singular'],
       });
 
       if (!feature) return new CustomException(statusMessages.fa['404'], 404);
@@ -123,7 +123,7 @@ export class FeaturesService {
 
       if (!validate) return new CustomException(statusMessages.fa['404'], 404);
 
-      return this.roleService.validate(roleId);
+      return this.roleService.validate(roleId, feature.singular.id);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

@@ -122,7 +122,7 @@ export class RolesService {
     }
   }
 
-  async validate(id: string) {
+  async validate(id: string, singularId: string) {
     try {
       const role: Role | null = await this.roleRepository.findOne({
         where: {
@@ -135,7 +135,7 @@ export class RolesService {
 
       if (!role) return new CustomException(statusMessages.fa['404'], 404);
 
-      return true;
+      return this.singularService.validate(id, singularId);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
