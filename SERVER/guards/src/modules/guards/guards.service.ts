@@ -95,8 +95,8 @@ export class GuardsService {
       where: {
         service: data.service,
         method: data.method,
-        permission: { id: data.permission },
-        feature: { id: data.feature },
+        permission: { title: data.permission },
+        feature: { title: data.feature },
       },
       relations: ['feature', 'permission'],
       select: {
@@ -120,9 +120,9 @@ export class GuardsService {
     }
 
     return this.featureService.validate(
-      data.feature,
+      guard.feature.id,
       user.data.role.id,
-      data.permission,
+      guard.permission.id,
     );
   }
 
