@@ -25,7 +25,7 @@ export class Role {
   score: number;
 
   @ManyToOne(() => Feature, (feature: Feature) => feature.roles, {
-    nullable: false,
+    nullable: true,
   })
   features: Feature[];
 
