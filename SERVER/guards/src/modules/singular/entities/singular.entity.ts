@@ -12,7 +12,10 @@ export class Singular {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Feature, { nullable: false, onUpdate: 'CASCADE' })
+  @OneToOne(() => Feature, (feature: Feature) => feature.singular, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+  })
   feature: Feature;
 
   @Column({ type: 'simple-json', nullable: false })

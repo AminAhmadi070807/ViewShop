@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Guard } from '../../guards/entities/guard.entity';
 import { Role } from '../../roles/entities/role.entity';
+import { Singular } from '../../singular/entities/singular.entity';
 
 @Entity('features')
 export class Feature {
@@ -25,6 +27,9 @@ export class Feature {
 
   @OneToMany(() => Role, (role: Role) => role.features, { nullable: false })
   roles: Role[];
+
+  @OneToOne(() => Singular, (singular) => singular.feature)
+  singular: Singular;
 
   @CreateDateColumn()
   createdAt: Date;
