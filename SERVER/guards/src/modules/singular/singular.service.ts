@@ -113,21 +113,6 @@ export class SingularService {
     }
   }
 
-  // remove permission from singular
-  async removePermission(permission: Permission, singular: Singular) {
-    try {
-      singular.permissions = singular.permissions.filter(
-        (p): boolean => p.id !== permission.id,
-      );
-
-      await this.singularRepository.save(singular);
-
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
   // validate user access to feature
   async validate(id: string, roleId: string) {
     try {
