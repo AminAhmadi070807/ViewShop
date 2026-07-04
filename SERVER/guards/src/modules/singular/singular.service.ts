@@ -113,19 +113,6 @@ export class SingularService {
     }
   }
 
-  // add permission to singular
-  async addPermission(permission: Permission, singular: Singular) {
-    try {
-      singular.data.push(permission);
-
-      await this.singularRepository.save(singular);
-
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
   // remove permission from singular
   async removePermission(permission: Permission, singular: Singular) {
     try {
