@@ -35,6 +35,7 @@ export class UsersService {
       });
 
       // create new user
+      let user;
       if (!existing) {
         const numberOfUsers: number = await this.userRepository.count({});
 
@@ -42,18 +43,18 @@ export class UsersService {
           title: numberOfUsers ? 'USER' : 'ADMIN',
         })) as Role;
 
-        const user: User = this.userRepository.create({
+        const newUser: User = this.userRepository.create({
           id: data.id,
           role: role,
         });
 
-        await this.userRepository.save(user);
+        user = await this.userRepository.save(newUser);
       }
 
       // send success request
       return {
         status: HttpStatus.OK,
-        body: null,
+        body: user,
         message: statusMessages.fa['200'],
       };
     } catch {
