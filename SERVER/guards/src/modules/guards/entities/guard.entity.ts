@@ -18,6 +18,7 @@ export class Guard {
   id: string;
 
   @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
+  @JoinColumn()
   feature: Feature;
 
   @Column({ type: 'enum', enum: GuardEnum, nullable: false })
@@ -27,6 +28,7 @@ export class Guard {
   method: MethodEnum;
 
   @ManyToOne(() => Role, { nullable: false })
+  @JoinColumn()
   permission: Permission;
 
   @Column({ type: 'boolean', nullable: false, default: false })
