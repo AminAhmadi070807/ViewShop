@@ -22,7 +22,7 @@ export class FeaturesService {
         title: data.title,
       });
 
-      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const result: Feature = this.featureRepository.create({
         title: data.title,
