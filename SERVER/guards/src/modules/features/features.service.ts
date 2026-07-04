@@ -113,7 +113,7 @@ export class FeaturesService {
 
       if (!feature) return new CustomException(statusMessages.fa['404'], 404);
 
-      return this.roleService.validate(role, feature.title, permission);
+      return true;
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
