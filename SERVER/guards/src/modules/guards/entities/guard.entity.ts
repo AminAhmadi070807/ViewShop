@@ -7,7 +7,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
-import { Singular } from '../../singular/entities/singular.entity';
 import { Feature } from '../../features/entities/feature.entity';
 import { Role } from '../../roles/entities/role.entity';
 import { Permission } from '../../permissions/entities/permission.entity';
@@ -18,7 +17,7 @@ export class Guard {
   id: string;
 
   @ManyToOne(() => Feature, { onUpdate: 'CASCADE', nullable: false })
-  feature: Singular;
+  feature: Feature;
 
   @Column({ type: 'enum', enum: GuardEnum, nullable: false })
   service: GuardEnum;

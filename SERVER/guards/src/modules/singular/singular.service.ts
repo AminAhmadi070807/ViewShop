@@ -5,7 +5,6 @@ import { Singular } from './entities/singular.entity';
 import { Repository } from 'typeorm';
 import { statusMessages } from '../../common/messages/status.message';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { Permission } from '../permissions/entities/permission.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { RolesService } from '../roles/roles.service';
 import { PermissionsService } from '../permissions/permissions.service';
