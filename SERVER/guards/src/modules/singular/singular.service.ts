@@ -78,14 +78,9 @@ export class SingularService {
   // toggle permission in singular
   async togglePermission(data: UpdateSingularDto) {
     try {
-      const permission = await this.permissionService.findOne(
-        data.permissionId,
-      );
-      const singular = await this.singularRepository.findOne({
-        where: {
-          id: data.singularId,
-        },
-        relations: ['permissions'],
+      const permission = await this.permissionService.findOne(data.permission);
+      const singular = await this.singularRepository.findOneBy({
+        id: data.id,
       });
 
       if (permission instanceof RpcException || !singular) {
