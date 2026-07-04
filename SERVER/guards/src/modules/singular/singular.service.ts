@@ -137,8 +137,12 @@ export class SingularService {
       if (!singular) return new CustomException(statusMessages.fa['404'], 404);
 
       let validate: boolean = false;
+      const permissions: string[] = [];
       singular.data.forEach((item) => {
-        if (item.role === roleId) validate = true;
+        if (item.role === roleId) {
+          validate = true;
+          permissions.push(...item.permissions);
+        }
       });
 
       if (!validate) {
@@ -152,7 +156,7 @@ export class SingularService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: validate,
+        body: permissions,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
