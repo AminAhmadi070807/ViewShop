@@ -19,7 +19,7 @@ export class FeatureDto {
   })
   @ArrayNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
   @IsArray({ message: 'لطفا شناسه را براساس ارایه ارسال کنید' })
-  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است', each: true })
   rolesId: [string];
 
   @ApiProperty({
