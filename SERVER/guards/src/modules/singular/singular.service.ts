@@ -93,13 +93,13 @@ export class SingularService {
       }
 
       const existing: boolean = singular.data.some((item): boolean => {
-        return item.permission === data.permissionId;
+        return data.permissionId in item.permissions;
       });
 
       let result: boolean;
       if (existing) {
-        result = await this.removePermission(permission.body, singular);
-      } else result = await this.addPermission(permission.body, singular);
+        result = await this.addPermission(permission.body, singular);
+      } else result = await this.removePermission(permission.body, singular);
 
       if (!result) return new CustomException(statusMessages.fa['500'], 500);
 
