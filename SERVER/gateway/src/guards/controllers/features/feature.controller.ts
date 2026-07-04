@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
-import { ValidateTitle } from '../../../common/validation/title.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,

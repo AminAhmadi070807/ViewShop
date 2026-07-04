@@ -10,7 +10,7 @@ export class FeaturesController {
   constructor(private readonly featuresService: FeaturesService) {}
 
   @MessagePattern('FEATURE:CREATE')
-  create(@Payload() data: ValidateTitle) {
+  create(@Payload() data: FeatureDto) {
     return this.featuresService.create(data);
   }
 
