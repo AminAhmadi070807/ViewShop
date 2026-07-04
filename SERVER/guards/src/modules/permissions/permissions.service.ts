@@ -2,7 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePermissionDto } from './dto/permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from './entities/permission.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 
@@ -44,6 +44,31 @@ export class PermissionsService {
           createdAt: 'DESC',
         },
       });
+
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: permissions,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findById(id: string[]) {
+    try {
+      const permissions: Permission[] = await this.permissionRepository.find({
+        where: {
+          id: In(id),
+        },
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      if (!permissions.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: HttpStatus.OK,
