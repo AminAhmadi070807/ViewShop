@@ -21,9 +21,6 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   description: string;
 
-  @Column({ type: 'smallint', nullable: false, default: 0 })
-  score: number;
-
   @ManyToOne(() => Feature, (feature: Feature) => feature.roles, {
     nullable: true,
   })
