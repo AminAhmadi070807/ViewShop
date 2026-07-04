@@ -122,49 +122,21 @@ export class RolesService {
     }
   }
 
-  async validate(id: string, feature: string, permission: string) {
+  async validate(id: string) {
     try {
       const role: Role | null = await this.roleRepository.findOne({
         where: {
           id,
         },
-        relations: ['features', 'singulars', 'singulars.permissions'],
+        relations: ['features'],
         select: {
           id: true,
-          singulars: {
-            id: true,
-            permissions: {
-              id: true,
-            },
-          },
         },
       });
 
       if (!role) return new CustomException(statusMessages.fa['404'], 404);
 
-      let permissionId: string | null = null;
-      let singularId: string | null = null;
-
-      role.singulars.forEach((singular) => {
-        if (singular.title === feature) {
-          singularId = singular.id;
-          for (const item of singular.permissions) {
-            if (item.title === permission) {
-              permissionId = item.id;
-              break;
-            }
-          }
-        } else {
-          permissionId = null;
-          singularId = null;
-        }
-      });
-
-      if (!permissionId || !singularId) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      return this.singularService.validate(singularId, role.id, permissionId);
+      return true;
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
