@@ -63,17 +63,21 @@ export class GuardsService {
   }
 
   async findAll() {
-    const guards: Guard[] = await this.guardsRepository.find({
-      order: {
-        createdAt: 'DESC',
-      },
-    });
+    try {
+      const guards: Guard[] = await this.guardsRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa['200'],
-      body: guards,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
+        body: guards,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findOne(id: string) {
@@ -97,7 +101,6 @@ export class GuardsService {
   }
 
   async validate(data: ValidateGuard) {
-    console.log(data);
     // get patch from database
     const guard: Guard | null = await this.guardsRepository.findOne({
       where: {
