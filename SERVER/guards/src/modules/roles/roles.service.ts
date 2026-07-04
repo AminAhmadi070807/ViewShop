@@ -128,7 +128,6 @@ export class RolesService {
         where: {
           id,
         },
-        relations: ['features'],
         select: {
           id: true,
         },

@@ -102,7 +102,7 @@ export class FeaturesService {
     }
   }
 
-  async validate(id: string, role: string, permission: string) {
+  async validate(id: string, roleId: string) {
     try {
       const feature: Feature | null = await this.featureRepository.findOne({
         where: {
@@ -113,7 +113,17 @@ export class FeaturesService {
 
       if (!feature) return new CustomException(statusMessages.fa['404'], 404);
 
-      return true;
+      let validate: boolean = false;
+      for (const role of feature.roles) {
+        if (role.id === roleId) {
+          validate = true;
+          break;
+        }
+      }
+
+      if (!validate) return new CustomException(statusMessages.fa['404'], 404);
+
+      return this.roleService.validate(roleId);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
