@@ -30,6 +30,7 @@ export class FeaturesService {
 
       const result: Feature = this.featureRepository.create({
         title: data.title,
+        roles: role.data,
       });
 
       await this.featureRepository.save(result);
