@@ -75,16 +75,45 @@ export class SingularService {
     }
   }
 
-  // toggle permission in singular
-  async togglePermission(data: UpdateSingularDto) {
+  async toggleAccess(data: UpdateSingularDto) {
     try {
       const permission = await this.permissionService.findOne(data.permission);
+      const role = await this.roleService.findOne(data.role);
+
+      if (permission instanceof RpcException || role instanceof RpcException) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
       const singular = await this.singularRepository.findOneBy({
         id: data.id,
       });
 
-      if (permission instanceof RpcException || !singular) {
-        return new CustomException(statusMessages.fa['404'], 404);
+      if (!singular) return new CustomException(statusMessages.fa['404'], 404);
+      else {
+        const result: boolean = singular.data.some(
+          (item) => item.role === data.role,
+        );
+
+        if (result) {
+          singular.data.forEach((item) => {
+            if (item.role === data.role) {
+              if (data.permission in item.permissions) {
+                item.permissions.push(data.permission);
+              } else {
+                item.permissions = item.permissions.filter(
+                  (p) => p !== data.permission,
+                );
+              }
+            }
+          });
+        } else {
+          singular.data.push({
+            role: data.role,
+            permissions: [data.permission],
+          });
+        }
+
+        await this.singularRepository.save(singular);
       }
 
       return {
