@@ -29,7 +29,6 @@ export class MainGuard implements CanActivate {
 
     await firstValueFrom(
       this.guardService.send('GUARD:VALIDATE', {
-        patch: url.join('/'),
         userId: user?.userId,
         service: url[3].toUpperCase(),
         method: req.method.toUpperCase(),
