@@ -28,33 +28,20 @@ export class SingularService {
   async create(data: SingularDto) {
     try {
       const feature = await this.featureRepository.findOneBy({
-        id: data.,
+        id: data.feature,
       });
 
-      if (
-        role instanceof RpcException ||
-        permission instanceof RpcException ||
-        !feature
-      ) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (!feature) return new CustomException(statusMessages.fa['404'], 404);
 
       const existing = await this.singularRepository.findOneBy({
-        title: data.title.toUpperCase(),
+        feature: { id: data.feature },
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const singular: Singular = this.singularRepository.create({
-        title: data.title.toUpperCase(),
-        roles: [role.body],
-        permissions: [permission.body],
-        data: [
-          {
-            role: role.body.id,
-            permissions: [{ id: permission.body.id }],
-          },
-        ],
+        feature: feature,
+        data: data.data,
       });
 
       await this.singularRepository.save(singular);
@@ -105,11 +92,9 @@ export class SingularService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const existing: boolean = singular.data.some(
-        (item): boolean => {
-          return item.permission === data.permissionId;
-        },
-      );
+      const existing: boolean = singular.data.some((item): boolean => {
+        return item.permission === data.permissionId;
+      });
 
       let result: boolean;
       if (existing) {
