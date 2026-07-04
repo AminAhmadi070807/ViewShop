@@ -1,7 +1,7 @@
 import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { In, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { RolesDto, UpdateRolesDto } from './dto/roles.dto';
@@ -48,6 +48,28 @@ export class RolesService {
           createdAt: 'DESC',
         },
       });
+
+      return {
+        status: HttpStatus.OK,
+        data: roles,
+        message: statusMessages.fa['200'],
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findByIds(id: string[]) {
+    try {
+      const roles: Role[] = await this.roleRepository.find({
+        where: {
+          id: In(id),
+        },
+      });
+
+      if (!roles.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: HttpStatus.OK,
