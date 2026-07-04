@@ -2,23 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Permission } from '../../permissions/entities/permission.entity';
+import { Feature } from '../../features/entities/feature.entity';
 
 @Entity('singular')
 export class Singular {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  title: string;
-
-  @OneToMany(() => Permission, (permission: Permission) => permission.singulars)
-  @JoinColumn()
-  permissions: Permission[];
+  @OneToOne(() => Feature, { nullable: false, onUpdate: 'CASCADE' })
+  feature: Feature;
 
   @Column({ type: 'simple-json', nullable: false })
   data: [
