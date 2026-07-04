@@ -23,7 +23,6 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { UserDto } from './user.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('guards/users')
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
@@ -32,18 +31,6 @@ import { Public } from '../../../common/decorators/public.decorator';
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class UserController {
   constructor(private readonly guardsService: GuardsService) {}
-
-  @Post()
-  @Public()
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  create(@Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
-
-    return this.guardsService.send('USER:CREATE', {
-      role: user.role,
-      id: user.userId,
-    });
-  }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
