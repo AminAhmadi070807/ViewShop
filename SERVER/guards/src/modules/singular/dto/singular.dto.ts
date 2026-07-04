@@ -12,9 +12,10 @@ export class RolePermissionDto {
   @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
   role: string;
 
-  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
-  permission: string;
+  @ArrayNotEmpty({ message: 'شناسه های پرمیژن نمیتواند خالی باشد' })
+  @IsArray({ message: 'شناسه پرمیژن باید ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است', each: true })
+  permissions: string[];
 }
 
 export class SingularDto {

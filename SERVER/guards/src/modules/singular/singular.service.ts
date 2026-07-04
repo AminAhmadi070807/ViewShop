@@ -131,7 +131,7 @@ export class SingularService {
   // add permission to singular
   async addPermission(permission: Permission, singular: Singular) {
     try {
-      singular.permissions.push(permission);
+      singular.data.push(permission);
 
       await this.singularRepository.save(singular);
 
