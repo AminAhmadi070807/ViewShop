@@ -1,18 +1,15 @@
-import { IsEnum, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, Matches } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionEnum } from '../../../common/enums/guards/permission/permission.enum';
 
 export class CreatePermissionDto {
   @ApiProperty({
-    description: 'ساخت پرمیژن جدید',
-    example: PermissionEnum.CREATE,
-    enum: PermissionEnum,
-    type: 'string',
+    type: String,
+    nullable: false,
+    required: true,
+    example: '',
+    pattern: /^[a-zA-Z0-9]{3,50}$/,
   })
-  @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
-  @IsEnum(PermissionEnum, {
-    message:
-      'عنوان باید یکی از این مقدار ها باشد CREATE, READ, EDIT, DELETE, REJECT, CANCEL, REFUND, CHANGE_STATUS, CHANGE_ROLE, MANAGE, EXPORT, IMPORT, ALL',
-  })
-  title: PermissionEnum;
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @Matches(/^[a-zA-Z0-9]{3,50}$/, { message: 'عنوان باید انگلیسی باشد' })
+  title: string;
 }
