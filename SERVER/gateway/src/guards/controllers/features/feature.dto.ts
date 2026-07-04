@@ -30,10 +30,10 @@ export class FeatureDto {
     minLength: 3,
     maxLength: 50,
   })
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(50)
+  @IsNotEmpty({ message: 'عنوان فیچر نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان فیچر باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان فیچر حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(50, { message: 'عنوان فیچر حدکثر میتواند 50 کارکتر داشته باشد' })
   title: string;
 }
 
