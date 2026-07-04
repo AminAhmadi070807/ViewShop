@@ -38,14 +38,14 @@ export class RoleController {
     return this.guardsService.send('ROLE:CREATE', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.guardsService.send('ROLE:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get(':id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiParam({
     name: 'id',
     required: true,
@@ -55,14 +55,14 @@ export class RoleController {
     return this.guardsService.send('ROLE:ONE', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Patch()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   update(@Body() data: RoleDto) {
     return this.guardsService.send('ROLE:UPDATE', data);
   }
 
-  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @Delete(':id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiParam({
     name: 'id',
     required: true,
