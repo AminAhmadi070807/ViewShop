@@ -2,8 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
@@ -17,11 +19,8 @@ export class Singular {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToMany(() => Permission, {
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinTable()
+  @OneToMany(() => Permission, (permission: Permission) => permission.singulars)
+  @JoinColumn()
   permissions: Permission[];
 
   @ManyToMany(() => Role, (role: Role) => role.singulars, {
