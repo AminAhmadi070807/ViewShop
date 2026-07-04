@@ -1,4 +1,6 @@
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsNotEmpty,
   IsString,
   IsUUID,
@@ -9,14 +11,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class FeatureDto {
   @ApiProperty({
-    type: String,
+    type: [String],
+    isArray: true,
     required: true,
     nullable: false,
-    example: '',
+    example: [''],
   })
-  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @ArrayNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsArray({ message: 'لطفا شناسه را براساس ارایه ارسال کنید' })
   @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
-  roleId: string;
+  rolesId: [string];
 
   @ApiProperty({
     type: String,
