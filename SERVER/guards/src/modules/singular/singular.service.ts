@@ -27,12 +27,8 @@ export class SingularService {
   // create new singular
   async create(data: SingularDto) {
     try {
-      const role = await this.roleService.findOne(data.roleId);
-      const permission = await this.permissionService.findOne(
-        data.permissionId,
-      );
       const feature = await this.featureRepository.findOneBy({
-        title: data.title,
+        id: data.,
       });
 
       if (
@@ -77,16 +73,8 @@ export class SingularService {
   async findAll() {
     try {
       const singulars = await this.singularRepository.find({
-        relations: ['roles', 'permissions'],
-        select: {
-          roles: {
-            id: true,
-            title: true,
-          },
-          permissions: {
-            id: true,
-            title: true,
-          },
+        order: {
+          createdAt: 'DESC',
         },
       });
 
@@ -116,9 +104,9 @@ export class SingularService {
       if (permission instanceof RpcException || !singular)
         return new CustomException(statusMessages.fa['404'], 404);
 
-      const existing: boolean = singular.permissions.some(
-        (p: Permission): boolean => {
-          return p.id === data.permissionId;
+      const existing: boolean = singular.data.some(
+        (item): boolean => {
+          return item.permissions === data.permissionId;
         },
       );
 
@@ -168,44 +156,20 @@ export class SingularService {
   }
 
   // validate user access to feature
-  async validate(id: string, roleId: string, permissionId: string) {
+  async validate(id: string, roleId: string) {
     try {
       const singular: Singular | null = await this.singularRepository.findOne({
         where: {
           id: id,
         },
-        relations: ['roles', 'permissions'],
-        select: {
-          id: true,
-          title: true,
-          roles: {
-            id: true,
-          },
-          permissions: {
-            id: true,
-            title: true,
-          },
-        },
       });
 
       if (!singular) return new CustomException(statusMessages.fa['404'], 404);
 
-      if (!singular.roles.length || !singular.permissions.length) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      let data: { id: string }[] = [];
-      singular.data.forEach((item) => {
-        if (item.role === roleId) data = item.permissions;
-      });
-
       let validate: boolean = false;
-      for (const item of data) {
-        if (item.id === permissionId) {
-          validate = true;
-          break;
-        }
-      }
+      singular.data.forEach((item) => {
+        if (item.role === roleId) validate = true;
+      });
 
       if (!validate) {
         return {

@@ -14,7 +14,19 @@ export class RolePermissionDto {
 
   @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
-  permissions: string;
+  permission: string;
+}
+
+export class SingularDto {
+  @IsNotEmpty({ message: 'ایدی سینگیولار نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  feature: string;
+
+  @ArrayNotEmpty({ message: 'ارایه دیتا نمیتواند خالی باشد' })
+  @IsArray({ message: 'ارایه دیتا نامعتبر است' })
+  @ValidateNested({ each: true })
+  @Type(() => RolePermissionDto)
+  data: RolePermissionDto[];
 }
 
 export class UpdateSingularDto {

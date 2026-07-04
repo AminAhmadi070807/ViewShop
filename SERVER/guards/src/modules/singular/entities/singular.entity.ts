@@ -19,7 +19,7 @@ export class Singular {
   data: [
     {
       role: string;
-      permissions: string;
+      permission: string;
     },
   ];
 
