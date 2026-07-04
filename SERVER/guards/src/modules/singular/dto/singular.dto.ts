@@ -8,9 +8,11 @@ import {
 import { Type } from 'class-transformer';
 
 export class RolePermissionDto {
+  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
   role: string;
 
+  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
   permissions: string;
 }
