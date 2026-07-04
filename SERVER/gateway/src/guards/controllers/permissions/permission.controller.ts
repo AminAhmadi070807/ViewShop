@@ -13,6 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -22,8 +23,9 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 export class PermissionsController {
   constructor(private readonly guardsService: GuardsService) {}
 
-  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @Post()
+  @Public()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   create(@Body() data: CreatePermissionDto) {
     return this.guardsService.send('PERMISSION:CREATE', data);
   }

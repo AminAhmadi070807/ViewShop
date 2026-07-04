@@ -22,6 +22,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { ValidateTitle } from '../../../common/validation/title.dto';
 import { RoleDto } from './role.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -31,8 +32,9 @@ import { RoleDto } from './role.dto';
 export class RoleController {
   constructor(private readonly guardsService: GuardsService) {}
 
-  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @Post()
+  @Public()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   create(@Body() data: ValidateTitle) {
     return this.guardsService.send('ROLE:CREATE', data);
   }

@@ -14,6 +14,7 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { UpdateFeatureDto } from './feature.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('guards/feature')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -23,6 +24,7 @@ export class FeatureController {
   constructor(private readonly guardService: GuardsService) {}
 
   @Post()
+  @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ValidateTitle) {
