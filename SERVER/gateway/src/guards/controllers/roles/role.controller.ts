@@ -20,8 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { ValidateTitle } from '../../../common/validation/title.dto';
-import { RoleDto } from './role.dto';
+import { CreateRoleDto, RoleDto } from './role.dto';
 import { Public } from '../../../common/decorators/public.decorator';
 
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
@@ -35,7 +34,7 @@ export class RoleController {
   @Post()
   @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
-  create(@Body() data: ValidateTitle) {
+  create(@Body() data: CreateRoleDto) {
     return this.guardsService.send('ROLE:CREATE', data);
   }
 
