@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RoleDto {
@@ -27,4 +33,18 @@ export class RoleDto {
   @IsString({ message: 'ایدی نقش باید یک uuid معتبر باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   roleId: string;
+}
+
+export class CreateRoleDto {
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان باید رشته باشد' })
+  @MinLength(3, { message: 'عنوان حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(24, { message: 'عنوان حدکثر میتواند 24 کارکتر داشته باشد' })
+  title: string;
+
+  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات باید رشته باشد' })
+  @MinLength(3, { message: 'توضیحات حدقل باید 3 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 24 کارکتر داشته باشد' })
+  description: string;
 }
