@@ -13,7 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { UpdateFeatureDto } from './feature.dto';
+import { FeatureDto, UpdateFeatureDto } from './feature.dto';
 import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('guards/feature')
@@ -27,7 +27,7 @@ export class FeatureController {
   @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
-  create(@Body() data: ValidateTitle) {
+  create(@Body() data: FeatureDto) {
     return this.guardService.send('FEATURE:CREATE', data);
   }
 
