@@ -32,7 +32,7 @@ export class GuardDto {
   })
   @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
-  featureId: string;
+  feature: string;
 
   @ApiProperty({
     type: String,
@@ -42,7 +42,7 @@ export class GuardDto {
   })
   @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  permissionId: string;
+  permission: string;
 
   @ApiProperty({
     type: Boolean,
