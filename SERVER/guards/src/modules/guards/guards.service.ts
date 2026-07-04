@@ -137,11 +137,25 @@ export class GuardsService {
 
       if (user instanceof RpcException) return user;
 
-      return this.featureService.validate(
+      const result = (await this.featureService.validate(
         guard.feature.id,
         user.data.role.id,
-        guard.permission.id,
-      );
+      )) as CustomException | { body: string[] };
+
+      if (result instanceof RpcException) return result;
+
+      let validate: boolean = false;
+      for (const permission of result.body) {
+        if (permission === guard.permission.id) validate = true;
+      }
+
+      if (!validate) return new CustomException(statusMessages.fa["403"], 403)
+
+      return {
+        status: 200,
+        message: statusMessages.fa["200"],
+        body: true,
+      }
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

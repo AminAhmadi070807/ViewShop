@@ -135,7 +135,7 @@ export class RolesService {
 
       if (!role) return new CustomException(statusMessages.fa['404'], 404);
 
-      return this.singularService.validate(singularId, role.id);
+      return await this.singularService.validate(singularId, role.id);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
