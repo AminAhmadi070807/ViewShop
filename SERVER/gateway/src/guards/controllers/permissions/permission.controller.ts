@@ -16,6 +16,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiHeader,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -36,6 +37,18 @@ export class PermissionsController {
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PERMISSIONS',
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+    },
+  ])
   create(@Body() data: CreatePermissionDto) {
     return this.guardsService.send('PERMISSION:CREATE', data);
   }
