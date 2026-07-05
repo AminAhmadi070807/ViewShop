@@ -41,11 +41,6 @@ export class UserController {
 
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'string',
-  })
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('USER:ONE', data);
   }
