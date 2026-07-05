@@ -25,7 +25,6 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { UserDto } from './user.dto';
 
 @Controller('guards/users')
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -51,6 +50,7 @@ export class UserController {
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   toggleUserRole(@Body() data: UserDto) {
     return this.guardsService.send('USER:TOGGLE:ROLE', data);
   }
