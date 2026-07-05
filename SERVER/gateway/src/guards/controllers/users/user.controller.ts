@@ -57,7 +57,7 @@ export class UserController {
 
   @Put()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  toggleUserBanned(@Body() data: ValidateUUID) {
+  toggleBanned(@Body() data: ValidateUUID) {
     return this.guardsService.send('USER:TOGGLE:BANNED', data);
   }
 }
