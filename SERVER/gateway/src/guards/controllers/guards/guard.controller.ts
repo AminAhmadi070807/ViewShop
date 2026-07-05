@@ -74,10 +74,10 @@ export class GuardController {
     });
   }
 
+  @Delete('/:id')
   @ApiNoContentResponse({
     description: statusMessages.fa['204'],
   })
-  @Delete('/:id')
   remove(@Param() data: ValidateUUID): Observable<any> {
     return this.guardsService.send('GUARD:DELETE', data);
   }
