@@ -13,6 +13,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -34,6 +35,20 @@ export class RoleController {
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ROLES',
+      enum: ['ROLES'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: CreateRoleDto) {
     return this.guardsService.send('ROLE:CREATE', data);
   }
