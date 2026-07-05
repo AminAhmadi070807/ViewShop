@@ -1,18 +1,29 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Headers,
+  HttpException,
+  BadRequestException,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { CreatePermissionDto } from './permission.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeader,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiOkResponse,
-  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import uuid from 'uuid';
 
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
@@ -34,11 +45,20 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
-  @Get(':id')
+  @Get('read/one')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  findOne(@Param() data: ValidateUUID) {
-    return this.guardsService.send('PERMISSION:ONE', data);
+  @ApiHeader({
+    name: 'id',
+    required: true,
+    example: '',
+  })
+  findOne(@Headers('id') id: string) {
+    if (!uuid.validate(id)) {
+      throw new BadRequestException('شناسه نامعتبر هست');
+    }
+
+    return this.guardsService.send('PERMISSION:ONE', { id });
   }
 
   @Delete(':id')
