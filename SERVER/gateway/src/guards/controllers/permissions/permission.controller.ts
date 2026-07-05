@@ -40,7 +40,7 @@ export class PermissionsController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @Get()
+  @Get('read/all')
   findAll() {
     return this.guardsService.send('PERMISSION:FIND');
   }
