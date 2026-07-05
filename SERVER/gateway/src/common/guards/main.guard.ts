@@ -54,7 +54,7 @@ export class MainGuard implements CanActivate {
       this.guardService.send('GUARD:VALIDATE', payload),
     );
 
-    if (result.error.status !== 200) throw result.error;
+    if (result.error.status !== 200) throw result;
 
     return true;
   }
