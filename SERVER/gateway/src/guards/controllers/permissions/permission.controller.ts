@@ -63,7 +63,7 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
-  @Get('/id')
+  @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
