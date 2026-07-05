@@ -15,27 +15,27 @@ export class MainGuard implements CanActivate {
     const req: express.Request = ctx.getRequest();
     const url: string[] = req.url.split('/');
 
-    const lastIndex: number = url.length - 1;
-
-    if (this.isUuid(url[lastIndex])) url[lastIndex] = ':id';
-    else if (this.isPhoneNumber(url[lastIndex])) url[lastIndex] = ':phone';
-    else if (url[lastIndex].startsWith('verify')) {
-      url[lastIndex] = url[lastIndex].split('?')[0];
-    } else if (url[lastIndex - 1] === 'search') {
-      url[lastIndex] = 'search';
-    }
-
     const user: JwtPayload = req.user as JwtPayload;
 
-    // await firstValueFrom(
-    //   this.guardService.send('GUARD:VALIDATE', {
-    //     userId: user?.userId,
-    //     feature: url[4].toUpperCase(),
-    //     permission: url[5].toUpperCase(),
-    //     service: url[3].toUpperCase(),
-    //     method: req.method.toUpperCase(),
-    //   }),
-    // );
+    let payload;
+    if (user) {
+      payload = {
+        userId: user?.userId,
+        feature: url[4].toUpperCase(),
+        permission: url[5].toUpperCase(),
+        service: url[3].toUpperCase(),
+        method: req.method.toUpperCase(),
+      };
+    } else {
+      payload = {
+        feature: url[4].toUpperCase(),
+        permission: url[5].toUpperCase(),
+        service: url[3].toUpperCase(),
+        method: req.method.toUpperCase(),
+      };
+    }
+
+    await firstValueFrom(this.guardService.send('GUARD:VALIDATE', payload));
 
     return true;
   }
