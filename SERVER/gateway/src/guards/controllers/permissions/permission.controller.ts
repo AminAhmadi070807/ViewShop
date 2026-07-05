@@ -56,7 +56,7 @@ export class PermissionsController {
       name: 'permission',
       required: true,
       example: 'READ',
-      enum: ['PERMISSIONS'],
+      enum: ['READ'],
     },
   ])
   findAll() {
