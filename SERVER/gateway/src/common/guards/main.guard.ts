@@ -1,10 +1,10 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { GuardsService } from '../../guards/guards.service';
-import { firstValueFrom } from 'rxjs';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
 import { validate } from 'uuid';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class MainGuard implements CanActivate {
