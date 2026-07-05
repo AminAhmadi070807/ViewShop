@@ -22,7 +22,6 @@ import {
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
