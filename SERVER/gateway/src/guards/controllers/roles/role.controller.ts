@@ -76,6 +76,20 @@ export class RoleController {
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ROLES',
+      enum: ['ROLES'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'FIND:ONE',
+      enum: ['FIND:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('ROLE:ONE', data);
   }
