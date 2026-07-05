@@ -13,9 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -24,8 +22,8 @@ export class PermissionsController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @Post()
-  @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(@Body() data: CreatePermissionDto) {
     return this.guardsService.send('PERMISSION:CREATE', data);
   }
@@ -38,24 +36,14 @@ export class PermissionsController {
 
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: String,
-    description: 'user id',
-  })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:ONE', data);
   }
 
   @Delete(':id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: String,
-    description: 'user id',
-  })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   remove(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:DELETE', data);
   }
