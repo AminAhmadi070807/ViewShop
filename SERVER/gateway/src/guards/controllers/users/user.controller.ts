@@ -32,6 +32,7 @@ export class UserController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findAll() {
     return this.guardsService.send('USER:FIND');
   }

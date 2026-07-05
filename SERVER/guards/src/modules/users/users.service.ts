@@ -34,22 +34,21 @@ export class UsersService {
         id: data.id,
       });
 
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
       // create new user
-      let user;
-      if (!existing) {
-        const numberOfUsers: number = await this.userRepository.count({});
+      const numberOfUsers: number = await this.userRepository.count({});
 
-        const role: Role = (await this.roleRepository.findOneBy({
-          title: numberOfUsers ? 'USER' : 'ADMIN',
-        })) as Role;
+      const role: Role = (await this.roleRepository.findOneBy({
+        title: numberOfUsers ? 'USER' : 'ADMIN',
+      })) as Role;
 
-        const newUser: User = this.userRepository.create({
-          id: data.id,
-          role: role,
-        });
+      const newUser: User = this.userRepository.create({
+        id: data.id,
+        role: role,
+      });
 
-        user = await this.userRepository.save(newUser);
-      }
+      const user = await this.userRepository.save(newUser);
 
       // send success request
       return {
