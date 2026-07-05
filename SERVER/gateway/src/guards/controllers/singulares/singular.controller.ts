@@ -77,6 +77,20 @@ export class SingularController {
   @Patch('toggle/permission')
   @ApiOkResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SINGULAR',
+      enum: ['SINGULAR'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'TOGGLE:ACCESS',
+      enum: ['TOGGLE:ACCESS'],
+    },
+  ])
   toggleAccess(@Body() data: UpdateSingularDto) {
     return this.guardsService.send('SINGULAR:TOGGLE:ACCESS', data);
   }
