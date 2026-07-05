@@ -22,7 +22,7 @@ export class PermissionsService {
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const permission: Permission = this.permissionRepository.create({
-        title: data.title,
+        title: data.title.toUpperCase().trim(),
       });
 
       await this.permissionRepository.save(permission);
