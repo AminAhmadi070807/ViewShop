@@ -80,12 +80,20 @@ export class GuardController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiParam({
-    name: 'id',
-    type: 'string',
-    description: 'Id of Guard',
-    required: true,
-  })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'GUARD',
+      enum: ['GUARD'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID): Observable<any> {
     return this.guardsService.send('GUARD:ONE', data);
   }
