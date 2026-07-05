@@ -10,6 +10,7 @@ import {
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -21,7 +22,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { CreateRoleDto, RoleDto } from './role.dto';
 
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -31,6 +31,8 @@ export class RoleController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: CreateRoleDto) {
     return this.guardsService.send('ROLE:CREATE', data);
   }
