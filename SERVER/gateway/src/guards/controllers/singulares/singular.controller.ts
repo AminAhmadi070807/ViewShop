@@ -56,6 +56,20 @@ export class SingularController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SINGULAR',
+      enum: ['SINGULAR'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.guardsService.send('SINGULAR:FIND');
   }
