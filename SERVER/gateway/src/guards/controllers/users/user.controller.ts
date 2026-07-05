@@ -14,6 +14,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -34,6 +35,20 @@ export class UserController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USERS',
+      enum: ['USERS'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.guardsService.send('USER:FIND');
   }
