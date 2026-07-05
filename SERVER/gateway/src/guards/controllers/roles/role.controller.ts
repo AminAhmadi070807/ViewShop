@@ -118,6 +118,20 @@ export class RoleController {
 
   @Delete(':id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ROLES',
+      enum: ['ROLES'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   remove(@Param() data: ValidateUUID) {
     return this.guardsService.send('ROLE:DELETE', data);
   }
