@@ -13,6 +13,7 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -33,6 +34,7 @@ export class UserController {
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   findAll() {
     return this.guardsService.send('USER:FIND');
   }
