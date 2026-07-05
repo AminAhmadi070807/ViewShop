@@ -97,6 +97,20 @@ export class SingularController {
 
   @Delete(':id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SINGULAR',
+      enum: ['SINGULAR'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   remove(@Param() data: ValidateUUID) {
     return this.guardsService.send('SINGULAR:DELETE', data);
   }
