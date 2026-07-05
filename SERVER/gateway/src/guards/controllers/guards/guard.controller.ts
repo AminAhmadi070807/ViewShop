@@ -101,6 +101,20 @@ export class GuardController {
   @Post('validate')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'GUARD',
+      enum: ['GUARD'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'VALIDATE',
+      enum: ['VALIDATE'],
+    },
+  ])
   validate(
     @Body() data: ValidateGuard,
     @Req() req: express.Request,
