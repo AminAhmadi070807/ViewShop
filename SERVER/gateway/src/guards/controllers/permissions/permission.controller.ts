@@ -94,6 +94,18 @@ export class PermissionsController {
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PERMISSIONS',
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+    },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:DELETE', data);
   }
