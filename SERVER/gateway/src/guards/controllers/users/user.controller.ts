@@ -78,6 +78,20 @@ export class UserController {
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USERS',
+      enum: ['USERS'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'TOGGLE:ROLE',
+      enum: ['TOGGLE:ROLE'],
+    },
+  ])
   updateRole(@Body() data: UserDto) {
     return this.guardsService.send('USER:TOGGLE:ROLE', data);
   }
