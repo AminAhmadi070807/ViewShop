@@ -71,21 +71,12 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
-  @Get()
+  @Get('/id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiHeader({
-    name: 'id',
-    required: true,
-    example: '',
-  })
-  findOne(@Headers('id') id: string) {
-    if (!uuid.validate(id)) {
-      throw new BadRequestException('شناسه نامعتبر هست');
-    }
-
-    return this.guardsService.send('PERMISSION:ONE', { id });
+  findOne(@Param() data: ValidateUUID) {
+    return this.guardsService.send('PERMISSION:ONE', data);
   }
 
   @Delete()
