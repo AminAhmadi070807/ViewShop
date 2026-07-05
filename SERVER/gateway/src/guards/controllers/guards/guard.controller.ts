@@ -63,6 +63,7 @@ export class GuardController {
 
   @Post('validate')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   validate(
     @Body() data: ValidateGuard,
     @Req() req: express.Request,
