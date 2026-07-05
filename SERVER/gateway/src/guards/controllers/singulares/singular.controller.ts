@@ -20,9 +20,7 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { SingularDto, UpdateSingularDto } from './singular.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -31,8 +29,8 @@ export class SingularController {
   constructor(private readonly guardsService: GuardsService) {}
 
   @Post()
-  @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(@Body() data: SingularDto) {
     return this.guardsService.send('SINGULAR:CREATE', data);
   }
