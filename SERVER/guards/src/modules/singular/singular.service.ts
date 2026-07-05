@@ -35,7 +35,7 @@ export class SingularService {
       if (!feature) return new CustomException(statusMessages.fa['404'], 404);
 
       const existing = await this.singularRepository.findOneBy({
-        feature: feature,
+        feature: { id: data.feature },
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
