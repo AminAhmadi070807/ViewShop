@@ -33,7 +33,7 @@ import uuid from 'uuid';
 export class PermissionsController {
   constructor(private readonly guardsService: GuardsService) {}
 
-  @Post()
+  @Post('create')
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(@Body() data: CreatePermissionDto) {
