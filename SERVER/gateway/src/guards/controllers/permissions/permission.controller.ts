@@ -75,6 +75,18 @@ export class PermissionsController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PERMISSIONS',
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:ONE', data);
   }
