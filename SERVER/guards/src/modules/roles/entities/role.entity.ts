@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,7 +19,7 @@ export class Role {
   @Column({ type: 'varchar', nullable: false, unique: true })
   description: string;
 
-  @ManyToOne(() => Feature, (feature: Feature) => feature.roles, {
+  @ManyToMany(() => Feature, (feature: Feature) => feature.roles, {
     nullable: true,
   })
   features: Feature[];

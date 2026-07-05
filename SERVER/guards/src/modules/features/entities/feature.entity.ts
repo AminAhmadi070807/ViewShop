@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -25,7 +27,8 @@ export class Feature {
   })
   guards: Guard[];
 
-  @OneToMany(() => Role, (role: Role) => role.features, { nullable: false })
+  @ManyToMany(() => Role, (role: Role) => role.features, { nullable: false })
+  @JoinTable({ name: 'features_roles' })
   roles: Role[];
 
   @OneToOne(() => Singular, (singular) => singular.feature)
