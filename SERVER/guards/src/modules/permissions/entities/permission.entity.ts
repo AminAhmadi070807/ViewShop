@@ -13,7 +13,7 @@ export class Permission {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
   @OneToMany(() => Guard, (guard: Guard) => guard.permission)
