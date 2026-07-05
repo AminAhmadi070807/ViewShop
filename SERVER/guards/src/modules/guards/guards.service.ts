@@ -125,24 +125,24 @@ export class GuardsService {
       const existing = await this.userService.findOne(data.userId);
 
       // check user & user banned
-      if (existing instanceof RpcException) {
+      if (existing instanceof CustomException) {
         const result = await this.userService.create({ id: data.userId });
 
-        if (result instanceof RpcException) return result;
+        if (result instanceof CustomException) return result;
       } else if (existing.data.banned) {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
       const user = await this.userService.findOne(data.userId);
 
-      if (user instanceof RpcException) return user;
+      if (user instanceof CustomException) return user;
 
       const result = (await this.featureService.validate(
         guard.feature.id,
         user.data.role.id,
       )) as CustomException | { body: string[] };
 
-      if (result instanceof RpcException) return result;
+      if (result instanceof CustomException) return result;
 
       let validate: boolean = false;
       for (const permission of result.body) {
