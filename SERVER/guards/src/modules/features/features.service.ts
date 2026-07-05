@@ -29,7 +29,7 @@ export class FeaturesService {
       if (role instanceof RpcException) return role;
 
       const result: Feature = this.featureRepository.create({
-        title: data.title,
+        title: data.title.trim().toUpperCase(),
         roles: role.body,
       });
 
