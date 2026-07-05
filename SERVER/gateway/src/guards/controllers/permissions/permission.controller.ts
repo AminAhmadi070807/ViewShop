@@ -54,7 +54,7 @@ export class PermissionsController {
   }
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @Get('read/all')
+  @Get()
   @ApiHeaders([
     {
       name: 'feature',
