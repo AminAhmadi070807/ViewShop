@@ -51,7 +51,7 @@ export class UserController {
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  toggleUserRole(@Body() data: UserDto) {
+  updateRole(@Body() data: UserDto) {
     return this.guardsService.send('USER:TOGGLE:ROLE', data);
   }
 
