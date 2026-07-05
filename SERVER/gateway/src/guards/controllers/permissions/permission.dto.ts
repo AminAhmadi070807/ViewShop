@@ -10,7 +10,7 @@ export class CreatePermissionDto {
     pattern: /^[a-zA-Z_]{2,50}$/,
   })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
-  @Matches(/^[a-zA-Z_]{2,50}$/, {
+  @Matches(/^[a-zA-Z_:]{2,50}$/, {
     message:
       'عنوان باید از تشکیل شده از کلمات انگلیسی باشد و بدون استفاده از هیچ کارکتر اضافه',
   })
