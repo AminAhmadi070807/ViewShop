@@ -1,21 +1,10 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Headers,
-  HttpException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import { CreatePermissionDto } from './permission.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
-  ApiHeader,
   ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
@@ -25,7 +14,6 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import uuid from 'uuid';
 
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
@@ -42,11 +30,13 @@ export class PermissionsController {
       name: 'feature',
       required: true,
       example: 'PERMISSIONS',
+      enum: ['PERMISSIONS'],
     },
     {
       name: 'permission',
       required: true,
       example: 'CREATE',
+      enum: ['CREATE'],
     },
   ])
   create(@Body() data: CreatePermissionDto) {
@@ -60,11 +50,13 @@ export class PermissionsController {
       name: 'feature',
       required: true,
       example: 'PERMISSIONS',
+      enum: ['PERMISSIONS'],
     },
     {
       name: 'permission',
       required: true,
       example: 'READ',
+      enum: ['PERMISSIONS'],
     },
   ])
   findAll() {
@@ -80,11 +72,13 @@ export class PermissionsController {
       name: 'feature',
       required: true,
       example: 'PERMISSIONS',
+      enum: ['PERMISSIONS'],
     },
     {
       name: 'permission',
       required: true,
       example: 'READ:ONE',
+      enum: ['READ:ONE'],
     },
   ])
   findOne(@Param() data: ValidateUUID) {
@@ -99,11 +93,13 @@ export class PermissionsController {
       name: 'feature',
       required: true,
       example: 'PERMISSIONS',
+      enum: ['PERMISSIONS'],
     },
     {
       name: 'permission',
       required: true,
       example: 'DELETE',
+      enum: ['DELETE'],
     },
   ])
   remove(@Body() data: ValidateUUID) {
