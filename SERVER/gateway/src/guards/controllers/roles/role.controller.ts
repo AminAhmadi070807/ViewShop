@@ -52,7 +52,9 @@ export class RoleController {
   }
 
   @Patch()
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: RoleDto) {
     return this.guardsService.send('ROLE:UPDATE', data);
   }
