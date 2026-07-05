@@ -14,6 +14,7 @@ import { GuardDto, ValidateGuard } from './guard.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -28,7 +29,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('guards/guard')
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-@ApiNotFoundResponse({ description: statusMessages.fa['404'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class GuardController {
@@ -37,6 +37,7 @@ export class GuardController {
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: GuardDto): Observable<any> {
     return this.guardsService.send('GUARD:CREATE', data);
   }
