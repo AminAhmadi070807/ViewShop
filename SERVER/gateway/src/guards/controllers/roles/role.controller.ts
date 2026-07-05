@@ -55,6 +55,20 @@ export class RoleController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ROLES',
+      enum: ['ROLES'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.guardsService.send('ROLE:FIND');
   }
