@@ -39,20 +39,20 @@ export class SingularController {
     return this.guardsService.send('SINGULAR:CREATE', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.guardsService.send('SINGULAR:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['204'] })
   @Patch('toggle/permission')
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
   togglePermission(@Body() data: UpdateSingularDto) {
     return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
   }
 
-  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @Delete(':id')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   remove(@Param() data: ValidateUUID) {
     return this.guardsService.send('SINGULAR:DELETE', data);
   }
