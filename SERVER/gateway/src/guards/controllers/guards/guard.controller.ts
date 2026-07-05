@@ -13,6 +13,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { GuardDto, ValidateGuard } from './guard.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import {
+  ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -35,6 +36,7 @@ export class GuardController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(@Body() data: GuardDto): Observable<any> {
     return this.guardsService.send('GUARD:CREATE', data);
   }
