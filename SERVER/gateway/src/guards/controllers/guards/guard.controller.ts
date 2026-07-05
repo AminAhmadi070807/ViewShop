@@ -130,6 +130,20 @@ export class GuardController {
   @ApiNoContentResponse({
     description: statusMessages.fa['204'],
   })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'GUARD',
+      enum: ['GUARD'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   remove(@Param() data: ValidateUUID): Observable<any> {
     return this.guardsService.send('GUARD:DELETE', data);
   }
