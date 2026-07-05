@@ -61,10 +61,10 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:ONE', { id });
   }
 
-  @Delete(':id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  remove(@Param() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.guardsService.send('PERMISSION:DELETE', data);
   }
 }
