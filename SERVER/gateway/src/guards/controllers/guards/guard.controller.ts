@@ -59,6 +59,20 @@ export class GuardController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'GUARD',
+      enum: ['GUARD'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll(): Observable<any> {
     return this.guardsService.send('GUARD:FIND');
   }
