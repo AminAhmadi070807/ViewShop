@@ -10,10 +10,12 @@ import {
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -31,6 +33,8 @@ export class SingularController {
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: SingularDto) {
     return this.guardsService.send('SINGULAR:CREATE', data);
   }
