@@ -18,6 +18,7 @@ import {
   ApiHeader,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -48,6 +49,7 @@ export class PermissionsController {
   @Get('read/one')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeader({
     name: 'id',
     required: true,
