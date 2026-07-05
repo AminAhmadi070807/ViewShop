@@ -78,7 +78,7 @@ export class SingularController {
   @ApiOkResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   toggleAccess(@Body() data: UpdateSingularDto) {
-    return this.guardsService.send('SINGULAR:TOGGLE:PERMISSION', data);
+    return this.guardsService.send('SINGULAR:TOGGLE:ACCESS', data);
   }
 
   @Delete(':id')
