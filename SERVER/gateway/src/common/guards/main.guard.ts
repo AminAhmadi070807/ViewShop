@@ -41,8 +41,8 @@ export class MainGuard implements CanActivate {
       };
     } else {
       payload = {
-        feature: url[4].toUpperCase(),
-        permission: url[5].toUpperCase(),
+        feature: feature,
+        permission: permission,
         service: url[3].toUpperCase(),
         method: req.method.toUpperCase(),
       };

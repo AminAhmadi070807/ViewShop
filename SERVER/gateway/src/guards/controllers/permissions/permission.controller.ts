@@ -43,8 +43,8 @@ export class PermissionsController {
     return this.guardsService.send('PERMISSION:CREATE', data);
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
     {
       name: 'feature',
