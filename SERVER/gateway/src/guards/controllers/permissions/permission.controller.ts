@@ -55,11 +55,23 @@ export class PermissionsController {
 
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get('read/all')
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PERMISSIONS',
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+    },
+  ])
   findAll() {
     return this.guardsService.send('PERMISSION:FIND');
   }
 
-  @Get('read/one')
+  @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
