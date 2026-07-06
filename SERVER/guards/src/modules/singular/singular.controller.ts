@@ -19,7 +19,7 @@ export class SingularController {
   }
 
   @MessagePattern('SINGULAR:TOGGLE:ACCESS')
-  togglePermission(@Payload() data: UpdateSingularDto) {
+  toggleAccess(@Payload() data: UpdateSingularDto) {
     return this.singularService.toggleAccess(data);
   }
 
