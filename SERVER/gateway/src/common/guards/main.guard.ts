@@ -2,7 +2,6 @@ import {
   BadRequestException,
   CanActivate,
   ExecutionContext,
-  HttpException,
   Injectable,
 } from '@nestjs/common';
 import { GuardsService } from '../../guards/guards.service';
@@ -11,7 +10,6 @@ import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
 import { validate } from 'uuid';
 import { firstValueFrom } from 'rxjs';
-import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class MainGuard implements CanActivate {
@@ -26,9 +24,9 @@ export class MainGuard implements CanActivate {
     const feature: string = headers['feature'] as string;
     const permission: string = headers['permission'] as string;
 
-    // if (!feature || !permission) {
-    //   throw new BadRequestException('لطفا هدر هارا درست ارسال کنید');
-    // }
+    if (!feature || !permission) {
+      throw new BadRequestException('لطفا هدر هارا درست ارسال کنید');
+    }
 
     const user: JwtPayload = req.user as JwtPayload;
 
@@ -50,11 +48,11 @@ export class MainGuard implements CanActivate {
       };
     }
 
-    // const result = await firstValueFrom(
-    //   this.guardService.send('GUARD:VALIDATE', payload),
-    // );
-    //
-    // if (result.error.status !== 200) throw result;
+    const result = await firstValueFrom(
+      this.guardService.send('GUARD:VALIDATE', payload),
+    );
+
+    if (result.error.status !== 200) throw result;
 
     return true;
   }
