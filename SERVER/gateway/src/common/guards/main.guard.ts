@@ -2,6 +2,7 @@ import {
   BadRequestException,
   CanActivate,
   ExecutionContext,
+  HttpException,
   Injectable,
 } from '@nestjs/common';
 import { GuardsService } from '../../guards/guards.service';
@@ -47,11 +48,15 @@ export class MainGuard implements CanActivate {
       };
     }
 
-    const result = await firstValueFrom(
+    const result = (await firstValueFrom(
       this.guardService.send('GUARD:VALIDATE', payload),
-    );
+    )) as
+      | { status: number; message: string }
+      | { error: { status: number; message: string } };
 
-    if (result.error.status !== 200) throw result;
+    if ('error' in result) {
+      throw new HttpException(result.error, result.error.status);
+    }
 
     return true;
   }
