@@ -60,9 +60,18 @@ export class UpdateSingularDto {
     required: true,
     example: '',
   })
+  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
+  role: string;
+
   @IsNotEmpty({ message: 'ایدی پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  permissionId: string;
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: '',
+  })
+  permission: string;
 
   @ApiProperty({
     type: String,
@@ -71,5 +80,5 @@ export class UpdateSingularDto {
   })
   @IsNotEmpty({ message: 'ایدی سینگیولار نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  singularId: string;
+  id: string;
 }
