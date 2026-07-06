@@ -8,7 +8,6 @@ import { GuardsService } from '../../guards/guards.service';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import express from 'express';
 import { JwtPayload } from '../validation/jwt.dto';
-import { validate } from 'uuid';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -55,13 +54,5 @@ export class MainGuard implements CanActivate {
     if (result.error.status !== 200) throw result;
 
     return true;
-  }
-
-  private isUuid(value: string): boolean {
-    return validate(value);
-  }
-
-  private isPhoneNumber(value: string): boolean {
-    return /^(\+98|0)?9\d{9}$/.test(value);
   }
 }
