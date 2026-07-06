@@ -86,8 +86,8 @@ export class RoleController {
     {
       name: 'permission',
       required: true,
-      example: 'FIND:ONE',
-      enum: ['FIND:ONE'],
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
     },
   ])
   findOne(@Param() data: ValidateUUID) {
