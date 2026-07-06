@@ -161,10 +161,7 @@ export class GuardsService {
 
       if (result instanceof CustomException) return result;
 
-      let validate: boolean = false;
-      for (const permission of result.body) {
-        if (permission === guard.permission.id) validate = true;
-      }
+      const validate = result.body.some((p) => p === guard.permission.id);
 
       if (!validate) return new CustomException(statusMessages.fa['403'], 403);
 
