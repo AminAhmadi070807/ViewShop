@@ -1,16 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Put } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
-import express from 'express';
-import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
