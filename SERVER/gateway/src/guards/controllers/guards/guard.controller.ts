@@ -125,7 +125,7 @@ export class GuardController {
     });
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({
     description: statusMessages.fa['204'],
   })
@@ -143,7 +143,7 @@ export class GuardController {
       enum: ['DELETE'],
     },
   ])
-  remove(@Param() data: ValidateUUID): Observable<any> {
+  remove(@Body() data: ValidateUUID): Observable<any> {
     return this.guardsService.send('GUARD:DELETE', data);
   }
 }
