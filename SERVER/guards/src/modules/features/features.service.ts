@@ -121,7 +121,7 @@ export class FeaturesService {
         }
       }
 
-      if (!validate) return new CustomException(statusMessages.fa['404'], 404);
+      if (!validate) return new CustomException(statusMessages.fa['403'], 403);
 
       return await this.roleService.validate(roleId, feature.singular.id);
     } catch {
