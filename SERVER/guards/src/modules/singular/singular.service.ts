@@ -134,7 +134,7 @@ export class SingularService {
 
         if (result) {
           singular.data.forEach((item) => {
-            if (data.permission in item.permissions) {
+            if (!item.permissions.includes(data.permission)) {
               item.permissions.push(data.permission);
             } else {
               item.permissions = item.permissions.filter(
