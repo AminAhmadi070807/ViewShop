@@ -70,6 +70,12 @@ export class GuardsService {
         },
         relations: ['feature', 'permission'],
         select: {
+          id: true,
+          service: true,
+          method: true,
+          public: true,
+          updatedAt: true,
+          createdAt: true,
           feature: {
             id: true,
             title: true,
