@@ -95,7 +95,7 @@ export class SingularController {
     return this.guardsService.send('SINGULAR:TOGGLE:ACCESS', data);
   }
 
-  @Delete(':id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiHeaders([
     {
@@ -111,7 +111,7 @@ export class SingularController {
       enum: ['DELETE'],
     },
   ])
-  remove(@Param() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.guardsService.send('SINGULAR:DELETE', data);
   }
 }
