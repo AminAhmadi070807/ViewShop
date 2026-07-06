@@ -134,14 +134,12 @@ export class SingularService {
 
         if (result) {
           singular.data.forEach((item) => {
-            if (item.role === data.role) {
-              if (data.permission in item.permissions) {
-                item.permissions.push(data.permission);
-              } else {
-                item.permissions = item.permissions.filter(
-                  (p) => p !== data.permission,
-                );
-              }
+            if (data.permission in item.permissions) {
+              item.permissions.push(data.permission);
+            } else {
+              item.permissions = item.permissions.filter(
+                (p) => p !== data.permission,
+              );
             }
           });
         } else {
