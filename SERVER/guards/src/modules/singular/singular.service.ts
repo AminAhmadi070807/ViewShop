@@ -113,6 +113,7 @@ export class SingularService {
     }
   }
 
+  // toggle permission
   async toggleAccess(data: UpdateSingularDto) {
     try {
       const permission = await this.permissionService.findOne(data.permission);
