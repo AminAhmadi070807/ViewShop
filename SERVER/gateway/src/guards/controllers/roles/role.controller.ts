@@ -116,7 +116,7 @@ export class RoleController {
     return this.guardsService.send('ROLE:UPDATE', data);
   }
 
-  @Delete(':id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiHeaders([
     {
@@ -132,7 +132,7 @@ export class RoleController {
       enum: ['DELETE'],
     },
   ])
-  remove(@Param() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.guardsService.send('ROLE:DELETE', data);
   }
 }
