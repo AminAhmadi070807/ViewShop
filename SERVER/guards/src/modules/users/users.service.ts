@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { UserDto, UpdateUserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -21,7 +21,7 @@ export class UsersService {
     private readonly coreService: CoreService,
   ) {}
 
-  async create(data: CreateUserDto) {
+  async create(data: UserDto) {
     try {
       // check user in core database
       const result: CustomException | object = (await firstValueFrom(
@@ -115,7 +115,7 @@ export class UsersService {
       // find one user from database
       const user: User | null = await this.userRepository.findOne({
         where: {
-          id: data.userId,
+          id: data.user,
         },
         relations: ['role'],
         select: {
