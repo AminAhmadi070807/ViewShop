@@ -68,6 +68,17 @@ export class GuardsService {
         order: {
           createdAt: 'DESC',
         },
+        relations: ['feature', 'permission'],
+        select: {
+          feature: {
+            id: true,
+            title: true,
+          },
+          permission: {
+            id: true,
+            title: true,
+          },
+        },
       });
 
       return {
