@@ -65,9 +65,9 @@ export class SubCategoryController {
     });
   }
 
-  @Delete('/delete/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  delete(@Param() data: ValidateUUID) {
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:SUB:DELETE', data);
   }
 }
