@@ -108,63 +108,6 @@ export class CommentService {
     }
   }
 
-  async childComments(id: string) {
-    try {
-      const comments: Comment[] = await this.commentRepository.find({
-        where: {
-          product: {
-            id,
-          },
-          parentComment: IsNull(),
-        },
-        relations: ['user', 'product'],
-        order: {
-          createdAt: 'DESC',
-        },
-        select: {
-          id: true,
-          user: {
-            id: true,
-            fullName: true,
-          },
-          product: {
-            id: true,
-          },
-          status: true,
-          description: true,
-          score: true,
-        },
-      });
-
-      const commentsArray = [];
-      for (const comment of comments) {
-        const comments: Comment[] = await this.commentRepository.find({
-          where: {
-            parentComment: {
-              id: comment.id,
-            },
-            product: {
-              id,
-            },
-          },
-        });
-
-        commentsArray.push({
-          ...comment,
-          child: comments,
-        });
-      }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: commentsArray,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
   async update(data: UpdateCommentDto) {
     try {
       const result: UpdateResult = await this.commentRepository.update(
