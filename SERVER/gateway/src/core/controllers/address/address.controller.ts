@@ -16,8 +16,6 @@ import {
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiOperation,
-  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
@@ -33,7 +31,6 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 export class AddressController {
   constructor(private readonly coreService: CoreService) {}
 
-  // send request to create user in core microservice
   @Post()
   @ApiCreatedResponse({
     description: statusMessages.fa['201'],
@@ -52,14 +49,12 @@ export class AddressController {
     });
   }
 
-  // send request to find all in core microservice
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll(): Observable<unknown> {
     return this.coreService.send('ADDRESS:FIND');
   }
 
-  // send request to find one user in core microservice
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
@@ -67,7 +62,6 @@ export class AddressController {
     return this.coreService.send('ADDRESS:ONE', data);
   }
 
-  // send request to remove user with userId in core microservice
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   delete(@Body() data: ValidateUUID): Observable<unknown> {
