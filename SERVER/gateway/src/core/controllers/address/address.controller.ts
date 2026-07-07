@@ -13,6 +13,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -58,13 +59,11 @@ export class AddressController {
   }
 
   // send request to find one user in core microservice
-  @Get('user')
-  findUserAddress(@Req() req: express.Request): Observable<unknown> {
-    const user: JwtPayload = req.user as JwtPayload;
-
-    return this.coreService.send('ADDRESS:USER', {
-      userId: user.userId,
-    });
+  @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  findOne(@Param() data: ValidateUUID): Observable<unknown> {
+    return this.coreService.send('ADDRESS:ONE', data);
   }
 
   // send request to remove user with userId in core microservice
