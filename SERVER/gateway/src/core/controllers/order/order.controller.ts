@@ -54,6 +54,20 @@ export class OrderController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ORDER',
+      enum: ['ORDER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('ORDER:FIND');
   }
