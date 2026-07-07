@@ -2,7 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { CartService } from '../cart/cart.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
@@ -145,9 +145,13 @@ export class OrderService {
 
   async update(data: UpdateOrderDto) {
     try {
-      await this.orderRepository.update(data.id, {
+      const result: UpdateResult = await this.orderRepository.update(data.id, {
         status: data.status,
       });
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
