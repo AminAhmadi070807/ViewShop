@@ -224,27 +224,29 @@ export class AuthService {
 
   // verify token
   async verifyToken(data: AuthValidateDto) {
-    const tokens: Auth[] = await this.authRepository.find({
-      where: {
-        user: { id: data.userId },
-      },
-      order: {
-        id: 'DESC',
-      },
-      relations: ['user'],
-    });
+    try {
+      const tokens: Auth[] = await this.authRepository.find({
+        where: {
+          user: { id: data.userId },
+        },
+        order: {
+          id: 'DESC',
+        },
+        relations: ['user'],
+      });
 
-    // user the right token
-    let userToken: Auth | null = null;
+      // user the right token
+      let userToken: Auth | null = null;
 
-    // find validate token array
-    for (const token of tokens) {
-      const isToken: boolean = await bcrypt.compare(data.secret, token.secret);
+      // find validate token array
+      for (const token of tokens) {
+        const isToken = await bcrypt.compare(data.secret, token.secret);
 
-      if (isToken) userToken = token;
-    }
+        if (isToken) userToken = token;
+      }
 
-    if (userToken) {
+      if (!userToken) return new CustomException(statusMessages.fa['401'], 401);
+
       const access_token: string = this.jwtService.sign(
         {
           userId: data.userId,
@@ -261,15 +263,15 @@ export class AuthService {
       );
 
       return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa['200'],
         body: {
           access_token,
         },
-        message: 'Verify token successfully.',
-        status: HttpStatus.OK,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    throw new CustomException(statusMessages.fa['401'], 401);
   }
 
   // validation refresh token
