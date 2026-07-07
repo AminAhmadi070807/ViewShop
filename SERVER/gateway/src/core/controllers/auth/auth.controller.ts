@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -65,6 +66,20 @@ export class AuthController {
   @Public()
   @Post('register')
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'AUTH',
+      enum: ['AUTH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'REGISTER',
+      enum: ['REGISTER'],
+    },
+  ])
   register(@Body() data: AuthRegisterDto) {
     return this.coreService.send('AUTH:REGISTER', data);
   }
