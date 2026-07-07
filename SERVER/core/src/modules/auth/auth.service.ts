@@ -33,7 +33,7 @@ interface SmsInterface {
 }
 
 @Injectable()
-class AuthService {
+export class AuthService {
   constructor(
     @InjectRepository(Auth)
     private readonly authRepository: Repository<Auth>,
@@ -396,4 +396,3 @@ class AuthService {
     };
   }
 }
-export default AuthService;
