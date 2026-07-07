@@ -91,6 +91,20 @@ export class BrandController {
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'BRAND',
+      enum: ['BRAND'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   update(@Body() data: UpdateBrandDto) {
     return this.coreService.send('BRAND:UPDATE', data);
   }
