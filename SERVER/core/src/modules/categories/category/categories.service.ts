@@ -35,8 +35,7 @@ export class CategoriesService {
         },
       });
 
-      const newCategory: Category =
-        await this.categoryRepository.save(category);
+      const newCategory = await this.categoryRepository.save(category);
 
       return {
         status: 201,
