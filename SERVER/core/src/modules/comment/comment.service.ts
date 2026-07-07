@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
+import { IsNull, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ProductService } from '../products/product/product.service';
@@ -167,7 +167,14 @@ export class CommentService {
 
   async update(data: UpdateCommentDto) {
     try {
-      await this.commentRepository.update(data.id, { status: data.status });
+      const result: UpdateResult = await this.commentRepository.update(
+        data.id,
+        { status: data.status },
+      );
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
