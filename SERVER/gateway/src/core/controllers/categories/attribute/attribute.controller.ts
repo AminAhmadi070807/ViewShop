@@ -52,9 +52,9 @@ export class AttributeController {
     return this.coreService.send('CATEGORY:ATTRIBUTE:ONE', data);
   }
 
-  @Delete('delete/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['200'] })
-  delete(@Param() data: ValidateUUID) {
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
 }
