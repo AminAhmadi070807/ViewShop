@@ -46,9 +46,3 @@ export class AddressDto {
   @Matches(/^[0-9]{10}$/, { message: 'لطفا یه کد پستی درست وارد کنید' })
   postal_code: string;
 }
-
-export class FindUserAddressDto {
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی  نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا یه ایدی درست وارد کنید' })
-  userId: string;
-}

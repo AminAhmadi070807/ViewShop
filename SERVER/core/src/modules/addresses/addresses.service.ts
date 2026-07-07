@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AddressDto, FindUserAddressDto } from './dto/address.dto';
+import { AddressDto } from './dto/address.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
@@ -56,15 +56,10 @@ export class AddressesService {
     };
   }
 
-  async findUserAddress(data: FindUserAddressDto) {
+  async findOne(id: string) {
     try {
-      const address: Address | null = await this.addressRepository.findOne({
-        where: {
-          user: { id: data.userId },
-        },
-        order: {
-          createdAt: 'DESC',
-        },
+      const address: Address | null = await this.addressRepository.findOneBy({
+        id,
       });
 
       if (!address) return new CustomException(statusMessages.fa['404'], 404);

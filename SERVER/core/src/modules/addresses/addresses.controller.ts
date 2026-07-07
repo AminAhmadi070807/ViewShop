@@ -19,8 +19,8 @@ export class AddressesController {
   }
 
   @MessagePattern('ADDRESS:ONE')
-  findOne(@Payload() data: FindUserAddressDto) {
-    return this.addressesService.findUserAddress(data);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.addressesService.findOne(data);
   }
 
   @MessagePattern('ADDRESS:DELETE')
