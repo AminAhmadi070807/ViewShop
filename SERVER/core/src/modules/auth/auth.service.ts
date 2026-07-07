@@ -259,7 +259,7 @@ export class AuthService {
       );
 
       return {
-        status: HttpStatus.OK,
+        status: 200,
         message: statusMessages.fa['200'],
         body: {
           access_token,

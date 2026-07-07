@@ -143,9 +143,11 @@ export class AuthController {
     });
   }
 
-  @Post('verify')
   @PublicAccess()
+  @Post('verify')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
