@@ -75,18 +75,14 @@ export class UsersService {
 
   // get one user by id
   async findOne(id: string) {
-    const user: User | null = await this.userRepository.findOne({
-      where: {
-        id,
-      },
-    });
+    const user: User | null = await this.userRepository.findOneBy({ id });
 
     if (!user) throw new CustomException(statusMessages.fa['404'], 404);
 
     return {
       status: HttpStatus.OK,
-      body: user,
       message: statusMessages.fa['200'],
+      body: user,
     };
   }
 
