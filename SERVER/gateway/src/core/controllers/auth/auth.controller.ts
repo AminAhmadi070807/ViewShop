@@ -134,6 +134,20 @@ export class AuthController {
   @Post('verify_otp/:id')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiCreatedResponse({ description: statusMessages.fa.AUTH['201'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'AUTH',
+      enum: ['AUTH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'VERIFY:OTP',
+      enum: ['VERIFY:OTP'],
+    },
+  ])
   async verifyOTP(
     @Param() uuid: ValidateUUID,
     @Body() data: AuthVerifyOtp,
