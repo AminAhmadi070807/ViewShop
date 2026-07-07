@@ -318,56 +318,62 @@ export class AuthService {
   }
 
   // login user
-  async login(data: AuthLoginDto): Promise<AuthInterface> {
-    // find user
-    const user: User | null = await this.userRepository.findOneBy({
-      phone: data.phone,
-    });
+  async login(data: AuthLoginDto) {
+    try {
+      // find user
+      const user: User | null = await this.userRepository.findOneBy({
+        phone: data.phone,
+      });
 
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-    // validate password
-    const isPassword: boolean = await bcrypt.compare(
-      data.password,
-      user.password,
-    );
+      // validate password
+      const isPassword: boolean = await bcrypt.compare(
+        data.password,
+        user.password,
+      );
 
-    if (!isPassword) throw new CustomException(statusMessages.fa['404'], 404);
+      if (!isPassword) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
-    // create new secret key
-    const secret: string = crypto.randomUUID();
+      // create new secret key
+      const secret: string = crypto.randomUUID();
 
-    // create user refresh & access tokens
-    const tokens: AuthTokenInterface = this.generateToken(
-      user.id,
-      user.role,
-      secret,
-    );
+      // create user refresh & access tokens
+      const tokens: AuthTokenInterface = this.generateToken(
+        user.id,
+        user.role,
+        secret,
+      );
 
-    // hashed refresh token
-    const hashRefreshToken: string = await bcrypt.hash(
-      tokens.refresh_token,
-      12,
-    );
+      // hashed refresh token
+      const hashRefreshToken: string = await bcrypt.hash(
+        tokens.refresh_token,
+        12,
+      );
 
-    // hashed secret key
-    const hashSecret = bcrypt.hashSync(secret, 12);
+      // hashed secret key
+      const hashSecret = bcrypt.hashSync(secret, 12);
 
-    // create new token
-    const token: Auth = this.authRepository.create({
-      user,
-      token: hashRefreshToken,
-      secret: hashSecret,
-    });
+      // create new token
+      const token: Auth = this.authRepository.create({
+        user,
+        token: hashRefreshToken,
+        secret: hashSecret,
+      });
 
-    // save token in database
-    await this.authRepository.save(token);
+      // save token in database
+      await this.authRepository.save(token);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa.AUTH['200'],
-      body: tokens,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa.AUTH['200'],
+        body: tokens,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   // logout user
