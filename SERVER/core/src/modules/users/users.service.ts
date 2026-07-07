@@ -133,19 +133,19 @@ export class UsersService {
   // remove user by id
   async remove(id: string) {
     try {
-      await this.userRepository.delete(id);
+      const result = await this.userRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
-        body: null,
         status: HttpStatus.NO_CONTENT,
-        message: 'User removed successfully.',
+        message: statusMessages.fa['204'],
+        body: null,
       };
-    } catch (error) {
-      const err = error as Error;
-      throw new CustomException(
-        `Internal server error. error message: ${err.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 }
