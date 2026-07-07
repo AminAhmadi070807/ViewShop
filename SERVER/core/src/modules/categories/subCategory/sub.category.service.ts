@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubCategory } from '../entities/sub.category.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
 import { statusMessages } from '../../../common/message/message.status';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
@@ -158,7 +158,11 @@ export class SubCategoryService {
 
   async remove(id: string) {
     try {
-      await this.subCategoryRepository.delete(id);
+      const result: DeleteResult = await this.subCategoryRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
