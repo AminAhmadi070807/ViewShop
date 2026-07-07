@@ -87,6 +87,20 @@ export class AuthController {
   @Public()
   @Post('login')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'AUTH',
+      enum: ['AUTH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'LOGIN',
+      enum: ['LOGIN'],
+    },
+  ])
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
     const result: AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:LOGIN', {
