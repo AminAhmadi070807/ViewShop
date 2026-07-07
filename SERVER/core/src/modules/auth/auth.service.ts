@@ -375,6 +375,10 @@ export class AuthService {
         },
       });
 
+      if (!tokens.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
       for (const token of tokens) {
         if (await bcrypt.compare(data.secret, token.secret)) {
           await this.authRepository.delete(token.id);

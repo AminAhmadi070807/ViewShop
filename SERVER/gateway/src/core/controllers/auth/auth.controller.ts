@@ -16,6 +16,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -175,7 +176,7 @@ export class AuthController {
   }
 
   @Post('logout')
-  @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   logout(@Req() req: express.Request) {
