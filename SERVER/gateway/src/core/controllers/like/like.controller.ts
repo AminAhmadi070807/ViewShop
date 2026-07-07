@@ -5,6 +5,7 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -22,6 +23,20 @@ export class LikeController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'LIKE',
+      enum: ['LIKE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'TOGGLE',
+      enum: ['TOGGLE'],
+    },
+  ])
   toggle(@Body() data: LikeDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
