@@ -189,6 +189,20 @@ export class AuthController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'AUTH',
+      enum: ['AUTH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'VERIFY:TOKEN',
+      enum: ['VERIFY:TOKEN'],
+    },
+  ])
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
