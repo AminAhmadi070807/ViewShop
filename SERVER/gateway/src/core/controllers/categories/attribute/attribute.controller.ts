@@ -54,6 +54,7 @@ export class AttributeController {
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   delete(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
