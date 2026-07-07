@@ -13,7 +13,6 @@ import express from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
 import { firstValueFrom } from 'rxjs';
 import {
-  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,

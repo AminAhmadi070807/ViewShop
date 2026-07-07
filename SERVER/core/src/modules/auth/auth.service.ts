@@ -376,13 +376,7 @@ export class AuthService {
       });
 
       for (const token of tokens) {
-        const validToken: boolean = await bcrypt.compare(
-          data.secret,
-          token.secret,
-        );
-
-        // remove user token
-        if (validToken) {
+        if (await bcrypt.compare(data.secret, token.secret)) {
           await this.authRepository.delete(token.id);
           break;
         }
