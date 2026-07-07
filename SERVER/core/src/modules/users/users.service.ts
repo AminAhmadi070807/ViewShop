@@ -88,21 +88,23 @@ export class UsersService {
 
   // get one user by phone number
   async findByPhone(phone: string) {
-    // find one user by phone number
-    const user: User | null = await this.userRepository.findOne({
-      where: {
+    try {
+      // find one user by phone number
+      const user: User | null = await this.userRepository.findOneBy({
         phone: phone,
-      },
-    });
+      });
 
-    // send error to client
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+      // send error to client
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-    return {
-      status: 200,
-      message: statusMessages.fa['204'],
-      body: user,
-    };
+      return {
+        status: 200,
+        message: statusMessages.fa['204'],
+        body: user,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   // update user information
