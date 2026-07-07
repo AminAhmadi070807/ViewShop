@@ -39,6 +39,12 @@ export class ArticlesService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
+      const existing = await this.articleRepository.findOneBy({
+        title: data.title,
+      });
+
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
       const article: Article = this.articleRepository.create({
         category: category.body,
         cover: media.body[0],
