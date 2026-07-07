@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CategoryDto, UpdateCategoryDto } from '../dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
-import { DeleteResult, In, Repository } from 'typeorm';
+import { DeleteResult, In, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 
@@ -122,10 +122,14 @@ export class CategoriesService {
 
   async update(data: UpdateCategoryDto) {
     try {
-      await this.categoryRepository.update(
+      const result: UpdateResult = await this.categoryRepository.update(
         { id: data.id },
         { alias: data.alias, title: data.title, icon: { id: data.icon } },
       );
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
