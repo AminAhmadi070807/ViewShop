@@ -3,7 +3,6 @@ import { AddressDto } from './dto/address.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
-import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -12,34 +11,30 @@ export class AddressesService {
   constructor(
     @InjectRepository(Address)
     private readonly addressRepository: Repository<Address>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
   ) {}
 
   async create(data: AddressDto) {
-    const user: User | null = await this.userRepository.findOneBy({
-      id: data.user,
-    });
+    try {
+      const address: Address = this.addressRepository.create({
+        user: { id: data.user },
+        street: data.street,
+        city: data.city,
+        address: data.address,
+        province: data.province,
+        postal_code: data.postal_code,
+        alley: data.alley,
+      });
 
-    if (!user) throw new CustomException(statusMessages.fa['404'], 404);
+      await this.addressRepository.save(address);
 
-    const address: Address = this.addressRepository.create({
-      user,
-      street: data.street,
-      city: data.city,
-      address: data.address,
-      province: data.province,
-      postal_code: data.postal_code,
-      alley: data.alley,
-    });
-
-    await this.addressRepository.save(address);
-
-    return {
-      status: 201,
-      message: statusMessages.fa['201'],
-      body: null,
-    };
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findAll() {
