@@ -105,6 +105,20 @@ export class AddressController {
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   delete(@Body() data: ValidateUUID): Observable<unknown> {
     return this.coreService.send('ADDRESS:DELETE', data);
   }
