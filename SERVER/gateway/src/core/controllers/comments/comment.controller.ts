@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Patch,
   Post,
   Req,
@@ -32,6 +31,7 @@ export class CommentController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: CommentDto, @Req() req: express.Request) {
@@ -47,12 +47,6 @@ export class CommentController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('COMMENT:FIND');
-  }
-
-  @Get('/:id')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  findComment(@Param() data: ValidateUUID) {
-    return this.coreService.send('COMMENT:FIND:PRODUCT', data);
   }
 
   @Patch()
