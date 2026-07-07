@@ -12,10 +12,12 @@ import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { SubCategoryDto, UpdateSubCategoryDto } from './sub.category.dto';
@@ -30,6 +32,8 @@ export class SubCategoryController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: SubCategoryDto, @Req() req: express.Request) {
