@@ -32,7 +32,6 @@ export class FeatureController {
   constructor(private readonly guardService: GuardsService) {}
 
   @Post()
-  @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
