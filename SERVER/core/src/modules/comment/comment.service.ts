@@ -23,17 +23,15 @@ export class CommentService {
       const user = await this.userService.findOne(data.user);
       const product = await this.productService.findOne(data.product);
 
-      if (user.status !== HttpStatus.OK || product instanceof RpcException) {
+      if (user instanceof RpcException || product instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
       const comment = new Comment();
       if (data.parentComment) {
-        const existing: Comment | null = await this.commentRepository.findOneBy(
-          {
-            id: data.parentComment,
-          },
-        );
+        const existing = await this.commentRepository.findOneBy({
+          id: data.parentComment,
+        });
 
         if (!existing) {
           return new CustomException(statusMessages.fa['404'], 404);
@@ -54,8 +52,7 @@ export class CommentService {
         message: statusMessages.fa['201'],
         body: null,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
