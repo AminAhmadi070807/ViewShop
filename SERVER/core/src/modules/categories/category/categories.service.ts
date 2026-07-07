@@ -51,9 +51,6 @@ export class CategoriesService {
   async findAll() {
     try {
       const categories: Category[] = await this.categoryRepository.find({
-        order: {
-          id: 'DESC',
-        },
         relations: ['user'],
         select: {
           icon: {
