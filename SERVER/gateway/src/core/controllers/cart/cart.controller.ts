@@ -35,7 +35,7 @@ export class CartController {
     return this.coreService.send('CART:FIND');
   }
 
-  @Get('user')
+  @Get('my-cart')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findOne(@Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
