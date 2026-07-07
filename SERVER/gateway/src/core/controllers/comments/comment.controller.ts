@@ -60,6 +60,20 @@ export class CommentController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'COMMENT',
+      enum: ['COMMENT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('COMMENT:FIND');
   }
