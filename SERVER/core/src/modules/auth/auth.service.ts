@@ -45,11 +45,7 @@ export class AuthService {
     private readonly redisService: RedisService,
   ) {}
 
-  generateToken(
-    id: string,
-    role: UserRoleEnum,
-    secret: string,
-  ): AuthTokenInterface {
+  generateToken(id: string, role: UserRoleEnum, secret: string) {
     // user access token
     const access_token = this.jwtService.sign(
       {
@@ -105,7 +101,7 @@ export class AuthService {
   }
 
   // register user
-  async register(data: AuthRegisterDto): Promise<AuthRegisterInterface> {
+  async register(data: AuthRegisterDto) {
     // find user with phone number from database
     const existing: User | null = await this.userRepository.findOneBy({
       phone: data.phone,
@@ -233,7 +229,7 @@ export class AuthService {
   }
 
   // verify token
-  async verifyToken(data: AuthValidateDto): Promise<VerifyTokenInterface> {
+  async verifyToken(data: AuthValidateDto) {
     const tokens: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },
@@ -283,9 +279,7 @@ export class AuthService {
   }
 
   // validation refresh token
-  async validateRefreshToken(
-    data: AuthValidateDto,
-  ): Promise<AuthValidateInterface> {
+  async validateRefreshToken(data: AuthValidateDto) {
     const tokens: Auth[] = await this.authRepository.find({
       where: {
         user: { id: data.userId },
