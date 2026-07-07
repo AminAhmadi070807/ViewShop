@@ -73,6 +73,7 @@ export class ArticleController {
   @Patch('status')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   updateStatus(@Body() data: UpdateArticleStatusDto) {
     return this.coreService.send('ARTICLE:UPDATE:STATUS', data);
