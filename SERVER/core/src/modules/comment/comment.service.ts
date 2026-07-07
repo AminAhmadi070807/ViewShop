@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, IsNull, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ProductService } from '../products/product/product.service';
@@ -188,7 +188,11 @@ export class CommentService {
 
   async remove(id: string) {
     try {
-      await this.commentRepository.delete(id);
+      const result: DeleteResult = await this.commentRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
