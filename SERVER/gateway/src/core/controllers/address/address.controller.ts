@@ -12,6 +12,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -35,6 +36,20 @@ export class AddressController {
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(
     @Body() data: AddressDto,
     @Req() req: express.Request,
