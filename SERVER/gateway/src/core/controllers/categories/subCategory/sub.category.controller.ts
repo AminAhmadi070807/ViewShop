@@ -134,6 +134,20 @@ export class SubCategoryController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CATEGORY:SUB',
+      enum: ['CATEGORY:SUB'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   delete(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:SUB:DELETE', data);
   }
