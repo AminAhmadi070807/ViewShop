@@ -11,10 +11,12 @@ import { CoreService } from '../../../core.service';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 import { AttributeCategoryDto } from './attribute.dto';
@@ -29,6 +31,8 @@ export class AttributeController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: AttributeCategoryDto, @Req() req: express.Request) {
