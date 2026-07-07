@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AddressDto } from './dto/address.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -93,7 +93,11 @@ export class AddressesService {
 
   async remove(id: string) {
     try {
-      await this.addressRepository.delete(id);
+      const result: DeleteResult = await this.addressRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
