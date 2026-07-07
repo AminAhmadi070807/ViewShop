@@ -73,7 +73,6 @@ export class AuthController {
   @Post('login')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
-    // get tokens from core microservice
     const result: AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:LOGIN', {
         phone: data.phone,
@@ -81,8 +80,6 @@ export class AuthController {
       }),
     )) as AuthInterface;
 
-    // set refresh & access token to cookies
-    // set refresh token to cookies
     this.setToken(
       res,
       'refresh_token',
@@ -96,7 +93,7 @@ export class AuthController {
       result.body.access_token,
       this.accessTokenOptions,
     );
-    // send response to client
+
     return res.status(200).json({
       statusCode: 200,
       message: statusMessages.fa.AUTH['200'],
