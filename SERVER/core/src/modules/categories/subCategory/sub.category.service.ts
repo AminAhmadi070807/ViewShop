@@ -64,33 +64,28 @@ export class SubCategoryService {
 
   async findAll() {
     try {
-      const subCategories: SubCategory[] =
-        await this.subCategoryRepository.find({
-          order: {
-            id: 'DESC',
+      const subCategories = await this.subCategoryRepository.find({
+        relations: ['category', 'user'],
+        select: {
+          category: {
+            id: true,
+            alias: true,
+            title: true,
+            icon: true,
           },
-          relations: ['category', 'user'],
-          select: {
-            category: {
-              id: true,
-              alias: true,
-              title: true,
-              icon: true,
-            },
-            user: {
-              fullName: true,
-              id: true,
-            },
+          user: {
+            fullName: true,
+            id: true,
           },
-        });
+        },
+      });
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
         body: subCategories,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
