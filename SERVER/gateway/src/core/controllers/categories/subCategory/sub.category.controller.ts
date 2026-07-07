@@ -54,7 +54,7 @@ export class SubCategoryController {
     return this.coreService.send('CATEGORY:SUB:ONE', data);
   }
 
-  @Patch('/update')
+  @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateSubCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
