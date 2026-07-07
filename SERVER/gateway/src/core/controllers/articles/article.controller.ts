@@ -19,6 +19,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -29,15 +30,15 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/articles')
-@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class ArticleController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   create(@Body() data: ArticleDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
