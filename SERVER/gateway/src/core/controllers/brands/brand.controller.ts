@@ -12,6 +12,7 @@ import { BrandDto, UpdateBrandDto } from './brand.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -28,6 +29,20 @@ export class BrandController {
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'BRAND',
+      enum: ['BRAND'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: BrandDto) {
     return this.coreService.send('BRAND:CREATE', data);
   }
