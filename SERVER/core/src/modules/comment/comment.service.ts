@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
@@ -59,7 +59,7 @@ export class CommentService {
 
   async findAll() {
     try {
-      const comments: Comment[] = await this.commentRepository.find({
+      const comments = await this.commentRepository.find({
         where: {
           parentComment: IsNull(),
         },
