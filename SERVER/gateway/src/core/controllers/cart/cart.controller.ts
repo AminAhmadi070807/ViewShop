@@ -46,6 +46,20 @@ export class CartController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CART',
+      enum: ['CART'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('CART:FIND');
   }
