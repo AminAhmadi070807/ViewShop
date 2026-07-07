@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CategoryDto, UpdateCategoryDto } from '../dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
-import { In, Repository } from 'typeorm';
+import { DeleteResult, In, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 
@@ -139,7 +139,11 @@ export class CategoriesService {
 
   async remove(id: string) {
     try {
-      await this.categoryRepository.delete(id);
+      const result: DeleteResult = await this.categoryRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
