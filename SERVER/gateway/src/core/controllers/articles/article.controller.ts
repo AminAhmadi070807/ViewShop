@@ -81,6 +81,9 @@ export class ArticleController {
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('ARTICLE:DELETE', data);
   }
