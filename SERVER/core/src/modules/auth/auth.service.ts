@@ -12,13 +12,7 @@ import { UserRoleEnum } from '../../common/enums/users/user.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { StringValue } from 'ms';
-import {
-  AuthInterface,
-  AuthRegisterInterface,
-  AuthTokenInterface,
-  AuthValidateInterface,
-  VerifyTokenInterface,
-} from '../../common/interfaces/auth.interface';
+import { AuthTokenInterface } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
