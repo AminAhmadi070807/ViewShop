@@ -67,6 +67,26 @@ export class ArticleController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ARTICLE',
+      enum: ['ARTICLE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: [
+        'READ',
+        'READ:DRAFT',
+        'READ:PUBLISHED',
+        'READ:DELETED',
+        'READ:COMPLETION',
+      ],
+    },
+  ])
   findAll() {
     return this.coreService.send('ARTICLE:FIND');
   }
