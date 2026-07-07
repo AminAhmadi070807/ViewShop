@@ -52,6 +52,7 @@ export class AddressController {
 
   // send request to find all in core microservice
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll(): Observable<unknown> {
     return this.coreService.send('ADDRESS:FIND');
   }
