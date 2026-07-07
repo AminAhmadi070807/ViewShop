@@ -61,6 +61,20 @@ export class AttributeController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ATTRIBUTE',
+      enum: ['ATTRIBUTE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('CATEGORY:ATTRIBUTE:FIND');
   }
