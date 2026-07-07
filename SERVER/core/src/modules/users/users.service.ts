@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
 import { statusMessages } from '../../common/message/message.status';
@@ -114,19 +114,19 @@ export class UsersService {
   // update user information
   async update(id: string, data: UpdateUserDto) {
     try {
-      await this.userRepository.update(id, data);
+      const result: UpdateResult = await this.userRepository.update(id, data);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: HttpStatus.OK,
         message: 'User updated successfully.',
         body: null,
       };
-    } catch (error) {
-      const err = error as Error;
-      throw new CustomException(
-        `Internal server error. error message: ${err.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
