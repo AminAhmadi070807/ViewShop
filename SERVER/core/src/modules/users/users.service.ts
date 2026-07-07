@@ -52,7 +52,7 @@ export class UsersService {
       // get all user from database
       const user: User[] = await this.userRepository.find({
         order: {
-          id: -1,
+          createdAt: 'DESC',
         },
         select: {
           id: true,
@@ -65,15 +65,11 @@ export class UsersService {
       // send response to client
       return {
         status: HttpStatus.OK,
-        body: user,
         message: statusMessages.fa['200'],
+        body: user,
       };
-    } catch (error) {
-      const err = error as Error;
-      throw new CustomException(
-        `Internal server error. error message: ${err.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
