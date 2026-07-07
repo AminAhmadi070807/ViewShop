@@ -178,7 +178,7 @@ export class AuthController {
   @Post('logout')
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiNotFoundResponse({ description: statusMessages.fa['404' })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   logout(@Req() req: express.Request) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
