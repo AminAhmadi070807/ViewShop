@@ -101,18 +101,12 @@ export class AttributeService {
           id: In(id),
         },
         relations: ['icon'],
-        order: {
-          id: 'DESC',
-        },
         select: {
           icon: {
             id: true,
             path: true,
             title: true,
           },
-          title: true,
-          alias: true,
-          id: true,
         },
       });
 
