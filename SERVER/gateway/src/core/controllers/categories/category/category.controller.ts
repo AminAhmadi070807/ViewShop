@@ -59,7 +59,7 @@ export class CategoryController {
     return this.coreService.send('CATEGORY:ONE', data);
   }
 
-  @Patch('update')
+  @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   update(@Body() data: UpdateCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
