@@ -13,6 +13,7 @@ import { CategoryDto, UpdateCategoryDto } from './category.dto';
 import express from 'express';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
+  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -61,6 +62,10 @@ export class CategoryController {
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
