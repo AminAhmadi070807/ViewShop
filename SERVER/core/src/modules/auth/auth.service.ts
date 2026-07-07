@@ -287,15 +287,18 @@ export class AuthService {
       });
 
       // token validate boolean array
-      const isValidTokenArray: boolean[] = [];
+      let isValidate: boolean = false;
 
       // find validate token array
       for (const token of tokens) {
-        isValidTokenArray.push(await bcrypt.compare(data.secret, token.secret));
+        if (await bcrypt.compare(data.secret, token.secret)) {
+          isValidate = true;
+          break;
+        }
       }
 
       // validation tokens array
-      if (!isValidTokenArray.includes(true)) {
+      if (!isValidate) {
         return new CustomException(statusMessages.fa['401'], 401);
       }
 
