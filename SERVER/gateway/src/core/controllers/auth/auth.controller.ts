@@ -61,17 +61,13 @@ export class AuthController {
     res.cookie(title, token, options);
   }
 
-  // authorization error
   @Public()
-  @ApiConflictResponse({
-    description: statusMessages.fa['409'],
-  })
   @Post('register')
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   register(@Body() data: AuthRegisterDto) {
     return this.coreService.send('AUTH:REGISTER', data);
   }
 
-  // authorization error
   @Public()
   @Post('login')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
@@ -107,7 +103,6 @@ export class AuthController {
     });
   }
 
-  // authorization error
   @Public()
   @Post('verify_otp/:id')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
