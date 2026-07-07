@@ -25,12 +25,12 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/comments')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 export class CommentController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: CommentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
