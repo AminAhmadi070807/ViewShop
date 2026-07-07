@@ -83,6 +83,20 @@ export class SubCategoryController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CATEGORY:SUB',
+      enum: ['CATEGORY:SUB'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:SUB:ONE', data);
   }
