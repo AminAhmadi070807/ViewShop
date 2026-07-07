@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AddressesService } from './addresses.service';
-import { AddressDto, FindUserAddressDto } from './dto/address.dto';
+import { AddressDto } from './dto/address.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()

@@ -45,7 +45,7 @@ export class AddressesService {
   async findAll() {
     const addresses: Address[] = await this.addressRepository.find({
       order: {
-        id: 'DESC',
+        createdAt: 'DESC',
       },
     });
 
