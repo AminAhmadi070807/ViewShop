@@ -102,11 +102,9 @@ export class CategoriesService {
 
   async findOne(id: string) {
     try {
-      const category: Category | null = await this.categoryRepository.findOneBy(
-        {
-          id,
-        },
-      );
+      const category = await this.categoryRepository.findOneBy({
+        id,
+      });
 
       if (!category) return new CustomException(statusMessages.fa['404'], 404);
 
