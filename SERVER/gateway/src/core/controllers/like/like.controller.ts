@@ -36,12 +36,4 @@ export class LikeController {
   findAll() {
     return this.coreService.send('LIKE:FIND');
   }
-
-  @Get('/user')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  findUser(@Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
-
-    return this.coreService.send('LIKE:USER', { id: user.userId });
-  }
 }
