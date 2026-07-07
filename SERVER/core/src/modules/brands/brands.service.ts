@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brand } from './entities/brand.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -109,7 +109,11 @@ export class BrandsService {
 
   async remove(id: string) {
     try {
-      await this.brandRepository.delete(id);
+      const result: DeleteResult = await this.brandRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
