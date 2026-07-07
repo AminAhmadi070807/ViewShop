@@ -85,7 +85,7 @@ export class FeaturesService {
     try {
       const result: UpdateResult = await this.featureRepository.update(
         data.id,
-        { title: data.title },
+        { title: data.title.trim().toUpperCase() },
       );
 
       if (!result.affected) {

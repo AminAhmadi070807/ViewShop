@@ -47,7 +47,6 @@ export class MainGuard implements CanActivate {
         method: req.method.toUpperCase(),
       };
     }
-    console.log(payload);
 
     const result = (await firstValueFrom(
       this.guardService.send('GUARD:VALIDATE', payload),
