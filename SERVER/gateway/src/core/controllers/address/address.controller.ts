@@ -13,6 +13,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -67,15 +68,9 @@ export class AddressController {
   }
 
   // send request to remove user with userId in core microservice
-  @Delete('/:id')
-  @ApiOperation({ description: 'حذف کاربر با ایدی' })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'uuid',
-    description: 'ایدی کاربر',
-  })
-  delete(@Param() data: ValidateUUID): Observable<unknown> {
+  @Delete()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  delete(@Body() data: ValidateUUID): Observable<unknown> {
     return this.coreService.send('ADDRESS:DELETE', data);
   }
 }
