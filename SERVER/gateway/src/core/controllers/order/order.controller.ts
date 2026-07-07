@@ -37,6 +37,7 @@ export class OrderController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['401'] })
   findAll() {
     return this.coreService.send('ORDER:FIND');
   }
