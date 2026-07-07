@@ -43,17 +43,21 @@ export class AddressesService {
   }
 
   async findAll() {
-    const addresses: Address[] = await this.addressRepository.find({
-      order: {
-        createdAt: 'DESC',
-      },
-    });
+    try {
+      const addresses: Address[] = await this.addressRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
 
-    return {
-      status: 200,
-      message: statusMessages.fa['200'],
-      body: addresses,
-    };
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: addresses,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async findOne(id: string) {
