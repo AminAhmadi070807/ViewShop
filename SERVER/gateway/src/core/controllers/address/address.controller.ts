@@ -64,6 +64,20 @@ export class AddressController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll(): Observable<unknown> {
     return this.coreService.send('ADDRESS:FIND');
   }
