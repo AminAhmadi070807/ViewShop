@@ -18,8 +18,8 @@ export class AddressesController {
     return this.addressesService.findAll();
   }
 
-  @MessagePattern('ADDRESS:USER')
-  findUserAddress(@Payload() data: FindUserAddressDto) {
+  @MessagePattern('ADDRESS:ONE')
+  findOne(@Payload() data: FindUserAddressDto) {
     return this.addressesService.findUserAddress(data);
   }
 
