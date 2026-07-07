@@ -20,7 +20,7 @@ export class AddressesController {
 
   @MessagePattern('ADDRESS:ONE')
   findOne(@Payload() data: ValidateUUID) {
-    return this.addressesService.findOne(data);
+    return this.addressesService.findOne(data.id);
   }
 
   @MessagePattern('ADDRESS:DELETE')
