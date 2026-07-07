@@ -97,37 +97,33 @@ export class SubCategoryService {
 
   async findOne(id: string) {
     try {
-      const subCategory: SubCategory | null =
-        await this.subCategoryRepository.findOne({
-          where: {
-            id: id,
+      const result = await this.subCategoryRepository.findOne({
+        where: {
+          id: id,
+        },
+        relations: ['category', 'user'],
+        select: {
+          category: {
+            id: true,
+            alias: true,
+            title: true,
+            icon: true,
           },
-          order: {
-            id: 'DESC',
+          user: {
+            fullName: true,
+            id: true,
           },
-          relations: ['category', 'user'],
-          select: {
-            category: {
-              id: true,
-              alias: true,
-              title: true,
-              icon: true,
-            },
-            user: {
-              fullName: true,
-              id: true,
-            },
-          },
-        });
+        },
+      });
 
-      if (!subCategory) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: subCategory,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
