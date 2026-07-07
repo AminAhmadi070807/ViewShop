@@ -18,6 +18,7 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -39,6 +40,7 @@ export class ArticleController {
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ArticleDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
