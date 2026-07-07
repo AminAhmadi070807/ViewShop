@@ -75,12 +75,16 @@ export class AddressesService {
   }
 
   async remove(id: string) {
-    await this.addressRepository.delete(id);
+    try {
+      await this.addressRepository.delete(id);
 
-    return {
-      status: 204,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
