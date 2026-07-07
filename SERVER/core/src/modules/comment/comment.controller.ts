@@ -18,11 +18,6 @@ export class CommentController {
     return this.commentService.findAll();
   }
 
-  @MessagePattern('COMMENT:FIND:PRODUCT')
-  findProductComments(@Payload() data: ValidateUUID) {
-    return this.commentService.childComments(data.id);
-  }
-
   @MessagePattern('COMMENT:UPDATE')
   update(@Payload() data: UpdateCommentDto) {
     return this.commentService.update(data);
