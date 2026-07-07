@@ -32,9 +32,7 @@ export class AddressController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiCreatedResponse({
-    description: statusMessages.fa['201'],
-  })
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(
