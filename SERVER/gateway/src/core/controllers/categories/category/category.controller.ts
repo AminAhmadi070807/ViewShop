@@ -15,6 +15,7 @@ import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -30,6 +31,7 @@ export class CategoryController {
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: CategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
