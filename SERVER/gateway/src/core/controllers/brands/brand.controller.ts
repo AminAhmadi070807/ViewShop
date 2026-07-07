@@ -12,6 +12,7 @@ import { BrandDto, UpdateBrandDto } from './brand.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -20,6 +21,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/brands')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class BrandController {
   constructor(private readonly coreService: CoreService) {}
 
