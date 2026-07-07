@@ -105,6 +105,7 @@ export class AddressController {
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     {
       name: 'feature',
