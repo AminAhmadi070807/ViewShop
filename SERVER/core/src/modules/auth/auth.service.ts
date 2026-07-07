@@ -371,28 +371,35 @@ export class AuthService {
   }
 
   // logout user
-  async logout(data: AuthValidateDto): Promise<AuthValidateInterface> {
-    // get user tokens
-    const tokens: Auth[] = await this.authRepository.find({
-      where: {
-        user: { id: data.userId },
-      },
-    });
+  async logout(data: AuthValidateDto) {
+    try {
+      // get user tokens
+      const tokens: Auth[] = await this.authRepository.find({
+        where: {
+          user: { id: data.userId },
+        },
+      });
 
-    for (const token of tokens) {
-      const validToken: boolean = await bcrypt.compare(
-        data.secret,
-        token.secret,
-      );
+      for (const token of tokens) {
+        const validToken: boolean = await bcrypt.compare(
+          data.secret,
+          token.secret,
+        );
 
-      // remove user token
-      if (validToken) await this.authRepository.delete(token.id);
+        // remove user token
+        if (validToken) {
+          await this.authRepository.delete(token.id);
+          break;
+        }
+      }
+
+      return {
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    return {
-      status: HttpStatus.NO_CONTENT,
-      message: statusMessages.fa['204'],
-      body: null,
-    };
   }
 }
