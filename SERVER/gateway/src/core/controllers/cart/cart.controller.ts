@@ -5,6 +5,7 @@ import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
   ApiConflictResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -20,6 +21,20 @@ export class CartController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CART',
+      enum: ['CART'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: CartDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
