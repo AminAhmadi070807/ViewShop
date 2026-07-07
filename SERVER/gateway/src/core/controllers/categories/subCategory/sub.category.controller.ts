@@ -62,6 +62,20 @@ export class SubCategoryController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CATEGORY:SUB',
+      enum: ['CATEGORY:SUB'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('CATEGORY:SUB:FIND');
   }
