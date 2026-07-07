@@ -13,7 +13,6 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/likes')
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class LikeController {
   constructor(private readonly coreService: CoreService) {}
@@ -21,6 +20,7 @@ export class LikeController {
   @Post()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   toggle(@Body() data: LikeDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
