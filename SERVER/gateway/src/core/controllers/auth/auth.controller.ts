@@ -29,12 +29,8 @@ import { PublicAccess } from '../../../common/decorators/public.access.decorator
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 
-@ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
-@ApiInternalServerErrorResponse({
-  description: statusMessages.fa['500'],
-})
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @Controller('core/auth')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class AuthController {
   constructor(private readonly coreService: CoreService) {}
 
@@ -77,10 +73,8 @@ export class AuthController {
 
   // authorization error
   @Public()
-  @ApiNotFoundResponse({
-    description: statusMessages.fa['404'],
-  })
   @Post('login')
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
     // get tokens from core microservice
     const result: AuthInterface = (await firstValueFrom(
@@ -115,11 +109,9 @@ export class AuthController {
 
   // authorization error
   @Public()
-  @ApiNotFoundResponse({
-    description: statusMessages.fa['404'],
-  })
-  @ApiCreatedResponse({ description: statusMessages.fa.AUTH['201'] })
   @Post('verify_otp/:id')
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiCreatedResponse({ description: statusMessages.fa.AUTH['201'] })
   async verifyOTP(
     @Param('id') id: string,
     @Body() data: AuthVerifyOtp,
@@ -156,10 +148,9 @@ export class AuthController {
     });
   }
 
-  // verify access token
+  @Post('verify')
   @PublicAccess()
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @Post('verify')
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
@@ -189,9 +180,9 @@ export class AuthController {
     });
   }
 
+  @Post('logout')
   @ApiOkResponse({ description: statusMessages.fa.AUTH['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @Post('logout')
   logout(@Req() req: express.Request) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
