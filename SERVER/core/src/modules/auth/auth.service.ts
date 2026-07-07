@@ -102,48 +102,54 @@ export class AuthService {
 
   // register user
   async register(data: AuthRegisterDto) {
-    // find user with phone number from database
-    const existing: User | null = await this.userRepository.findOneBy({
-      phone: data.phone,
-      verified: true,
-    });
+    try {
+      // find user with phone number from database
+      const existing: User | null = await this.userRepository.findOneBy({
+        phone: data.phone,
+        verified: true,
+      });
 
-    // send conflict exception
-    if (existing) throw new CustomException(statusMessages.fa['409'], 409);
+      // send conflict exception
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-    const ttl: number = await this.redisService.ttl(data.phone);
+      const ttl: number = await this.redisService.ttl(data.phone);
 
-    // was a ttl phone number send remaining ttl
-    if (ttl > 0) {
-      // get route from redis with phone number
-      const route: string = (await this.redisService.get(data.phone)) as string;
-      // send response to client
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['409'],
-        body: {
-          route,
-          ttl,
-        },
-      };
-    }
+      // was a ttl phone number send remaining ttl
+      if (ttl > 0) {
+        // get route from redis with phone number
+        const route: string = (await this.redisService.get(
+          data.phone,
+        )) as string;
+        // send response to client
+        return {
+          status: HttpStatus.OK,
+          message: statusMessages.fa['409'],
+          body: {
+            route,
+            ttl,
+          },
+        };
+      }
 
-    // random otp code
-    const randomCode: number = crypto.randomInt(100000, 999999);
+      // random otp code
+      const randomCode: number = crypto.randomInt(100000, 999999);
 
-    // send otp code to user by sms service
-    const sms: SmsInterface = await this.smsService.Mediana({
-      phone: data.phone,
-      code: `${randomCode}`,
-    });
+      // send otp code to user by sms service
+      const sms: SmsInterface = await this.smsService.Mediana({
+        phone: data.phone,
+        code: `${randomCode}`,
+      });
 
-    // hashed user password
-    const hashedPassword: string = await bcrypt.hash(data.password, 12);
-    // random user verify route
-    const randomRoute: string = crypto.randomUUID();
+      // hashed user password
+      const hashedPassword: string = await bcrypt.hash(data.password, 12);
+      // random user verify route
+      const randomRoute: string = crypto.randomUUID();
 
-    // To send sms was successfully send response to client
-    if (sms.status === HttpStatus.OK) {
+      // To send sms was successfully send response to client
+      if (sms.status === HttpStatus.OK) {
+        return new CustomException(sms.message, sms.status);
+      }
+
       // set data in redis
       await this.redisService.set(
         randomRoute,
@@ -161,9 +167,9 @@ export class AuthService {
           ttl: 180,
         },
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    throw new CustomException(sms.message, sms.status);
   }
 
   // verify otp code
