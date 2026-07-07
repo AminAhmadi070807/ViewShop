@@ -230,7 +230,7 @@ export class AuthService {
           user: { id: data.userId },
         },
         order: {
-          id: 'DESC',
+          createdAt: 'DESC',
         },
         relations: ['user'],
       });
