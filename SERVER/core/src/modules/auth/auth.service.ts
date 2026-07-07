@@ -174,64 +174,68 @@ export class AuthService {
 
   // verify otp code
   async verifyOtp(data: AuthVerifyOtp) {
-    const result: string | null = await this.redisService.get(data.route);
+    try {
+      const result: string | null = await this.redisService.get(data.route);
 
-    if (!result) throw new CustomException(statusMessages.fa['400'], 400);
+      if (!result) return new CustomException(statusMessages.fa['400'], 400);
 
-    const map: Map<string, string> = this.payloadOtp(result);
+      const map: Map<string, string> = this.payloadOtp(result);
 
-    const isOtpCode: boolean = map.get('otp') === data.otp;
+      const isOtpCode: boolean = map.get('otp') === data.otp;
 
-    if (!isOtpCode) throw new CustomException(statusMessages.fa['400'], 400);
+      if (!isOtpCode) return new CustomException(statusMessages.fa['400'], 400);
 
-    await this.redisService.ddl(data.route);
-    await this.redisService.ddl(<string>map.get('phone'));
+      await this.redisService.ddl(data.route);
+      await this.redisService.ddl(<string>map.get('phone'));
 
-    // create new user
-    const user: User = this.userRepository.create({
-      verified: true,
-      role: UserRoleEnum.USER,
-      fullName: map.get('fullName'),
-      phone: map.get('phone'),
-      password: map.get('password'),
-    });
+      // create new user
+      const user: User = this.userRepository.create({
+        verified: true,
+        role: UserRoleEnum.USER,
+        fullName: map.get('fullName'),
+        phone: map.get('phone'),
+        password: map.get('password'),
+      });
 
-    // save new user in database
-    const saveUser: User = await this.userRepository.save(user);
+      // save new user in database
+      const saveUser: User = await this.userRepository.save(user);
 
-    // create a new secret
-    const secret: string = crypto.randomUUID();
-    // hashed secret
-    const hashedSecretKey: string = await bcrypt.hash(secret, 12);
+      // create a new secret
+      const secret: string = crypto.randomUUID();
+      // hashed secret
+      const hashedSecretKey: string = await bcrypt.hash(secret, 12);
 
-    // create user refresh & access tokens
-    const tokens: AuthTokenInterface = this.generateToken(
-      saveUser.id,
-      saveUser.role,
-      secret,
-    );
+      // create user refresh & access tokens
+      const tokens: AuthTokenInterface = this.generateToken(
+        saveUser.id,
+        saveUser.role,
+        secret,
+      );
 
-    // hashed refresh token
-    const hashRefreshToken: string = await bcrypt.hash(
-      tokens.refresh_token,
-      12,
-    );
+      // hashed refresh token
+      const hashRefreshToken: string = await bcrypt.hash(
+        tokens.refresh_token,
+        12,
+      );
 
-    // create new token
-    const token: Auth = this.authRepository.create({
-      user,
-      token: hashRefreshToken,
-      secret: hashedSecretKey,
-    });
+      // create new token
+      const token: Auth = this.authRepository.create({
+        user,
+        token: hashRefreshToken,
+        secret: hashedSecretKey,
+      });
 
-    // save token in database
-    await this.authRepository.save(token);
+      // save token in database
+      await this.authRepository.save(token);
 
-    return {
-      status: HttpStatus.OK,
-      message: statusMessages.fa.AUTH['201'],
-      body: tokens,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa.AUTH['201'],
+        body: tokens,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   // verify token
