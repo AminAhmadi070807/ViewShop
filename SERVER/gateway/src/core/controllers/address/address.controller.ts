@@ -25,7 +25,6 @@ import { AddressDto } from './address.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 
-@ApiOkResponse({ description: statusMessages.fa['200'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @Controller('core/addresses')
@@ -37,7 +36,7 @@ export class AddressController {
   @ApiCreatedResponse({
     description: statusMessages.fa['201'],
   })
-  @ApiConflictResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   create(
     @Body() data: AddressDto,
