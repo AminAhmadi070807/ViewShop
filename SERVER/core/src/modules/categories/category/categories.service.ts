@@ -123,7 +123,7 @@ export class CategoriesService {
   async update(data: UpdateCategoryDto) {
     try {
       const result: UpdateResult = await this.categoryRepository.update(
-        { id: data.id },
+        data.id,
         { alias: data.alias, title: data.title, icon: { id: data.icon } },
       );
 
