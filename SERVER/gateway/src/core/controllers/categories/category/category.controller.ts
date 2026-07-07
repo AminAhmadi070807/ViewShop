@@ -38,6 +38,20 @@ export class CategoryController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CATEGORY',
+      enum: ['CATEGORY'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: CategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
