@@ -89,7 +89,7 @@ export class OrderService {
 
   async findOne(id: string) {
     try {
-      const result: Order | null = await this.orderRepository.findOne({
+      const result = await this.orderRepository.findOne({
         where: { id },
         select: {
           id: true,
