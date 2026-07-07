@@ -28,6 +28,7 @@ import {
 import { PublicAccess } from '../../../common/decorators/public.access.decorator';
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/auth')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -108,14 +109,14 @@ export class AuthController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiCreatedResponse({ description: statusMessages.fa.AUTH['201'] })
   async verifyOTP(
-    @Param('id') id: string,
+    @Param() uuid: ValidateUUID,
     @Body() data: AuthVerifyOtp,
     @Res() res: express.Response,
   ) {
     // get tokens from core microservice
     const result: AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:VERIFY_OTP', {
-        route: id,
+        route: uuid.id,
         otp: data.otp,
       }),
     )) as AuthInterface;
@@ -137,7 +138,7 @@ export class AuthController {
 
     // send response to client
     return res.status(200).json({
-      statusCode: 200,
+      status: 200,
       message: statusMessages.fa.AUTH['200'],
       body: null,
     });
