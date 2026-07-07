@@ -15,6 +15,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -34,6 +35,20 @@ export class CommentController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'COMMENT',
+      enum: ['COMMENT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: CommentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
