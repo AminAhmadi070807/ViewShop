@@ -26,20 +26,14 @@ export class OrderService {
   async create(data: OrderDto) {
     try {
       const user = await this.userService.findOne(data.user);
-
-      if (user.status !== HttpStatus.OK) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
       const cart = await this.cartService.findOne(data.user);
-
-      if (cart instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
       const address = await this.addressService.findOneByUserId(data.user);
 
-      if (address instanceof RpcException) {
+      if (
+        user instanceof RpcException ||
+        cart instanceof RpcException ||
+        address instanceof RpcException
+      ) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
