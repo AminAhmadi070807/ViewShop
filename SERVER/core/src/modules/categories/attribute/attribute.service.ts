@@ -126,25 +126,18 @@ export class AttributeService {
 
   async findOne(id: string) {
     try {
-      const attribute: Attribute | null =
-        await this.attributeRepository.findOne({
-          where: {
-            id,
-          },
-          order: {
-            id: 'DESC',
-          },
-          select: {
-            icon: {
-              id: true,
-              path: true,
-              title: true,
-            },
-            title: true,
-            alias: true,
+      const attribute = await this.attributeRepository.findOne({
+        where: {
+          id,
+        },
+        select: {
+          icon: {
             id: true,
+            path: true,
+            title: true,
           },
-        });
+        },
+      });
 
       if (!attribute) return new CustomException(statusMessages.fa['404'], 404);
 
