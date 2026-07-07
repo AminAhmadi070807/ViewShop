@@ -121,8 +121,8 @@ export class UsersService {
       }
 
       return {
-        status: HttpStatus.OK,
-        message: 'User updated successfully.',
+        status: HttpStatus.NO_CONTENT,
+        message: statusMessages.fa['204'],
         body: null,
       };
     } catch {
