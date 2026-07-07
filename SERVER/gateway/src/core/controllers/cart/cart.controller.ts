@@ -66,6 +66,20 @@ export class CartController {
 
   @Get('my-cart')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'CART',
+      enum: ['CART'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
