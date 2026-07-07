@@ -206,17 +206,10 @@ export class AuthService {
       const hashedSecretKey: string = await bcrypt.hash(secret, 12);
 
       // create user refresh & access tokens
-      const tokens: AuthTokenInterface = this.generateToken(
-        saveUser.id,
-        saveUser.role,
-        secret,
-      );
+      const tokens = this.generateToken(saveUser.id, saveUser.role, secret);
 
       // hashed refresh token
-      const hashRefreshToken: string = await bcrypt.hash(
-        tokens.refresh_token,
-        12,
-      );
+      const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
 
       // create new token
       const token: Auth = this.authRepository.create({
