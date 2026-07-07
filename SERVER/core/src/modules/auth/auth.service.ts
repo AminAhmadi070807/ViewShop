@@ -200,8 +200,6 @@ export class AuthService {
 
       const secret: string = crypto.randomUUID();
 
-      const hashedSecretKey: string = await bcrypt.hash(secret, 12);
-
       const tokens = this.generateToken(saveUser.id, saveUser.role, secret);
 
       const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
@@ -209,7 +207,7 @@ export class AuthService {
       const token: Auth = this.authRepository.create({
         user,
         token: hashRefreshToken,
-        secret: hashedSecretKey,
+        secret: await bcrypt.hash(secret, 12),
       });
 
       await this.authRepository.save(token);
