@@ -60,6 +60,9 @@ export class SubCategoryController {
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateSubCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
