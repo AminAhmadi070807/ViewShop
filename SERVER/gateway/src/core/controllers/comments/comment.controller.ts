@@ -59,9 +59,9 @@ export class CommentController {
     return this.coreService.send('COMMENT:UPDATE', data);
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  delete(@Param() data: ValidateUUID) {
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('COMMENT:DELETE', data);
   }
 }
