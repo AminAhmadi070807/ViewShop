@@ -22,7 +22,6 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { FeatureDto, UpdateFeatureDto } from './feature.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('guards/feature')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -130,7 +129,7 @@ export class FeatureController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Param() data: ValidateUUID) {
+  delete(@Body() data: ValidateUUID) {
     return this.guardService.send('FEATURE:DELETE', data);
   }
 }
