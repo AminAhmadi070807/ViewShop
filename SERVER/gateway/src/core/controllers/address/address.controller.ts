@@ -85,6 +85,20 @@ export class AddressController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID): Observable<unknown> {
     return this.coreService.send('ADDRESS:ONE', data);
   }
