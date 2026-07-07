@@ -50,9 +50,9 @@ export class BrandController {
     return this.coreService.send('BRAND:UPDATE', data);
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  remove(@Param() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('BRAND:DELETE', data);
   }
 }
