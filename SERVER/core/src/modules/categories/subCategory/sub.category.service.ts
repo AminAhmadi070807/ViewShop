@@ -19,19 +19,18 @@ export class SubCategoryService {
   async create(data: SubCategoryDto) {
     try {
       // existing sub category in database
-      const existing: SubCategory | null =
-        await this.subCategoryRepository.findOneBy([
-          { title: data.title, category: { id: data.category } },
-          { alias: data.alias, category: { id: data.category } },
-        ]);
+      const existing = await this.subCategoryRepository.findOneBy([
+        { title: data.title, category: { id: data.category } },
+        { alias: data.alias, category: { id: data.category } },
+      ]);
 
       // check subCategory & category
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       // find category from database
-      const category: Category | null = await this.categoryRepository.findOneBy(
-        { id: data.category },
-      );
+      const category = await this.categoryRepository.findOneBy({
+        id: data.category,
+      });
 
       if (!category) return new CustomException(statusMessages.fa['409'], 409);
 
@@ -47,8 +46,7 @@ export class SubCategoryService {
         },
       });
 
-      const newSubCategory: SubCategory =
-        await this.subCategoryRepository.save(subCategory);
+      const newSubCategory = await this.subCategoryRepository.save(subCategory);
 
       return {
         status: 201,
