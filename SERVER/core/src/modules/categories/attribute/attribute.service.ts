@@ -75,18 +75,12 @@ export class AttributeService {
     try {
       const attributes: Attribute[] = await this.attributeRepository.find({
         relations: ['icon'],
-        order: {
-          id: 'DESC',
-        },
         select: {
           icon: {
             id: true,
             path: true,
             title: true,
           },
-          title: true,
-          alias: true,
-          id: true,
         },
       });
 
