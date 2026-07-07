@@ -229,14 +229,16 @@ export class AuthService {
         relations: ['user'],
       });
 
+      if (!tokens.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
       // user the right token
       let userToken: Auth | null = null;
 
       // find validate token array
       for (const token of tokens) {
-        const isToken = await bcrypt.compare(data.secret, token.secret);
-
-        if (isToken) userToken = token;
+        if (await bcrypt.compare(data.secret, token.secret)) userToken = token;
       }
 
       if (!userToken) return new CustomException(statusMessages.fa['401'], 401);
