@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import {
   ApiConflictResponse,
@@ -107,7 +115,7 @@ export class FeatureController {
     return this.guardService.send('FEATURE:UPDATE', data);
   }
 
-  @Get('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiHeaders([
     {
