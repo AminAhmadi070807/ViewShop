@@ -291,12 +291,7 @@ export class AuthService {
 
       // find validate token array
       for (const token of tokens) {
-        const isToken: boolean = await bcrypt.compare(
-          data.secret,
-          token.secret,
-        );
-
-        isValidTokenArray.push(isToken);
+        isValidTokenArray.push(await bcrypt.compare(data.secret, token.secret));
       }
 
       // validation tokens array
