@@ -22,8 +22,9 @@ export class AttributeService {
   async create(data: AttributeCategoryDto) {
     try {
       // find sub category from database
-      const subCategory: SubCategory | null =
-        await this.subCategoryRepository.findOneBy({ id: data.subCategory });
+      const subCategory = await this.subCategoryRepository.findOneBy({
+        id: data.subCategory,
+      });
       const media: Media | null = await this.mediaRepository.findOneBy({
         id: data.icon,
       });
@@ -34,14 +35,12 @@ export class AttributeService {
       }
 
       // find attribute from database
-      const existing: Attribute | null = await this.attributeRepository.findOne(
-        {
-          where: [
-            { subCategory: { id: data.subCategory }, alias: data.alias },
-            { subCategory: { id: data.subCategory }, alias: data.title },
-          ],
-        },
-      );
+      const existing = await this.attributeRepository.findOne({
+        where: [
+          { subCategory: { id: data.subCategory }, alias: data.alias },
+          { subCategory: { id: data.subCategory }, alias: data.title },
+        ],
+      });
 
       // check attribute
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
