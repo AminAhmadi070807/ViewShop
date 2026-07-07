@@ -37,9 +37,7 @@ export class OrderService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const address = await this.addressService.findUserAddress({
-        userId: data.user,
-      });
+      const address = await this.addressService.findOneByUserId(data.user);
 
       if (address instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);

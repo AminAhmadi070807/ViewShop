@@ -73,6 +73,24 @@ export class AddressesService {
     }
   }
 
+  async findOneByUserId(id: string) {
+    try {
+      const address: Address | null = await this.addressRepository.findOneBy({
+        id,
+      });
+
+      if (!address) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: address,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async remove(id: string) {
     try {
       await this.addressRepository.delete(id);
