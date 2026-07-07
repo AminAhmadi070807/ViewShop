@@ -276,35 +276,42 @@ export class AuthService {
 
   // validation refresh token
   async validateRefreshToken(data: AuthValidateDto) {
-    const tokens: Auth[] = await this.authRepository.find({
-      where: {
-        user: { id: data.userId },
-      },
-      order: {
-        id: 'DESC',
-      },
-    });
+    try {
+      const tokens: Auth[] = await this.authRepository.find({
+        where: {
+          user: { id: data.userId },
+        },
+        order: {
+          id: 'DESC',
+        },
+      });
 
-    // token validate boolean array
-    const isValidTokenArray: boolean[] = [];
+      // token validate boolean array
+      const isValidTokenArray: boolean[] = [];
 
-    // find validate token array
-    for (const token of tokens) {
-      const isToken: boolean = await bcrypt.compare(data.secret, token.secret);
+      // find validate token array
+      for (const token of tokens) {
+        const isToken: boolean = await bcrypt.compare(
+          data.secret,
+          token.secret,
+        );
 
-      isValidTokenArray.push(isToken);
-    }
+        isValidTokenArray.push(isToken);
+      }
 
-    // validation tokens array
-    if (isValidTokenArray.includes(true)) {
+      // validation tokens array
+      if (!isValidTokenArray.includes(true)) {
+        return new CustomException(statusMessages.fa['401'], 401);
+      }
+
       return {
         body: null,
         message: statusMessages.fa['204'],
         status: HttpStatus.OK,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    throw new CustomException(statusMessages.fa['401'], 401);
   }
 
   // login user
