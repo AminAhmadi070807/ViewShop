@@ -129,6 +129,20 @@ export class ProductController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE:STATUS',
+      enum: ['UPDATE:STATUS'],
+    },
+  ])
   updateStatus(@Body() data: UpdateStatusProductDto) {
     return this.coreService.send('PRODUCT:CHILD:UPDATE:STATUS', data);
   }
