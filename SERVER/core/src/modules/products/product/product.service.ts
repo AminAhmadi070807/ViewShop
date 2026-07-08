@@ -28,7 +28,7 @@ export class ProductService {
 
   async create(data: ProductDto) {
     try {
-      const existing: Product | null = await this.productRepository.findOne({
+      const existing = await this.productRepository.findOne({
         where: {
           alias: data.alias,
         },
@@ -36,32 +36,20 @@ export class ProductService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const parentProduct: ParentProduct | null =
-        await this.parentProductRepository.findOneBy({
-          id: data.parentProductId,
-        });
+      const parentProduct = await this.parentProductRepository.findOneBy({
+        id: data.parentProductId,
+      });
 
       if (!parentProduct) {
-        return new CustomException(statusMessages.fa['404'], 409);
-      } else if (
-        data.price < +parentProduct.min_price ||
-        data.price > +parentProduct.max_price
-      ) {
-        return new CustomException(
-          'لطفا قیمت را بر اساس قیمت تاین شده درج فرماید',
-          400,
-        );
+        return new CustomException(statusMessages.fa['404'], 404);
+      } else if (data.price > +parentProduct.max_price) {
+        return new CustomException(statusMessages.fa['400'], 400);
       }
 
       const media = await this.mediaService.findId(data.medias);
-
-      if (media instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
       const store = await this.storeService.findOne(data.store);
 
-      if (store instanceof RpcException) {
+      if (store instanceof RpcException || media instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
