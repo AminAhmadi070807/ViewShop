@@ -31,7 +31,7 @@ export class ParentProductsService {
   async create(data: ParentProductDto) {
     try {
       // get user from database
-      const user: User | null = await this.userRepository.findOneBy({
+      const user = await this.userRepository.findOneBy({
         id: data.userId,
       });
 
@@ -39,10 +39,9 @@ export class ParentProductsService {
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
       // find product from database
-      const existing: ParentProduct | null =
-        await this.productRepository.findOneBy({
-          alias: data.alias,
-        });
+      const existing = await this.productRepository.findOneBy({
+        alias: data.alias,
+      });
 
       // existing product
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
@@ -60,9 +59,9 @@ export class ParentProductsService {
 
       // check category & sub category & medias error
       if (category instanceof RpcException) return category;
-      else if (subCategory instanceof RpcException) return subCategory;
-      else if (medias instanceof RpcException) return medias;
-      else if (attributes instanceof RpcException) return attributes;
+      if (subCategory instanceof RpcException) return subCategory;
+      if (medias instanceof RpcException) return medias;
+      if (attributes instanceof RpcException) return attributes;
 
       const product: ParentProduct = this.productRepository.create({
         user: user,
