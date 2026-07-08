@@ -4,6 +4,7 @@ import { AnswerReportDto, ReportDto } from './report.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
+  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -22,8 +23,10 @@ export class ReportController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   create(@Body() data: ReportDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
