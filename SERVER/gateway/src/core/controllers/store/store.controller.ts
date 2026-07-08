@@ -40,8 +40,8 @@ export class StoreController {
     {
       name: 'feature',
       required: true,
-      example: 'FEATURE',
-      enum: ['FEATURE'],
+      example: 'STORE',
+      enum: ['STORE'],
     },
     {
       name: 'permission',
