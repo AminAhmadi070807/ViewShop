@@ -58,9 +58,13 @@ export class StoryController {
     return this.coreService.send('STORY:ONE', data);
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  delete(@Param() data: ValidateUUID) {
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('STORY:DELETE', data);
   }
 }
