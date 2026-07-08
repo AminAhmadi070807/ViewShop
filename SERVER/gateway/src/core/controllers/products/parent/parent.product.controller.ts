@@ -17,6 +17,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -38,6 +39,20 @@ export class ParentProductController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNoContentResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PARENT:PRODUCT',
+      enum: ['PARENT:PRODUCT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: ParentProductDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
