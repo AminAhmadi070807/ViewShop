@@ -80,6 +80,20 @@ export class StoreController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'STORE',
+      enum: ['STORE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('STORE:ONE', data);
   }
