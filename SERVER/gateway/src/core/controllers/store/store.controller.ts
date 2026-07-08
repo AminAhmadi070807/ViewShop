@@ -61,10 +61,10 @@ export class StoreController {
     return this.coreService.send('STORE:UPDATE', data);
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  delete(@Param() data: ValidateUUID) {
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('STORE:DELETE', data);
   }
 }
