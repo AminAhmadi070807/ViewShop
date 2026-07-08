@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TargetDto, UpdateTargetDto } from './dto/target.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Target } from './entities/target.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -72,7 +72,7 @@ export class TargetService {
   async update(data: UpdateTargetDto) {
     try {
       const result: UpdateResult = await this.targetRepository.update(data.id, {
-        title: data.title?.trim(),
+        title: data.title.trim(),
       });
 
       if (!result.affected) {
@@ -91,7 +91,11 @@ export class TargetService {
 
   async remove(id: string) {
     try {
-      await this.targetRepository.delete(id);
+      const result: DeleteResult = await this.targetRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
