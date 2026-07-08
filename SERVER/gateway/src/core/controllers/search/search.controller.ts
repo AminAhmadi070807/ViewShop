@@ -14,7 +14,6 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { SearchDto } from './search.dto';
 
 @Controller('core/search')
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class SearchController {
   constructor(private readonly coreService: CoreService) {}

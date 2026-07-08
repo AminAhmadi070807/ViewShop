@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Search } from './entities/search.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ParentProductsService } from '../products/parent/parent.products.service';
@@ -66,7 +66,11 @@ export class SearchService {
 
   async remove(id: string) {
     try {
-      await this.searchRepository.delete(id);
+      const result: DeleteResult = await this.searchRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
