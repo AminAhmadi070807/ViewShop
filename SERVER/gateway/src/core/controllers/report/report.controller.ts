@@ -17,7 +17,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/report')
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class ReportController {
   constructor(private readonly coreService: CoreService) {}
