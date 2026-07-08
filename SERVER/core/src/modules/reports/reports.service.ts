@@ -65,9 +65,28 @@ export class ReportsService {
 
   async findOne(id: string) {
     try {
-      const result: Report | null = await this.reportsRepository.findOne({
+      const result = await this.reportsRepository.findOne({
         where: {
           id,
+        },
+        relations: ['user', 'admin', 'target'],
+        select: {
+          user: {
+            id: true,
+            role: true,
+            phone: true,
+            fullName: true,
+          },
+          admin: {
+            id: true,
+            role: true,
+            phone: true,
+            fullName: true,
+          },
+          target: {
+            id: true,
+            title: true,
+          },
         },
       });
 
