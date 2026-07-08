@@ -139,6 +139,10 @@ export class ParentProductController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({
+    description:
+      'امکان حذف محصول وجود ندارد؛ این محصول دارای محصولات وابسته است.',
+  })
   @ApiHeaders([
     {
       name: 'feature',
