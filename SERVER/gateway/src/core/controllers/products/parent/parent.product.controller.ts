@@ -76,11 +76,11 @@ export class ParentProductController {
   }
 
   @Delete()
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiNoContentResponse({ description: statusMessages.fa['404'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   delete(@Body() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:PARENT:ONE', data);
   }
