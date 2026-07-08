@@ -64,9 +64,6 @@ export class Story {
   })
   status: StoryStatusEnum;
 
-  @Column({ type: 'bigint', nullable: false, unique: true })
-  alias: number;
-
   @CreateDateColumn()
   createdAt: Date;
 }

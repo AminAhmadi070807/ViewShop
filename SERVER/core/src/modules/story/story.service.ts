@@ -8,7 +8,6 @@ import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
-import crypto from 'crypto';
 
 @Injectable()
 export class StoryService {
@@ -28,16 +27,7 @@ export class StoryService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const alias: number = crypto.randomInt(1_000_000, 999_999_999);
-
-      const existing: Story | null = await this.storyRepository.findOneBy({
-        alias,
-      });
-
-      if (existing) return new CustomException(statusMessages.fa['409'], 409);
-
       const story: Story = this.storyRepository.create({
-        alias,
         user: {
           id: data.user,
         },
