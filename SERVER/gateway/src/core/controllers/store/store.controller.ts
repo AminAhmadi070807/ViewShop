@@ -105,6 +105,20 @@ export class StoreController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'STORE',
+      enum: ['STORE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   update(@Body() data: UpdateStoreDto) {
     return this.coreService.send('STORE:UPDATE', data);
   }
