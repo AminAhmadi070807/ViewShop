@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { StoreDto, UpdateStoreDto } from './dto/store.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Store } from './entities/store.entity';
@@ -130,12 +130,16 @@ export class StoreService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      await this.storeRepository.update(data.id, {
+      const result = await this.storeRepository.update(data.id, {
         logo: { id: data.logo },
         banner: { id: data.banner },
         title: data.title,
         alias: data.alias,
       });
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
