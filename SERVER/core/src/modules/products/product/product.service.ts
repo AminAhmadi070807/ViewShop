@@ -180,14 +180,11 @@ export class ProductService {
   async update(data: UpdateProductDto) {
     try {
       const medias = await this.mediaService.findId(data.medias);
-
-      if (medias instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
       const product = await this.productRepository.findOneBy({ id: data.id });
 
-      if (!product) return new CustomException(statusMessages.fa['404'], 404);
+      if (medias instanceof RpcException || !product) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       product.medias = medias.body;
       product.discount_percent = data.discount_percent;
