@@ -55,9 +55,7 @@ export class TargetService {
 
   async findOne(id: string) {
     try {
-      const result: Target | null = await this.targetRepository.findOneBy({
-        id,
-      });
+      const result = await this.targetRepository.findOneBy({ id });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
