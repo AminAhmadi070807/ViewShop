@@ -24,8 +24,14 @@ export class StoreService {
   async create(data: StoreDto) {
     try {
       const owner = await this.usersService.findOne(data.owner);
+      const media = await this.mediaService.findId([data.logo, data.banner]);
+      const categories = await this.categoriesService.findId(data.categories);
 
-      if (owner.status !== HttpStatus.OK) {
+      if (
+        owner instanceof RpcException ||
+        media instanceof RpcException ||
+        categories instanceof RpcException
+      ) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
@@ -34,18 +40,6 @@ export class StoreService {
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
-
-      const media = await this.mediaService.findId([data.logo, data.banner]);
-
-      if (media instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      const categories = await this.categoriesService.findId(data.categories);
-
-      if (categories instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
 
       const store: Store = this.storeRepository.create({
         title: data.title,
