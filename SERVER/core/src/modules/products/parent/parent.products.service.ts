@@ -201,11 +201,29 @@ export class ParentProductsService {
 
   async remove(id: string) {
     try {
-      const result: DeleteResult = await this.productRepository.delete(id);
+      const product = await this.productRepository.findOne({
+        where: {
+          id,
+        },
+        relations: ['products'],
+        select: {
+          id: true,
+          products: {
+            id: true,
+          },
+        },
+      });
 
-      if (!result.affected) {
+      if (!product) {
         return new CustomException(statusMessages.fa['404'], 404);
+      } else if (product.products.length) {
+        return new CustomException(
+          'امکان حذف محصول وجود ندارد؛ این محصول دارای محصولات وابسته است.',
+          409,
+        );
       }
+
+      await this.productRepository.delete(id);
 
       return {
         status: 204,
