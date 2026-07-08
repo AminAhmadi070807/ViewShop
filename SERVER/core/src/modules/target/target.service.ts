@@ -15,7 +15,7 @@ export class TargetService {
 
   async create(data: TargetDto) {
     try {
-      const existing: Target | null = await this.targetRepository.findOneBy({
+      const existing = await this.targetRepository.findOneBy({
         title: data.title.trim(),
       });
 
