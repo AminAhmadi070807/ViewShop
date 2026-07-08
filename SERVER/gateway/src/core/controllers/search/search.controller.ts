@@ -1,9 +1,11 @@
 import { CoreService } from '../../core.service';
 import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -31,7 +33,9 @@ export class SearchController {
 
   @Delete('/:id')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   delete(@Param() data: ValidateUUID) {
     return this.coreService.send('SEARCH:DELETE', data);
   }
