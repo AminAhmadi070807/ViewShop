@@ -13,6 +13,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -24,13 +25,14 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/store')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 export class StoreController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: StoreDto) {
