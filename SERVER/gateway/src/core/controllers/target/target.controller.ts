@@ -59,9 +59,9 @@ export class TargetController {
     return this.coreService.send('TARGET:UPDATE', data);
   }
 
-  @Delete('/:id')
+  @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
-  remove(@Param() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('TARGET:DELETE', data);
   }
 }
