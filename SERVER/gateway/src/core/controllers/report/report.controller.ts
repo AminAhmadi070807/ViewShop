@@ -78,6 +78,20 @@ export class ReportController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'REPORT',
+      enum: ['REPORT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('REPORT:ONE', data);
   }
