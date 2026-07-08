@@ -55,7 +55,7 @@ export class StoryController {
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  findStore(@Param() data: ValidateUUID) {
+  findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('STORY:ONE', data);
   }
 
