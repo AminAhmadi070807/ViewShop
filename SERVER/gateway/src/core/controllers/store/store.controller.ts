@@ -129,6 +129,20 @@ export class StoreController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'STORE',
+      enum: ['STORE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   delete(@Body() data: ValidateUUID) {
     return this.coreService.send('STORE:DELETE', data);
   }
