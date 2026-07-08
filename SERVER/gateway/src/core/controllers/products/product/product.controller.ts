@@ -64,8 +64,9 @@ export class ProductController {
   }
 
   @Get('/:id')
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('PRODUCT:CHILD:ONE', data);
   }
