@@ -103,6 +103,20 @@ export class ReportController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'REPORT',
+      enum: ['REPORT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   answer(@Body() data: AnswerReportDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
