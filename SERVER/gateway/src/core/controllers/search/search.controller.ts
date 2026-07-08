@@ -3,6 +3,7 @@ import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -22,6 +23,20 @@ export class SearchController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SEARCH',
+      enum: ['SEARCH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('SEARCH:FIND');
   }
