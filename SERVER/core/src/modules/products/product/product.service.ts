@@ -111,8 +111,23 @@ export class ProductService {
 
   async findOne(id: string) {
     try {
-      const product: Product | null = await this.productRepository.findOne({
+      const product = await this.productRepository.findOne({
         where: { id },
+        relations: ['medias', 'store'],
+        select: {
+          medias: {
+            id: true,
+            path: true,
+            title: true,
+          },
+          store: {
+            id: true,
+            title: true,
+            logo: true,
+            banner: true,
+            alias: true,
+          },
+        },
       });
 
       if (!product) return new CustomException(statusMessages.fa['404'], 404);
