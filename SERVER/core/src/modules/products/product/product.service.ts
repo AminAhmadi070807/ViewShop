@@ -146,19 +146,26 @@ export class ProductService {
     try {
       const product: Product[] = await this.productRepository.find({
         where: { id: In(id) },
+        relations: ['medias', 'store'],
         select: {
-          medias: { path: true, title: true },
-          price: true,
-          discount_percent: true,
-          alias: true,
-          id: true,
-          store: { title: true, logo: true, banner: true, alias: true },
-          status: true,
+          medias: {
+            id: true,
+            path: true,
+            title: true,
+          },
+          store: {
+            id: true,
+            title: true,
+            logo: true,
+            banner: true,
+            alias: true,
+          },
         },
       });
 
-      if (!product.length)
+      if (!product.length) {
         return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 200,
