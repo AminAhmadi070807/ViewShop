@@ -6,7 +6,13 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentProduct } from '../entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
-import { FindOptionsWhere, ILike, Repository } from 'typeorm';
+import {
+  DeleteResult,
+  FindOptionsWhere,
+  ILike,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { CategoriesService } from '../../categories/category/categories.service';
@@ -195,7 +201,11 @@ export class ParentProductsService {
 
   async remove(id: string) {
     try {
-      await this.productRepository.delete(id);
+      const result: DeleteResult = await this.productRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
