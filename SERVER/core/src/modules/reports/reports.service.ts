@@ -104,7 +104,7 @@ export class ReportsService {
 
   async answer(data: AnswerReportDto) {
     try {
-      const report: Report | null = await this.reportsRepository.findOneBy({
+      const report = await this.reportsRepository.findOneBy({
         id: data.id,
       });
 
