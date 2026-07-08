@@ -72,7 +72,7 @@ export class TargetService {
   async update(data: UpdateTargetDto) {
     try {
       const result: UpdateResult = await this.targetRepository.update(data.id, {
-        title: data.title,
+        title: data.title?.trim(),
       });
 
       if (!result.affected) {
