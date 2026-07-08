@@ -43,6 +43,20 @@ export class SearchController {
 
   @Get('/search')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SEARCH',
+      enum: ['SEARCH'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   search(@Query() data: SearchDto) {
     return this.coreService.send('SEARCH:SEARCH', data.title);
   }
