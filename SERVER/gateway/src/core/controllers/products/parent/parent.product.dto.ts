@@ -230,6 +230,16 @@ export class ParentProductDto {
 
 export class UpdateParentProductDto {
   @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
+  @IsNotEmpty({ message: 'شناسه نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  id: string;
+
+  @ApiProperty({
     type: [String],
     required: true,
     nullable: false,

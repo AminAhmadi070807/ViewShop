@@ -64,7 +64,7 @@ export class ParentProductController {
     return this.coreService.send('PRODUCT:PARENT:ONE', data);
   }
 
-  @Patch('update/:id')
+  @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNoContentResponse({ description: statusMessages.fa['404'] })
