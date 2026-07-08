@@ -153,9 +153,13 @@ export class StoreService {
 
   async delete(id: string) {
     try {
-      await this.storeRepository.update(id, {
+      const result = await this.storeRepository.update(id, {
         status: StoreStatusEnum.DELETED,
       });
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
