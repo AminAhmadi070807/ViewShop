@@ -94,8 +94,8 @@ export class ReportsService {
 
       return {
         status: 200,
-        body: result,
         message: statusMessages.fa['200'],
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
