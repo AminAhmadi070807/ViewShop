@@ -25,10 +25,8 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { PhoneDto } from '../../../common/validation/phone.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 
-@ApiOkResponse({ description: statusMessages.fa['200'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 @Controller('core/users')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
