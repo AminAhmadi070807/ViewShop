@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  UploadedFile,
+} from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBadRequestResponse,
@@ -126,7 +134,7 @@ export class MediaController {
       enum: ['SEARCH'],
     },
   ])
-  search(@Body() data: ValidateTitle) {
+  search(@Query() data: ValidateTitle) {
     return this.coreService.send('MEDIA:SEARCH', data);
   }
 }
