@@ -18,24 +18,20 @@ export class UsersService {
   // create new user
   async create(data: CreateUserDto) {
     try {
-      // existing user
-      const existing: User | null = await this.userRepository.findOne({
-        where: { phone: data.phone },
+      const existing = await this.userRepository.findOneBy({
+        phone: data.phone,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      // create new user
       const user = this.userRepository.create({
         phone: data.phone,
         password: bcrypt.hashSync(data.password, 12),
         fullName: data.fullName,
       });
 
-      // save user in database
       const saveUser = await this.userRepository.save(user);
 
-      // send response to client
       return {
         status: HttpStatus.CREATED,
         message: statusMessages.fa['201'],
