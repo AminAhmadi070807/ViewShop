@@ -43,6 +43,10 @@ export class UsersController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('USER:FIND');
   }
