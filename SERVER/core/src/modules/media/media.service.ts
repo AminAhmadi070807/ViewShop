@@ -15,12 +15,6 @@ export class MediaService {
 
   async create(data: MediaDto) {
     try {
-      const existing: Media | null = await this.mediaRepository.findOneBy({
-        path: data.path,
-      });
-
-      if (existing) return new CustomException(statusMessages.fa['409'], 409);
-
       const media: Media = this.mediaRepository.create({
         path: data.path,
         user: {
