@@ -110,6 +110,20 @@ export class TicketController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'TICKET',
+      enum: ['TICKET'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   update(@Body() data: UpdateTicketDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
