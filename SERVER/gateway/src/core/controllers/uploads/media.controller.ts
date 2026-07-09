@@ -78,8 +78,11 @@ export class MediaController {
     return this.coreService.send('MEDIA:FIND');
   }
 
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @Get('search')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   search(@Body() data: ValidateTitle) {
     return this.coreService.send('MEDIA:SEARCH', data);
   }
