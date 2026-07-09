@@ -16,8 +16,6 @@ import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiOperation,
-  ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
@@ -32,7 +30,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
-  // send request to create user in core microservice
   @Post()
   @ApiCreatedResponse({
     description: statusMessages.fa['201'],
@@ -43,14 +40,11 @@ export class UsersController {
     return this.coreService.send('USER:CREATE', data);
   }
 
-  // send request to find all in core microservice
   @Get()
   findAll() {
     return this.coreService.send('USER:FIND');
-    // return 'AMIN';
   }
 
-  // send request to find user by phone number in core microservice
   @Get('by/phone/:phone')
   findByPhone(@Param() param: PhoneDto): Observable<unknown> {
     return this.coreService.send('USER:PHONE', param.phone);
