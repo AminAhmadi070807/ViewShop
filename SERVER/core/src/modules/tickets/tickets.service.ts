@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TicketDto, UpdateTicketDto } from './dto/ticket.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ticket } from './entities/ticket.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -103,7 +103,11 @@ export class TicketsService {
 
   async remove(id: string) {
     try {
-      await this.ticketRepository.delete(id);
+      const result: DeleteResult = await this.ticketRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
