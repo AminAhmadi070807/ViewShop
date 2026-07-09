@@ -39,11 +39,7 @@ export class MediaService {
 
   async findAll() {
     try {
-      const medias: Media[] = await this.mediaRepository.find({
-        order: {
-          id: 'DESC',
-        },
-      });
+      const medias: Media[] = await this.mediaRepository.find({});
 
       return {
         status: 200,
