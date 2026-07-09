@@ -52,7 +52,12 @@ export class UsersController {
   }
 
   @Get('by/phone/:phone')
-  findByPhone(@Param() param: PhoneDto): Observable<unknown> {
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  findByPhone(@Param() param: PhoneDto) {
     return this.coreService.send('USER:PHONE', param.phone);
   }
 
