@@ -7,6 +7,7 @@ import {
   ApiConsumes,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -56,6 +57,20 @@ export class MediaController {
     },
   })
   @Upload('media')
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'MEDIA',
+      enum: ['MEDIA'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   upload(
     @UploadedFile() file: Express.Multer.File,
     @Body() data: MediaDto,
