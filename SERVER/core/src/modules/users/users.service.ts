@@ -15,7 +15,6 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  // create new user
   async create(data: CreateUserDto) {
     try {
       const existing = await this.userRepository.findOneBy({
@@ -42,10 +41,8 @@ export class UsersService {
     }
   }
 
-  // getting all users
   async findAll() {
     try {
-      // get all user from database
       const user: User[] = await this.userRepository.find({
         order: {
           createdAt: 'DESC',
@@ -58,7 +55,6 @@ export class UsersService {
         },
       });
 
-      // send response to client
       return {
         status: HttpStatus.OK,
         message: statusMessages.fa['200'],
