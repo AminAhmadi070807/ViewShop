@@ -57,9 +57,6 @@ export class MediaService {
         where: {
           id: In(id),
         },
-        order: {
-          id: 'DESC',
-        },
       });
 
       if (!medias.length) {
