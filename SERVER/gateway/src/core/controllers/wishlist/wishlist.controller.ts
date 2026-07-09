@@ -26,7 +26,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/wishlist')
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class WishlistController {
   constructor(private readonly coreService: CoreService) {}
@@ -34,6 +33,7 @@ export class WishlistController {
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: WishlistDto, @Req() req: express.Request) {

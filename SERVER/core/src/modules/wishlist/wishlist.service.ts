@@ -22,7 +22,7 @@ export class WishlistService {
 
       if (product instanceof RpcException) return product;
 
-      const existing: Wishlist | null = await this.wishlistRepository.findOne({
+      const existing = await this.wishlistRepository.findOne({
         where: {
           user: {
             id: data.user,
@@ -35,7 +35,7 @@ export class WishlistService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const wishlist: Wishlist = this.wishlistRepository.create({
+      const wishlist = this.wishlistRepository.create({
         user: {
           id: data.user,
         },
