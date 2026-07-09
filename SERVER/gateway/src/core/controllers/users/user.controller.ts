@@ -66,21 +66,13 @@ export class UsersController {
   // send request to find one user in core microservice
   @Get(':id')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiOperation({ description: 'دریافت کاربر با ایدی' })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'string',
-    description: 'ایدی کاربر',
-  })
-  findOne(@Param() id: ValidateUUID): Observable<unknown> {
-    return this.coreService.send('USER:ONE', id.id);
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('USER:ONE', data);
   }
 
-  // send request to update user information with userId in core microservice
   @Patch()
   update(@Body() data: UserUpdateValidator) {
-    return this.coreService.send('USER:UPDATE',data);
+    return this.coreService.send('USER:UPDATE', data);
   }
 
   @Delete()
