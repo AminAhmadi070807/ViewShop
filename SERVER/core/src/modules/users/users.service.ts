@@ -65,7 +65,6 @@ export class UsersService {
     }
   }
 
-  // get one user by id
   async findOne(id: string) {
     try {
       const user: User | null = await this.userRepository.findOneBy({ id });
@@ -82,15 +81,10 @@ export class UsersService {
     }
   }
 
-  // get one user by phone number
   async findByPhone(phone: string) {
     try {
-      // find one user by phone number
-      const user: User | null = await this.userRepository.findOneBy({
-        phone: phone,
-      });
+      const user = await this.userRepository.findOneBy({ phone: phone });
 
-      // send error to client
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
       return {
@@ -103,7 +97,6 @@ export class UsersService {
     }
   }
 
-  // update user information
   async update(id: string, data: UpdateUserDto) {
     try {
       const result: UpdateResult = await this.userRepository.update(id, data);
@@ -122,7 +115,6 @@ export class UsersService {
     }
   }
 
-  // remove user by id
   async remove(id: string) {
     try {
       const result = await this.userRepository.delete(id);
