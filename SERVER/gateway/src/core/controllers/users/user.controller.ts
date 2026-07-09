@@ -96,16 +96,8 @@ export class UsersController {
     });
   }
 
-  // send request to remove user with userId in core microservice
-  @Delete('delete/:id')
-  @ApiOperation({ description: 'حذف کاربر با ایدی' })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'uuid',
-    description: 'ایدی کاربر',
-  })
-  delete(@Param() param: ValidateUUID): Observable<unknown> {
-    return this.coreService.send('USER:DELETE', param.id);
+  @Delete()
+  delete(@Body() data: ValidateUUID) {
+    return this.coreService.send('USER:DELETE', data);
   }
 }
