@@ -62,6 +62,20 @@ export class TicketController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'TICKET',
+      enum: ['TICKET'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('TICKETS:FIND');
   }
