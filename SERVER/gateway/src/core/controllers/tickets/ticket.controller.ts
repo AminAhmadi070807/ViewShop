@@ -13,6 +13,7 @@ import { TicketDto, UpdateTicketDto } from './ticket.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import {
+  ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
@@ -24,13 +25,14 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/tickets')
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class TicketController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   create(@Body() data: TicketDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
