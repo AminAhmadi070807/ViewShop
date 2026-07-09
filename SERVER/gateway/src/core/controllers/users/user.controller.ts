@@ -134,6 +134,20 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   update(@Body() data: UserUpdateValidator) {
     return this.coreService.send('USER:UPDATE', data);
   }
