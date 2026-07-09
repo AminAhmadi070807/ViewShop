@@ -62,6 +62,20 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('USER:FIND');
   }
