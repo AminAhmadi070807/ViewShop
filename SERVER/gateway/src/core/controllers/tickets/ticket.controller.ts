@@ -63,6 +63,9 @@ export class TicketController {
 
   @Patch()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateTicketDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
