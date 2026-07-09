@@ -36,6 +36,7 @@ export class Ticket {
   @Column({ type: 'simple-json', nullable: true, default: [] })
   data: [
     {
+      user: string;
       date: string;
       description: string;
       media: string | null;
