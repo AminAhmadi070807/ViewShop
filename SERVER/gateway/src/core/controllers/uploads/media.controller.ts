@@ -112,6 +112,20 @@ export class MediaController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'MEDIA',
+      enum: ['MEDIA'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'SEARCH',
+      enum: ['SEARCH'],
+    },
+  ])
   search(@Body() data: ValidateTitle) {
     return this.coreService.send('MEDIA:SEARCH', data);
   }
