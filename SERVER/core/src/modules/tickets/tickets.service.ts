@@ -83,6 +83,7 @@ export class TicketsService {
       if (!ticket) return new CustomException(statusMessages.fa['404'], 404);
 
       ticket.data.push({
+        user: data.user,
         description: data.description,
         date: new Date().toLocaleString(),
         media: data.media ? data.media : null,
