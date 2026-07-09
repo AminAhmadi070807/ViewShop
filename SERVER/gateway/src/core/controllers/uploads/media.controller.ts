@@ -1,12 +1,15 @@
 import { Body, Controller, Get, Post, Req, UploadedFile } from '@nestjs/common';
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
+  ApiBadRequestResponse,
   ApiBody,
   ApiConflictResponse,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { existsSync } from 'node:fs';
 import { mkdirSync } from 'fs';
@@ -19,9 +22,7 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { ValidateTitle } from '../../../common/validation/title.dto';
 
 @Controller('core/media')
-@ApiInternalServerErrorResponse({
-  description: statusMessages.fa['500'],
-})
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class MediaController {
   constructor(private readonly coreService: CoreService) {
     const uploadPath: string = path.join(process.cwd(), 'uploads');
@@ -30,9 +31,10 @@ export class MediaController {
   }
 
   @Post('uploads')
-  @ApiCreatedResponse({
-    description: statusMessages.fa['200'],
-  })
+  @ApiCreatedResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
