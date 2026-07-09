@@ -78,22 +78,9 @@ export class UsersController {
   }
 
   // send request to update user information with userId in core microservice
-  @Patch('update/:id')
-  @ApiOperation({ description: 'بروزرسانی کاربر با ایدی' })
-  @ApiParam({
-    name: 'id',
-    required: true,
-    type: 'uuid',
-    description: 'ایدی کاربر',
-  })
-  update(
-    @Param() param: ValidateUUID,
-    @Body() data: UserUpdateValidator,
-  ): Observable<unknown> {
-    return this.coreService.send('USER:UPDATE', {
-      id: param.id,
-      fullName: data.fullName,
-    });
+  @Patch()
+  update(@Body() data: UserUpdateValidator) {
+    return this.coreService.send('USER:UPDATE',data);
   }
 
   @Delete()

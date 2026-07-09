@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
