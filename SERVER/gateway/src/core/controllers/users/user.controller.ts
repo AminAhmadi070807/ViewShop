@@ -52,18 +52,10 @@ export class UsersController {
 
   // send request to find user by phone number in core microservice
   @Get('by/phone/:phone')
-  @ApiOperation({ description: 'دریافت کاربر با شماره تلفن' })
-  @ApiParam({
-    name: 'phone',
-    required: true,
-    type: 'string',
-    description: 'شماره تلفن کاربر',
-  })
   findByPhone(@Param() param: PhoneDto): Observable<unknown> {
     return this.coreService.send('USER:PHONE', param.phone);
   }
 
-  // send request to find one user in core microservice
   @Get(':id')
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
