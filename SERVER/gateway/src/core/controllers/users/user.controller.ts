@@ -13,6 +13,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -31,11 +32,12 @@ export class UsersController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiCreatedResponse({
-    description: statusMessages.fa['201'],
-  })
-  @ApiConflictResponse({ description: statusMessages.fa['404'] })
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiConflictResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: UserValidator): Observable<unknown> {
     return this.coreService.send('USER:CREATE', data);
   }
