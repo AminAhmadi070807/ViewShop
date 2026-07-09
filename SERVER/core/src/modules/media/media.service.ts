@@ -77,10 +77,7 @@ export class MediaService {
     try {
       const medias: Media[] = await this.mediaRepository.find({
         where: {
-          title,
-        },
-        order: {
-          id: 'DESC',
+          title: title.trim(),
         },
       });
 
