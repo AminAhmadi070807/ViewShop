@@ -1,10 +1,10 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { FindValidationDto, ValidationDto } from './dto/validation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Validation } from './entities/validation.entity';
 import { Repository } from 'typeorm';
+import { FindValidationDto, ValidationDto } from './dto/validation.dto';
+import { statusMessages } from '../../common/message/message.status';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { statusMessages } from '../../common/messages/status.message';
 
 @Injectable()
 export class ValidationsService {
@@ -20,7 +20,7 @@ export class ValidationsService {
         statusCode: data.statusCode,
       });
 
-      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return existing;
 
       const validation: Validation = this.validationRepository.create(data);
 
@@ -38,7 +38,7 @@ export class ValidationsService {
 
   async findAll(data: FindValidationDto) {
     try {
-      const validations: Validation[] = await this.validationRepository.find({
+      const validations = await this.validationRepository.find({
         where: {
           IPG: data.IPG,
         },

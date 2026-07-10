@@ -1,4 +1,4 @@
-import { PaymentModelEnum } from '../../../common/interfaces/payment.interface';
+import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import {
   IsEnum,
   IsNotEmpty,
