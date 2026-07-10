@@ -24,6 +24,10 @@ import { BrandsModule } from './modules/brands/brands.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { TargetModule } from './modules/target/target.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { ValidationsModule } from './modules/validations/validations.module';
+import { WalletModule } from './modules/wallet/wallet.module';
+import { VerifiesModule } from './modules/verifies/verifies.module';
 
 @Module({
   imports: [
@@ -55,6 +59,10 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
     ReportsModule,
     TargetModule,
     WishlistModule,
+    PaymentModule,
+    ValidationsModule,
+    WalletModule,
+    VerifiesModule,
   ],
 })
 export class AppModule {}
