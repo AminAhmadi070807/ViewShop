@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { PaymentModelEnum } from '../../../common/interfaces/payment.interface';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
+import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 
 @Entity('validations')
 export class Validation {
