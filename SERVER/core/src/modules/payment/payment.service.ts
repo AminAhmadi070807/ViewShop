@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalService } from './zarin_pal/zarin_pal.service';
+import { ZarinPalService } from './services/zarin_pal/zarin_pal.service';
 import { ZarinPalDto } from './dto/payment.dto';
 
 @Injectable()

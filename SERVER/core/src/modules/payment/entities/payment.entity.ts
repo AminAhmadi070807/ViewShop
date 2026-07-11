@@ -2,10 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Wallet } from '../../wallet/entities/wallet.entity';
 import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
@@ -46,13 +44,7 @@ export class Payment {
   section: PaymentSectionEnum;
 
   @Column({ type: 'varchar', nullable: false })
-  authority: string | number;
-
-  @ManyToOne(() => Wallet, (wallet: Wallet): Payment[] => wallet.payments, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
-  wallet: Wallet;
+  code: string | number;
 
   @CreateDateColumn()
   createdAt: Date;
