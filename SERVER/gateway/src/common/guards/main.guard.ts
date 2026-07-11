@@ -24,9 +24,9 @@ export class MainGuard implements CanActivate {
     const feature: string = headers['feature'] as string;
     const permission: string = headers['permission'] as string;
 
-    if (!feature || !permission) {
-      throw new BadRequestException('لطفا هدر هارا درست ارسال کنید');
-    }
+    // if (!feature || !permission) {
+    //   throw new BadRequestException('لطفا هدر هارا درست ارسال کنید');
+    // }
 
     const user: JwtPayload = req.user as JwtPayload;
 
@@ -48,15 +48,15 @@ export class MainGuard implements CanActivate {
       };
     }
 
-    const result = (await firstValueFrom(
-      this.guardService.send('GUARD:VALIDATE', payload),
-    )) as
-      | { status: number; message: string }
-      | { error: { status: number; message: string } };
-
-    if ('error' in result) {
-      throw new HttpException(result.error, result.error.status);
-    }
+    // const result = (await firstValueFrom(
+    //   this.guardService.send('GUARD:VALIDATE', payload),
+    // )) as
+    //   | { status: number; message: string }
+    //   | { error: { status: number; message: string } };
+    //
+    // if ('error' in result) {
+    //   throw new HttpException(result.error, result.error.status);
+    // }
 
     return true;
   }
