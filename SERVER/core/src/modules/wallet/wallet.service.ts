@@ -4,9 +4,9 @@ import { Wallet } from './entities/wallet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PaymentService } from '../payment/payment.service';
-import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
-import { statusMessages } from '../../common/messages/status.message';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { PaymentModelEnum } from '../../common/enums/payment/ipg.enum';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class WalletService {
