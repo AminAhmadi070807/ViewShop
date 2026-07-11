@@ -113,7 +113,11 @@ export class WalletService {
 
   async remove(id: string) {
     try {
-      await this.walletRepository.delete(id);
+      const result = await this.walletRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 204,
