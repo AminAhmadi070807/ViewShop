@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn, UpdateDateColumn,
 } from 'typeorm';
 import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
@@ -18,6 +18,9 @@ export class Payment {
 
   @Column({ type: 'bigint', nullable: false, default: 0 })
   amount: number;
+
+  @Column({ type: 'uuid', nullable: false })
+  service_id: string;
 
   @Column({
     type: 'enum',
@@ -48,4 +51,7 @@ export class Payment {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
