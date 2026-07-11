@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalVerifyDto, ZibalVerifyDto } from './dto/verify.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../payment/entities/payment.entity';
 import { Repository } from 'typeorm';
-import { statusMessages } from '../../common/messages/status.message';
+import { Validation } from '../validations/entities/validation.entity';
+import { Wallet } from '../wallet/entities/wallet.entity';
+import { PaymentModelEnum } from '../../common/enums/payment/ipg.enum';
+import { ZarinPalVerifyDto, ZibalVerifyDto } from './dto/verify.dto';
+import { PaymentSectionEnum } from '../../common/enums/payment/section.enum';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 import { ZarinPalVerifyEnum } from '../../common/enums/verifye/status.enum';
-import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
 import {
   PaymentVerifyInterface,
   SendRequestInterface,
-} from '../../common/interfaces/verifye.interface';
-import { PaymentModelEnum } from '../../common/interfaces/payment.interface';
-import { Validation } from '../validations/entities/validation.entity';
-import { PaymentSectionEnum } from '../../common/enums/payment/section.enum';
-import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { Wallet } from '../wallet/entities/wallet.entity';
+} from '../../common/interfaces/verify/verify.interface';
+import { PaymentStatusEnum } from '../../common/enums/payment/status.enum';
 
 @Injectable()
 export class VerifiesService {
@@ -163,18 +163,19 @@ export class VerifiesService {
       const body: object = (await result.json()) as object;
 
       // get status & model from body
-      const resultBody: { model: PaymentModelEnum; status: number } =
-        this.validateBody({ model: payment.IPG, data: body }) as {
-          model: PaymentModelEnum;
-          status: number;
-        };
+      const resultBody = this.validateBody({
+        model: payment.IPG,
+        data: body,
+      }) as {
+        model: PaymentModelEnum;
+        status: number;
+      };
 
       // get status code from database
-      const statusResult: Validation | null =
-        await this.validationRepository.findOneBy({
-          IPG: payment.IPG,
-          statusCode: resultBody.status,
-        });
+      const statusResult = await this.validationRepository.findOneBy({
+        IPG: payment.IPG,
+        statusCode: resultBody.status,
+      });
 
       // check status code
       if (!statusResult) {
@@ -199,12 +200,8 @@ export class VerifiesService {
         message: statusResult.description,
         body: null,
       };
-    } catch (error) {
-      return {
-        status: 402,
-        message: statusMessages.fa['402'],
-        body: null,
-      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
