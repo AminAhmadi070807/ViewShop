@@ -10,16 +10,7 @@ export class UsersController {
 
   @MessagePattern('USER:CREATE')
   async create(@Payload() data: CreateUserDto) {
-    const user = await this.usersService.create(data);
-
-    return {
-      status: user.status,
-      body: {
-        ...user.body,
-        user: null,
-      },
-      message: user.message,
-    };
+    return await this.usersService.create(data);
   }
 
   @MessagePattern('USER:FIND')
