@@ -9,7 +9,7 @@ import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 
-@Entity('payment')
+@Entity('payments')
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
