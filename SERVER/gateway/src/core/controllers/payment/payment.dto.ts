@@ -1,11 +1,14 @@
 import {
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { PaymentSectionEnum } from '../../../common/enums/payment/payment.enum';
 
 export class PaymentDto {
   @ApiProperty({
@@ -33,4 +36,12 @@ export class PaymentDto {
   @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر داشته باشد' })
   @MaxLength(54, { message: 'توضیحات حدکثر میتواند 54 کارکتر داشته باشد' })
   description: string;
+
+  @IsNotEmpty({ message: 'سرویس نمیتواند خالی باشد' })
+  @IsEnum(PaymentSectionEnum, { message: 'سرویس نامعتبر است' })
+  service: PaymentSectionEnum;
+
+  @IsNotEmpty({ message: 'شناسه سرویس نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })
+  service_id: string;
 }

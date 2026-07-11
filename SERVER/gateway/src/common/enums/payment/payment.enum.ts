@@ -10,3 +10,9 @@ export enum PaymentStatusEnum {
   WAITING = 'WAITING',
   VERIFIED = 'VERIFIED',
 }
+
+export enum PaymentSectionEnum {
+  WALLET = 'WALLET',
+  ORDER = 'ORDER',
+}
+
