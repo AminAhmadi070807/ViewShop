@@ -37,10 +37,21 @@ export class PaymentDto {
   @MaxLength(54, { message: 'توضیحات حدکثر میتواند 54 کارکتر داشته باشد' })
   description: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    enum: PaymentSectionEnum,
+    example: PaymentSectionEnum.ORDER,
+  })
   @IsNotEmpty({ message: 'سرویس نمیتواند خالی باشد' })
   @IsEnum(PaymentSectionEnum, { message: 'سرویس نامعتبر است' })
   service: PaymentSectionEnum;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+  })
   @IsNotEmpty({ message: 'شناسه سرویس نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })
   service_id: string;
