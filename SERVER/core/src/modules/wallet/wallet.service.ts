@@ -3,10 +3,10 @@ import { WalletDto } from './dto/wallet.dto';
 import { Wallet } from './entities/wallet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaymentService } from '../payment/payment.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { PaymentModelEnum } from '../../common/enums/payment/ipg.enum';
 import { statusMessages } from '../../common/message/message.status';
+import { PaymentService } from '../payment/payment.service';
 
 @Injectable()
 export class WalletService {
@@ -16,21 +16,13 @@ export class WalletService {
     private readonly paymentService: PaymentService,
   ) {}
 
-  async charge(data: WalletDto) {
+  charge(data: WalletDto) {
     try {
       let result;
 
       switch (data.IPG) {
         case PaymentModelEnum.ZARIN_PAL: {
-          result = await this.paymentService.zarinPal({
-            user: data.userId,
-            amount: data.amount,
-            description: 'پرداخت به کیف پول کاربر',
-          });
-          break;
-        }
-        case PaymentModelEnum.ZIBAL: {
-          result = await this.paymentService.zibal({
+          result = this.paymentService.zarinPal({
             user: data.userId,
             amount: data.amount,
             description: 'پرداخت به کیف پول کاربر',
