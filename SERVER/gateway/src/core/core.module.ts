@@ -29,6 +29,7 @@ import { BrandController } from './controllers/brands/brand.controller';
 import { TargetController } from './controllers/target/target.controller';
 import { ReportController } from './controllers/report/report.controller';
 import { WishlistController } from './controllers/wishlist/wishlist.controller';
+import { PaymentController } from './controllers/payment/payment.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -60,6 +61,7 @@ import { WishlistController } from './controllers/wishlist/wishlist.controller';
     TargetController,
     ReportController,
     WishlistController,
+    PaymentController,
   ],
   exports: [CoreService],
 })
