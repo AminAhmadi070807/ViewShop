@@ -15,6 +15,27 @@ export class ZarinPalService {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
+  async request(data: ZarinPalDto) {
+    try {
+      const result = await fetch(process.env.ZARIN_PAL_API as string, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          merchant_id: process.env.ZARIN_PAL_CALLBACK,
+          amount: data.amount,
+          description: data.description,
+          callback_url: process.env.ZARIN_PAL_CALLBACK as string,
+        }),
+      });
+
+      return result;
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async payment(data: ZarinPalDto) {
     try {
       const existing = await this.paymentRepository.findOneBy({
