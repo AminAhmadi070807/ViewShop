@@ -81,7 +81,7 @@ export class ZarinPalService {
           status: 200,
           message: statusMessages.fa['200'],
           body: {
-            code: existing.code,
+            url: (process.env.ZARIN_PAL_URL as string) + existing.code,
           },
         };
       }
