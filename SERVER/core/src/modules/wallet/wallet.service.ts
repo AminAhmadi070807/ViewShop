@@ -17,35 +17,39 @@ export class WalletService {
   ) {}
 
   async charge(data: WalletDto) {
-    let result;
+    try {
+      let result;
 
-    switch (data.IPG) {
-      case PaymentModelEnum.ZARIN_PAL: {
-        result = await this.paymentService.zarinPal({
-          user: data.userId,
-          amount: data.amount,
-          description: 'پرداخت به کیف پول کاربر',
-        });
-        break;
+      switch (data.IPG) {
+        case PaymentModelEnum.ZARIN_PAL: {
+          result = await this.paymentService.zarinPal({
+            user: data.userId,
+            amount: data.amount,
+            description: 'پرداخت به کیف پول کاربر',
+          });
+          break;
+        }
+        case PaymentModelEnum.ZIBAL: {
+          result = await this.paymentService.zibal({
+            user: data.userId,
+            amount: data.amount,
+            description: 'پرداخت به کیف پول کاربر',
+          });
+          break;
+        }
+        default: {
+          result = {
+            status: 400,
+            message: 'نوسع سرویس پرداخت نادرست است',
+            body: null,
+          };
+        }
       }
-      case PaymentModelEnum.ZIBAL: {
-        result = await this.paymentService.zibal({
-          user: data.userId,
-          amount: data.amount,
-          description: 'پرداخت به کیف پول کاربر',
-        });
-        break;
-      }
-      default: {
-        result = {
-          status: 400,
-          message: 'نوسع سرویس پرداخت نادرست است',
-          body: null,
-        };
-      }
+
+      return result;
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
-
-    return result;
   }
 
   async findAll() {
