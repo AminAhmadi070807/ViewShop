@@ -51,6 +51,7 @@ export class PaymentDto {
     type: String,
     required: true,
     nullable: false,
+    example: '',
   })
   @IsNotEmpty({ message: 'شناسه سرویس نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })

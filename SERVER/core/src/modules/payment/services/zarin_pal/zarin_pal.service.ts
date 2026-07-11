@@ -7,6 +7,7 @@ import { CustomException } from '../../../../common/exceptions/custom.exception.
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
+import { ZarinPalInterface } from '../../../../common/interfaces/payment.interface';
 
 @Injectable()
 export class ZarinPalService {
@@ -17,20 +18,46 @@ export class ZarinPalService {
 
   async request(data: ZarinPalDto) {
     try {
-      const result = await fetch(process.env.ZARIN_PAL_API as string, {
+      const result = await fetch(process.env.ZARIN_PAL_API + 'request.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          merchant_id: process.env.ZARIN_PAL_CALLBACK,
+          merchant_id: process.env.ZARIN_PAL_MERCHANT,
           amount: data.amount,
           description: data.description,
-          callback_url: process.env.ZARIN_PAL_CALLBACK as string,
+          callback_url: process.env.ZARIN_PAL_CALLBACK,
         }),
       });
 
-      return result;
+      if (result.status !== 200) {
+        return new CustomException(result.statusText, result.status);
+      }
+
+      const json = (await result.json()) as ZarinPalInterface;
+
+      const payment = this.paymentRepository.create({
+        service: data.service,
+        amount: data.amount,
+        service_id: data.service_id,
+        status: PaymentStatusEnum.WAITING,
+        code: json.data.authority,
+        IPG: PaymentModelEnum.ZARIN_PAL,
+        user: {
+          id: data.user,
+        },
+      });
+
+      await this.paymentRepository.save(payment);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: {
+          url: process.env.ZARIN_PAL_URL + json.data.authority,
+        },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -41,7 +68,9 @@ export class ZarinPalService {
       const existing = await this.paymentRepository.findOneBy({
         IPG: PaymentModelEnum.ZARIN_PAL,
         service_id: data.service_id,
-        user: data.user,
+        user: {
+          id: data.user,
+        },
         amount: data.amount,
         service: data.service,
         status: PaymentStatusEnum.WAITING,
@@ -56,6 +85,8 @@ export class ZarinPalService {
           },
         };
       }
+
+      return await this.request(data);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

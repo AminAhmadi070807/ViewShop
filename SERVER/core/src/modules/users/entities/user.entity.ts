@@ -16,6 +16,7 @@ import { SubCategory } from '../../categories/entities/sub.category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Attribute } from '../../categories/entities/attribute.entity';
 import { Ticket } from '../../tickets/entities/ticket.entity';
+import { Payment } from '../../payment/entities/payment.entity';
 
 @Entity('users')
 export class User {
@@ -83,6 +84,9 @@ export class User {
 
   @OneToMany(() => Media, (media: Media) => media.user)
   medias: Media[];
+
+  @OneToMany(() => Payment, (payment: Payment) => payment.user)
+  payments: Payment[];
 
   @CreateDateColumn()
   createdAt: Date;

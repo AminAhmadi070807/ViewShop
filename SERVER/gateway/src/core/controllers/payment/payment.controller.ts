@@ -16,6 +16,8 @@ export class PaymentController {
       user: user.userId,
       amount: data.amount,
       description: data.description,
+      service: data.service,
+      service_id: data.service_id,
     });
   }
 }

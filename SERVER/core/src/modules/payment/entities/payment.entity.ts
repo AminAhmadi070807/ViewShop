@@ -2,20 +2,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('payments')
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'uuid', nullable: false })
-  user: string;
+  @ManyToOne(() => User, (user: User) => user.payments, { nullable: false })
+  user: User;
 
   @Column({ type: 'bigint', nullable: false, default: 0 })
   amount: number;
