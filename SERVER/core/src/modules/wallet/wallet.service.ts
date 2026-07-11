@@ -46,7 +46,11 @@ export class WalletService {
         }
       }
 
-      return result;
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
