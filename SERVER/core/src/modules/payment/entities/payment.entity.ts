@@ -2,7 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn, UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
@@ -42,9 +43,8 @@ export class Payment {
     type: 'enum',
     enum: PaymentSectionEnum,
     nullable: false,
-    default: PaymentSectionEnum.WALLET,
   })
-  section: PaymentSectionEnum;
+  service: PaymentSectionEnum;
 
   @Column({ type: 'varchar', nullable: false })
   code: string | number;
