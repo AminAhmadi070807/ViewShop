@@ -6,7 +6,7 @@ import { PaymentDto } from './dto/payment.dto';
 export class PaymentService {
   constructor(private readonly zarinPalService: ZarinPalService) {}
 
-  zarinPal(data: PaymentDto) {
-    return this.zarinPalService.payment(data);
+  async zarinPal(data: PaymentDto) {
+    return await this.zarinPalService.payment(data);
   }
 }
