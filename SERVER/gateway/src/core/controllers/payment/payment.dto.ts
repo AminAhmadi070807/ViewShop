@@ -1,7 +1,6 @@
 import {
   IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsString,
   IsUUID,
   MaxLength,
@@ -11,19 +10,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { PaymentSectionEnum } from '../../../common/enums/payment/payment.enum';
 
 export class PaymentDto {
-  @ApiProperty({
-    type: Number,
-    nullable: false,
-    required: true,
-    example: 10000,
-  })
-  @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowInfinity: true, allowNaN: false },
-    { message: 'قیمت نامعتبر است' },
-  )
-  amount: number;
-
   @ApiProperty({
     type: String,
     required: true,

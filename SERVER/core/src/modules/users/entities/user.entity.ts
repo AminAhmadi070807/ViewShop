@@ -43,7 +43,10 @@ export class User {
   @Column({ type: 'boolean', nullable: false, default: false })
   verified: boolean;
 
-  @OneToMany(() => Auth, (auth: Auth) => auth.user)
+  @OneToMany(() => Auth, (auth: Auth) => auth.user, {
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
   tokens: Auth[];
 
   @OneToMany(() => Address, (address: Address) => address.user)
