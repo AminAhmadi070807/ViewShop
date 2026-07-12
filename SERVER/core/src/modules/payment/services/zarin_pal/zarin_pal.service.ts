@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
-import { ZarinPalDto } from '../../dto/payment.dto';
+import { PaymentDto } from '../../dto/payment.dto';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
@@ -16,7 +16,7 @@ export class ZarinPalService {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
-  async request(data: ZarinPalDto) {
+  async request(data: PaymentDto) {
     try {
       const result = await fetch(process.env.ZARIN_PAL_API + 'request.json', {
         method: 'POST',
@@ -63,7 +63,7 @@ export class ZarinPalService {
     }
   }
 
-  async payment(data: ZarinPalDto) {
+  async payment(data: PaymentDto) {
     try {
       const existing = await this.paymentRepository.findOneBy({
         IPG: PaymentModelEnum.ZARIN_PAL,

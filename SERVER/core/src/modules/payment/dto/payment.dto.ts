@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 
-export class ZarinPalDto {
+export class PaymentDto {
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user: string;
