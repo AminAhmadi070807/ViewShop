@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { PaymentDto } from './payment.dto';
-import { JwtPayload } from '../../../common/validation/jwt.dto';
 import express from 'express';
-import { CoreService } from '../../core.service';
+import { CoreService } from '../../../core.service';
+import { JwtPayload } from '../../../../common/validation/jwt.dto';
 
 @Controller('core/payment/zarin-pal')
-export class PaymentController {
+export class ZarinPalController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post('pay')
@@ -14,10 +14,7 @@ export class PaymentController {
 
     return this.coreService.send('PAYMENT:ZARIN_PAL', {
       user: user.userId,
-      amount: data.amount,
-      description: data.description,
-      service: data.service,
-      service_id: data.service_id,
+      ...data,
     });
   }
 }

@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PaymentSectionEnum } from '../../../common/enums/payment/payment.enum';
+import { PaymentSectionEnum } from '../../../../common/enums/payment/payment.enum';
 
 export class PaymentDto {
   @ApiProperty({

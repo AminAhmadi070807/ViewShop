@@ -29,7 +29,7 @@ import { BrandController } from './controllers/brands/brand.controller';
 import { TargetController } from './controllers/target/target.controller';
 import { ReportController } from './controllers/report/report.controller';
 import { WishlistController } from './controllers/wishlist/wishlist.controller';
-import { PaymentController } from './controllers/payment/payment.controller';
+import { ZarinPalController } from './controllers/payment/zarin-pal/payment.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -61,7 +61,7 @@ import { PaymentController } from './controllers/payment/payment.controller';
     TargetController,
     ReportController,
     WishlistController,
-    PaymentController,
+    ZarinPalController,
   ],
   exports: [CoreService],
 })
