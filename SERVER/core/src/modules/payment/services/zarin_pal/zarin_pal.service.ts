@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
-import { PaymentDto } from '../../dto/payment.dto';
+import { PaymentDto, VerifyPaymentDto } from '../../dto/payment.dto';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
@@ -28,6 +28,7 @@ export class ZarinPalService {
           amount: data.amount,
           description: data.description,
           callback_url: process.env.ZARIN_PAL_CALLBACK,
+          currency: 'IRT',
         }),
       });
 
@@ -58,6 +59,36 @@ export class ZarinPalService {
           url: process.env.ZARIN_PAL_URL + json.data.authority,
         },
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async ferify(data: VerifyPaymentDto) {
+    try {
+      const result = await this.paymentRepository.findOneBy({
+        code: data.authority,
+        user: { id: data.user },
+      });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const request = await fetch(process.env.ZARIN_PAL_API + 'verify.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          merchant_id: process.env.ZARIN_PAL_MERCHANT,
+          authority: data.authority,
+          amount: result.amount,
+        }),
+      });
+
+      console.log(request);
+      return true;
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

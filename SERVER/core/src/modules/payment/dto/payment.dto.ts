@@ -10,6 +10,11 @@ import {
 } from 'class-validator';
 import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 
+enum status {
+  OK = 'OK',
+  NOK = 'NOK',
+}
+
 export class PaymentDto {
   @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
@@ -38,4 +43,18 @@ export class PaymentDto {
   @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر داشته باشد' })
   @MaxLength(54, { message: 'توضیحات حدکثر میتواند 54 کارکتر داشته باشد' })
   description: string;
+}
+
+export class VerifyPaymentDto {
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
+  user: string;
+
+  @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
+  @IsString({ message: 'اتوراریتی باید رشته باشد' })
+  authority: string;
+
+  @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
+  @IsEnum(status, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
+  status: string;
 }
