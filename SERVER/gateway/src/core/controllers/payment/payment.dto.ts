@@ -1,6 +1,8 @@
 import {
   IsEnum,
+  IsInt,
   IsNotEmpty,
+  IsNumber,
   IsString,
   IsUUID,
   MaxLength,
@@ -22,6 +24,21 @@ export class PaymentDto {
   @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر داشته باشد' })
   @MaxLength(54, { message: 'توضیحات حدکثر میتواند 54 کارکتر داشته باشد' })
   description: string;
+
+  @ApiProperty({
+    type: Number,
+    required: true,
+    example: 100000,
+  })
+  @IsNotEmpty({ message: 'قیمت نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowInfinity: true, allowNaN: false },
+    { message: 'قیمت باید عداد باشد' },
+  )
+  @IsInt({
+    message: 'قیمت نامعتبر است',
+  })
+  amount: number;
 
   @ApiProperty({
     type: String,
