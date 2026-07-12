@@ -64,7 +64,7 @@ export class ZarinPalService {
     }
   }
 
-  async ferify(data: VerifyPaymentDto) {
+  async verify(data: VerifyPaymentDto) {
     try {
       const result = await this.paymentRepository.findOneBy({
         code: data.authority,
