@@ -29,36 +29,18 @@ export class Media {
   @JoinColumn({ name: 'user_medias' })
   user: User;
 
-  @OneToMany(
-    (): typeof Category => Category,
-    (category: Category): Media => category.icon,
-    {
-      onUpdate: 'CASCADE',
-    },
-  )
+  @OneToMany(() => Category, (category: Category) => category.icon)
   categories: Category[];
 
-  @OneToMany(
-    (): typeof SubCategory => SubCategory,
-    (subCategory: SubCategory): Media => subCategory.icon,
-    {
-      onUpdate: 'CASCADE',
-    },
-  )
+  @OneToMany(() => SubCategory, (subCategory: SubCategory) => subCategory.icon)
   subCategories: SubCategory[];
 
-  @OneToMany(
-    (): typeof Attribute => Attribute,
-    (attribute: Attribute): Media => attribute.icon,
-    {
-      onUpdate: 'CASCADE',
-    },
-  )
+  @OneToMany(() => Attribute, (attribute: Attribute) => attribute.icon)
   attributes: Attribute[];
 
-  @ManyToMany(() => ParentProduct, (product: ParentProduct) => product.medias)
+  @ManyToMany(() => ParentProduct)
   parentProducts: ParentProduct[];
 
-  @ManyToMany(() => Product, (product: Product) => product.medias)
+  @ManyToMany(() => Product)
   products: Product[];
 }
