@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -24,7 +25,8 @@ export class Media {
   @Column({ type: 'varchar', nullable: false, unique: true })
   path: string;
 
-  @ManyToOne((): typeof User => User, (user: User): Media[] => user.medias)
+  @ManyToOne((): typeof User => User)
+  @JoinColumn({ name: 'user_medias' })
   user: User;
 
   @OneToMany(
