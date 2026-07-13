@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -43,10 +44,11 @@ export class Ticket {
     },
   ];
 
-  @ManyToOne(() => User, (user: User) => user.tickets, {
+  @ManyToOne(() => User, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'user_ticket' })
   user: User;
 
   @CreateDateColumn()

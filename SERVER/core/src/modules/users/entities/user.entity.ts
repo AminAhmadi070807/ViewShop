@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
-import { Attribute } from '../../categories/entities/attribute.entity';
 import { Ticket } from '../../tickets/entities/ticket.entity';
 import { Payment } from '../../payment/entities/payment.entity';
 
