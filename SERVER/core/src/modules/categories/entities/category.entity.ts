@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -34,14 +35,15 @@ export class Category {
   )
   icon: Media;
 
-  @ManyToOne(() => User, (user: User) => user.categories, {
+  @ManyToOne(() => User, {
     nullable: false,
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'user_category' })
   user: User;
 
   @OneToMany(
-    (): typeof ParentProduct => ParentProduct,
+    () => ParentProduct,
     (product: ParentProduct): Category => product.category,
   )
   parentProduct: ParentProduct[];

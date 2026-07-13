@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -33,14 +34,10 @@ export class Product {
   })
   alias: string;
 
-  @ManyToMany(() => Media, (media: Media) => media.products, {
+  @ManyToMany(() => Media, {
     nullable: false,
   })
-  @JoinTable({
-    name: 'product_media',
-    joinColumn: { name: 'product_id' },
-    inverseJoinColumn: { name: 'media_id' },
-  })
+  @JoinTable({ name: 'media_products' })
   medias: Media[];
 
   // product status
@@ -90,16 +87,18 @@ export class Product {
   })
   discount_percent: number;
 
-  @ManyToOne(() => User, (user: User) => user.products)
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_product' })
   user: User;
 
-  @OneToMany(() => Comment, (comment: Comment) => comment.product)
+  @OneToMany(() => Comment, (comment: Comment) => comment)
   comments: Comment;
 
-  @ManyToOne(() => ParentProduct, (product: ParentProduct) => product.products)
+  @ManyToOne(() => ParentProduct)
+  @JoinColumn({ name: 'parent_product_product' })
   parentProduct: ParentProduct;
 
-  @ManyToOne(() => Store, (store: Store) => store.products)
+  @ManyToOne(() => Store)
   store: Store;
 
   @CreateDateColumn()

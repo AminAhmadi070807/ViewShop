@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,10 +16,11 @@ export class Auth {
   @Column({ type: 'varchar', nullable: false })
   token: string;
 
-  @ManyToOne(() => User, (user: User) => user.tokens, {
+  @ManyToOne(() => User, {
     nullable: true,
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'tokens' })
   user: User;
 
   @Column({ type: 'varchar', nullable: false, unique: true })

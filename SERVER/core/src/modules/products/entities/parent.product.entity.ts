@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -123,63 +124,43 @@ export class ParentProduct {
   })
   max_price: number;
 
-  @ManyToOne(
-    (): typeof User => User,
-    (user: User): ParentProduct[] => user.parentProducts,
-  )
+  @ManyToOne((): typeof User => User)
+  @JoinColumn({ name: 'user_parent_products' })
   user: User;
 
-  @ManyToOne(
-    (): typeof Category => Category,
-    (category: Category) => category.parentProduct,
-    {
-      nullable: false,
-      onUpdate: 'CASCADE',
-    },
-  )
+  @ManyToOne((): typeof Category => Category, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'category_parent_products' })
   category: Category;
 
-  @ManyToOne(
-    (): typeof SubCategory => SubCategory,
-    (sub: SubCategory) => sub.parentProduct,
-    {
-      nullable: false,
-      onUpdate: 'CASCADE',
-    },
-  )
+  @ManyToOne((): typeof SubCategory => SubCategory, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'sub_category_parent_products' })
   subCategory: SubCategory;
 
-  @ManyToMany(
-    (): typeof Attribute => Attribute,
-    (attr: Attribute) => attr.parentProducts,
-    {
-      nullable: false,
-      onUpdate: 'CASCADE',
-    },
-  )
+  @ManyToMany((): typeof Attribute => Attribute, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+  })
   @JoinTable({
     name: 'parentProducts_attributes',
-    joinColumn: { name: 'user_id' },
-    inverseJoinColumn: { name: 'role_id' },
   })
   attributes: Attribute[];
 
   @OneToMany(() => Product, (product: Product) => product.parentProduct)
   products: Product[];
 
-  @ManyToMany(
-    (): typeof Media => Media,
-    (media: Media): ParentProduct[] => media.parentProducts,
-    {
-      onUpdate: 'CASCADE',
-      nullable: false,
-      eager: true,
-    },
-  )
+  @ManyToMany((): typeof Media => Media, {
+    onUpdate: 'CASCADE',
+    nullable: false,
+    eager: true,
+  })
   @JoinTable({
     name: 'parentProducts_medias',
-    joinColumn: { name: 'product_id' },
-    inverseJoinColumn: { name: 'media_id' },
   })
   medias: Media[];
 

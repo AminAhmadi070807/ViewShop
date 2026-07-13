@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,7 +17,8 @@ export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, (user: User) => user.payments, { nullable: false })
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'user_payments' })
   user: User;
 
   @Column({ type: 'bigint', nullable: false, default: 0 })

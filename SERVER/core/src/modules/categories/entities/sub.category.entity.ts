@@ -1,9 +1,9 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
@@ -20,30 +20,26 @@ export class SubCategory {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToOne(
-    (): typeof Media => Media,
-    (media: Media): Category[] => media.categories,
-    {
-      eager: true,
-      onUpdate: 'CASCADE',
-      nullable: false,
-    },
-  )
+  @ManyToOne((): typeof Media => Media, {
+    eager: true,
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
+  @JoinColumn({ name: 'media_icon' })
   icon: Media;
 
   @Column({ type: 'varchar', nullable: false })
   alias: string;
 
-  @ManyToOne(
-    (): typeof User => User,
-    (user: User): SubCategory[] => user.subCategories,
-  )
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_sub_category' })
   user: User;
 
-  @ManyToOne(() => Category, (category: Category) => category.subCategories, {
+  @ManyToOne(() => Category, {
     nullable: false,
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'sub_category_category' })
   category: Category;
 
   @OneToMany(
@@ -56,6 +52,6 @@ export class SubCategory {
   )
   parentProduct: ParentProduct;
 
-  @OneToMany(() => Attribute, (attribute: Attribute) => attribute.subCategory)
+  @OneToMany(() => Attribute, (attribute: Attribute) => attribute)
   attributes: Attribute[];
 }

@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
@@ -12,10 +13,11 @@ export class Address {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, (user: User) => user.addresses, {
+  @ManyToOne(() => User, {
     onDelete: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn({ name: 'user_address' })
   user: User;
 
   @Column({ type: 'varchar', nullable: false })
