@@ -51,7 +51,7 @@ export class Payment {
   service: PaymentSectionEnum;
 
   @Column({ type: 'varchar', nullable: false })
-  code: string | number;
+  code: string;
 
   @CreateDateColumn()
   createdAt: Date;
