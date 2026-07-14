@@ -99,6 +99,19 @@ export class ZarinPalService {
       }
 
       if (json.data.code === 100) {
+        const result = await this.paymentRepository.update(
+          {
+            code: data.authority,
+          },
+          {
+            status: PaymentStatusEnum.SUCCESS,
+          },
+        );
+
+        if (!result.affected) {
+          return new CustomException(statusMessages.fa['404'], 404);
+        }
+
         return {
           status: 200,
           message: statusMessages.fa['200'],
