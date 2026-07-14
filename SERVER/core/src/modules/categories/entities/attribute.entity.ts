@@ -2,14 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { SubCategory } from './sub.category.entity';
 import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
-import { ParentProduct } from '../../products/entities/parent.product.entity';
 
 @Entity('Attribute')
 export class Attribute {
@@ -28,14 +26,6 @@ export class Attribute {
   })
   @JoinColumn({ name: 'SubCategory_Attribute' })
   subCategory: SubCategory;
-
-  @ManyToMany((): typeof ParentProduct => ParentProduct, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn({ name: 'Attribute_ParentProduct' })
-  parentProducts: ParentProduct[];
 
   @ManyToOne(() => Media, {
     onUpdate: 'CASCADE',
