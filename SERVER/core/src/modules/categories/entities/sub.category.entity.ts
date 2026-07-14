@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
 import { User } from '../../users/entities/user.entity';
@@ -34,4 +36,10 @@ export class SubCategory {
   })
   @JoinColumn({ name: 'Category_SubCategory' })
   category: Category;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
