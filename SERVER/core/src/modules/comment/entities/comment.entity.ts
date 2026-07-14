@@ -20,6 +20,9 @@ export class Comment {
   @Column({ type: 'smallint', nullable: false, default: 5 })
   score: number;
 
+  @Column({ type: 'uuid', nullable: true })
+  parentComment: '';
+
   @ManyToOne(() => Product, { nullable: false })
   @JoinColumn({ name: 'Product_Comment' })
   product: Product;
