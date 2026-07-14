@@ -21,11 +21,6 @@ import crypto from 'crypto';
 import { RedisService } from '../../common/services/redis.service';
 import { statusMessages } from '../../common/message/message.status';
 
-interface SmsInterface {
-  status: HttpStatus;
-  message: string;
-}
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -178,23 +173,25 @@ export class AuthService {
       await this.redisService.ddl(data.route);
       await this.redisService.ddl(<string>map.get('phone'));
 
-      const user: User = this.userRepository.create({
+      const numberOfUsers: number = await this.userRepository.count();
+
+      const user = this.userRepository.create({
         verified: true,
-        role: UserRoleEnum.USER,
+        role: numberOfUsers ? UserRoleEnum.USER : UserRoleEnum.ADMIN,
         fullName: map.get('fullName'),
         phone: map.get('phone'),
         password: map.get('password'),
       });
 
-      const saveUser: User = await this.userRepository.save(user);
+      const saveUser = await this.userRepository.save(user);
 
-      const secret: string = crypto.randomUUID();
+      const secret = crypto.randomUUID();
 
       const tokens = this.generateToken(saveUser.id, saveUser.role, secret);
 
       const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
 
-      const token: Auth = this.authRepository.create({
+      const token = this.authRepository.create({
         user,
         token: hashRefreshToken,
         secret: await bcrypt.hash(secret, 12),
