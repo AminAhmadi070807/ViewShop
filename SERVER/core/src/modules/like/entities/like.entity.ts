@@ -27,7 +27,7 @@ export class Like {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'user_like' })
   user: User;
 
   @CreateDateColumn()
