@@ -11,7 +11,7 @@ import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 
-@Entity('attribute')
+@Entity('Attribute')
 export class Attribute {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -26,7 +26,7 @@ export class Attribute {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn({ name: 'sub_category_attribute' })
+  @JoinColumn({ name: 'SubCategory_Attribute' })
   subCategory: SubCategory;
 
   @ManyToMany((): typeof ParentProduct => ParentProduct, {
@@ -34,14 +34,14 @@ export class Attribute {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn({ name: 'attribute_parent_product' })
+  @JoinColumn({ name: 'Attribute_ParentProduct' })
   parentProducts: ParentProduct[];
 
   @ManyToOne(() => Media, {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn({ name: 'media_attribute' })
+  @JoinColumn({ name: 'Media_Attribute' })
   icon: Media;
 
   @ManyToOne(() => User, {
@@ -49,6 +49,6 @@ export class Attribute {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn({ name: 'user_attribute' })
+  @JoinColumn({ name: 'User_Attribute' })
   user: User;
 }
