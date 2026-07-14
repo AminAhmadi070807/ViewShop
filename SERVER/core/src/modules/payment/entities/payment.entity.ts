@@ -24,9 +24,6 @@ export class Payment {
   @Column({ type: 'bigint', nullable: false, default: 0 })
   amount: number;
 
-  @Column({ type: 'uuid', nullable: false })
-  service_id: string;
-
   @Column({
     type: 'enum',
     enum: PaymentStatusEnum,

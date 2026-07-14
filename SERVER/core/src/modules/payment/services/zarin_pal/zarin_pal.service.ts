@@ -41,7 +41,6 @@ export class ZarinPalService {
       const payment = this.paymentRepository.create({
         service: data.service,
         amount: data.amount,
-        service_id: data.service_id,
         status: PaymentStatusEnum.WAITING,
         code: json.data.authority,
         IPG: PaymentModelEnum.ZARIN_PAL,
@@ -98,7 +97,6 @@ export class ZarinPalService {
     try {
       const existing = await this.paymentRepository.findOneBy({
         IPG: PaymentModelEnum.ZARIN_PAL,
-        service_id: data.service_id,
         user: {
           id: data.user,
         },
