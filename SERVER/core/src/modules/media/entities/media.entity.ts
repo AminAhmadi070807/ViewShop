@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('media')
+@Entity('Media')
 export class Media {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -19,6 +19,6 @@ export class Media {
   path: string;
 
   @ManyToOne((): typeof User => User)
-  @JoinColumn({ name: 'user_medias' })
+  @JoinColumn({ name: 'User_Media' })
   user: User;
 }
