@@ -11,22 +11,10 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { Target } from '../../target/entities/target.entity';
 
-@Entity('reports')
+@Entity('Report')
 export class Report {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @OneToOne(() => User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn()
-  user: User;
-
-  @ManyToOne(() => Target, { onUpdate: 'CASCADE', nullable: false })
-  @JoinColumn()
-  target: Target;
 
   @Column({ type: 'varchar', nullable: false })
   reason: string;
@@ -34,19 +22,27 @@ export class Report {
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
-  @OneToOne(() => User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: true,
-  })
-  @JoinColumn()
-  admin: User;
-
   @Column({ type: 'varchar', nullable: true })
   answer: string;
 
   @Column({ type: 'boolean', default: false })
   isAnswer: boolean;
+
+  @ManyToOne(() => Target, { onUpdate: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'Target_Report' })
+  target: Target;
+
+  @OneToOne(() => User, { onDelete: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'User_Report' })
+  user: User;
+
+  @OneToOne(() => User, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    nullable: true,
+  })
+  @JoinColumn({ name: 'User_Report' })
+  admin: User;
 
   @CreateDateColumn()
   createdAt: Date;
