@@ -14,12 +14,15 @@ import { SubCategoryService } from '../../categories/subCategory/sub.category.se
 import { AttributeService } from '../../categories/attribute/attribute.service';
 import { RpcException } from '@nestjs/microservices';
 import { MediaService } from '../../media/media.service';
+import { Product } from '../entities/product.entity';
 
 @Injectable()
 export class ParentProductsService {
   constructor(
     @InjectRepository(ParentProduct)
-    private readonly productRepository: Repository<ParentProduct>,
+    private readonly parentProductRepository: Repository<ParentProduct>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly mediaService: MediaService,
@@ -39,7 +42,7 @@ export class ParentProductsService {
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
       // find product from database
-      const existing = await this.productRepository.findOneBy({
+      const existing = await this.parentProductRepository.findOneBy({
         alias: data.alias,
       });
 
@@ -63,7 +66,7 @@ export class ParentProductsService {
       if (medias instanceof RpcException) return medias;
       if (attributes instanceof RpcException) return attributes;
 
-      const product: ParentProduct = this.productRepository.create({
+      const product: ParentProduct = this.parentProductRepository.create({
         user: user,
         category: category.body,
         subCategory: subCategory.body,
@@ -81,7 +84,7 @@ export class ParentProductsService {
         warranty_type: data.warranty_type,
       });
 
-      await this.productRepository.save(product);
+      await this.parentProductRepository.save(product);
 
       return {
         status: 201,
@@ -95,7 +98,7 @@ export class ParentProductsService {
 
   async findAll(title?: string) {
     try {
-      const result: ParentProduct[] = await this.productRepository.find({
+      const result: ParentProduct[] = await this.parentProductRepository.find({
         where: {
           title: ILike(`%${title}%`),
         },
@@ -124,8 +127,8 @@ export class ParentProductsService {
 
   async findOne(id: string) {
     try {
-      const result: ParentProduct | null = await this.productRepository.findOne(
-        {
+      const result: ParentProduct | null =
+        await this.parentProductRepository.findOne({
           where: {
             id: id,
           },
@@ -136,8 +139,7 @@ export class ParentProductsService {
               fullName: true,
             },
           },
-        },
-      );
+        });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
@@ -170,7 +172,7 @@ export class ParentProductsService {
       else if (medias instanceof RpcException) return medias;
       else if (attributes instanceof RpcException) return attributes;
 
-      await this.productRepository.update(
+      await this.parentProductRepository.update(
         { id: data.id },
         {
           ...data,
@@ -193,29 +195,23 @@ export class ParentProductsService {
 
   async remove(id: string) {
     try {
-      const product = await this.productRepository.findOne({
-        where: {
-          id,
-        },
-        relations: ['products'],
-        select: {
-          id: true,
-          products: {
-            id: true,
-          },
-        },
-      });
+      const product = await this.parentProductRepository.findOneBy({ id });
 
       if (!product) {
         return new CustomException(statusMessages.fa['404'], 404);
-      } else if (product.products.length) {
-        return new CustomException(
-          'امکان حذف محصول وجود ندارد؛ این محصول دارای محصولات وابسته است.',
-          409,
-        );
+      } else {
+        const existing = await this.productRepository.find({
+          where: {
+            parentProduct: { id },
+          },
+        });
+
+        if (existing.length) {
+          return new CustomException('امکان حذف محصول وجود ندارد', 409);
+        }
       }
 
-      await this.productRepository.delete(id);
+      await this.parentProductRepository.delete(id);
 
       return {
         status: 204,
