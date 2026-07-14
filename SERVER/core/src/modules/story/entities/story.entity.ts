@@ -6,13 +6,15 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { StoryStatusEnum } from '../../../common/enums/story/status.enum';
+import { Payment } from '../../payment/entities/payment.entity';
 
-@Entity('stories')
+@Entity('Story')
 export class Story {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -20,34 +22,8 @@ export class Story {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToOne(() => User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn({ name: 'user_story' })
-  user: User;
-
   @Column({ type: 'varchar', nullable: false })
   link: string;
-
-  @ManyToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({ name: 'story_banner' })
-  banner: Media;
-
-  @OneToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({ name: 'story_video' })
-  video: Media;
-
-  @Column({ type: 'smallint', nullable: false, default: 0 })
-  like: number;
-
-  @ManyToOne(() => Category, { nullable: false, eager: true })
-  @JoinColumn({ name: 'story_category' })
-  category: Category;
-
-  @Column({ type: 'uuid', nullable: true })
-  payment: string;
 
   @Column({
     type: 'enum',
@@ -56,6 +32,39 @@ export class Story {
   })
   status: StoryStatusEnum;
 
+  @Column({ type: 'smallint', nullable: false, default: 0 })
+  like: number;
+
+  @Column({ type: 'smallint', nullable: false, default: 0 })
+  view: number;
+
+  @ManyToOne(() => User, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
+  @JoinColumn({ name: 'User_Story' })
+  user: User;
+
+  @ManyToOne(() => Media, { nullable: false, eager: true })
+  @JoinColumn({ name: 'Media_Store' })
+  banner: Media;
+
+  @OneToOne(() => Media, { nullable: false, eager: true })
+  @JoinColumn({ name: 'Media_Store' })
+  video: Media;
+
+  @ManyToOne(() => Category, { nullable: false, eager: true })
+  @JoinColumn({ name: 'Category_Story' })
+  category: Category;
+
+  @OneToOne(() => Payment, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinColumn({ name: 'Story_Payment' })
+  payment: Payment;
+
   @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
