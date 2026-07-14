@@ -39,7 +39,7 @@ export class SubCategory {
     nullable: false,
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'sub_category_category' })
+  @JoinColumn({ name: 'category_sub_category' })
   category: Category;
 
   @OneToMany(
