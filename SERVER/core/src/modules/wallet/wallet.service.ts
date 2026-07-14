@@ -3,7 +3,7 @@ import { WalletDto } from './dto/wallet.dto';
 
 @Injectable()
 export class WalletService {
-  create(data: WalletDto) {
+  charge(data: WalletDto) {
     return data;
   }
 

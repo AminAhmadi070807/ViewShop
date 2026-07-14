@@ -8,8 +8,8 @@ export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
   @MessagePattern('WALLET:CHARGE')
-  create(@Payload() data: WalletDto) {
-    return this.walletService.create(data);
+  charge(@Payload() data: WalletDto) {
+    return this.walletService.charge(data);
   }
 
   @MessagePattern('WALLET:FIND')
