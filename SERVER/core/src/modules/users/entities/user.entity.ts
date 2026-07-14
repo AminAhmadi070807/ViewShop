@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
+import { Wallet } from '../../wallet/entities/wallet.entity';
 
 @Entity('users')
 export class User {
@@ -31,6 +33,11 @@ export class User {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   verified: boolean;
+
+  @OneToOne(() => Wallet, (wallet: Wallet) => wallet.user, {
+    onUpdate: 'CASCADE',
+  })
+  wallet: Wallet;
 
   @CreateDateColumn()
   createdAt: Date;
