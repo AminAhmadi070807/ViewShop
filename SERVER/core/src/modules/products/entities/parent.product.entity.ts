@@ -24,7 +24,7 @@ import { Media } from '../../media/entities/media.entity';
 import { SubCategory } from '../../categories/entities/sub.category.entity';
 import { Attribute } from '../../categories/entities/attribute.entity';
 
-@Entity('parentProducts')
+@Entity('ParentProducts')
 export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;

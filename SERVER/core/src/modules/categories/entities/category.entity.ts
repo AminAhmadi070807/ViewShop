@@ -24,7 +24,7 @@ export class Category {
   @Column({ type: 'varchar', nullable: false })
   alias: string;
 
-  @ManyToOne(() => Media, (media: Media): Category[] => media.categories, {
+  @ManyToOne(() => Media, {
     eager: true,
     onUpdate: 'CASCADE',
     nullable: false,
