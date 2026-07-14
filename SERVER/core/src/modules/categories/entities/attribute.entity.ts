@@ -34,12 +34,14 @@ export class Attribute {
     onUpdate: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn({ name: 'attribute_parent_product' })
   parentProducts: ParentProduct[];
 
   @ManyToOne(() => Media, {
     onUpdate: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn({ name: 'media_attribute' })
   icon: Media;
 
   @ManyToOne(() => User, {
@@ -47,5 +49,6 @@ export class Attribute {
     onUpdate: 'CASCADE',
     nullable: false,
   })
+  @JoinColumn({ name: 'user_attribute' })
   user: User;
 }
