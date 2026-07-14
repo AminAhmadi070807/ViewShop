@@ -24,6 +24,6 @@ export class Category {
   icon: Media;
 
   @ManyToOne(() => User, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'user_Category' })
+  @JoinColumn({ name: 'User_Category' })
   user: User;
 }
