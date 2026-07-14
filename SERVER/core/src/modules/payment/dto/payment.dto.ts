@@ -8,7 +8,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 
 enum status {
   OK = 'OK',
@@ -29,10 +28,6 @@ export class PaymentDto {
     message: 'قیمت نامعتبر است',
   })
   amount: number;
-
-  @IsNotEmpty({ message: 'سرویس نمیتواند خالی باشد' })
-  @IsEnum(PaymentSectionEnum, { message: 'سرویس نامعتبر است' })
-  service: PaymentSectionEnum;
 
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
