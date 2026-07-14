@@ -14,7 +14,7 @@ export class Address {
   id: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_address' })
+  @JoinColumn({ name: 'User_Address' })
   user: User;
 
   @Column({ type: 'varchar', nullable: false })
