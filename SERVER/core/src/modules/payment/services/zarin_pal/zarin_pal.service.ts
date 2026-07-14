@@ -7,7 +7,10 @@ import { CustomException } from '../../../../common/exceptions/custom.exception.
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
-import { ZarinPalInterface } from '../../../../common/interfaces/payment.interface';
+import {
+  VerifyZarinPalInterface,
+  ZarinPalInterface,
+} from '../../../../common/interfaces/payment.interface';
 
 @Injectable()
 export class ZarinPalService {
@@ -85,8 +88,35 @@ export class ZarinPalService {
         }),
       });
 
-      console.log(request);
-      return true;
+      if (request.status !== 200) {
+        return new CustomException(request.statusText, +result.status);
+      }
+
+      const json = (await request.json()) as VerifyZarinPalInterface;
+
+      if (!json.errors.length) {
+        return new CustomException(statusMessages.fa['402'], 402);
+      }
+
+      if (json.data.code === 100) {
+        return {
+          status: 200,
+          message: statusMessages.fa['200'],
+          body: null,
+        };
+      } else if (json.data.code === 101) {
+        return {
+          status: 200,
+          message: statusMessages.fa['200'],
+          body: null,
+        };
+      }
+
+      return {
+        status: 402,
+        message: statusMessages.fa['402'],
+        body: null,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
