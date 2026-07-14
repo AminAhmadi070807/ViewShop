@@ -13,7 +13,7 @@ export class Wallet {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, (user: User) => user.wallet, {
+  @OneToOne(() => User, {
     nullable: false,
     onUpdate: 'CASCADE',
   })

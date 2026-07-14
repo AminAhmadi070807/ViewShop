@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -33,11 +32,6 @@ export class User {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   verified: boolean;
-
-  @OneToOne(() => Wallet, (wallet: Wallet) => wallet.user, {
-    onUpdate: 'CASCADE',
-  })
-  wallet: Wallet;
 
   @CreateDateColumn()
   createdAt: Date;
