@@ -23,7 +23,7 @@ export class Wishlist {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'user_wishlist' })
   user: User;
 
   @ManyToOne(() => Product, {
@@ -31,7 +31,7 @@ export class Wishlist {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'product_wishlist' })
   product: Product;
 
   @CreateDateColumn()
