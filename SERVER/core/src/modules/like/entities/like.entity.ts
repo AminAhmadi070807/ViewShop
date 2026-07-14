@@ -9,7 +9,7 @@ import {
 import { Product } from '../../products/entities/product.entity';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('like')
+@Entity('Like')
 export class Like {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -19,15 +19,11 @@ export class Like {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
+  @JoinColumn({ name: 'Product_Like' })
   product: Product;
 
-  @ManyToOne(() => User, {
-    nullable: false,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
-  @JoinColumn({ name: 'user_like' })
+  @ManyToOne(() => User, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'User_Like' })
   user: User;
 
   @CreateDateColumn()
