@@ -10,7 +10,7 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { Product } from '../../products/entities/product.entity';
 
-@Entity('wishlist')
+@Entity('Wishlist')
 export class Wishlist {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -18,20 +18,12 @@ export class Wishlist {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @ManyToOne(() => User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn({ name: 'user_wishlist' })
+  @ManyToOne(() => User, { onDelete: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'User_Wishlist' })
   user: User;
 
-  @ManyToOne(() => Product, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn({ name: 'product_wishlist' })
+  @ManyToOne(() => Product, { onDelete: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'Product_Wishlist' })
   product: Product;
 
   @CreateDateColumn()
