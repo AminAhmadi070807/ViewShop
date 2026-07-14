@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { SubCategory } from './sub.category.entity';
 import { Media } from '../../media/entities/media.entity';
@@ -41,4 +43,10 @@ export class Attribute {
   })
   @JoinColumn({ name: 'User_Attribute' })
   user: User;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
