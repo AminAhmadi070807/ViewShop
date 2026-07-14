@@ -44,19 +44,19 @@ export class Article {
   status: ArticleStatusEnum;
 
   @ManyToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({ name: 'cover_article' })
+  @JoinColumn({ name: 'Media_Article' })
   cover: Media;
 
   @ManyToOne(() => Store, { nullable: true })
-  @JoinColumn({ name: 'store_article' })
+  @JoinColumn({ name: 'Store_Article' })
   store: Store;
 
   @ManyToOne(() => User, { nullable: false, eager: true })
-  @JoinColumn({ name: 'user_article' })
+  @JoinColumn({ name: 'User_Article' })
   author: User;
 
   @ManyToOne(() => Category, { nullable: false, eager: true })
-  @JoinColumn({ name: 'category_article' })
+  @JoinColumn({ name: 'Category_Article' })
   category: Category;
 
   @Column({ nullable: true })
