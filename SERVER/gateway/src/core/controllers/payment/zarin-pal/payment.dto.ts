@@ -49,14 +49,4 @@ export class PaymentDto {
   @IsNotEmpty({ message: 'سرویس نمیتواند خالی باشد' })
   @IsEnum(PaymentSectionEnum, { message: 'سرویس نامعتبر است' })
   service: PaymentSectionEnum;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'شناسه سرویس نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })
-  service_id: string;
 }
