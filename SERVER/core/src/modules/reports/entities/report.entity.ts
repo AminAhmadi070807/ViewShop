@@ -41,7 +41,7 @@ export class Report {
     onUpdate: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn({ name: 'User_Report' })
+  @JoinColumn({ name: 'Admin_Report' })
   admin: User;
 
   @CreateDateColumn()
