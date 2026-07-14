@@ -6,7 +6,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -18,10 +17,8 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
-import { Store } from '../../store/entities/store.entity';
-import { Comment } from '../../comment/entities/comment.entity';
 
-@Entity('products')
+@Entity('Product')
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -33,12 +30,6 @@ export class Product {
     comment: 'product alias name',
   })
   alias: string;
-
-  @ManyToMany(() => Media, {
-    nullable: false,
-  })
-  @JoinTable({ name: 'media_products' })
-  medias: Media[];
 
   // product status
   @Column({
@@ -88,18 +79,16 @@ export class Product {
   discount_percent: number;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_product' })
+  @JoinColumn({ name: 'User_Product' })
   user: User;
 
-  @OneToMany(() => Comment, (comment: Comment) => comment.product)
-  comments: Comment[];
-
-  @ManyToOne(() => ParentProduct)
-  @JoinColumn({ name: 'parent_product_product' })
+  @ManyToOne(() => ParentProduct, { nullable: false })
+  @JoinColumn({ name: 'Product_ParentProduct' })
   parentProduct: ParentProduct;
 
-  @ManyToOne(() => Store)
-  store: Store;
+  @ManyToMany(() => Media, { nullable: false })
+  @JoinTable({ name: 'Media_Product' })
+  medias: Media[];
 
   @CreateDateColumn()
   createdAt: Date;
