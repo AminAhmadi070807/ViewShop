@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('wallet')
+@Entity('Wallet')
 export class Wallet {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -17,7 +17,7 @@ export class Wallet {
     nullable: false,
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_wallet' })
+  @JoinColumn({ name: 'User_Wallet' })
   user: User;
 
   @Column({ type: 'bigint', nullable: false, default: 0 })
