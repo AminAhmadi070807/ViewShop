@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -43,23 +44,27 @@ export class Article {
   status: ArticleStatusEnum;
 
   @ManyToOne(() => Media, { nullable: false, eager: true })
+  @JoinColumn({ name: 'cover_article' })
   cover: Media;
 
-  @ManyToOne(() => Store, { nullable: false })
+  @ManyToOne(() => Store, { nullable: true })
+  @JoinColumn({ name: 'store_article' })
   store: Store;
 
   @ManyToOne(() => User, { nullable: false, eager: true })
+  @JoinColumn({ name: 'user_article' })
   author: User;
 
   @ManyToOne(() => Category, { nullable: false, eager: true })
+  @JoinColumn({ name: 'category_article' })
   category: Category;
+
+  @Column({ nullable: true })
+  publishedAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @Column({ nullable: true })
-  publishedAt: Date;
 }
