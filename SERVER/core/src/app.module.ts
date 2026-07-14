@@ -25,6 +25,7 @@ import { ReportsModule } from './modules/reports/reports.module';
 import { TargetModule } from './modules/target/target.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { WalletModule } from './modules/wallet/wallet.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { PaymentModule } from './modules/payment/payment.module';
     TargetModule,
     WishlistModule,
     PaymentModule,
+    WalletModule,
   ],
 })
 export class AppModule {}
