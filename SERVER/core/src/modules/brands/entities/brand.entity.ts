@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Media } from '../../media/entities/media.entity';
 
-@Entity('brands')
+@Entity('Brand')
 export class Brand {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -26,11 +26,8 @@ export class Brand {
   @Column({ type: 'varchar', nullable: false })
   link: string;
 
-  @OneToOne(() => Media, {
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
-  @JoinColumn()
+  @OneToOne(() => Media, { onUpdate: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'Media_Brand' })
   logo: Media;
 
   @CreateDateColumn()
