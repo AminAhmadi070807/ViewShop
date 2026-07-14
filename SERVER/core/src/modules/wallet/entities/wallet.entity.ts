@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,6 +17,7 @@ export class Wallet {
     nullable: false,
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'user_wallet' })
   user: User;
 
   @Column({ type: 'bigint', nullable: false, default: 0 })
