@@ -31,6 +31,7 @@ import { PublicAccess } from '../../../common/decorators/public.access.decorator
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { RpcException } from '@nestjs/microservices';
 
 @Controller('core/auth')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -213,15 +214,15 @@ export class AuthController {
   async varify(@Req() req: express.Request, @Res() res: express.Response) {
     const payload: JwtRefreshPayload = req.user as JwtRefreshPayload;
 
-    const result: AuthVerifyInterface = (await firstValueFrom(
+    const result = (await firstValueFrom(
       this.coreService.send('AUTH:VERIFY', {
         userId: payload.userId,
         secret: payload.secret,
       }),
-    )) as AuthVerifyInterface;
+    )) as AuthVerifyInterface | { error: { message: string; status: number } };
 
-    if (!result) {
-      throw new UnauthorizedException('The Refresh Token is not valid.');
+    if ('error' in result) {
+      throw new HttpException(statusMessages.fa['401'], 401);
     }
 
     // set access token to cookies
@@ -240,6 +241,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @PublicAccess()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
