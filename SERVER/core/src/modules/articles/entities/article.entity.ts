@@ -13,7 +13,7 @@ import { User } from '../../users/entities/user.entity';
 import { ArticleStatusEnum } from '../../../common/enums/articles/articles.status';
 import { Store } from '../../store/entities/store.entity';
 
-@Entity('articles')
+@Entity('Article')
 export class Article {
   @PrimaryGeneratedColumn('uuid')
   id: string;
