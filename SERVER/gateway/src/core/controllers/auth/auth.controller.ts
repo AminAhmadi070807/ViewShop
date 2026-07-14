@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpException,
   Param,
   Post,
   Req,
@@ -102,12 +103,18 @@ export class AuthController {
     },
   ])
   async login(@Body() data: AuthLoginDto, @Res() res: express.Response) {
-    const result: AuthInterface = (await firstValueFrom(
+    const result:
+      | { error: { message: string; status: number } }
+      | AuthInterface = (await firstValueFrom(
       this.coreService.send('AUTH:LOGIN', {
         phone: data.phone,
         password: data.password,
       }),
-    )) as AuthInterface;
+    )) as { error: { message: string; status: number } } | AuthInterface;
+
+    if ('error' in result) {
+      return new HttpException(result.error, result.error.status);
+    }
 
     this.setToken(
       res,
@@ -115,7 +122,7 @@ export class AuthController {
       result.body.refresh_token,
       this.refreshTokenOptions,
     );
-    // set access token to cookies
+
     this.setToken(
       res,
       'access_token',
