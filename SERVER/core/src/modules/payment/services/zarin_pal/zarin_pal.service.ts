@@ -94,7 +94,7 @@ export class ZarinPalService {
 
       const json = (await request.json()) as VerifyZarinPalInterface;
 
-      if (!json.errors.length) {
+      if (json.errors.length) {
         return new CustomException(statusMessages.fa['402'], 402);
       }
 
