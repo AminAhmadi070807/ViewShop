@@ -118,6 +118,46 @@ export class ZarinPalService {
           body: null,
         };
       } else if (json.data.code === 101) {
+        const result = await this.paymentRepository.findOneBy({
+          code: data.authority,
+        });
+
+        if (!result) {
+          return new CustomException(statusMessages.fa['404'], 404);
+        }
+
+        switch (result.status) {
+          case PaymentStatusEnum.WAITING: {
+            const result = await this.paymentRepository.update(
+              {
+                code: data.authority,
+              },
+              {
+                status: PaymentStatusEnum.SUCCESS,
+              },
+            );
+
+            if (!result.affected) {
+              return new CustomException(statusMessages.fa['404'], 404);
+            }
+            break;
+          }
+
+          case PaymentStatusEnum.SUCCESS: {
+            break;
+          }
+
+          case PaymentStatusEnum.FAILED:
+          case PaymentStatusEnum.CANCELED:
+          default: {
+            return {
+              status: 402,
+              message: statusMessages.fa['402'],
+              body: null,
+            };
+          }
+        }
+
         return {
           status: 200,
           message: statusMessages.fa['200'],
