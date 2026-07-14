@@ -53,9 +53,9 @@ export class CategoriesService {
         relations: ['user'],
         select: {
           icon: {
+            id: true,
             title: true,
             path: true,
-            categories: false,
           },
           user: {
             id: true,
