@@ -45,7 +45,6 @@ export class StoreService {
         title: data.title,
         alias: data.alias,
         description: data.description,
-        fullName: data.fullName,
         logo: {
           id: data.logo,
         },
