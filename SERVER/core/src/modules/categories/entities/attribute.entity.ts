@@ -11,7 +11,7 @@ import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from '../../products/entities/parent.product.entity';
 
-@Entity('AttributesCategory')
+@Entity('attribute')
 export class Attribute {
   @PrimaryGeneratedColumn('uuid')
   id: string;
