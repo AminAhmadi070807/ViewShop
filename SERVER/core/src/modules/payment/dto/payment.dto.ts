@@ -34,10 +34,6 @@ export class PaymentDto {
   @IsEnum(PaymentSectionEnum, { message: 'سرویس نامعتبر است' })
   service: PaymentSectionEnum;
 
-  @IsNotEmpty({ message: 'شناسه سرویس نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })
-  service_id: string;
-
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر داشته باشد' })
