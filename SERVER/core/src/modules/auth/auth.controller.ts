@@ -14,6 +14,7 @@ export class AuthController {
 
   @MessagePattern('AUTH:REGISTER')
   register(@Payload() data: AuthRegisterDto) {
+    console.log('controller');
     return this.authService.register(data);
   }
 

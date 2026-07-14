@@ -129,10 +129,12 @@ export class AuthService {
       const randomCode: number = crypto.randomInt(100000, 999999);
 
       // send otp code to user by sms service
-      const sms: SmsInterface = await this.smsService.Mediana({
+      const sms = await this.smsService.SmsIr({
         phone: data.phone,
         code: `${randomCode}`,
       });
+
+      if (sms instanceof CustomException) return sms;
 
       // hashed user password
       const hashedPassword: string = await bcrypt.hash(data.password, 12);
@@ -140,7 +142,7 @@ export class AuthService {
       const randomRoute: string = crypto.randomUUID();
 
       // To send sms was successfully send response to client
-      if (sms.status === HttpStatus.OK) {
+      if (sms.status === 200) {
         return new CustomException(sms.message, sms.status);
       }
 
