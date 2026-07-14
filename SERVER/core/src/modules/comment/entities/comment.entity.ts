@@ -21,7 +21,7 @@ export class Comment {
   score: number;
 
   @Column({ type: 'uuid', nullable: true })
-  parentComment: '';
+  parentComment: string;
 
   @ManyToOne(() => Product, { nullable: false })
   @JoinColumn({ name: 'Product_Comment' })

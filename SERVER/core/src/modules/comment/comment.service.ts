@@ -37,7 +37,7 @@ export class CommentService {
           return new CustomException(statusMessages.fa['404'], 404);
         }
 
-        comment.parentComment = existing;
+        comment.parentComment = existing.id;
       }
 
       comment.user = user.body;
