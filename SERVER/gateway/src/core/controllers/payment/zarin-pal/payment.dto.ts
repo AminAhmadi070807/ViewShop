@@ -24,10 +24,23 @@ export class PaymentDto {
 }
 
 export class VerifyPaymentDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
   @IsString({ message: 'اتوراریتی باید رشته باشد' })
   authority: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    enum: PaymentVerifyStatusEnum,
+    example: PaymentVerifyStatusEnum.NOK,
+  })
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
   @IsEnum(PaymentVerifyStatusEnum, {
     message: 'لطفا وضیعت را بهدرستی وارد نماید',
