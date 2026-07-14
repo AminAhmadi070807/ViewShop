@@ -74,7 +74,6 @@ export class AuthService {
     };
   }
 
-  // payload otp data
   private payloadOtp(payload: string): Map<string, string> {
     const items: string[] = payload.split('___');
 
@@ -89,7 +88,6 @@ export class AuthService {
     return data;
   }
 
-  // register user
   async register(data: AuthRegisterDto) {
     try {
       // find user with phone number from database
@@ -157,7 +155,6 @@ export class AuthService {
     }
   }
 
-  // verify otp code
   async verifyOtp(data: AuthVerifyOtp) {
     try {
       const result: string | null = await this.redisService.get(data.route);
@@ -207,7 +204,6 @@ export class AuthService {
     }
   }
 
-  // verify token
   async verifyToken(data: AuthValidateDto) {
     try {
       const tokens = await this.authRepository.find({
@@ -264,7 +260,6 @@ export class AuthService {
     }
   }
 
-  // validation refresh token
   async validateRefreshToken(data: AuthValidateDto) {
     try {
       const tokens: Auth[] = await this.authRepository.find({
@@ -302,7 +297,6 @@ export class AuthService {
     }
   }
 
-  // login user
   async login(data: AuthLoginDto) {
     try {
       // find user
@@ -361,7 +355,6 @@ export class AuthService {
     }
   }
 
-  // logout user
   async logout(data: AuthValidateDto) {
     try {
       // get user tokens
