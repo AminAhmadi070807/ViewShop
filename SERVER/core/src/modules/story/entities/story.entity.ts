@@ -25,33 +25,25 @@ export class Story {
     onUpdate: 'CASCADE',
     nullable: false,
   })
-  @JoinColumn({
-    name: 'user_story',
-  })
+  @JoinColumn({ name: 'user_story' })
   user: User;
 
   @Column({ type: 'varchar', nullable: false })
   link: string;
 
   @ManyToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({
-    name: 'story_banner',
-  })
+  @JoinColumn({ name: 'story_banner' })
   banner: Media;
 
   @OneToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({
-    name: 'story_video',
-  })
+  @JoinColumn({ name: 'story_video' })
   video: Media;
 
   @Column({ type: 'smallint', nullable: false, default: 0 })
   like: number;
 
   @ManyToOne(() => Category, { nullable: false, eager: true })
-  @JoinColumn({
-    name: 'story_category',
-  })
+  @JoinColumn({ name: 'story_category' })
   category: Category;
 
   @Column({ type: 'uuid', nullable: true })
