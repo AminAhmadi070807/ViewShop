@@ -17,6 +17,7 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
+import { Store } from '../../store/entities/store.entity';
 
 @Entity('Product')
 export class Product {
@@ -89,6 +90,10 @@ export class Product {
   @ManyToMany(() => Media, { nullable: false })
   @JoinTable({ name: 'Media_Product' })
   medias: Media[];
+
+  @ManyToOne(() => Store, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinTable({ name: 'Store_Product' })
+  store: Store;
 
   @CreateDateColumn()
   createdAt: Date;
