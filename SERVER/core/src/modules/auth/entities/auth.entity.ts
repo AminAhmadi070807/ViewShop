@@ -20,7 +20,7 @@ export class Auth {
     nullable: true,
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'tokens' })
+  @JoinColumn({ name: 'Token' })
   user: User;
 
   @Column({ type: 'varchar', nullable: false, unique: true })
