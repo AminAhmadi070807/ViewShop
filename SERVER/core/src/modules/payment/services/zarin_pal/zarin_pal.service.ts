@@ -39,7 +39,6 @@ export class ZarinPalService {
       const json = (await result.json()) as ZarinPalInterface;
 
       const payment = this.paymentRepository.create({
-        service: data.service,
         amount: data.amount,
         status: PaymentStatusEnum.WAITING,
         code: json.data.authority,
@@ -101,7 +100,6 @@ export class ZarinPalService {
           id: data.user,
         },
         amount: data.amount,
-        service: data.service,
         status: PaymentStatusEnum.WAITING,
       });
 
