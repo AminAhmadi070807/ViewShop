@@ -60,7 +60,6 @@ export class SmsService {
           ],
         }),
       });
-      console.log(response);
 
       const result = (await response.json()) as {
         status: number;
@@ -75,8 +74,7 @@ export class SmsService {
         status: 200,
         message: 'ارسال پیام موفقیت امیز بود',
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

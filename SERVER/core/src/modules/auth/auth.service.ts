@@ -139,14 +139,8 @@ export class AuthService {
       // hashed user password
       const hashedPassword: string = await bcrypt.hash(data.password, 12);
       // random user verify route
-      const randomRoute: string = crypto.randomUUID();
+      const randomRoute = crypto.randomUUID();
 
-      // To send sms was successfully send response to client
-      if (sms.status === 200) {
-        return new CustomException(sms.message, sms.status);
-      }
-
-      // set data in redis
       await this.redisService.set(
         randomRoute,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
