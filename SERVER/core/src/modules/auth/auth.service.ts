@@ -189,19 +189,17 @@ export class AuthService {
 
       const tokens = this.generateToken(saveUser.id, saveUser.role, secret);
 
-      const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
-
       const token = this.authRepository.create({
         user,
-        token: hashRefreshToken,
+        token: await bcrypt.hash(tokens.refresh_token, 12),
         secret: await bcrypt.hash(secret, 12),
       });
 
       await this.authRepository.save(token);
 
       return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa.AUTH['201'],
+        status: 200,
+        message: statusMessages.fa.AUTH['200'],
         body: tokens,
       };
     } catch {
@@ -212,7 +210,7 @@ export class AuthService {
   // verify token
   async verifyToken(data: AuthValidateDto) {
     try {
-      const tokens: Auth[] = await this.authRepository.find({
+      const tokens = await this.authRepository.find({
         where: {
           user: { id: data.userId },
         },
@@ -231,7 +229,10 @@ export class AuthService {
 
       // find validate token array
       for (const token of tokens) {
-        if (await bcrypt.compare(data.secret, token.secret)) userToken = token;
+        if (await bcrypt.compare(data.secret, token.secret)) {
+          userToken = token;
+          break;
+        }
       }
 
       if (!userToken) return new CustomException(statusMessages.fa['401'], 401);
