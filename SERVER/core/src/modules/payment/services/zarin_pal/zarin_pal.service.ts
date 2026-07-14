@@ -26,7 +26,7 @@ export class ZarinPalService {
         body: JSON.stringify({
           merchant_id: process.env.ZARIN_PAL_MERCHANT,
           amount: data.amount,
-          description: data.description,
+          description: 'شارژ کیف پول کاربر',
           callback_url: process.env.ZARIN_PAL_CALLBACK,
           currency: 'IRT',
         }),
