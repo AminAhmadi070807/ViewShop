@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
-import { PaymentSectionEnum } from '../../../common/enums/payment/section.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 import { User } from '../../users/entities/user.entity';
 
@@ -39,13 +38,6 @@ export class Payment {
     default: PaymentModelEnum.ZIBAL,
   })
   IPG: PaymentModelEnum;
-
-  @Column({
-    type: 'enum',
-    enum: PaymentSectionEnum,
-    nullable: false,
-  })
-  service: PaymentSectionEnum;
 
   @Column({ type: 'varchar', nullable: false })
   code: string;
