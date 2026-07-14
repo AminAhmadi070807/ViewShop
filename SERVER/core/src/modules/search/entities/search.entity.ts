@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('search')
+@Entity('Search')
 export class Search {
   @PrimaryGeneratedColumn('uuid')
   id: string;
