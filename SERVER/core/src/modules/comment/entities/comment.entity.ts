@@ -26,9 +26,7 @@ export class Comment {
   product: Product;
 
   @ManyToOne(() => User, { nullable: false })
-  @JoinColumn({
-    name: 'comments_user',
-  })
+  @JoinColumn({ name: 'user_comments' })
   user: User;
 
   @ManyToOne(() => Comment, {

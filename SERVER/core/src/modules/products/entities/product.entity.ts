@@ -91,8 +91,8 @@ export class Product {
   @JoinColumn({ name: 'user_product' })
   user: User;
 
-  @OneToMany(() => Comment, (comment: Comment) => comment)
-  comments: Comment;
+  @OneToMany(() => Comment, (comment: Comment) => comment.product)
+  comments: Comment[];
 
   @ManyToOne(() => ParentProduct)
   @JoinColumn({ name: 'parent_product_product' })
