@@ -24,15 +24,11 @@ export class Category {
   @Column({ type: 'varchar', nullable: false })
   alias: string;
 
-  @ManyToOne(
-    (): typeof Media => Media,
-    (media: Media): Category[] => media.categories,
-    {
-      eager: true,
-      onUpdate: 'CASCADE',
-      nullable: false,
-    },
-  )
+  @ManyToOne(() => Media, (media: Media): Category[] => media.categories, {
+    eager: true,
+    onUpdate: 'CASCADE',
+    nullable: false,
+  })
   icon: Media;
 
   @ManyToOne(() => User, {
@@ -42,14 +38,11 @@ export class Category {
   @JoinColumn({ name: 'user_category' })
   user: User;
 
-  @OneToMany(
-    () => ParentProduct,
-    (product: ParentProduct): Category => product.category,
-  )
+  @OneToMany(() => ParentProduct, (product: ParentProduct) => product.category)
   parentProduct: ParentProduct[];
 
   @OneToMany(
-    (): typeof SubCategory => SubCategory,
+    () => SubCategory,
     (subCategory: SubCategory) => subCategory.category,
   )
   subCategories: SubCategory[];
