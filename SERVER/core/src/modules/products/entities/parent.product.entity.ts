@@ -147,7 +147,7 @@ export class ParentProduct {
     onUpdate: 'CASCADE',
   })
   @JoinTable({
-    name: 'parentProducts_attributes',
+    name: 'ParentProducts_attributes',
   })
   attributes: Attribute[];
 
@@ -160,7 +160,7 @@ export class ParentProduct {
     eager: true,
   })
   @JoinTable({
-    name: 'parentProducts_medias',
+    name: 'ParentProducts_Medias',
   })
   medias: Media[];
 
