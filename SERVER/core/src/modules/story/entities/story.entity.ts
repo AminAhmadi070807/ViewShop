@@ -47,11 +47,11 @@ export class Story {
   user: User;
 
   @ManyToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({ name: 'Media_Store' })
+  @JoinColumn({ name: 'Media_Banner_Story' })
   banner: Media;
 
   @OneToOne(() => Media, { nullable: false, eager: true })
-  @JoinColumn({ name: 'Media_Store' })
+  @JoinColumn({ name: 'Media_Video_Story' })
   video: Media;
 
   @ManyToOne(() => Category, { nullable: false, eager: true })
