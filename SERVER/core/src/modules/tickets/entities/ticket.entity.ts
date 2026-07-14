@@ -13,7 +13,7 @@ import {
 } from '../../../common/enums/tickets/tickets.enum';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('tickets')
+@Entity('Ticket')
 export class Ticket {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -48,7 +48,7 @@ export class Ticket {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_ticket' })
+  @JoinColumn({ name: 'User_Ticket' })
   user: User;
 
   @CreateDateColumn()
