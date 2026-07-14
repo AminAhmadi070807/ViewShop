@@ -6,9 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
-import { Wallet } from '../../wallet/entities/wallet.entity';
 
-@Entity('users')
+@Entity('Users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
