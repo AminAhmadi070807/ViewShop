@@ -5,8 +5,6 @@ import {
   IsNumber,
   IsString,
   IsUUID,
-  MaxLength,
-  MinLength,
 } from 'class-validator';
 
 enum status {
@@ -28,12 +26,6 @@ export class PaymentDto {
     message: 'قیمت نامعتبر است',
   })
   amount: number;
-
-  @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
-  @IsString({ message: 'توضیحات باید رشته باشد' })
-  @MinLength(8, { message: 'توضیحات حدقل باید 8 کارکتر داشته باشد' })
-  @MaxLength(54, { message: 'توضیحات حدکثر میتواند 54 کارکتر داشته باشد' })
-  description: string;
 }
 
 export class VerifyPaymentDto {
