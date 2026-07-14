@@ -40,7 +40,7 @@ export class Store {
   owner: User;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'Media_Store' })
+  @JoinColumn({ name: 'Media_Banner_Store' })
   banner: Media;
 
   @ManyToMany(() => Category)
@@ -48,7 +48,7 @@ export class Store {
   categories: Category[];
 
   @OneToOne(() => Media, { nullable: false })
-  @JoinColumn({ name: 'Media_Store' })
+  @JoinColumn({ name: 'Media_Logo_Store' })
   logo: Media;
 
   @CreateDateColumn()
