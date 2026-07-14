@@ -10,17 +10,17 @@ import { Address } from '../../addresses/entities/address.entity';
 import { User } from '../../users/entities/user.entity';
 import { OrderStatusEnum } from '../../../common/enums/order/order.status.enum';
 
-@Entity('orders')
+@Entity('Order')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Address, { eager: true, nullable: false })
-  @JoinColumn()
+  @ManyToOne(() => Address, { nullable: false })
+  @JoinColumn({ name: 'Address_Order' })
   address: Address;
 
   @ManyToOne(() => User, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({ name: 'User_Order' })
   user: User;
 
   @Column({ type: 'simple-json', nullable: false })
