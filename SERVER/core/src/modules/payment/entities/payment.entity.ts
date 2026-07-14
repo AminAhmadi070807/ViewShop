@@ -11,13 +11,13 @@ import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 import { User } from '../../users/entities/user.entity';
 
-@Entity('payments')
+@Entity('Payment')
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ManyToOne(() => User, { nullable: false })
-  @JoinColumn({ name: 'user_payments' })
+  @JoinColumn({ name: 'User_Payment' })
   user: User;
 
   @Column({ type: 'bigint', nullable: false, default: 0 })
