@@ -2,18 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SubCategory } from './sub.category.entity';
-import { ParentProduct } from '../../products/entities/parent.product.entity';
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
-import { Store } from '../../store/entities/store.entity';
 
-@Entity('categories')
+@Entity('Category')
 export class Category {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,29 +19,11 @@ export class Category {
   @Column({ type: 'varchar', nullable: false })
   alias: string;
 
-  @ManyToOne(() => Media, {
-    eager: true,
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
+  @ManyToOne(() => Media, { onUpdate: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'Media_Category' })
   icon: Media;
 
-  @ManyToOne(() => User, {
-    nullable: false,
-    onUpdate: 'CASCADE',
-  })
-  @JoinColumn({ name: 'user_category' })
+  @ManyToOne(() => User, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinColumn({ name: 'user_Category' })
   user: User;
-
-  @OneToMany(() => ParentProduct, (product: ParentProduct) => product.category)
-  parentProduct: ParentProduct[];
-
-  @OneToMany(
-    () => SubCategory,
-    (subCategory: SubCategory) => subCategory.category,
-  )
-  subCategories: SubCategory[];
-
-  @ManyToMany(() => Store, (store: Store) => store.categories)
-  stores: Store[];
 }
