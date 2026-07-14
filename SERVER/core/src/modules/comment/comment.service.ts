@@ -86,9 +86,7 @@ export class CommentService {
       for (const comment of comments) {
         const comments: Comment[] = await this.commentRepository.find({
           where: {
-            parentComment: {
-              id: comment.id,
-            },
+            parentComment: comment.id,
           },
         });
 
