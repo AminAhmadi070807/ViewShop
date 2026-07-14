@@ -13,10 +13,7 @@ export class Address {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, {
-    onDelete: 'CASCADE',
-    nullable: false,
-  })
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_address' })
   user: User;
 
