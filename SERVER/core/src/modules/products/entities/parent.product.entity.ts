@@ -27,99 +27,60 @@ export class ParentProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false, comment: 'product title' })
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'text', nullable: false, comment: 'product description' })
+  @Column({ type: 'text', nullable: false })
   description: string;
 
-  @Column({
-    type: 'varchar',
-    nullable: false,
-    unique: true,
-    comment: 'product alias name',
-  })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   alias: string;
 
-  // product status
   @Column({
     type: 'enum',
     enum: ProductStatusEnum,
     nullable: false,
     default: ProductStatusEnum.PENDING_APPROVAL,
-    comment: 'product status',
   })
   status: ProductStatusEnum;
 
-  // product type
-  @Column({
-    type: 'enum',
-    enum: ProductTypeEnum,
-    nullable: false,
-    comment: 'product type',
-  })
+  @Column({ type: 'enum', enum: ProductTypeEnum, nullable: false })
   product_type: ProductTypeEnum;
 
-  // product tax amount
-  @Column({
-    type: 'integer',
-    nullable: false,
-    comment: 'product tax type',
-  })
+  @Column({ type: 'smallint', nullable: false })
   tax_percent: number;
 
-  // product warranty type
   @Column({
     type: 'enum',
     enum: ProductWarrantyTypeEnum,
     nullable: false,
     default: ProductWarrantyTypeEnum.NO_WARRANTY,
-    comment: 'product warranty type',
   })
   warranty_type: ProductWarrantyTypeEnum;
 
-  // product return policy type
   @Column({
     type: 'enum',
     enum: ProductReturnPolicyTypeEnum,
     nullable: false,
     default: ProductReturnPolicyTypeEnum.STANDARD,
-    comment: 'product policy type',
   })
   return_policy_type: ProductReturnPolicyTypeEnum;
 
-  // product visibility
   @Column({
     type: 'enum',
     enum: ProductVisibilityEnum,
     nullable: false,
     default: ProductVisibilityEnum.PRIVATE,
-    comment: 'product visibility',
   })
   visibility: ProductVisibilityEnum;
 
-  // product minimum quantity
-  @Column({
-    type: 'smallint',
-    nullable: false,
-    comment: 'product minimum quantity.',
-  })
+  @Column({ type: 'smallint', nullable: false })
   minimum_quantity: number;
 
-  // product min price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product min price type',
-  })
+  @Column({ type: 'bigint', nullable: false })
   min_price: number;
 
-  // product max price
-  @Column({
-    type: 'bigint',
-    nullable: false,
-    comment: 'product max price type',
-  })
+  @Column({ type: 'bigint', nullable: false })
   max_price: number;
 
   @ManyToOne(() => User)
