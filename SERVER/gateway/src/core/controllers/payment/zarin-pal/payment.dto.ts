@@ -1,7 +1,7 @@
 import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-enum status {
+export enum PaymentVerifyStatusEnum {
   OK = 'OK',
   NOK = 'NOK',
 }
@@ -29,6 +29,8 @@ export class VerifyPaymentDto {
   authority: string;
 
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
-  @IsEnum(status, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
-  status: string;
+  @IsEnum(PaymentVerifyStatusEnum, {
+    message: 'لطفا وضیعت را بهدرستی وارد نماید',
+  })
+  status: PaymentVerifyStatusEnum;
 }
