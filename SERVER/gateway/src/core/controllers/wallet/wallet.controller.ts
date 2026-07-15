@@ -9,6 +9,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { PaymentDto } from '../payment/zarin-pal/payment.dto';
 
 @Controller('core/wallet')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -31,5 +32,10 @@ export class WalletController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('WALLET:FIND');
+  }
+
+  @Post('payment')
+  payment(@Body() data: WalletDto) {
+    return this.coreService.send('WALLET:PAYMENT', data);
   }
 }
