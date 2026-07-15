@@ -57,6 +57,7 @@ export class AuthVerifyOtp {
     required: true,
     maxLength: 6,
     minLength: 6,
+    example: '',
   })
   @IsNotEmpty({ message: 'لطفا کد ورودی درست را وارد کنید' })
   @IsString({ message: 'کد ورود باید عداد باشد' })
