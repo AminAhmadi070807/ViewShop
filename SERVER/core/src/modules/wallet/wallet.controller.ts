@@ -18,7 +18,7 @@ export class WalletController {
   }
 
   @MessagePattern('WALLET:PAYMENT')
-  payment(@Payload() id: string) {
-    return this.walletService.payment(id);
+  payment(@Payload() data: WalletDto) {
+    return this.walletService.payment(data);
   }
 }

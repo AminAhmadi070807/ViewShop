@@ -76,7 +76,5 @@ export class WalletService {
     }
   }
 
-  payment(id: string) {
-    return `This action returns a #${id} wallet`;
-  }
+  async payment(data: WalletDto) {}
 }
