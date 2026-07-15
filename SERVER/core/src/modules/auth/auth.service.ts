@@ -155,6 +155,64 @@ export class AuthService {
     }
   }
 
+  async login(data: AuthLoginDto) {
+    try {
+      // find user
+      const user: User | null = await this.userRepository.findOneBy({
+        phone: data.phone,
+      });
+
+      if (!user) return new CustomException(statusMessages.fa['404'], 404);
+
+      // validate password
+      const isPassword: boolean = await bcrypt.compare(
+        data.password,
+        user.password,
+      );
+
+      if (!isPassword) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      // create new secret key
+      const secret: string = crypto.randomUUID();
+
+      // create user refresh & access tokens
+      const tokens: AuthTokenInterface = this.generateToken(
+        user.id,
+        user.role,
+        secret,
+      );
+
+      // hashed refresh token
+      const hashRefreshToken: string = await bcrypt.hash(
+        tokens.refresh_token,
+        12,
+      );
+
+      // hashed secret key
+      const hashSecret = bcrypt.hashSync(secret, 12);
+
+      // create new token
+      const token: Auth = this.authRepository.create({
+        user,
+        token: hashRefreshToken,
+        secret: hashSecret,
+      });
+
+      // save token in database
+      await this.authRepository.save(token);
+
+      return {
+        status: HttpStatus.OK,
+        message: statusMessages.fa.AUTH['200'],
+        body: tokens,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async verifyOtp(data: AuthVerifyOtp) {
     try {
       const result: string | null = await this.redisService.get(data.route);
@@ -260,7 +318,7 @@ export class AuthService {
     }
   }
 
-  async validateRefreshToken(data: AuthValidateDto) {
+  async validateToken(data: AuthValidateDto) {
     try {
       const tokens: Auth[] = await this.authRepository.find({
         where: {
@@ -291,64 +349,6 @@ export class AuthService {
         body: null,
         message: statusMessages.fa['204'],
         status: HttpStatus.OK,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
-  async login(data: AuthLoginDto) {
-    try {
-      // find user
-      const user: User | null = await this.userRepository.findOneBy({
-        phone: data.phone,
-      });
-
-      if (!user) return new CustomException(statusMessages.fa['404'], 404);
-
-      // validate password
-      const isPassword: boolean = await bcrypt.compare(
-        data.password,
-        user.password,
-      );
-
-      if (!isPassword) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      // create new secret key
-      const secret: string = crypto.randomUUID();
-
-      // create user refresh & access tokens
-      const tokens: AuthTokenInterface = this.generateToken(
-        user.id,
-        user.role,
-        secret,
-      );
-
-      // hashed refresh token
-      const hashRefreshToken: string = await bcrypt.hash(
-        tokens.refresh_token,
-        12,
-      );
-
-      // hashed secret key
-      const hashSecret = bcrypt.hashSync(secret, 12);
-
-      // create new token
-      const token: Auth = this.authRepository.create({
-        user,
-        token: hashRefreshToken,
-        secret: hashSecret,
-      });
-
-      // save token in database
-      await this.authRepository.save(token);
-
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa.AUTH['200'],
-        body: tokens,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);

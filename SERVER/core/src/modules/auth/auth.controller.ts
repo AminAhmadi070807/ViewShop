@@ -29,7 +29,7 @@ export class AuthController {
 
   @MessagePattern('AUTH:VALIDATE')
   validateRefreshToken(@Payload() data: AuthValidateDto) {
-    return this.authService.validateRefreshToken(data);
+    return this.authService.validateToken(data);
   }
 
   @MessagePattern('AUTH:VERIFY_OTP')
