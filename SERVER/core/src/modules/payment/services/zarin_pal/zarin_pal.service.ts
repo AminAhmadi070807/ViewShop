@@ -70,7 +70,7 @@ export class ZarinPalService {
   async verify(data: VerifyPaymentDto) {
     try {
       const result = await this.paymentRepository.findOneBy({
-        code: data.authority,
+        code: data.Authority,
         user: { id: data.user },
       });
 
@@ -83,7 +83,7 @@ export class ZarinPalService {
         },
         body: JSON.stringify({
           merchant_id: process.env.ZARIN_PAL_MERCHANT,
-          authority: data.authority,
+          authority: data.Authority,
           amount: result.amount,
         }),
       });
@@ -101,7 +101,7 @@ export class ZarinPalService {
       if (json.data.code === 100) {
         const update = await this.paymentRepository.update(
           {
-            code: data.authority,
+            code: data.Authority,
           },
           {
             status: PaymentStatusEnum.SUCCESS,
@@ -124,7 +124,7 @@ export class ZarinPalService {
         };
       } else if (json.data.code === 101) {
         const result = await this.paymentRepository.findOneBy({
-          code: data.authority,
+          code: data.Authority,
         });
 
         if (!result) {
@@ -135,7 +135,7 @@ export class ZarinPalService {
           case PaymentStatusEnum.WAITING: {
             const result = await this.paymentRepository.update(
               {
-                code: data.authority,
+                code: data.Authority,
               },
               {
                 status: PaymentStatusEnum.SUCCESS,
