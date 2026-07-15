@@ -76,5 +76,31 @@ export class WalletService {
     }
   }
 
-  async payment(data: WalletDto) {}
+  async payment(data: WalletDto) {
+    try {
+      const existing = await this.walletRepository.findOneBy({
+        user: {
+          id: data.user,
+        },
+      });
+
+      if (!existing) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      } else if (data.amount > existing.amount) {
+        return new CustomException(statusMessages.fa['409'], 409);
+      }
+
+      existing.amount = existing.amount - +data.amount;
+
+      await this.walletRepository.save(existing);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
