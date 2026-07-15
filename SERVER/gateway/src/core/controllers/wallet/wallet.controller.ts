@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { WalletDto } from './wallet.dto';
 import {
@@ -22,5 +22,10 @@ export class WalletController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   charge(@Body() data: WalletDto) {
     return this.coreService.send('WALLET:CHARGE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('WALLET:FIND');
   }
 }
