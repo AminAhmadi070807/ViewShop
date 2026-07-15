@@ -25,6 +25,10 @@ export class WalletController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('WALLET:FIND');
   }
