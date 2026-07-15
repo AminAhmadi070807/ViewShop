@@ -80,6 +80,18 @@ export class ZarinPalService {
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
+      if (data.Status === VerifyStatusEnum.NOK) {
+        result.status = PaymentStatusEnum.CANCELED;
+
+        await this.paymentRepository.save(result);
+
+        return {
+          status: 402,
+          message: statusMessages.fa['402'],
+          body: null,
+        };
+      }
+
       const request = await fetch(process.env.ZARIN_PAL_API + 'verify.json', {
         method: 'POST',
         headers: {
