@@ -35,9 +35,9 @@ export class VerifyPaymentDto {
 
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
   @IsString({ message: 'اتوراریتی باید رشته باشد' })
-  authority: string;
+  Authority: string;
 
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
   @IsEnum(status, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
-  status: string;
+  Status: string;
 }

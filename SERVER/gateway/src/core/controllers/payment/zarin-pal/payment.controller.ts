@@ -33,7 +33,7 @@ export class ZarinPalController {
 
   @Get('verify')
   verify(@Query() data: VerifyPaymentDto, @Req() req: express.Request) {
-    if (data.status !== PaymentVerifyStatusEnum.OK) {
+    if (data.Status !== PaymentVerifyStatusEnum.OK) {
       return new HttpException(statusMessages.fa['402'], 402);
     }
 
