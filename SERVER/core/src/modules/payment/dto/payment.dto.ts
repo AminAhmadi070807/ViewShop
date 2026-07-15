@@ -7,7 +7,7 @@ import {
   IsUUID,
 } from 'class-validator';
 
-enum status {
+export enum VerifyStatusEnum {
   OK = 'OK',
   NOK = 'NOK',
 }
@@ -38,6 +38,6 @@ export class VerifyPaymentDto {
   Authority: string;
 
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
-  @IsEnum(status, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
-  Status: string;
+  @IsEnum(VerifyStatusEnum, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
+  Status: VerifyStatusEnum;
 }

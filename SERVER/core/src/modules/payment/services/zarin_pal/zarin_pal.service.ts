@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
-import { PaymentDto, VerifyPaymentDto } from '../../dto/payment.dto';
+import {
+  PaymentDto,
+  VerifyPaymentDto,
+  VerifyStatusEnum,
+} from '../../dto/payment.dto';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
