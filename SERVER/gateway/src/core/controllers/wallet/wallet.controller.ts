@@ -10,7 +10,6 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
-import { PaymentDto } from '../payment/zarin-pal/payment.dto';
 
 @Controller('core/wallet')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
