@@ -52,8 +52,28 @@ export class WalletService {
     }
   }
 
-  findAll() {
-    return `This action returns all wallet`;
+  async findAll() {
+    try {
+      const wallets = await this.walletRepository.find({
+        relations: ['user'],
+        select: {
+          user: {
+            id: true,
+            fullName: true,
+            role: true,
+            phone: true,
+          },
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: wallets,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   payment(id: string) {
