@@ -11,12 +11,14 @@ import {
   VerifyZarinPalInterface,
   ZarinPalInterface,
 } from '../../../../common/interfaces/payment.interface';
+import { WalletService } from '../../../wallet/wallet.service';
 
 @Injectable()
 export class ZarinPalService {
   constructor(
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
+    private readonly walletService: WalletService,
   ) {}
 
   async request(data: PaymentDto) {
@@ -72,9 +74,7 @@ export class ZarinPalService {
         user: { id: data.user },
       });
 
-      if (!result) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
       const request = await fetch(process.env.ZARIN_PAL_API + 'verify.json', {
         method: 'POST',
@@ -99,7 +99,7 @@ export class ZarinPalService {
       }
 
       if (json.data.code === 100) {
-        const result = await this.paymentRepository.update(
+        const update = await this.paymentRepository.update(
           {
             code: data.authority,
           },
@@ -108,9 +108,14 @@ export class ZarinPalService {
           },
         );
 
-        if (!result.affected) {
+        if (!update.affected) {
           return new CustomException(statusMessages.fa['404'], 404);
         }
+
+        await this.walletService.charge({
+          user: data.user,
+          amount: result.amount,
+        });
 
         return {
           status: 200,
