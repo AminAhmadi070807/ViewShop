@@ -4,12 +4,14 @@ import { WalletDto } from './wallet.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/wallet')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class WalletController {
   constructor(private readonly coreService: CoreService) {}
 
