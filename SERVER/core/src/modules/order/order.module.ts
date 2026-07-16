@@ -7,6 +7,7 @@ import { UsersModule } from '../users/users.module';
 import { AddressesModule } from '../addresses/addresses.module';
 import { CartModule } from '../cart/cart.module';
 import { ProductsModule } from '../products/products.module';
+import { WalletModule } from '../wallet/wallet.module';
 
 @Module({
   controllers: [OrderController],
@@ -17,6 +18,7 @@ import { ProductsModule } from '../products/products.module';
     AddressesModule,
     CartModule,
     ProductsModule,
+    WalletModule,
   ],
 })
 export class OrderModule {}
