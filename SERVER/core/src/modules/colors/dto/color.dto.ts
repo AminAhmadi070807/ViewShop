@@ -1,1 +1,1 @@
-export class CreateColorDto {}
+export class ColorDto {}

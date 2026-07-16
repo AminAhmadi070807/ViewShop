@@ -1,35 +1,35 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ColorsService } from './colors.service';
-import { CreateColorDto } from './dto/create-color.dto';
-import { UpdateColorDto } from './dto/update-color.dto';
+import { ColorDto } from './dto/color.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class ColorsController {
   constructor(private readonly colorsService: ColorsService) {}
 
-  @MessagePattern('createColor')
-  create(@Payload() createColorDto: CreateColorDto) {
-    return this.colorsService.create(createColorDto);
+  @MessagePattern('COLOR:CREATE')
+  create(@Payload() data: ColorDto) {
+    return this.colorsService.create(data);
   }
 
-  @MessagePattern('findAllColors')
+  @MessagePattern('COLOR:FIND')
   findAll() {
     return this.colorsService.findAll();
   }
 
-  @MessagePattern('findOneColor')
-  findOne(@Payload() id: number) {
-    return this.colorsService.findOne(id);
+  @MessagePattern('COLOR:ONE')
+  findOne(@Payload() data: ValidateUUID) {
+    return this.colorsService.findOne(data.id);
   }
 
-  @MessagePattern('updateColor')
-  update(@Payload() updateColorDto: UpdateColorDto) {
-    return this.colorsService.update(updateColorDto.id, updateColorDto);
+  @MessagePattern('COLOR:UPDATE')
+  update(@Payload() data: ColorDto) {
+    return this.colorsService.update(data);
   }
 
-  @MessagePattern('removeColor')
-  remove(@Payload() id: number) {
-    return this.colorsService.remove(id);
+  @MessagePattern('COLOR:DELETE')
+  remove(@Payload() data: ValidateUUID) {
+    return this.colorsService.remove(data.id);
   }
 }
