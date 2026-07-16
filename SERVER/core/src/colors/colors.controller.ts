@@ -3,14 +3,15 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ColorsService } from './colors.service';
 import { CreateColorDto } from './dto/create-color.dto';
 import { UpdateColorDto } from './dto/update-color.dto';
+import { ValidateUUID } from '../common/validations/id.dto';
 
 @Controller()
 export class ColorsController {
   constructor(private readonly colorsService: ColorsService) {}
 
   @MessagePattern('COLOR:CREATE')
-  create(@Payload() createColorDto: CreateColorDto) {
-    return this.colorsService.create(createColorDto);
+  create(@Payload() data: CreateColorDto) {
+    return this.colorsService.create(data);
   }
 
   @MessagePattern('COLOR:FIND')
@@ -19,17 +20,17 @@ export class ColorsController {
   }
 
   @MessagePattern('COLOR:ONE')
-  findOne(@Payload() id: number) {
-    return this.colorsService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.colorsService.findOne(data.id);
   }
 
   @MessagePattern('COLOR:UPDATE')
-  update(@Payload() updateColorDto: UpdateColorDto) {
-    return this.colorsService.update(updateColorDto.id, updateColorDto);
+  update(@Payload() data: CreateColorDto) {
+    return this.colorsService.update(data);
   }
 
   @MessagePattern('COLOR:DELETE')
-  remove(@Payload() id: number) {
-    return this.colorsService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.colorsService.remove(data.id);
   }
 }
