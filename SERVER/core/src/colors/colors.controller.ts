@@ -8,27 +8,27 @@ import { UpdateColorDto } from './dto/update-color.dto';
 export class ColorsController {
   constructor(private readonly colorsService: ColorsService) {}
 
-  @MessagePattern('createColor')
+  @MessagePattern('COLOR:CREATE')
   create(@Payload() createColorDto: CreateColorDto) {
     return this.colorsService.create(createColorDto);
   }
 
-  @MessagePattern('findAllColors')
+  @MessagePattern('COLOR:FIND')
   findAll() {
     return this.colorsService.findAll();
   }
 
-  @MessagePattern('findOneColor')
+  @MessagePattern('COLOR:ONE')
   findOne(@Payload() id: number) {
     return this.colorsService.findOne(id);
   }
 
-  @MessagePattern('updateColor')
+  @MessagePattern('COLOR:UPDATE')
   update(@Payload() updateColorDto: UpdateColorDto) {
     return this.colorsService.update(updateColorDto.id, updateColorDto);
   }
 
-  @MessagePattern('removeColor')
+  @MessagePattern('COLOR:DELETE')
   remove(@Payload() id: number) {
     return this.colorsService.remove(id);
   }
