@@ -3,8 +3,11 @@ import { PaymentDto, VerifyPaymentDto } from './payment.dto';
 import express from 'express';
 import { CoreService } from '../../../core.service';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
+import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { statusMessages } from '../../../../common/messages/status.message';
 
 @Controller('core/payment/zarin-pal')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class ZarinPalController {
   constructor(private readonly coreService: CoreService) {}
 
