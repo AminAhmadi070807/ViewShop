@@ -23,11 +23,6 @@ export class ColorsController {
     return this.colorsService.findOne(data.id);
   }
 
-  @MessagePattern('COLOR:UPDATE')
-  update(@Payload() data: ColorDto) {
-    return this.colorsService.update(data);
-  }
-
   @MessagePattern('COLOR:DELETE')
   remove(@Payload() data: ValidateUUID) {
     return this.colorsService.remove(data.id);
