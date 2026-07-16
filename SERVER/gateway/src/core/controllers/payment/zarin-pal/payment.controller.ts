@@ -3,7 +3,15 @@ import { PaymentDto, VerifyPaymentDto } from './payment.dto';
 import express from 'express';
 import { CoreService } from '../../../core.service';
 import { JwtPayload } from '../../../../common/validation/jwt.dto';
-import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiPaymentRequiredResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 
 @Controller('core/payment/zarin-pal')
@@ -12,6 +20,12 @@ export class ZarinPalController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post('pay')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiPaymentRequiredResponse({ description: statusMessages.fa['402'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   payment(@Body() data: PaymentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
