@@ -121,6 +121,11 @@ export class OrderController {
   }
 
   @Post('payment')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   payment(@Body() data: ValidateUUID) {
     return this.coreService.send('ORDER:PAYMENT', data);
   }
