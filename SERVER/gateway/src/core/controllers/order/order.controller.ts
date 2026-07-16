@@ -119,4 +119,9 @@ export class OrderController {
   update(@Body() data: UpdateOrderDto) {
     return this.coreService.send('ORDER:UPDATE', data);
   }
+
+  @Post('payment')
+  payment(@Body() data: ValidateUUID) {
+    return this.coreService.send('ORDER:PAYMENT', data);
+  }
 }
