@@ -126,6 +126,20 @@ export class OrderController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'ORDER',
+      enum: ['ORDER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'PAYMENT',
+      enum: ['PAYMENT'],
+    },
+  ])
   payment(@Body() data: ValidateUUID) {
     return this.coreService.send('ORDER:PAYMENT', data);
   }
