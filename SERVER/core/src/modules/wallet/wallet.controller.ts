@@ -16,9 +16,4 @@ export class WalletController {
   findAll() {
     return this.walletService.findAll();
   }
-
-  @MessagePattern('WALLET:PAYMENT')
-  payment(@Payload() data: WalletDto) {
-    return this.walletService.payment(data);
-  }
 }
