@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ColorDto } from './dto/color.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Color } from './entities/color.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -80,7 +80,21 @@ export class ColorsService {
     }
   }
 
-  update(data: ColorDto) {}
+  async remove(id: string) {
+    try {
+      const result: DeleteResult = await this.colorRepository.delete(id);
 
-  remove(id: string) {}
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
