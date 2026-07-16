@@ -20,9 +20,3 @@ export class UpdateOrderDto {
   @IsEnum(OrderStatusEnum, { message: 'لطفا وضیعت را به درستی انتخاب نماید' })
   status: OrderStatusEnum;
 }
-
-export class PaymentOrderDto {
-  @IsNotEmpty({ message: 'ایدی سفارش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی سفارش نامعتبر هست' })
-  id: string;
-}
