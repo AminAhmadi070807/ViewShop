@@ -6,6 +6,7 @@ import { JwtPayload } from '../../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -26,6 +27,20 @@ export class ZarinPalController {
   @ApiPaymentRequiredResponse({ description: statusMessages.fa['402'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT',
+      enum: ['PAYMENT'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'PAYMENT:ZARIN_PAL',
+      enum: ['PAYMENT:ZARIN_PAL'],
+    },
+  ])
   payment(@Body() data: PaymentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
