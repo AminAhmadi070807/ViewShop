@@ -4,6 +4,7 @@ import { WalletDto } from './wallet.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -20,6 +21,20 @@ export class WalletController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'WALLET',
+      enum: ['WALLET'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CHARGE',
+      enum: ['CHARGE'],
+    },
+  ])
   charge(@Body() data: WalletDto) {
     return this.coreService.send('WALLET:CHARGE', data);
   }
