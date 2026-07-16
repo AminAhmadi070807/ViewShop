@@ -11,6 +11,7 @@ import { RpcException } from '@nestjs/microservices';
 import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
 import { ProductService } from '../products/product/product.service';
+import { WalletService } from '../wallet/wallet.service';
 
 @Injectable()
 export class OrderService {
@@ -21,6 +22,7 @@ export class OrderService {
     private readonly cartService: CartService,
     private readonly addressService: AddressesService,
     private readonly productService: ProductService,
+    private readonly walletService: WalletService,
   ) {}
 
   async create(data: OrderDto) {
@@ -38,7 +40,7 @@ export class OrderService {
       }
 
       const order: Order = this.orderRepository.create({
-        status: OrderStatusEnum.PENDING,
+        status: OrderStatusEnum.WAITING,
         user: user.body,
         price: +cart.body.price,
         cart: cart.body.metadata,
@@ -156,6 +158,41 @@ export class OrderService {
       return {
         status: 204,
         message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async payment(id: string) {
+    try {
+      const order = await this.orderRepository.findOne({
+        where: { id },
+        relations: ['user'],
+        select: {
+          user: {
+            id: true,
+          },
+        },
+      });
+
+      if (!order) return new CustomException(statusMessages.fa['404'], 404);
+
+      const wallet = await this.walletService.payment({
+        user: order.user.id,
+        amount: +order.price,
+      });
+
+      if (wallet instanceof RpcException) return wallet;
+
+      order.status = OrderStatusEnum.SUCCESS;
+
+      await this.orderRepository.save(order);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
         body: null,
       };
     } catch {
