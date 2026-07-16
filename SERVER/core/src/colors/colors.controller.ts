@@ -2,7 +2,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ColorsService } from './colors.service';
 import { CreateColorDto } from './dto/create-color.dto';
-import { UpdateColorDto } from './dto/update-color.dto';
 import { ValidateUUID } from '../common/validations/id.dto';
 
 @Controller()

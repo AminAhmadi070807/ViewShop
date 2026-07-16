@@ -1,26 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreateColorDto } from './dto/create-color.dto';
-import { UpdateColorDto } from './dto/update-color.dto';
 
 @Injectable()
 export class ColorsService {
-  create(createColorDto: CreateColorDto) {
-    return 'This action adds a new color';
-  }
+  create(data: CreateColorDto) {}
 
-  findAll() {
-    return `This action returns all colors`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} color`;
-  }
+  findOne(id: string) {}
 
-  update(id: number, updateColorDto: UpdateColorDto) {
-    return `This action updates a #${id} color`;
-  }
+  update(data: CreateColorDto) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} color`;
-  }
+  remove(id: string) {}
 }
