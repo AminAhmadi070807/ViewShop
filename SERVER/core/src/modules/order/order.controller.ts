@@ -27,4 +27,9 @@ export class OrderController {
   update(@Payload() data: UpdateOrderDto) {
     return this.orderService.update(data);
   }
+
+  @MessagePattern('ORDER:PAYMENT')
+  payment(@Payload() data: ValidateUUID) {
+    return this.orderService.payment(data.id);
+  }
 }
