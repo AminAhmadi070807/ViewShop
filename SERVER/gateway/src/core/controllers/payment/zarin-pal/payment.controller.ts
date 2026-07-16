@@ -36,6 +36,12 @@ export class ZarinPalController {
   }
 
   @Get('verify')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiPaymentRequiredResponse({ description: statusMessages.fa['402'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   verify(@Query() data: VerifyPaymentDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
