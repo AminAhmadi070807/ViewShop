@@ -44,7 +44,23 @@ export class ColorsService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const colors = await this.colorRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        messages: statusMessages.fa['200'],
+        body: colors,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findOne(id: string) {}
 
