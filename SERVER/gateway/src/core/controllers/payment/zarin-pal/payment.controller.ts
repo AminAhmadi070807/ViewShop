@@ -37,8 +37,8 @@ export class ZarinPalController {
     {
       name: 'permission',
       required: true,
-      example: 'PAYMENT:ZARIN_PAL',
-      enum: ['PAYMENT:ZARIN_PAL'],
+      example: 'PAYMENT',
+      enum: ['PAYMENT'],
     },
   ])
   payment(@Body() data: PaymentDto, @Req() req: express.Request) {
