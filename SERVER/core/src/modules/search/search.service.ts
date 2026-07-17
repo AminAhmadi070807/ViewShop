@@ -35,9 +35,7 @@ export class SearchService {
 
   async search(search: string) {
     try {
-      const existing: Search | null = await this.searchRepository.findOneBy({
-        search,
-      });
+      const existing = await this.searchRepository.findOneBy({ search });
 
       if (existing) {
         existing.numberOfSearch = +existing.numberOfSearch + 1;

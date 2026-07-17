@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ColorDto } from './dto/color.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Color } from './entities/color.entity';
-import { DeleteResult, In, Repository } from 'typeorm';
+import { DeleteResult, ILike, In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 
@@ -91,6 +91,24 @@ export class ColorsService {
       if (!colors.length) {
         return new CustomException(statusMessages.fa['500'], 500);
       }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: colors,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async search(title: string) {
+    try {
+      const colors: Color[] = await this.colorRepository.find({
+        where: {
+          color: ILike(`%${title}%`),
+        },
+      });
 
       return {
         status: 200,
