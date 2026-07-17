@@ -18,6 +18,7 @@ import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
+import { Color } from '../../colors/entities/color.entity';
 
 @Entity('Product')
 export class Product {
@@ -68,6 +69,10 @@ export class Product {
   @ManyToMany(() => Media, { nullable: false })
   @JoinTable({ name: 'Media_Product' })
   medias: Media[];
+
+  @ManyToMany(() => Color, { nullable: false })
+  @JoinTable({ name: 'Color_Product' })
+  colors: Color[];
 
   @ManyToOne(() => Store, { nullable: false, onUpdate: 'CASCADE' })
   @JoinTable({ name: 'Store_Product' })
