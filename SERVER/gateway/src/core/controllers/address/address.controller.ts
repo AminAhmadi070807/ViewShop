@@ -19,7 +19,6 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import { AddressDto } from './address.dto';
@@ -50,10 +49,7 @@ export class AddressController {
       enum: ['CREATE'],
     },
   ])
-  create(
-    @Body() data: AddressDto,
-    @Req() req: express.Request,
-  ): Observable<unknown> {
+  create(@Body() data: AddressDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('ADDRESS:CREATE', {
@@ -78,7 +74,7 @@ export class AddressController {
       enum: ['READ'],
     },
   ])
-  findAll(): Observable<unknown> {
+  findAll() {
     return this.coreService.send('ADDRESS:FIND');
   }
 
@@ -99,7 +95,7 @@ export class AddressController {
       enum: ['READ:ONE'],
     },
   ])
-  findOne(@Param() data: ValidateUUID): Observable<unknown> {
+  findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('ADDRESS:ONE', data);
   }
 
@@ -120,7 +116,7 @@ export class AddressController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Body() data: ValidateUUID): Observable<unknown> {
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('ADDRESS:DELETE', data);
   }
 }
