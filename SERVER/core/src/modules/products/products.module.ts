@@ -11,6 +11,7 @@ import { Media } from '../media/entities/media.entity';
 import { CategoriesModule } from '../categories/categories.module';
 import { MediaModule } from '../media/media.module';
 import { StoreModule } from '../store/store.module';
+import { ColorsModule } from '../colors/colors.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
@@ -20,6 +21,7 @@ import { StoreModule } from '../store/store.module';
     CategoriesModule,
     MediaModule,
     StoreModule,
+    ColorsModule
   ],
   exports: [ProductService, ParentProductsService],
 })
