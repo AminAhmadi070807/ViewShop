@@ -5,6 +5,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -24,6 +25,9 @@ export class ColorController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('COLOR:FIND');
   }
