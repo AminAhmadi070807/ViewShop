@@ -5,6 +5,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiHeaders,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -23,6 +24,20 @@ export class ColorController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'COLOR',
+      enum: ['COLOR'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: ColorDto) {
     return this.coreService.send('COLOR:CREATE', data);
   }
