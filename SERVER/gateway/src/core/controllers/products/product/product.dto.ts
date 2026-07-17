@@ -2,6 +2,7 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
+  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -47,6 +48,17 @@ export class ProductDto {
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
+
+  @ApiProperty({
+    type: [String],
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: [''],
+  })
+  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
+  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
+  colors: string[];
 
   @ApiProperty({
     type: String,
