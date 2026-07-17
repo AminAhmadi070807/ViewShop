@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { ColorDto } from './color.dto';
 import {
@@ -13,6 +21,8 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { ValidateTitle } from '../../../common/validation/title.dto';
+import { Payload } from '@nestjs/microservices';
 
 @Controller('core/colors')
 export class ColorController {
@@ -62,6 +72,11 @@ export class ColorController {
   ])
   findAll() {
     return this.coreService.send('COLOR:FIND');
+  }
+
+  @Get('/search')
+  search(@Query() data: ValidateTitle) {
+    return this.coreService.send('COLOR:SEARCH', data);
   }
 
   @Get('/:id')
