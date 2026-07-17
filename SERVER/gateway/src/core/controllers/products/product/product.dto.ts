@@ -126,6 +126,17 @@ export class UpdateProductDto {
   medias: string[];
 
   @ApiProperty({
+    type: [String],
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: [''],
+  })
+  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
+  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
+  colors: string[];
+
+  @ApiProperty({
     type: Number,
     required: true,
     nullable: false,
