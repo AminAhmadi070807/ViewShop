@@ -75,6 +75,20 @@ export class ColorController {
 
   @Get('/search')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'USER',
+      enum: ['USER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'SEARCH',
+      enum: ['SEARCH'],
+    },
+  ])
   search(@Query() data: ValidateTitle) {
     return this.coreService.send('COLOR:SEARCH', data);
   }
