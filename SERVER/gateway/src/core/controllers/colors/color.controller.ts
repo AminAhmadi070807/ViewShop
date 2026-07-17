@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { ColorDto } from './color.dto';
 import {
@@ -21,5 +21,10 @@ export class ColorController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: ColorDto) {
     return this.coreService.send('COLOR:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('COLOR:FIND');
   }
 }
