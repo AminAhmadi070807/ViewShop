@@ -70,6 +70,10 @@ export class UpdateProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
+  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
+  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
+  colors: string[];
+
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
