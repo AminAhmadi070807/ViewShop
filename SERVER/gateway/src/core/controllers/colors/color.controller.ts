@@ -22,7 +22,6 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { ValidateTitle } from '../../../common/validation/title.dto';
-import { Payload } from '@nestjs/microservices';
 
 @Controller('core/colors')
 export class ColorController {
@@ -75,6 +74,7 @@ export class ColorController {
   }
 
   @Get('/search')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   search(@Query() data: ValidateTitle) {
     return this.coreService.send('COLOR:SEARCH', data);
   }
