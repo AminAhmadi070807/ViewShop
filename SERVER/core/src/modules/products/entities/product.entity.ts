@@ -70,9 +70,8 @@ export class Product {
   @JoinTable({ name: 'Media_Product' })
   medias: Media[];
 
-  @ManyToMany(() => Color, { nullable: false })
-  @JoinTable({ name: 'Color_Product' })
-  colors: Color[];
+  @Column({ type: 'simple-json', nullable: false, array: true })
+  colors: string[];
 
   @ManyToOne(() => Store, { nullable: false, onUpdate: 'CASCADE' })
   @JoinTable({ name: 'Store_Product' })
