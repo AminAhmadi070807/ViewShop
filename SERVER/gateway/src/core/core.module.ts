@@ -31,6 +31,7 @@ import { ReportController } from './controllers/report/report.controller';
 import { WishlistController } from './controllers/wishlist/wishlist.controller';
 import { ZarinPalController } from './controllers/payment/zarin-pal/payment.controller';
 import { WalletController } from './controllers/wallet/wallet.controller';
+import { ColorController } from './controllers/colors/color.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -64,6 +65,7 @@ import { WalletController } from './controllers/wallet/wallet.controller';
     WishlistController,
     ZarinPalController,
     WalletController,
+    ColorController,
   ],
   exports: [CoreService],
 })
