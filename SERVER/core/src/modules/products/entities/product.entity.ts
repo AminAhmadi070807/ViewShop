@@ -18,7 +18,6 @@ import { User } from '../../users/entities/user.entity';
 import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
-import { Color } from '../../colors/entities/color.entity';
 
 @Entity('Product')
 export class Product {
