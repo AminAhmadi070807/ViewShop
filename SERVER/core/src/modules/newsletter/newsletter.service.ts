@@ -1,18 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNewsletterDto } from './dto/create-newsletter.dto';
-import { UpdateNewsletterDto } from './dto/update-newsletter.dto';
+import { NewsletterDto } from './dto/newsletter.dto';
 
 @Injectable()
 export class NewsletterService {
-  create(data: CreateNewsletterDto) {
-    return 'This action adds a new newsletter';
-  }
+  create(data: NewsletterDto) {}
 
-  findAll() {
-    return `This action returns all newsletter`;
-  }
+  findAll() {}
 
-  remove(id: number) {
-    return `This action removes a #${id} newsletter`;
-  }
+  remove(id: number) {}
 }
