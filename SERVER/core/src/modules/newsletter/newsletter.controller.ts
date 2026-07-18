@@ -17,7 +17,7 @@ export class NewsletterController {
     return this.newsletterService.findAll();
   }
 
-  @MessagePattern('removeNewsletter')
+  @MessagePattern('NEWSLETTER:REMOVE')
   remove(@Payload() id: number) {
     return this.newsletterService.remove(id);
   }
