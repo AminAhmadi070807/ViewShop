@@ -2,6 +2,8 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { NewsletterDto } from './newsletter.dto';
 import { Public } from '../../../common/decorators/public.decorator';
+import { ApiOkResponse } from '@nestjs/swagger';
+import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/newsletter')
 export class NewsletterController {
@@ -9,6 +11,7 @@ export class NewsletterController {
 
   @Post()
   @Public()
+  @ApiOkResponse({ description: statusMessages.fa['201'] })
   create(@Body() data: NewsletterDto) {
     return this.coreService.send('NEWSLETTER:CREATE', data);
   }
