@@ -12,7 +12,7 @@ export class NewsletterController {
     return this.newsletterService.create(data);
   }
 
-  @MessagePattern('findAllNewsletter')
+  @MessagePattern('NEWSLETTER:FIND')
   findAll() {
     return this.newsletterService.findAll();
   }
