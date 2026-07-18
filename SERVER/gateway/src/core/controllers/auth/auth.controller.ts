@@ -162,7 +162,7 @@ export class AuthController {
     @Res() res: express.Response,
   ) {
     // get tokens from core microservice
-    const result: AuthInterface = (await firstValueFrom(
+    const result = (await firstValueFrom(
       this.coreService.send('AUTH:VERIFY_OTP', {
         route: uuid.id,
         otp: data.otp,
