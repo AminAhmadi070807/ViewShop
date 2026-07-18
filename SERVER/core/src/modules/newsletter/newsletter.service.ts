@@ -3,6 +3,8 @@ import { NewsletterDto } from './dto/newsletter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Newsletter } from './entities/newsletter.entity';
 import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class NewsletterService {
@@ -11,7 +13,21 @@ export class NewsletterService {
     private readonly newsletterRepository: Repository<Newsletter>,
   ) {}
 
-  create(data: NewsletterDto) {}
+  async create(data: NewsletterDto) {
+    try {
+      const result = this.newsletterRepository.create(data);
+
+      await this.newsletterRepository.save(result);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findAll() {}
 
