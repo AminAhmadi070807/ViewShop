@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  Param,
-  Post,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Param, Post, Req, Res } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AuthLoginDto, AuthRegisterDto, AuthVerifyOtp } from './auth.dto';
 import express from 'express';
