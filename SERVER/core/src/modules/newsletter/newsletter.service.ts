@@ -33,7 +33,23 @@ export class NewsletterService {
     }
   }
 
-  findAll() {}
+  async findAll() {
+    try {
+      const newsletters = await this.newsletterRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: newsletters,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: number) {}
 }
