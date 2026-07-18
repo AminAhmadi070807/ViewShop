@@ -222,7 +222,9 @@ export class AuthController {
     )) as AuthVerifyInterface | { error: { message: string; status: number } };
 
     if ('error' in result) {
-      throw new HttpException(statusMessages.fa['401'], 401);
+      return res
+        .status(result.error.status)
+        .json({ ...result.error, body: null });
     }
 
     // set access token to cookies
