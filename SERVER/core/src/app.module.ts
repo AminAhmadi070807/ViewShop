@@ -27,6 +27,7 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { ColorsModule } from './modules/colors/colors.module';
+import { NewsletterModule } from './modules/newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { ColorsModule } from './modules/colors/colors.module';
     PaymentModule,
     WalletModule,
     ColorsModule,
+    NewsletterModule,
   ],
 })
 export class AppModule {}
