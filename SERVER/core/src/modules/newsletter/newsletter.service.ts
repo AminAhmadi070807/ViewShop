@@ -15,6 +15,10 @@ export class NewsletterService {
 
   async create(data: NewsletterDto) {
     try {
+      const existing = await this.newsletterRepository.findOneBy(data);
+
+      if (existing) return new CustomException(statusMessages.fa['201'], 201);
+
       const result = this.newsletterRepository.create(data);
 
       await this.newsletterRepository.save(result);
