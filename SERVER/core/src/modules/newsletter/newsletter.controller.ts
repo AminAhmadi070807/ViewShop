@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { NewsletterService } from './newsletter.service';
 import { NewsletterDto } from './dto/newsletter.dto';
+import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
 export class NewsletterController {
@@ -18,7 +19,7 @@ export class NewsletterController {
   }
 
   @MessagePattern('NEWSLETTER:REMOVE')
-  remove(@Payload() id: number) {
-    return this.newsletterService.remove(id);
+  remove(@Payload() data: ValidateUUID) {
+    return this.newsletterService.remove(data.id);
   }
 }
