@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { NewsletterDto } from './newsletter.dto';
 import { Public } from '../../../common/decorators/public.decorator';
@@ -8,6 +8,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/newsletter')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -25,5 +26,10 @@ export class NewsletterController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('NEWSLETTER:FIND');
+  }
+
+  @Delete()
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('NEWSLETTER:DELETE', data);
   }
 }
