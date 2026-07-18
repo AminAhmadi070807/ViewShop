@@ -6,7 +6,6 @@ import {
   Post,
   Req,
   Res,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AuthLoginDto, AuthRegisterDto, AuthVerifyOtp } from './auth.dto';
@@ -31,7 +30,6 @@ import { PublicAccess } from '../../../common/decorators/public.access.decorator
 import { JwtRefreshPayload } from '../../../common/validation/jwt.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { RpcException } from '@nestjs/microservices';
 
 @Controller('core/auth')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -114,7 +112,9 @@ export class AuthController {
     )) as { error: { message: string; status: number } } | AuthInterface;
 
     if ('error' in result) {
-      return new HttpException(result.error, result.error.status);
+      return res
+        .status(result.error.status)
+        .json({ ...result.error, body: null });
     }
 
     this.setToken(
