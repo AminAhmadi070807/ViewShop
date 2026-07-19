@@ -18,9 +18,7 @@ export class CartService {
 
   async create(data: CartDto) {
     try {
-      const existing: Cart | null = await this.cartRepository.findOneBy({
-        id: data.id,
-      });
+      const existing = await this.cartRepository.findOneBy({ id: data.id });
 
       const product = await this.productService.findOne(data.product);
 
@@ -28,7 +26,7 @@ export class CartService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const price = Number(data.quantity) * Number(product.body.price);
+      const price = Number(data.quantity) * Number(product.body.);
 
       if (existing) {
         const existProduct: boolean = existing.metadata.some(
