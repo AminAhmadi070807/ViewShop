@@ -79,7 +79,6 @@ export class ParentProductDto {
   })
   product_type: ProductTypeEnum;
 
-  // product tax amount
   @IsNotEmpty({ message: 'لطفا پورسانت مالیات را مشخص کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
@@ -113,23 +112,6 @@ export class ParentProductDto {
   )
   @Min(0, { message: 'حدقل تعداد نمیتواند پاین تر از 0 باشد' })
   minimum_quantity: number;
-
-  // product minimum price
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  @Min(1000, { message: 'حدکثر قیمت نمیتواند پاین تر از 1000 تومان باشد' })
-  min_price: number;
-
-  // product maximum price
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدکثر قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  max_price: number;
 }
 
 export class UpdateParentProductDto {

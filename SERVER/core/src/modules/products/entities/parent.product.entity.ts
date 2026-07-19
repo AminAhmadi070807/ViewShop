@@ -77,12 +77,6 @@ export class ParentProduct {
   @Column({ type: 'smallint', nullable: false })
   minimum_quantity: number;
 
-  @Column({ type: 'bigint', nullable: false })
-  min_price: number;
-
-  @Column({ type: 'bigint', nullable: false })
-  max_price: number;
-
   @ManyToOne(() => User)
   @JoinColumn({ name: 'User_ParentProduct' })
   user: User;
