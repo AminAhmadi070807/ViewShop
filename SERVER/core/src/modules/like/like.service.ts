@@ -69,7 +69,7 @@ export class LikeService {
         select: {
           product: {
             id: true,
-            price: true,
+            details: true,
             medias: {
               title: true,
               path: true,
