@@ -18,7 +18,7 @@ export class NewsletterController {
     return this.newsletterService.findAll();
   }
 
-  @MessagePattern('NEWSLETTER:REMOVE')
+  @MessagePattern('NEWSLETTER:DELETE')
   remove(@Payload() data: ValidateUUID) {
     return this.newsletterService.remove(data.id);
   }
