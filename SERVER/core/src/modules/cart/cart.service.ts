@@ -26,7 +26,13 @@ export class CartService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const price = Number(data.quantity) * Number(product.body.);
+      let price = 0;
+
+      product.body.details.forEach((item) => {
+        if (item.color === data.color) {
+          price = Number(data.quantity) * Number(item.price);
+        }
+      });
 
       if (existing) {
         const existProduct: boolean = existing.metadata.some(
@@ -41,7 +47,13 @@ export class CartService {
             return new CustomException(statusMessages.fa['404'], 404);
           }
 
-          const price = Number(metaData.quantity) * Number(product.body.price);
+          let price = 0;
+
+          product.body.details.forEach((item) => {
+            if (item.color === data.color) {
+              price = Number(data.quantity) * Number(item.price);
+            }
+          });
 
           totalPrice = totalPrice + Number(price);
         }
