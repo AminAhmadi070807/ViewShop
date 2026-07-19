@@ -76,8 +76,6 @@ export class ParentProductsService {
         alias: data.alias,
         description: data.description,
         product_type: data.product_type,
-        max_price: data.max_price,
-        min_price: data.min_price,
         minimum_quantity: data.minimum_quantity,
         return_policy_type: data.return_policy_type,
         tax_percent: data.tax_percent,
