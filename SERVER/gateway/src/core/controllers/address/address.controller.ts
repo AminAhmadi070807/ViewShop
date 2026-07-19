@@ -74,8 +74,10 @@ export class AddressController {
       enum: ['READ'],
     },
   ])
-  findAll() {
-    return this.coreService.send('ADDRESS:FIND');
+  findAll(@Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('ADDRESS:FIND', { user: user.userId });
   }
 
   @Get('/:id')
