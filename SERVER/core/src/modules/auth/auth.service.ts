@@ -158,7 +158,7 @@ export class AuthService {
   async login(data: AuthLoginDto) {
     try {
       // find user
-      const user: User | null = await this.userRepository.findOneBy({
+      const user = await this.userRepository.findOneBy({
         phone: data.phone,
       });
 

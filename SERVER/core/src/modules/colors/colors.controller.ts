@@ -26,7 +26,7 @@ export class ColorsController {
 
   @MessagePattern('COLOR:SEARCH')
   search(@Payload() data: ValidateTitle) {
-    return this.colorsService.findOne(data.title);
+    return this.colorsService.search(data.title);
   }
 
   @MessagePattern('COLOR:DELETE')
