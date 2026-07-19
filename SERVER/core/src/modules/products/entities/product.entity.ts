@@ -51,8 +51,8 @@ export class Product {
   })
   approval_status: ProductApprovalStatusEnum;
 
-  @Column({ type: 'integer', nullable: false })
-  price: number;
+  @Column({ type: 'simple-json', nullable: false, array: true })
+  ditals: [{ color: string; price: number }];
 
   @Column({ type: 'integer', nullable: false, default: 0 })
   discount_percent: number;
@@ -68,9 +68,6 @@ export class Product {
   @ManyToMany(() => Media, { nullable: false })
   @JoinTable({ name: 'Media_Product' })
   medias: Media[];
-
-  @Column({ type: 'simple-json', nullable: false, array: true })
-  colors: string[];
 
   @ManyToOne(() => Store, { nullable: false, onUpdate: 'CASCADE' })
   @JoinTable({ name: 'Store_Product' })
