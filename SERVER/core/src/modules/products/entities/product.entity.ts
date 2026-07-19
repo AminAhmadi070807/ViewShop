@@ -52,7 +52,7 @@ export class Product {
   approval_status: ProductApprovalStatusEnum;
 
   @Column({ type: 'simple-json', nullable: false, array: true })
-  details: [{ color: string; price: number }];
+  details: { color: string; price: number }[];
 
   @Column({ type: 'integer', nullable: false, default: 0 })
   discount_percent: number;
