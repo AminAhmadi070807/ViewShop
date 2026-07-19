@@ -89,8 +89,8 @@ export class WishlistService {
           product: {
             id: true,
             medias: true,
-            price: true,
             discount_percent: true,
+            details: true,
             alias: true,
             store: {
               id: true,
