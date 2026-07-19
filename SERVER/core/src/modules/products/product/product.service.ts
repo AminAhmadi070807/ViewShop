@@ -189,6 +189,7 @@ export class ProductService {
       product.medias = medias.body;
       product.discount_percent = data.discount_percent;
       product.status = ProductStatusEnum.PENDING_APPROVAL;
+      product.details = data.details;
 
       await this.productRepository.save(product);
 
