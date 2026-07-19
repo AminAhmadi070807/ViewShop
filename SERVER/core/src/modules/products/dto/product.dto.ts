@@ -79,9 +79,11 @@ export class UpdateProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
-  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
-  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
-  colors: string[];
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
 
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
