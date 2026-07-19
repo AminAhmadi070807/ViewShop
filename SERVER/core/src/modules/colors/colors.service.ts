@@ -106,7 +106,7 @@ export class ColorsService {
     try {
       const colors: Color[] = await this.colorRepository.find({
         where: {
-          color: ILike(`%${title}%`),
+          title: ILike(`%${title}%`),
         },
       });
 
