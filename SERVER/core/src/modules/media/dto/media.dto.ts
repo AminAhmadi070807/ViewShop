@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsNotEmpty,
   IsString,
   IsUUID,
@@ -16,6 +17,9 @@ export class MediaDto {
   @IsNotEmpty({ message: 'مسیر نباید خالی باشد' })
   @IsString({ message: 'مسیر باید رشته باشد' })
   path: string;
+
+  @IsBoolean({ message: 'پابلیک نامعتبر است' })
+  public: boolean;
 
   @IsNotEmpty({ message: 'ایدی کاربر نباید خالی باشد' })
   @IsUUID('4', { message: 'ایدی نادرست است' })
