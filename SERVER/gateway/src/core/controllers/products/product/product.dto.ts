@@ -2,7 +2,6 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
-  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -136,15 +135,17 @@ export class UpdateProductDto {
   medias: string[];
 
   @ApiProperty({
-    type: [String],
+    type: [ProductDetailDto],
     isArray: true,
     required: true,
     nullable: false,
-    example: [''],
+    example: [ProductDetailDto],
   })
-  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
-  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
-  colors: string[];
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
 
   @ApiProperty({
     type: Number,
