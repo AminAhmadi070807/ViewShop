@@ -12,8 +12,23 @@ import {
   MaxLength,
   Min,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
+import { Type } from 'class-transformer';
+
+class ProductDetailDto {
+  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
+  color: string;
+
+  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
+  )
+  price: number;
+}
 
 export class ProductDto {
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
@@ -33,10 +48,6 @@ export class ProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
-  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
-  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
-  colors: string[];
-
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
@@ -46,13 +57,11 @@ export class ProductDto {
   })
   alias: string;
 
-  @IsNotEmpty({ message: 'قیمت محصول نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'قیمت محصول باید اعداد باشد' },
-  )
-  @Min(0, { message: 'قیمت محثول نمیتواند از 0 کوتاه تر باشد' })
-  price: number;
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
 
   @IsNotEmpty({ message: '' })
   @IsNumber({ allowNaN: false, allowInfinity: true }, { message: '' })
@@ -91,9 +100,6 @@ export class UpdateStatusProductDto {
 
   @IsNotEmpty()
   @IsString()
-  @IsEnum(ProductStatusEnum, {
-    message:
-      'وضیعت محصول فقط میتواند یکی از این موارد باشد (PENDING_APPROVAL, DELETED, DRAFT, INACTIVE, ACTIVE)',
-  })
+  @IsEnum(ProductStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: ProductStatusEnum;
 }
