@@ -2,6 +2,7 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
+  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -18,14 +19,26 @@ import { ProductStatusEnum } from '../../../../common/enums/products/status.enum
 import { Type } from 'class-transformer';
 
 class ProductDetailDto {
-  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
+  @IsHexColor({ message: 'رنگ نامعتبر است' })
   color: string;
 
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
+  @ApiProperty({
+    type: Number,
+    required: true,
+    nullable: false,
+    minimum: 0,
+    example: 1_000_000,
+  })
+  @IsNotEmpty({ message: 'قیمت نمیتواند خالی بشاد' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
-    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
+    { message: 'قیمت نامعتبر است' },
   )
   price: number;
 }
