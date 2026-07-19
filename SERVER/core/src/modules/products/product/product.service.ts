@@ -44,8 +44,6 @@ export class ProductService {
 
       if (!parentProduct) {
         return new CustomException(statusMessages.fa['404'], 404);
-      } else if (data.price > +parentProduct.max_price) {
-        return new CustomException(statusMessages.fa['400'], 400);
       }
 
       const media = await this.mediaService.findId(data.medias);
@@ -55,18 +53,13 @@ export class ProductService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const resultColor = await this.colorService.findByCode(data.colors);
-
-      if (resultColor instanceof CustomException) return resultColor;
-
       const product: Product = this.productRepository.create({
         user: { id: data.userId },
         parentProduct: parentProduct,
         medias: media.body,
         alias: data.alias,
-        price: data.price,
         store: store.body,
-        colors: data.colors,
+        details: data.details,
       });
 
       const newProduct = await this.productRepository.save(product);
