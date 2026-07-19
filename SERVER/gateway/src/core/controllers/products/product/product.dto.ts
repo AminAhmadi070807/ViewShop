@@ -12,9 +12,24 @@ import {
   MaxLength,
   Min,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ProductStatusEnum } from '../../../../common/enums/products/status.enum';
+import { Type } from 'class-transformer';
+
+class ProductDetailDto {
+  @IsNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است' })
+  color: string;
+
+  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
+  )
+  price: number;
+}
 
 export class ProductDto {
   @ApiProperty({
@@ -49,16 +64,11 @@ export class ProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
-  @ApiProperty({
-    type: [String],
-    isArray: true,
-    required: true,
-    nullable: false,
-    example: [''],
-  })
-  @ArrayNotEmpty({ message: 'ارایه رنگ ها نمیتواند خالی باشد' })
-  @IsHexColor({ message: 'کد رنگ ها نامعتبر است', each: true })
-  colors: string[];
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
 
   @ApiProperty({
     type: String,
