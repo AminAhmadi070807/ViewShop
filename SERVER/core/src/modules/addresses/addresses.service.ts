@@ -39,7 +39,7 @@ export class AddressesService {
 
   async findAll() {
     try {
-      const addresses = await this.addressRepository.find({
+      const result = await this.addressRepository.find({
         order: {
           createdAt: 'DESC',
         },
@@ -48,7 +48,7 @@ export class AddressesService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: addresses,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
