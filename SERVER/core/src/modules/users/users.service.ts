@@ -81,22 +81,6 @@ export class UsersService {
     }
   }
 
-  async findByPhone(phone: string) {
-    try {
-      const user = await this.userRepository.findOneBy({ phone: phone });
-
-      if (!user) return new CustomException(statusMessages.fa['404'], 404);
-
-      return {
-        status: 200,
-        message: statusMessages.fa['204'],
-        body: user,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
   async update(id: string, data: UpdateUserDto) {
     try {
       const result: UpdateResult = await this.userRepository.update(id, data);
