@@ -71,13 +71,20 @@ export class AddressesService {
     }
   }
 
-  async findOneByUserId(id: string) {
+  async findOneByUserId(userId: string) {
     try {
-      const address: Address | null = await this.addressRepository.findOneBy({
-        id,
+      const address = await this.addressRepository.find({
+        where: {
+          user: { id: userId },
+        },
+        order: {
+          createdAt: 'DESC',
+        },
       });
 
-      if (!address) return new CustomException(statusMessages.fa['404'], 404);
+      if (!address.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: 200,
