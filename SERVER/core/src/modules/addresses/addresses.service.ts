@@ -37,14 +37,9 @@ export class AddressesService {
     }
   }
 
-  async findAll(user: string) {
+  async findAll() {
     try {
-      const addresses: Address[] = await this.addressRepository.find({
-        where: {
-          user: {
-            id: user,
-          },
-        },
+      const addresses = await this.addressRepository.find({
         order: {
           createdAt: 'DESC',
         },
