@@ -7,9 +7,11 @@ import {
 } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   id: string;
+
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  user: string;
 
   @IsNotEmpty({ message: 'نام و نام خانوادگی نمیتواند خالی باشد' })
   @IsString({ message: 'نام و نام خانوادگی باید رشته باشد' })

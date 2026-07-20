@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
 import { statusMessages } from '../../common/message/message.status';
@@ -92,13 +92,21 @@ export class UsersService {
     }
   }
 
-  async update(id: string, data: UpdateUserDto) {
+  async update(data: UpdateUserDto) {
     try {
-      const result: UpdateResult = await this.userRepository.update(id, data);
+      const existing = await this.userRepository.findOneBy({ id: data.id });
 
-      if (!result.affected) {
+      if (!existing) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
+
+      if (existing.id !== data.user) {
+        return new CustomException(statusMessages.fa['403'], 403);
+      }
+
+      existing.fullName = data.fullName;
+
+      await this.userRepository.save(existing);
 
       return {
         status: HttpStatus.NO_CONTENT,
