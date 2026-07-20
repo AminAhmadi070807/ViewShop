@@ -71,31 +71,6 @@ export class AddressesService {
     }
   }
 
-  async findOneByUserId(userId: string) {
-    try {
-      const address = await this.addressRepository.find({
-        where: {
-          user: { id: userId },
-        },
-        order: {
-          createdAt: 'DESC',
-        },
-      });
-
-      if (!address.length) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: address,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
   async remove(id: string) {
     try {
       const result: DeleteResult = await this.addressRepository.delete(id);
