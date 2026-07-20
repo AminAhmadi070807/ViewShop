@@ -26,11 +26,6 @@ export class UsersController {
 
   @MessagePattern('USER:UPDATE')
   update(@Payload() data: UpdateUserDto) {
-    return this.usersService.update(data.id, data);
-  }
-
-  @MessagePattern('USER:DELETE')
-  remove(@Payload() id: string) {
-    return this.usersService.remove(id);
+    return this.usersService.update(data);
   }
 }
