@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrderService } from './order.service';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
-import { ValidateUUID } from '../../common/validations/id.dto';
+import { ValidateUUID } from '../../common/validations/validate.dto';
 
 @Controller()
 export class OrderController {

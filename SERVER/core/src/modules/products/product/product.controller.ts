@@ -6,7 +6,7 @@ import {
   UpdateProductDto,
   UpdateStatusProductDto,
 } from '../dto/product.dto';
-import { ValidateUUID } from '../../../common/validations/id.dto';
+import { ValidateUUID } from '../../../common/validations/validate.dto';
 
 @Controller()
 export class ProductController {

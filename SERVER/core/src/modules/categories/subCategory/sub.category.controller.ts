@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubCategoryService } from './sub.category.service';
 import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
-import { ValidateUUID } from '../../../common/validations/id.dto';
+import { ValidateUUID } from '../../../common/validations/validate.dto';
 
 @Controller()
 export class SubCategoryController {

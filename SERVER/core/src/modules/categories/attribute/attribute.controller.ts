@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { AttributeService } from './attribute.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ValidateUUID } from '../../../common/validations/id.dto';
+import { ValidateUUID } from '../../../common/validations/validate.dto';
 import { AttributeCategoryDto } from '../dto/attribute.category.dto';
 
 @Controller()

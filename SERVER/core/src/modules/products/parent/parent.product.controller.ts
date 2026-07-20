@@ -5,7 +5,7 @@ import {
   ParentProductDto,
   UpdateParentProductDto,
 } from '../dto/parent.product.dto';
-import { ValidateUUID } from '../../../common/validations/id.dto';
+import { ValidateUUID } from '../../../common/validations/validate.dto';
 
 @Controller()
 export class ParentProductController {

@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ColorsService } from './colors.service';
 import { ColorDto } from './dto/color.dto';
-import { ValidateUUID } from '../../common/validations/id.dto';
+import { ValidateUUID } from '../../common/validations/validate.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
 
 @Controller()

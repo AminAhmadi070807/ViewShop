@@ -6,7 +6,7 @@ import {
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
-import { ValidateUUID } from '../../common/validations/id.dto';
+import { ValidateUUID } from '../../common/validations/validate.dto';
 
 @Controller()
 export class ArticlesController {

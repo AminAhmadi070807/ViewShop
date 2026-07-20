@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class ValidateUUID {
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
@@ -7,4 +7,8 @@ export class ValidateUUID {
 
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user: string;
+
+  @IsNotEmpty({ message: 'نقش نمیتواند خالی باشد' })
+  @IsString({ message: 'نقش باید رشته باشد' })
+  title: string;
 }
