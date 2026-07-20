@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ValidateUUID } from '../../common/validations/validate.dto';
 
 @Controller()
 export class UsersController {
@@ -19,8 +20,8 @@ export class UsersController {
   }
 
   @MessagePattern('USER:ONE')
-  findOne(@Payload() id: string) {
-    return this.usersService.findOne(id);
+  findOne(@Payload() data: ValidateUUID) {
+    return this.usersService.findOne(data);
   }
 
   @MessagePattern('USER:UPDATE')
