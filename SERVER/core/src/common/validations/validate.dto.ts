@@ -10,5 +10,5 @@ export class ValidateUUID {
 
   @IsNotEmpty({ message: 'نقش نمیتواند خالی باشد' })
   @IsString({ message: 'نقش باید رشته باشد' })
-  title: string;
+  role: string;
 }
