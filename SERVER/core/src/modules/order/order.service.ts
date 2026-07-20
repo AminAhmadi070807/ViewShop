@@ -29,7 +29,7 @@ export class OrderService {
     try {
       const user = await this.userService.findOne(data.user);
       const cart = await this.cartService.findOne(data.user);
-      const address = await this.addressService.findOneByUserId(data.user);
+      const address = await this.addressService.findOne(data.address);
 
       if (
         user instanceof RpcException ||
