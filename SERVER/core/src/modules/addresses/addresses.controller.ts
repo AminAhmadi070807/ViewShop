@@ -14,8 +14,8 @@ export class AddressesController {
   }
 
   @MessagePattern('ADDRESS:FIND')
-  findAll(@Payload() data: { user: string }) {
-    return this.addressesService.findAll(data.user);
+  findAll() {
+    return this.addressesService.findAll();
   }
 
   @MessagePattern('ADDRESS:ONE')
