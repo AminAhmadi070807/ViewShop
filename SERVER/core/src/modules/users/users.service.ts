@@ -68,16 +68,24 @@ export class UsersService {
 
   async findOne(data: ValidateUUID) {
     try {
-      const user: User | null = await this.userRepository.findOneBy({
-        id: data.id,
-      });
+      if (data.role === 'ADMIN' || data.id === data.user) {
+        const user: User | null = await this.userRepository.findOneBy({
+          id: data.id,
+        });
 
-      if (!user) return new CustomException(statusMessages.fa['404'], 404);
+        if (!user) return new CustomException(statusMessages.fa['404'], 404);
+
+        return {
+          status: HttpStatus.OK,
+          message: statusMessages.fa['200'],
+          body: user,
+        };
+      }
 
       return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: user,
+        status: 403,
+        message: statusMessages.fa['403'],
+        body: null,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
