@@ -22,7 +22,6 @@ import {
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { PhoneDto } from '../../../common/validation/phone.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/users')
@@ -76,30 +75,6 @@ export class UsersController {
   ])
   findAll() {
     return this.coreService.send('USER:FIND');
-  }
-
-  @Get('by/phone/:phone')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'USER',
-      enum: ['USER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ:ONE',
-      enum: ['READ:ONE'],
-    },
-  ])
-  findByPhone(@Param() param: PhoneDto) {
-    return this.coreService.send('USER:PHONE', param.phone);
   }
 
   @Get(':id')
