@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ArticlesService } from './articles.service';
 import {
   ArticleDto,
+  FindArticleDto,
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
@@ -18,8 +19,8 @@ export class ArticlesController {
   }
 
   @MessagePattern('ARTICLE:FIND')
-  findAll() {
-    return this.articlesService.findAll();
+  findAll(@Payload() data: FindArticleDto) {
+    return this.articlesService.findAll(data);
   }
 
   @MessagePattern('ARTICLE:ONE')
