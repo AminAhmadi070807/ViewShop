@@ -6,7 +6,7 @@ import {
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class ArticlesController {
@@ -23,7 +23,7 @@ export class ArticlesController {
   }
 
   @MessagePattern('ARTICLE:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.articlesService.findOne(data.id);
   }
 
@@ -38,7 +38,7 @@ export class ArticlesController {
   }
 
   @MessagePattern('ARTICLE:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.articlesService.remove(data.id);
   }
 }

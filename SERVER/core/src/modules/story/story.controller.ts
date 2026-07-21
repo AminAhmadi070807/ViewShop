@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoryService } from './story.service';
 import { StoryDto } from './dto/story.dto';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class StoryController {
@@ -19,12 +19,12 @@ export class StoryController {
   }
 
   @MessagePattern('STORY:ONE')
-  findStore(@Payload() data: ValidateUUID) {
+  findStore(@Payload() data: Validate) {
     return this.storyService.findOne(data.id);
   }
 
   @MessagePattern('STORY:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.storyService.remove(data.id);
   }
 }

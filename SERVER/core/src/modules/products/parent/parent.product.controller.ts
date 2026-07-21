@@ -5,7 +5,7 @@ import {
   ParentProductDto,
   UpdateParentProductDto,
 } from '../dto/parent.product.dto';
-import { ValidateUUID } from '../../../common/validations/validate.dto';
+import { Validate } from '../../../common/validations/validate.dto';
 
 @Controller()
 export class ParentProductController {
@@ -22,7 +22,7 @@ export class ParentProductController {
   }
 
   @MessagePattern('PRODUCT:PARENT:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.parentProductService.findOne(data.id);
   }
 
@@ -32,7 +32,7 @@ export class ParentProductController {
   }
 
   @MessagePattern('PRODUCT:PARENT:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.parentProductService.remove(data.id);
   }
 }

@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { AttributeService } from './attribute.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ValidateUUID } from '../../../common/validations/validate.dto';
+import { Validate } from '../../../common/validations/validate.dto';
 import { AttributeCategoryDto } from '../dto/attribute.category.dto';
 
 @Controller()
@@ -19,12 +19,12 @@ export class AttributeController {
   }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.attributeService.findOne(data.id);
   }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:DELETE')
-  delete(@Payload() data: ValidateUUID) {
+  delete(@Payload() data: Validate) {
     return this.attributeService.delete(data.id);
   }
 }

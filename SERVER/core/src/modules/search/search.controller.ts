@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SearchService } from './search.service';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class SearchController {
@@ -18,7 +18,7 @@ export class SearchController {
   }
 
   @MessagePattern('SEARCH:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.searchService.remove(data.id);
   }
 }

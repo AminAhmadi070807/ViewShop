@@ -1,6 +1,6 @@
 import { IsUUID } from 'class-validator';
 
-export class ValidateUUID {
+export class Validate {
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   id: string;
 

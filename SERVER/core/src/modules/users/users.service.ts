@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
 import { statusMessages } from '../../common/message/message.status';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class UsersService {
@@ -66,7 +66,7 @@ export class UsersService {
     }
   }
 
-  async findOne(data: ValidateUUID) {
+  async findOne(data: Validate) {
     try {
       if (data.role === 'ADMIN' || data.id === data.user) {
         const user: User | null = await this.userRepository.findOneBy({

@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CommentService } from './comment.service';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class CommentController {
@@ -24,7 +24,7 @@ export class CommentController {
   }
 
   @MessagePattern('COMMENT:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.commentService.remove(data.id);
   }
 }

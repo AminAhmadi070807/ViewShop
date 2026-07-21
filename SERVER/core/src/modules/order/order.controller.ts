@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrderService } from './order.service';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class OrderController {
@@ -19,7 +19,7 @@ export class OrderController {
   }
 
   @MessagePattern('ORDER:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.orderService.findOne(data.id);
   }
 
@@ -29,7 +29,7 @@ export class OrderController {
   }
 
   @MessagePattern('ORDER:PAYMENT')
-  payment(@Payload() data: ValidateUUID) {
+  payment(@Payload() data: Validate) {
     return this.orderService.payment(data.id);
   }
 }

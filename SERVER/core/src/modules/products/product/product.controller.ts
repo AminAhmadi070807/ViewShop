@@ -6,7 +6,7 @@ import {
   UpdateProductDto,
   UpdateStatusProductDto,
 } from '../dto/product.dto';
-import { ValidateUUID } from '../../../common/validations/validate.dto';
+import { Validate } from '../../../common/validations/validate.dto';
 
 @Controller()
 export class ProductController {
@@ -23,7 +23,7 @@ export class ProductController {
   }
 
   @MessagePattern('PRODUCT:CHILD:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.productService.findOne(data.id);
   }
 

@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ColorsService } from './colors.service';
 import { ColorDto } from './dto/color.dto';
-import { ValidateUUID } from '../../common/validations/validate.dto';
+import { Validate } from '../../common/validations/validate.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
 
 @Controller()
@@ -20,7 +20,7 @@ export class ColorsController {
   }
 
   @MessagePattern('COLOR:ONE')
-  findOne(@Payload() data: ValidateUUID) {
+  findOne(@Payload() data: Validate) {
     return this.colorsService.findOne(data.id);
   }
 
@@ -30,7 +30,7 @@ export class ColorsController {
   }
 
   @MessagePattern('COLOR:DELETE')
-  remove(@Payload() data: ValidateUUID) {
+  remove(@Payload() data: Validate) {
     return this.colorsService.remove(data.id);
   }
 }
