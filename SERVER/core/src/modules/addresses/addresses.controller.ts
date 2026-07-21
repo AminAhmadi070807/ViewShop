@@ -25,6 +25,6 @@ export class AddressesController {
 
   @MessagePattern('ADDRESS:DELETE')
   remove(@Payload() data: Validate) {
-    return this.addressesService.remove(data.id);
+    return this.addressesService.remove(data);
   }
 }
