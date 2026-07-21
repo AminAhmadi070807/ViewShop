@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
   ArticleDto,
+  FindArticleDto,
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
@@ -65,11 +66,31 @@ export class ArticlesService {
     }
   }
 
-  async findAll() {
+  async findAll(data: FindArticleDto) {
     try {
-      const articles = await this.articleRepository.find({
-        order: { createdAt: 'DESC' },
-      });
+      let articles;
+
+      if (data.role === 'ADMIN') {
+        articles = await this.articleRepository.find({
+          where: {
+            ...(data.status && {
+              status: data.status,
+            }),
+          },
+          order: { createdAt: 'DESC' },
+          take: (data.page ?? 1) * 15,
+        });
+      } else {
+        articles = await this.articleRepository.find({
+          where: {
+            status: ArticleStatusEnum.PUBLISHED,
+          },
+          take: (data.page ?? 1) * 15,
+          order: {
+            createdAt: 'DESC',
+          },
+        });
+      }
 
       return {
         status: 200,
