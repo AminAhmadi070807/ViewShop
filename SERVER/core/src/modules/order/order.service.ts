@@ -27,7 +27,10 @@ export class OrderService {
 
   async create(data: OrderDto) {
     try {
-      const user = await this.userService.findOne(data.user);
+      const user = await this.userService.findOne({
+        user: data.user,
+        id: data.user,
+      });
       const cart = await this.cartService.findOne(data.user);
       const address = await this.addressService.findOne(data.address);
 

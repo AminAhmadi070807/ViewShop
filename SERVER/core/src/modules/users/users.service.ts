@@ -68,10 +68,8 @@ export class UsersService {
 
   async findOne(data: Validate) {
     try {
-      if (data.role === 'ADMIN' || data.id === data.user) {
-        const user: User | null = await this.userRepository.findOneBy({
-          id: data.id,
-        });
+      if (data.id === data.user) {
+        const user = await this.userRepository.findOneBy({ id: data.id });
 
         if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
