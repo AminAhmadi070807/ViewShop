@@ -123,7 +123,7 @@ export class ArticlesService {
   async update(data: UpdateArticleDto) {
     try {
       const article: UpdateResult = await this.articleRepository.update(
-        data.id,
+        { id: data.id, author: { id: data.author } },
         {
           cover: {
             id: data.cover,

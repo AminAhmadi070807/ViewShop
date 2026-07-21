@@ -70,6 +70,10 @@ export class UpdateArticleDto {
   @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
+  @IsNotEmpty({ message: 'ایدی نویسنده نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'ایدی نویسنده نامعتبر هست' })
+  author: string;
+
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   @MinLength(8, { message: 'حدقل عنوان باید 8 کارکتر داشته باشد' })
