@@ -7,5 +7,5 @@ export class PageFilter {
   )
   @IsInt({ message: 'صفحه باید اینتیجر باشد' })
   @IsOptional({ message: 'صفحه اختیاری است' })
-  page: number;
+  page?: number;
 }

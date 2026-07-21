@@ -15,6 +15,14 @@ export class AddressesService {
 
   async create(data: AddressDto) {
     try {
+      const numberOfUserAddress = await this.addressRepository.count({
+        where: { user: { id: data.user } },
+      });
+
+      if (numberOfUserAddress > 5) {
+        return new CustomException(statusMessages.fa['429'], 429);
+      }
+
       const address: Address = this.addressRepository.create({
         user: { id: data.user },
         street: data.street,
