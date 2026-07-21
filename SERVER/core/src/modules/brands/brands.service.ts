@@ -44,12 +44,11 @@ export class BrandsService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
-      const brands: Brand[] = await this.brandRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+      const brands = await this.brandRepository.find({
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
       });
 
       return {

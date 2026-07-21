@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BrandsService } from './brands.service';
 import { BrandDto, UpdateBrandDto } from './dto/brand.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class BrandsController {
@@ -14,8 +15,8 @@ export class BrandsController {
   }
 
   @MessagePattern('BRAND:FIND')
-  findAll() {
-    return this.brandsService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.brandsService.findAll(data?.page);
   }
 
   @MessagePattern('BRAND:ONE')
