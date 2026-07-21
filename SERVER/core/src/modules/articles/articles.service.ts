@@ -12,7 +12,6 @@ import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
 import { StoreService } from '../store/store.service';
 import { MediaService } from '../media/media.service';
-import { RpcException } from '@nestjs/microservices';
 import { ArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 @Injectable()
@@ -31,13 +30,9 @@ export class ArticlesService {
       const store = await this.storeService.findOne(data.store);
       const media = await this.mediaService.findId([data.cover]);
 
-      if (
-        category instanceof RpcException ||
-        store instanceof RpcException ||
-        media instanceof RpcException
-      ) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (category instanceof CustomException) return category;
+      if (store instanceof CustomException) return store;
+      if (media instanceof CustomException) return media;
 
       const existing = await this.articleRepository.findOneBy({
         title: data.title,
