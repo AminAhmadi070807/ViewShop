@@ -20,7 +20,7 @@ export class AddressesController {
 
   @MessagePattern('ADDRESS:ONE')
   findOne(@Payload() data: Validate) {
-    return this.addressesService.findOne(data.id);
+    return this.addressesService.findOne(data);
   }
 
   @MessagePattern('ADDRESS:DELETE')
