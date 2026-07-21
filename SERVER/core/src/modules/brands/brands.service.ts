@@ -63,9 +63,7 @@ export class BrandsService {
 
   async findOne(id: string) {
     try {
-      const brand: Brand | null = await this.brandRepository.findOneBy({
-        id: id,
-      });
+      const brand = await this.brandRepository.findOneBy({ id });
 
       if (!brand) return new CustomException(statusMessages.fa['404'], 404);
 
