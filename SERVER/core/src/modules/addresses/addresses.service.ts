@@ -5,6 +5,7 @@ import { Address } from './entities/address.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class AddressesService {
@@ -45,9 +46,10 @@ export class AddressesService {
     }
   }
 
-  async findAll() {
+  async findAll(data: Validate) {
     try {
       const result = await this.addressRepository.find({
+        where: { user: { id: data.user } },
         order: {
           createdAt: 'DESC',
         },
