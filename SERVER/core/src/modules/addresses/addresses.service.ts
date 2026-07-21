@@ -65,9 +65,12 @@ export class AddressesService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
-      const address = await this.addressRepository.findOneBy({ id });
+      const address = await this.addressRepository.findOneBy({
+        id: data.id,
+        user: { id: data.user },
+      });
 
       if (!address) return new CustomException(statusMessages.fa['404'], 404);
 
