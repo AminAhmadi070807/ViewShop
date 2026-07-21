@@ -5,24 +5,30 @@ import { Brand } from './entities/brand.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { MediaService } from '../media/media.service';
 
 @Injectable()
 export class BrandsService {
   constructor(
     @InjectRepository(Brand)
     private readonly brandRepository: Repository<Brand>,
+    private readonly mediaService: MediaService,
   ) {}
 
   async create(data: BrandDto) {
     try {
-      const existing: Brand | null = await this.brandRepository.findOneBy([
+      const logo = await this.mediaService.findId([data.logo]);
+
+      if (logo instanceof CustomException) return logo;
+
+      const existing = await this.brandRepository.findOneBy([
         { alias: data.alias },
         { title: data.title },
       ]);
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const brand: Brand = this.brandRepository.create({
+      const brand = this.brandRepository.create({
         title: data.title,
         description: data.description,
         alias: data.alias,
