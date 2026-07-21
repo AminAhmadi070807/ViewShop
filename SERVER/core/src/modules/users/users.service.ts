@@ -82,11 +82,7 @@ export class UsersService {
         };
       }
 
-      return {
-        status: 403,
-        message: statusMessages.fa['403'],
-        body: null,
-      };
+      return new CustomException(statusMessages.fa['403'], 403);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

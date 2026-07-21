@@ -1,4 +1,4 @@
-import { IsUUID } from 'class-validator';
+import { IsOptional, IsUUID } from 'class-validator';
 
 export class Validate {
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
@@ -8,5 +8,6 @@ export class Validate {
   user: string;
 
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  role: string;
+  @IsOptional({ message: 'نقش اختیاری است' })
+  role?: string;
 }

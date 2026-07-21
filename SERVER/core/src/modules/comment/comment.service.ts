@@ -20,7 +20,10 @@ export class CommentService {
 
   async create(data: CommentDto) {
     try {
-      const user = await this.userService.findOne(data.user);
+      const user = await this.userService.findOne({
+        id: data.user,
+        user: data.user,
+      });
       const product = await this.productService.findOne(data.product);
 
       if (user instanceof RpcException || product instanceof RpcException) {
