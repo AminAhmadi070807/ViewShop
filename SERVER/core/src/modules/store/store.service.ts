@@ -23,7 +23,10 @@ export class StoreService {
 
   async create(data: StoreDto) {
     try {
-      const owner = await this.usersService.findOne(data.owner);
+      const owner = await this.usersService.findOne({
+        id: data.owner,
+        user: data.owner,
+      });
       const media = await this.mediaService.findId([data.logo, data.banner]);
       const categories = await this.categoriesService.findId(data.categories);
 
