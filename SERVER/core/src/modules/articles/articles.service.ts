@@ -122,7 +122,7 @@ export class ArticlesService {
 
   async update(data: UpdateArticleDto) {
     try {
-      const article: UpdateResult = await this.articleRepository.update(
+      const article = await this.articleRepository.update(
         { id: data.id, author: { id: data.author } },
         {
           cover: {
@@ -155,13 +155,10 @@ export class ArticlesService {
 
   async updateStatus(data: UpdateArticleStatusDto) {
     try {
-      const article: UpdateResult = await this.articleRepository.update(
-        data.id,
-        {
-          status: data.status,
-          publishedAt: new Date().toISOString(),
-        },
-      );
+      const article = await this.articleRepository.update(data.id, {
+        status: data.status,
+        publishedAt: new Date().toISOString(),
+      });
 
       if (!article.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
