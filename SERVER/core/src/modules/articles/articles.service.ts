@@ -67,10 +67,8 @@ export class ArticlesService {
 
   async findAll() {
     try {
-      const articles: Article[] = await this.articleRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+      const articles = await this.articleRepository.find({
+        order: { createdAt: 'DESC' },
       });
 
       return {
