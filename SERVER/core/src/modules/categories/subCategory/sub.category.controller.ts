@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubCategoryService } from './sub.category.service';
 import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
 import { Validate } from '../../../common/validations/validate.dto';
+import { PageFilter } from '../../../common/filters/page.filter';
 
 @Controller()
 export class SubCategoryController {
@@ -14,8 +15,8 @@ export class SubCategoryController {
   }
 
   @MessagePattern('CATEGORY:SUB:FIND')
-  findAll() {
-    return this.subCategoryService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.subCategoryService.findAll(data.page);
   }
 
   @MessagePattern('CATEGORY:SUB:ONE')
