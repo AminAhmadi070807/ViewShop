@@ -14,13 +14,11 @@ export class SearchService {
     private readonly parentProductService: ParentProductsService,
   ) {}
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const search: Search[] = await this.searchRepository.find({
-        order: {
-          numberOfSearch: 'DESC',
-        },
-        take: 15,
+        take: (page ?? 1) * 15,
+        order: { numberOfSearch: 'DESC' },
       });
 
       return {
