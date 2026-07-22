@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MediaService } from './media.service';
 import { MediaDto } from './dto/media.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class MediaController {
@@ -14,8 +15,8 @@ export class MediaController {
   }
 
   @MessagePattern('MEDIA:FIND')
-  findAll() {
-    return this.mediaService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.mediaService.findAll(data.page);
   }
 
   @MessagePattern('MEDIA:SEARCH')
