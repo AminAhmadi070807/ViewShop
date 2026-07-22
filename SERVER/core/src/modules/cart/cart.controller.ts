@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CartService } from './cart.service';
 import { CartDto } from './dto/cart.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class CartController {
@@ -14,12 +15,12 @@ export class CartController {
   }
 
   @MessagePattern('CART:FIND')
-  findAll() {
-    return this.cartService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.cartService.findAll(data.page);
   }
 
   @MessagePattern('CART:ONE')
   findOne(@Payload() data: Validate) {
-    return this.cartService.findOne(data.id);
+    return this.cartService.findOne(data);
   }
 }
