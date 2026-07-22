@@ -64,9 +64,10 @@ export class OrderService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const carts: Order[] = await this.orderRepository.find({
+        take: (page ?? 1) * 10,
         order: {
           createdAt: 'DESC',
         },
