@@ -74,9 +74,10 @@ export class StoreService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const stores: Store[] = await this.storeRepository.find({
+        take: (page ?? 1) * 15,
         order: {
           createdAt: 'DESC',
         },
