@@ -8,7 +8,6 @@ import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
-import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class StoryService {
@@ -90,12 +89,9 @@ export class StoryService {
     }
   }
 
-  async remove(data: Validate) {
+  async remove(id: string) {
     try {
-      const result: DeleteResult = await this.storyRepository.delete({
-        id: data.id,
-        user: { id: data.user },
-      });
+      const result: DeleteResult = await this.storyRepository.delete(id);
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
