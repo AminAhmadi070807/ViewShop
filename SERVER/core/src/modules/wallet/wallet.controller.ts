@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { WalletService } from './wallet.service';
 import { WalletDto } from './dto/wallet.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class WalletController {
@@ -13,7 +14,7 @@ export class WalletController {
   }
 
   @MessagePattern('WALLET:FIND')
-  findAll() {
-    return this.walletService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.walletService.findAll(data.page);
   }
 }
