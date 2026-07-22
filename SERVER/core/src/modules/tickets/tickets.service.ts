@@ -5,6 +5,7 @@ import { Ticket } from './entities/ticket.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class TicketsService {
@@ -55,9 +56,7 @@ export class TicketsService {
 
   async findOne(id: string) {
     try {
-      const ticket: Ticket | null = await this.ticketRepository.findOneBy({
-        id,
-      });
+      const ticket = await this.ticketRepository.findOneBy({ id });
 
       if (!ticket) return new CustomException(statusMessages.fa['404'], 404);
 
