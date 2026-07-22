@@ -44,9 +44,10 @@ export class ColorsService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const colors = await this.colorRepository.find({
+        take: (page ?? 1) * 15,
         order: {
           createdAt: 'DESC',
         },
