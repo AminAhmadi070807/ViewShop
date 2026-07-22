@@ -60,9 +60,10 @@ export class CommentService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const comments = await this.commentRepository.find({
+        take: (page ?? 1) * 15,
         where: {
           parentComment: IsNull(),
         },
