@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { TicketsService } from './tickets.service';
 import { TicketDto, UpdateTicketDto } from './dto/ticket.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class TicketsController {
@@ -13,8 +14,8 @@ export class TicketsController {
   }
 
   @MessagePattern('TICKETS:FIND')
-  findAll() {
-    return this.ticketsService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.ticketsService.findAll(data.page);
   }
 
   @MessagePattern('TICKETS:ONE')
