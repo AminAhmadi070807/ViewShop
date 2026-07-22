@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoreService } from './store.service';
 import { StoreDto, UpdateStoreDto } from './dto/store.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class StoreController {
@@ -14,13 +15,13 @@ export class StoreController {
   }
 
   @MessagePattern('STORE:FIND')
-  findAll() {
-    return this.storeService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.storeService.findAll(data.page);
   }
 
   @MessagePattern('STORE:ONE')
   findOne(@Payload() data: Validate) {
-    return this.storeService.findOne(data.id);
+    return this.storeService.findOne(data);
   }
 
   @MessagePattern('STORE:UPDATE')
