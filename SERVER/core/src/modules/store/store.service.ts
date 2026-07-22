@@ -10,6 +10,7 @@ import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 import { UsersService } from '../users/users.service';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class StoreService {
@@ -99,11 +100,11 @@ export class StoreService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
-      const store: Store | null = await this.storeRepository.findOne({
+      const store = await this.storeRepository.findOne({
         where: {
-          id,
+          id: data.id,
         },
         relations: ['logo', 'banner', 'categories'],
         select: {
