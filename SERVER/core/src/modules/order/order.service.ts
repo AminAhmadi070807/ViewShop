@@ -12,6 +12,7 @@ import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
 import { ProductService } from '../products/product/product.service';
 import { WalletService } from '../wallet/wallet.service';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class OrderService {
@@ -95,10 +96,10 @@ export class OrderService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
       const result = await this.orderRepository.findOne({
-        where: { id },
+        where: { id: data.id, user: { id: data.user } },
         select: {
           id: true,
           status: true,
