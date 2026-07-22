@@ -124,7 +124,10 @@ export class CartService {
 
   async findOne(data: Validate) {
     try {
-      const cart = await this.cartRepository.findOneBy({ id: data.id });
+      const cart = await this.cartRepository.findOneBy({
+        id: data.id,
+        user: { id: data.user },
+      });
 
       if (!cart) return new CustomException(statusMessages.fa['404'], 404);
 
