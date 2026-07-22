@@ -30,10 +30,8 @@ export class ProductService {
 
   async create(data: ProductDto) {
     try {
-      const existing = await this.productRepository.findOne({
-        where: {
-          alias: data.alias,
-        },
+      const existing = await this.productRepository.findOneBy({
+        alias: data.alias,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
@@ -46,12 +44,17 @@ export class ProductService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
+      const resultColor = data.details.map((item) => item.color);
       const media = await this.mediaService.findId(data.medias);
-      const store = await this.storeService.findOne(data.store);
+      const store = await this.storeService.findOne({
+        user: data.userId,
+        id: data.store,
+      });
+      const colors = await this.colorService.findByCode(resultColor);
 
-      if (store instanceof RpcException || media instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (media instanceof CustomException) return media;
+      if (store instanceof CustomException) return store;
+      if (colors instanceof CustomException) return colors;
 
       const product: Product = this.productRepository.create({
         user: { id: data.userId },
