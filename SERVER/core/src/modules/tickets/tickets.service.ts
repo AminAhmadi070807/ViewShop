@@ -36,12 +36,11 @@ export class TicketsService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const tickets: Ticket[] = await this.ticketRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
       });
 
       return {
