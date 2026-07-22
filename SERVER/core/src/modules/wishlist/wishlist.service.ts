@@ -56,12 +56,11 @@ export class WishlistService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const wishlist: Wishlist[] = await this.wishlistRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
       });
 
       return {
