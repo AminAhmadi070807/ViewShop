@@ -42,12 +42,11 @@ export class UsersService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
-      const user: User[] = await this.userRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+      const user = await this.userRepository.find({
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
         select: {
           id: true,
           fullName: true,
