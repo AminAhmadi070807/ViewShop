@@ -56,12 +56,11 @@ export class StoryService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const stories: Story[] = await this.storyRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
       });
 
       return {
