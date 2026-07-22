@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ReportsService } from './reports.service';
 import { AnswerReportDto, ReportDto } from './dto/report.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class ReportsController {
@@ -14,13 +15,13 @@ export class ReportsController {
   }
 
   @MessagePattern('REPORT:FIND')
-  findAll() {
-    return this.reportsService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.reportsService.findAll(data.page);
   }
 
   @MessagePattern('REPORT:ONE')
   findOne(@Payload() data: Validate) {
-    return this.reportsService.findOne(data.id);
+    return this.reportsService.findOne(data);
   }
 
   @MessagePattern('REPORT:ANSWER')
