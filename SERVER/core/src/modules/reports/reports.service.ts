@@ -7,6 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/message/message.status';
 import { TargetService } from '../target/target.service';
 import { RpcException } from '@nestjs/microservices';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class ReportsService {
@@ -64,12 +65,13 @@ export class ReportsService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
       const result = await this.reportsRepository.findOne({
-        where: {
-          id,
-        },
+        where: [
+          { id: data.id, user: { id: data.user } },
+          { id: data.id, admin: { id: data.user } },
+        ],
         relations: ['user', 'admin', 'target'],
         select: {
           user: {
