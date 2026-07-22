@@ -47,9 +47,10 @@ export class CategoriesService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const categories: Category[] = await this.categoryRepository.find({
+        take: (page ?? 1) * 15,
         relations: ['user'],
         select: {
           icon: {
