@@ -60,9 +60,10 @@ export class SubCategoryService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const subCategories = await this.subCategoryRepository.find({
+        take: (page ?? 1) * 15,
         relations: ['category', 'user'],
         select: {
           category: {
