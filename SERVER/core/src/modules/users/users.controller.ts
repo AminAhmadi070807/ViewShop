@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class UsersController {
@@ -15,8 +16,8 @@ export class UsersController {
   }
 
   @MessagePattern('USER:FIND')
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.usersService.findAll(data.page);
   }
 
   @MessagePattern('USER:ONE')
