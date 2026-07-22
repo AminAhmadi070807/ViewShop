@@ -7,6 +7,7 @@ import { ProductService } from '../products/product/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class WishlistService {
@@ -145,9 +146,12 @@ export class WishlistService {
     }
   }
 
-  async remove(id: string) {
+  async remove(data: Validate) {
     try {
-      await this.wishlistRepository.delete(id);
+      await this.wishlistRepository.delete({
+        id: data.id,
+        user: { id: data.user },
+      });
 
       return {
         status: 204,
