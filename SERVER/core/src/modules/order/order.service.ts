@@ -31,16 +31,18 @@ export class OrderService {
         user: data.user,
         id: data.user,
       });
-      const cart = await this.cartService.findOne(data.user);
-      const address = await this.addressService.findOne(data.address);
+      const cart = await this.cartService.findOne({
+        id: data.user,
+        user: data.user,
+      });
+      const address = await this.addressService.findOne({
+        id: data.address,
+        user: data.user,
+      });
 
-      if (
-        user instanceof RpcException ||
-        cart instanceof RpcException ||
-        address instanceof RpcException
-      ) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (user instanceof CustomException) return user;
+      if (cart instanceof CustomException) return cart;
+      if (address instanceof CustomException) return address;
 
       const order: Order = this.orderRepository.create({
         status: OrderStatusEnum.WAITING,
