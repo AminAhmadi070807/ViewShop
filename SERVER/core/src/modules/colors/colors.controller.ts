@@ -4,6 +4,7 @@ import { ColorsService } from './colors.service';
 import { ColorDto } from './dto/color.dto';
 import { Validate } from '../../common/validations/validate.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class ColorsController {
@@ -15,8 +16,8 @@ export class ColorsController {
   }
 
   @MessagePattern('COLOR:FIND')
-  findAll() {
-    return this.colorsService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.colorsService.findAll(data.page);
   }
 
   @MessagePattern('COLOR:ONE')
