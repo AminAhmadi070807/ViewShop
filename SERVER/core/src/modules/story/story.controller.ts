@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoryService } from './story.service';
 import { StoryDto } from './dto/story.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class StoryController {
@@ -14,8 +15,8 @@ export class StoryController {
   }
 
   @MessagePattern('STORY:FIND:ALL')
-  findAll() {
-    return this.storyService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.storyService.findAll(data.page);
   }
 
   @MessagePattern('STORY:ONE')
