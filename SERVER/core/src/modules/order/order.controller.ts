@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrderService } from './order.service';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class OrderController {
@@ -14,13 +15,13 @@ export class OrderController {
   }
 
   @MessagePattern('ORDER:FIND')
-  findAll() {
-    return this.orderService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.orderService.findAll(data.page);
   }
 
   @MessagePattern('ORDER:ONE')
   findOne(@Payload() data: Validate) {
-    return this.orderService.findOne(data.id);
+    return this.orderService.findOne(data);
   }
 
   @MessagePattern('ORDER:UPDATE')
@@ -30,6 +31,6 @@ export class OrderController {
 
   @MessagePattern('ORDER:PAYMENT')
   payment(@Payload() data: Validate) {
-    return this.orderService.payment(data.id);
+    return this.orderService.payment(data);
   }
 }
