@@ -3,6 +3,7 @@ import { AttributeService } from './attribute.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Validate } from '../../../common/validations/validate.dto';
 import { AttributeCategoryDto } from '../dto/attribute.category.dto';
+import { PageFilter } from '../../../common/filters/page.filter';
 
 @Controller()
 export class AttributeController {
@@ -14,8 +15,8 @@ export class AttributeController {
   }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:FIND')
-  findAll() {
-    return this.attributeService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.attributeService.findAll(data.page);
   }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:ONE')
