@@ -5,7 +5,8 @@ export class Validate {
   id: string;
 
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  user: string;
+  @IsOptional({ message: 'شناسه کاربر اختیاری است' })
+  user?: string;
 
   @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
   @IsOptional({ message: 'نقش اختیاری است' })

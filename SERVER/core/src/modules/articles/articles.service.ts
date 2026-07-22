@@ -28,7 +28,7 @@ export class ArticlesService {
   async create(data: ArticleDto) {
     try {
       const category = await this.categoryService.findOne(data.category);
-      const store = await this.storeService.findOne(data.store);
+      const store = await this.storeService.findOne({ id: data.store });
       const media = await this.mediaService.findId([data.cover]);
 
       if (category instanceof CustomException) return category;
