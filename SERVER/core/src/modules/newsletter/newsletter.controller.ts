@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { NewsletterService } from './newsletter.service';
 import { NewsletterDto } from './dto/newsletter.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class NewsletterController {
@@ -14,8 +15,8 @@ export class NewsletterController {
   }
 
   @MessagePattern('NEWSLETTER:FIND')
-  findAll() {
-    return this.newsletterService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.newsletterService.findAll(data.page);
   }
 
   @MessagePattern('NEWSLETTER:DELETE')
