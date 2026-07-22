@@ -172,10 +172,10 @@ export class OrderService {
     }
   }
 
-  async payment(id: string) {
+  async payment(data: Validate) {
     try {
       const order = await this.orderRepository.findOne({
-        where: { id },
+        where: { id: data.id },
         relations: ['user'],
         select: {
           user: {
