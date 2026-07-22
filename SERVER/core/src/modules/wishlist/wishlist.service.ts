@@ -74,11 +74,12 @@ export class WishlistService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
-      const result: Wishlist | null = await this.wishlistRepository.findOne({
+      const result = await this.wishlistRepository.findOne({
         where: {
-          id,
+          id: data.id,
+          user: { id: data.user },
         },
         relations: [
           'product',
