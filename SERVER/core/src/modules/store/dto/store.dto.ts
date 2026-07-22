@@ -66,6 +66,9 @@ export class UpdateStoreDto {
   @IsUUID('4', { message: 'ایدی نامعتبر هست' })
   id: string;
 
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
+  user: string;
+
   @IsNotEmpty({ message: 'عنوان فروشگاه نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان فروشگاه باید رشته باشد' })
   @MinLength(5, { message: 'عنوان حدثل باید 5 کارکتر داشته باشد' })

@@ -134,12 +134,15 @@ export class StoreService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const result = await this.storeRepository.update(data.id, {
-        logo: { id: data.logo },
-        banner: { id: data.banner },
-        title: data.title,
-        alias: data.alias,
-      });
+      const result = await this.storeRepository.update(
+        { id: data.id, owner: { id: data.user } },
+        {
+          logo: { id: data.logo },
+          banner: { id: data.banner },
+          title: data.title,
+          alias: data.alias,
+        },
+      );
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
