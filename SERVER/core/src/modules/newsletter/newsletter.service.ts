@@ -33,9 +33,10 @@ export class NewsletterService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const newsletters = await this.newsletterRepository.find({
+        take: (page ?? 1) * 15,
         order: {
           createdAt: 'DESC',
         },
