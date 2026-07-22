@@ -71,9 +71,10 @@ export class AttributeService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number = 1) {
     try {
       const attributes: Attribute[] = await this.attributeRepository.find({
+        take: (page ?? 1) * 15,
         relations: ['icon'],
         select: {
           icon: {
