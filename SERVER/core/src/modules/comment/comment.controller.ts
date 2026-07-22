@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CommentService } from './comment.service';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class CommentController {
@@ -14,8 +15,8 @@ export class CommentController {
   }
 
   @MessagePattern('COMMENT:FIND')
-  findAll() {
-    return this.commentService.findAll();
+  findAll(@Payload() data: PageFilter) {
+    return this.commentService.findAll(data.page);
   }
 
   @MessagePattern('COMMENT:UPDATE')
