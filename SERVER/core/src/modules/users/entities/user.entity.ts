@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRoleEnum } from '../../../common/enums/users/user.enum';
+import { Cart } from '../../cart/entities/cart.entity';
 
 @Entity('User')
 export class User {
@@ -31,6 +33,9 @@ export class User {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   verified: boolean;
+
+  @OneToOne(() => Cart, (cart: Cart) => cart.user)
+  cart: Cart;
 
   @CreateDateColumn()
   createdAt: Date;

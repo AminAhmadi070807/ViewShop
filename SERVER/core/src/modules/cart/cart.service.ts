@@ -7,6 +7,7 @@ import { ProductService } from '../products/product/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class CartService {
@@ -121,9 +122,9 @@ export class CartService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(data: Validate) {
     try {
-      const cart: Cart | null = await this.cartRepository.findOneBy({ id });
+      const cart = await this.cartRepository.findOneBy({ id: data.id });
 
       if (!cart) return new CustomException(statusMessages.fa['404'], 404);
 
