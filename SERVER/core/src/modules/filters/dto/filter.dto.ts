@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class FilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
@@ -7,12 +7,8 @@ export class FilterDto {
 }
 
 export class FilterOptionsDto {
-  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان باید رشته باشد' })
-  title: string;
-
   @IsNotEmpty({ message: 'نوع نمیتواند خالی باشد' })
-  @IsString({ message: 'نوع باید رشته باشد' })
+  @IsUUID('4', { message: 'شناسه نوع نامعتبر است' })
   type: string;
 
   @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
