@@ -5,7 +5,6 @@ import { FilterType } from './entities/filter-type.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-
 @Injectable()
 export class FilterTypeService {
   constructor(
@@ -51,7 +50,21 @@ export class FilterTypeService {
     }
   }
 
-  findOne(id: string) {}
+  async findOne(id: string) {
+    try {
+      const result = await this.filterTypeRepository.findOneBy({ id });
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   update(data: FilterTypeDto) {}
 
