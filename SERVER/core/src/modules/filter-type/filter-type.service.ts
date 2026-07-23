@@ -1,9 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { FilterTypeDto } from './dto/filter-type.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FilterType } from './entities/filter-type.entity';
+import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class FilterTypeService {
-  create(data: FilterTypeDto) {}
+  constructor(
+    @InjectRepository(FilterType)
+    private readonly filterTypeRepository: Repository<FilterType>,
+  ) {}
+
+  async create(data: FilterTypeDto) {
+    try {
+      const existing = await this.filterTypeRepository.findOneBy({
+        title: data.title.trim(),
+      });
+
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const result = this.filterTypeRepository.create(data);
+
+      await this.filterTypeRepository.save(result);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   findAll() {}
 
