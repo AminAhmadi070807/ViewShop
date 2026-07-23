@@ -8,27 +8,27 @@ import { Validate } from '../../common/validations/validate.dto';
 export class FiltersController {
   constructor(private readonly filtersService: FiltersService) {}
 
-  @MessagePattern('createFilter')
+  @MessagePattern('FILTER:CREATE')
   create(@Payload() createFilterDto: FilterDto) {
     return this.filtersService.create(createFilterDto);
   }
 
-  @MessagePattern('findAllFilters')
+  @MessagePattern('FILTER:FIND')
   findAll() {
     return this.filtersService.findAll();
   }
 
-  @MessagePattern('findOneFilter')
+  @MessagePattern('FILTER:ONE')
   findOne(@Payload() data: Validate) {
     return this.filtersService.findOne(data.id);
   }
 
-  @MessagePattern('updateFilter')
+  @MessagePattern('FILTER:UPDATE')
   update(@Payload() data: FilterDto) {
     return this.filtersService.update(data);
   }
 
-  @MessagePattern('removeFilter')
+  @MessagePattern('FILTER:DELETE')
   remove(@Payload() data: Validate) {
     return this.filtersService.remove(data.id);
   }
