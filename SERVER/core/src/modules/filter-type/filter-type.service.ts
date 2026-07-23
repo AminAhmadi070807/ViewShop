@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FilterTypeDto } from './dto/filter-type.dto';
+import { FilterTypeDto, UpdateFilterTypeDto } from './dto/filter-type.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FilterType } from './entities/filter-type.entity';
 import { Repository } from 'typeorm';
@@ -66,7 +66,23 @@ export class FilterTypeService {
     }
   }
 
-  update(data: FilterTypeDto) {}
+  async update(data: UpdateFilterTypeDto) {
+    try {
+      const result = await this.filterTypeRepository.update(data.id, data);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   remove(id: string) {}
 }
