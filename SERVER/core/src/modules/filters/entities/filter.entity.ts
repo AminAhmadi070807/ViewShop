@@ -18,6 +18,7 @@ export class Filter {
   details: {
     title: string;
     type: string;
+    public: boolean;
   }[];
 
   @CreateDateColumn()
