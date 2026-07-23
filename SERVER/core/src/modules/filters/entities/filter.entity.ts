@@ -14,7 +14,7 @@ export class Filter {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @Column({ type: 'simple-json', nullable: false, array: true })
+  @Column({ type: 'simple-json', nullable: true, array: true })
   details: {
     title: string;
     type: string;
