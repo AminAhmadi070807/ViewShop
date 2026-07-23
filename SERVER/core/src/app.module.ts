@@ -28,6 +28,7 @@ import { PaymentModule } from './modules/payment/payment.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { ColorsModule } from './modules/colors/colors.module';
 import { NewsletterModule } from './modules/newsletter/newsletter.module';
+import { FiltersModule } from './modules/filters/filters.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { NewsletterModule } from './modules/newsletter/newsletter.module';
     WalletModule,
     ColorsModule,
     NewsletterModule,
+    FiltersModule,
   ],
 })
 export class AppModule {}
