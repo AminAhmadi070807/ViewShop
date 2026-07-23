@@ -29,6 +29,7 @@ import { WalletModule } from './modules/wallet/wallet.module';
 import { ColorsModule } from './modules/colors/colors.module';
 import { NewsletterModule } from './modules/newsletter/newsletter.module';
 import { FiltersModule } from './modules/filters/filters.module';
+import { FilterTypeModule } from './modules/filter-type/filter-type.module';
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { FiltersModule } from './modules/filters/filters.module';
     ColorsModule,
     NewsletterModule,
     FiltersModule,
+    FilterTypeModule,
   ],
 })
 export class AppModule {}

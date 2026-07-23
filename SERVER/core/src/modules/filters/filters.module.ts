@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FiltersService } from './filter/filters.service';
-import { FiltersController } from './filter/filters.controller';
+import { FiltersService } from './filters.service';
+import { FiltersController } from './filters.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Filter } from './entities/filter.entity';
 
