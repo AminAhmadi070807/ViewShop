@@ -8,27 +8,27 @@ import { Validate } from '../../common/validations/validate.dto';
 export class FilterTypeController {
   constructor(private readonly filterTypeService: FilterTypeService) {}
 
-  @MessagePattern('createFilterType')
+  @MessagePattern('FILTER:TYPE:CREATE')
   create(@Payload() data: FilterTypeDto) {
     return this.filterTypeService.create(data);
   }
 
-  @MessagePattern('findAllFilterType')
+  @MessagePattern('FILTER:TYPE:FIND')
   findAll() {
     return this.filterTypeService.findAll();
   }
 
-  @MessagePattern('findOneFilterType')
+  @MessagePattern('FILTER:TYPE:ONE')
   findOne(@Payload() data: Validate) {
     return this.filterTypeService.findOne(data.id);
   }
 
-  @MessagePattern('updateFilterType')
+  @MessagePattern('FILTER:TYPE:UPDATE')
   update(@Payload() data: FilterTypeDto) {
     return this.filterTypeService.update(data);
   }
 
-  @MessagePattern('removeFilterType')
+  @MessagePattern('FILTER:TYPE:DELETE')
   remove(@Payload() data: Validate) {
     return this.filterTypeService.remove(data.id);
   }
