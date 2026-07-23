@@ -1,16 +1,16 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FilterTypeService } from './filter-type.service';
-import { CreateFilterTypeDto } from './dto/create-filter-type.dto';
-import { UpdateFilterTypeDto } from './dto/update-filter-type.dto';
+import { FilterTypeDto } from './dto/filter-type.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class FilterTypeController {
   constructor(private readonly filterTypeService: FilterTypeService) {}
 
   @MessagePattern('createFilterType')
-  create(@Payload() createFilterTypeDto: CreateFilterTypeDto) {
-    return this.filterTypeService.create(createFilterTypeDto);
+  create(@Payload() data: FilterTypeDto) {
+    return this.filterTypeService.create(data);
   }
 
   @MessagePattern('findAllFilterType')
@@ -19,17 +19,17 @@ export class FilterTypeController {
   }
 
   @MessagePattern('findOneFilterType')
-  findOne(@Payload() id: number) {
-    return this.filterTypeService.findOne(id);
+  findOne(@Payload() data: Validate) {
+    return this.filterTypeService.findOne(data.id);
   }
 
   @MessagePattern('updateFilterType')
-  update(@Payload() updateFilterTypeDto: UpdateFilterTypeDto) {
-    return this.filterTypeService.update(updateFilterTypeDto.id, updateFilterTypeDto);
+  update(@Payload() data: FilterTypeDto) {
+    return this.filterTypeService.update(data);
   }
 
   @MessagePattern('removeFilterType')
-  remove(@Payload() id: number) {
-    return this.filterTypeService.remove(id);
+  remove(@Payload() data: Validate) {
+    return this.filterTypeService.remove(data.id);
   }
 }

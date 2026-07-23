@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFilterTypeDto } from './dto/create-filter-type.dto';
+import { FilterTypeDto } from './dto/filter-type.dto';
 import { UpdateFilterTypeDto } from './dto/update-filter-type.dto';
 
 @Injectable()
 export class FilterTypeService {
-  create(createFilterTypeDto: CreateFilterTypeDto) {
+  create(createFilterTypeDto: FilterTypeDto) {
     return 'This action adds a new filterType';
   }
 
