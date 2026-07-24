@@ -41,6 +41,8 @@ export class FilterTypeController {
   }
 
   @Patch()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateFilterTypeDto) {
     return this.coreService.send('FILTER:TYPE:UPDATE', data);
   }
