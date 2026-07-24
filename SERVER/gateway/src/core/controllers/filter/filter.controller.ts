@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { FilterDto } from './filter.dto';
 import {
@@ -11,6 +11,9 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import express from 'express';
+import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/filter')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -33,5 +36,16 @@ export class FilterController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('FILTER:FIND');
+  }
+
+  @Get('id')
+  findOne(@Param() data: ValidateUUID, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('FILTER:FIND', {
+      id: data.id,
+      user: user.userId,
+      role: user.role,
+    });
   }
 }
