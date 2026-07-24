@@ -59,6 +59,11 @@ export class FilterController {
   }
 
   @Patch('toggle/type')
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   toggleType(@Body() data: FilterOptionsDto) {
     return this.coreService.send('FILTER:TOGGLE:TYPE', data);
   }
