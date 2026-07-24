@@ -6,6 +6,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -33,7 +34,9 @@ export class FilterTypeController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('FILTER:TYPE:FIND', data);
+    return this.coreService.send('FILTER:TYPE:ONE', data);
   }
 }
