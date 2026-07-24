@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { FilterDto } from './filter.dto';
 import {
@@ -24,5 +24,10 @@ export class FilterController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: FilterDto) {
     return this.coreService.send('FILTER:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('FILTER:FIND');
   }
 }
