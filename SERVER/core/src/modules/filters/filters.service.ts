@@ -96,8 +96,8 @@ export class FiltersService {
       }
 
       return {
-        status: 200,
-        message: statusMessages.fa['200'],
+        status: 204,
+        message: statusMessages.fa['204'],
         body: null,
       };
     } catch {

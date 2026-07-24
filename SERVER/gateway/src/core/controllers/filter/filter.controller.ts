@@ -7,6 +7,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
@@ -48,6 +49,11 @@ export class FilterController {
   }
 
   @Patch()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateFilterDto) {
     return this.coreService.send('FILTER:UPDATE', data);
   }
