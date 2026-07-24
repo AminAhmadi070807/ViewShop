@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { FilterTypeDto, UpdateFilterTypeDto } from './filter-type.dto';
 import {
@@ -45,5 +53,10 @@ export class FilterTypeController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateFilterTypeDto) {
     return this.coreService.send('FILTER:TYPE:UPDATE', data);
+  }
+
+  @Delete()
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('FILTER:TYPE:DELETE', data);
   }
 }
