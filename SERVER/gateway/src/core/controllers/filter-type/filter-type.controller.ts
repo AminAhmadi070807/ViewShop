@@ -2,6 +2,8 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { FilterTypeDto } from './filter-type.dto';
 import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
@@ -16,6 +18,8 @@ export class FilterTypeController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: FilterTypeDto) {
     return this.coreService.send('FILTER:TYPE:CREATE', data);
   }
