@@ -13,8 +13,6 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import express from 'express';
-import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/filter')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -45,13 +43,7 @@ export class FilterController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  findOne(@Param() data: ValidateUUID, @Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
-
-    return this.coreService.send('FILTER:FIND', {
-      id: data.id,
-      user: user.userId,
-      role: user.role,
-    });
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('FILTER:FIND', data);
   }
 }
