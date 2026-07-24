@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { FilterDto, UpdateFilterDto } from './filter.dto';
+import { FilterDto, FilterOptionsDto, UpdateFilterDto } from './filter.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -56,5 +56,10 @@ export class FilterController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateFilterDto) {
     return this.coreService.send('FILTER:UPDATE', data);
+  }
+
+  @Patch('toggle/type')
+  toggleType(@Body() data: FilterOptionsDto) {
+    return this.coreService.send('FILTER:TOGGLE:TYPE', data);
   }
 }
