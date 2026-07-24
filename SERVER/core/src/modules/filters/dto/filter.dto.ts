@@ -16,6 +16,9 @@ export class UpdateFilterDto {
 }
 
 export class FilterOptionsDto {
-  @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
   id: string;
+
+  @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
+  typeId: string;
 }

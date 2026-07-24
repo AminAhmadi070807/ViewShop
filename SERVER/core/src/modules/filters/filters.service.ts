@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { FilterDto, UpdateFilterDto } from './dto/filter.dto';
+import { FilterDto, FilterOptionsDto, UpdateFilterDto } from './dto/filter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Filter } from './entities/filter.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { FilterTypeService } from '../filter-type/filter-type.service';
 
 @Injectable()
 export class FiltersService {
   constructor(
     @InjectRepository(Filter)
     private readonly filterRepository: Repository<Filter>,
+    private readonly filterTypeService: FilterTypeService,
   ) {}
 
   async create(data: FilterDto) {
@@ -103,5 +105,35 @@ export class FiltersService {
     }
   }
 
-  remove(id: string) {}
+  async updateFilterTypes(data: FilterOptionsDto) {
+    try {
+      const result = await this.findOne(data.id);
+      const filterType = await this.filterTypeService.findOne(data.typeId);
+
+      if (result instanceof CustomException) return result;
+      if (filterType instanceof CustomException) return filterType;
+
+      const existing = result.body.filterTypes.some((type) => {
+        return type.id === data.typeId;
+      });
+
+      if (existing) {
+        result.body.filterTypes = result.body.filterTypes.filter((type) => {
+          return type.id !== data.id;
+        });
+      } else result.body.filterTypes.push(filterType.body);
+
+      await this.filterRepository.save(result.body);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async remove(id: string) {}
 }
