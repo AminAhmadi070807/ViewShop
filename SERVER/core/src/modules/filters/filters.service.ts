@@ -105,7 +105,7 @@ export class FiltersService {
     }
   }
 
-  async updateFilterTypes(data: FilterOptionsDto) {
+  async filterToggleType(data: FilterOptionsDto) {
     try {
       const result = await this.findOne(data.id);
       const filterType = await this.filterTypeService.findOne(data.typeId);
