@@ -7,6 +7,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
+  ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
@@ -27,6 +28,9 @@ export class FilterController {
   }
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   findAll() {
     return this.coreService.send('FILTER:FIND');
   }
