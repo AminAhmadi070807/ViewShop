@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { FilterType } from '../../filter-type/entities/filter-type.entity';
 
 @Entity('Filter')
 export class Filter {
@@ -14,12 +17,9 @@ export class Filter {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @Column({ type: 'simple-json', nullable: true, array: true })
-  details: {
-    title: string;
-    type: string;
-    public: boolean;
-  }[];
+  @ManyToMany(() => FilterType, { nullable: false })
+  @JoinTable({ name: 'FilterType_Filter' })
+  filterTypes: FilterType[];
 
   @CreateDateColumn()
   createdAt: Date;
