@@ -35,10 +35,21 @@ export class UpdateFilterDto {
 }
 
 export class FilterOptionsDto {
+  @ApiProperty({
+    type: String,
+    nullable: false,
+    required: true,
+    example: '',
+  })
   @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
   id: string;
 
+  @ApiProperty({
+    type: String,
+    nullable: false,
+    required: true,
+    example: '',
+  })
   @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
   typeId: string;
 }
-
