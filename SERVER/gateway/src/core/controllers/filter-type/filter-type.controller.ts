@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { FilterTypeDto } from './filter-type.dto';
+import { FilterTypeDto, UpdateFilterTypeDto } from './filter-type.dto';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -38,5 +38,10 @@ export class FilterTypeController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('FILTER:TYPE:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateFilterTypeDto) {
+    return this.coreService.send('FILTER:TYPE:UPDATE', data);
   }
 }
