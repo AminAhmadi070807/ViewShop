@@ -24,7 +24,7 @@ export class CategoriesService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const category: Category = this.categoryRepository.create({
+      const category = this.categoryRepository.create({
         title: data.title.trim(),
         alias: data.alias.trim().toLowerCase(),
         user: {
@@ -32,6 +32,9 @@ export class CategoriesService {
         },
         icon: {
           id: data.icon,
+        },
+        filter: {
+          id: data.filter,
         },
       });
 
