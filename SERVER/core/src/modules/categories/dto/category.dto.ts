@@ -1,4 +1,6 @@
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsNotEmpty,
   IsString,
   IsUUID,
@@ -33,9 +35,10 @@ export class CategoryDto {
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
 
-  @IsNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
-  filter: string;
+  @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
+  @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
+  filter: string[];
 }
 
 export class UpdateCategoryDto {
