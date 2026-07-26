@@ -152,7 +152,12 @@ export class CategoriesService {
     try {
       const result: UpdateResult = await this.categoryRepository.update(
         data.id,
-        { alias: data.alias, title: data.title, icon: { id: data.icon } },
+        {
+          alias: data.alias,
+          title: data.title,
+          icon: { id: data.icon },
+          filter: { id: data.filter },
+        },
       );
 
       if (!result.affected) {
