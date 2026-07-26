@@ -14,7 +14,6 @@ export class CategoryDto {
     required: true,
     nullable: true,
     example: '',
-    description: 'category title',
     minLength: 3,
     maxLength: 24,
   })
@@ -29,7 +28,6 @@ export class CategoryDto {
     required: true,
     nullable: true,
     example: '',
-    description: 'category alias name',
     minLength: 3,
     maxLength: 36,
   })
@@ -48,11 +46,20 @@ export class CategoryDto {
     required: true,
     nullable: true,
     example: '',
-    description: 'icon id',
   })
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    required: true,
+    nullable: true,
+    example: '',
+  })
+  @IsNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
+  filter: string;
 }
 
 export class UpdateCategoryDto {
