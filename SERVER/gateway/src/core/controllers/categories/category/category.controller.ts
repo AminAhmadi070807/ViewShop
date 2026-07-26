@@ -60,7 +60,7 @@ export class CategoryController {
       title: data.title,
       alias: data.alias,
       icon: data.icon,
-      filter: data.filter,
+      filters: data.filters,
     });
   }
 
@@ -134,7 +134,7 @@ export class CategoryController {
       alias: data.alias,
       icon: data.icon,
       user: user.userId,
-      filter: data.filter,
+      filters: data.filters,
     });
   }
 
