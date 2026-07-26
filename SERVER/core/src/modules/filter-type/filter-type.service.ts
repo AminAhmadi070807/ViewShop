@@ -5,6 +5,7 @@ import { FilterType } from './entities/filter-type.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+
 @Injectable()
 export class FilterTypeService {
   constructor(

@@ -33,6 +33,8 @@ import { ZarinPalController } from './controllers/payment/zarin-pal/payment.cont
 import { WalletController } from './controllers/wallet/wallet.controller';
 import { ColorController } from './controllers/colors/color.controller';
 import { NewsletterController } from './controllers/newsletter/newsletter.controller';
+import { FilterController } from './controllers/filter/filter.controller';
+import { FilterTypeController } from './controllers/filter-type/filter-type.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -68,6 +70,8 @@ import { NewsletterController } from './controllers/newsletter/newsletter.contro
     WalletController,
     ColorController,
     NewsletterController,
+    FilterController,
+    FilterTypeController,
   ],
   exports: [CoreService],
 })
