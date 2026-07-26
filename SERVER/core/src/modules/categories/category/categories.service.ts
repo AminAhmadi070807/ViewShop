@@ -26,6 +26,8 @@ export class CategoriesService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
+      const filters = await this.filterService.findById(data.filters);
+
       const category = this.categoryRepository.create({
         title: data.title.trim(),
         alias: data.alias.trim().toLowerCase(),
