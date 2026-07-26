@@ -128,7 +128,7 @@ export class CategoriesService {
             id: true,
             fullName: true,
           },
-          filter: {
+          filters: {
             id: true,
             title: true,
             filterTypes: {
@@ -154,15 +154,16 @@ export class CategoriesService {
 
   async update(data: UpdateCategoryDto) {
     try {
-      const result: UpdateResult = await this.categoryRepository.update(
-        data.id,
-        {
-          alias: data.alias,
-          title: data.title,
-          icon: { id: data.icon },
-          filter: { id: data.filter },
-        },
-      );
+      const filters = await this.filterService.findById(data.filters);
+
+      if (filters instanceof CustomException) return filters;
+
+      const result = await this.categoryRepository.update(data.id, {
+        alias: data.alias,
+        title: data.title,
+        icon: { id: data.icon },
+        filters: filters.body,
+      });
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
