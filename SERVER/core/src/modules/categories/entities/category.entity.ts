@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -30,9 +32,9 @@ export class Category {
   @JoinColumn({ name: 'User_Category' })
   user: User;
 
-  @ManyToOne(() => Filter, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'Filter_Category' })
-  filter: Filter;
+  @ManyToMany(() => Filter, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinTable({ name: 'Filter_Category' })
+  filters: Filter[];
 
   @CreateDateColumn()
   createdAt: Date;
