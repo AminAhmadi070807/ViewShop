@@ -38,7 +38,7 @@ export class CategoryDto {
   @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
   @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
   @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
-  filter: string[];
+  filters: string[];
 }
 
 export class UpdateCategoryDto {
@@ -65,5 +65,5 @@ export class UpdateCategoryDto {
   @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
   @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
   @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
-  filter: string[];
+  filters: string[];
 }

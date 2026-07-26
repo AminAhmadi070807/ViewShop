@@ -33,9 +33,7 @@ export class CategoriesService {
         icon: {
           id: data.icon,
         },
-        filter: {
-          id: data.filter,
-        },
+        filters: [{ id: data.filter }],
       });
 
       const newCategory = await this.categoryRepository.save(category);
