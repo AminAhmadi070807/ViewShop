@@ -114,4 +114,14 @@ export class UpdateCategoryDto {
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    required: true,
+    nullable: true,
+    example: '',
+  })
+  @IsNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
+  filter: string;
 }
