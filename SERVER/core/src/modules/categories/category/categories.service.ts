@@ -93,6 +93,27 @@ export class CategoriesService {
         where: {
           id: In(id),
         },
+        relations: ['user', 'filter', 'filter.filterTypes'],
+        select: {
+          icon: {
+            id: true,
+            title: true,
+            path: true,
+          },
+          user: {
+            id: true,
+            fullName: true,
+          },
+          filter: {
+            id: true,
+            title: true,
+            filterTypes: {
+              id: true,
+              title: true,
+              public: true,
+            },
+          },
+        },
       });
 
       if (!categories.length) {
