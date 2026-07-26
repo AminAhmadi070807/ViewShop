@@ -119,12 +119,13 @@ export class UpdateCategoryDto {
   icon: string;
 
   @ApiPropertyOptional({
-    type: String,
+    type: [String],
     required: true,
     nullable: true,
-    example: '',
+    example: [''],
   })
-  @IsNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است' })
-  filter: string;
+  @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
+  @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
+  filter: string[];
 }
