@@ -93,6 +93,26 @@ export class CategoriesService {
         where: {
           id: In(id),
         },
+      });
+
+      if (!categories.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: categories,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findOne(id: string) {
+    try {
+      const category = await this.categoryRepository.findOne({
+        where: { id },
         relations: ['user', 'filter', 'filter.filterTypes'],
         select: {
           icon: {
@@ -114,26 +134,6 @@ export class CategoriesService {
             },
           },
         },
-      });
-
-      if (!categories.length) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: categories,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
-  async findOne(id: string) {
-    try {
-      const category = await this.categoryRepository.findOneBy({
-        id,
       });
 
       if (!category) return new CustomException(statusMessages.fa['404'], 404);
