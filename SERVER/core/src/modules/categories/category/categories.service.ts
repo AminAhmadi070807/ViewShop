@@ -54,7 +54,7 @@ export class CategoriesService {
     try {
       const categories: Category[] = await this.categoryRepository.find({
         take: (page ?? 1) * 15,
-        relations: ['user'],
+        relations: ['user', 'filter', 'filter.filterTypes'],
         select: {
           icon: {
             id: true,
@@ -64,6 +64,15 @@ export class CategoriesService {
           user: {
             id: true,
             fullName: true,
+          },
+          filter: {
+            id: true,
+            title: true,
+            filterTypes: {
+              id: true,
+              title: true,
+              public: true,
+            },
           },
         },
       });
