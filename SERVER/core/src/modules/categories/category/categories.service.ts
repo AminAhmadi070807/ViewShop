@@ -69,7 +69,7 @@ export class CategoriesService {
             id: true,
             fullName: true,
           },
-          filter: {
+          filters: {
             id: true,
             title: true,
             filterTypes: {
