@@ -28,6 +28,8 @@ export class CategoriesService {
 
       const filters = await this.filterService.findById(data.filters);
 
+      if (filters instanceof CustomException) return filters;
+
       const category = this.categoryRepository.create({
         title: data.title.trim(),
         alias: data.alias.trim().toLowerCase(),
@@ -37,7 +39,7 @@ export class CategoriesService {
         icon: {
           id: data.icon,
         },
-        filters: [{ id: data.filters }],
+        filters: filters.body,
       });
 
       const newCategory = await this.categoryRepository.save(category);
