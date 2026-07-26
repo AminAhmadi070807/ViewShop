@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FilterDto, FilterOptionsDto, UpdateFilterDto } from './dto/filter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Filter } from './entities/filter.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { FilterTypeService } from '../filter-type/filter-type.service';
@@ -47,6 +47,23 @@ export class FiltersService {
         order: {
           createdAt: 'DESC',
         },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findById(ids: string[]) {
+    try {
+      const result = await this.filterRepository.find({
+        where: { id: In(ids) },
+        order: { createdAt: 'DESC' },
       });
 
       return {
