@@ -176,7 +176,7 @@ export class CategoriesService {
 
   async remove(id: string) {
     try {
-      const result: DeleteResult = await this.categoryRepository.delete(id);
+      const result = await this.categoryRepository.delete(id);
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
