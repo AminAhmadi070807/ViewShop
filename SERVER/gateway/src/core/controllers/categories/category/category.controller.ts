@@ -60,6 +60,7 @@ export class CategoryController {
       title: data.title,
       alias: data.alias,
       icon: data.icon,
+      filter: data.filter,
     });
   }
 
