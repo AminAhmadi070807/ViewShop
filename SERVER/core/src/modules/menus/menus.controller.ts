@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MenusService } from './menus.service';
-import { MenuDto } from './dto/menu.dto';
+import { MenuDto, UpdateMenuDto } from './dto/menu.dto';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
@@ -24,7 +24,7 @@ export class MenusController {
   }
 
   @MessagePattern('MENU:UPDATE')
-  update(@Payload() data: MenuDto) {
+  update(@Payload() data: UpdateMenuDto) {
     return this.menusService.update(data);
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MenuDto } from './dto/menu.dto';
+import { MenuDto, UpdateMenuDto } from './dto/menu.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from './entities/menu.entity';
 import { Repository } from 'typeorm';
@@ -72,7 +72,23 @@ export class MenusService {
     }
   }
 
-  update(data: MenuDto) {}
+  async update(data: UpdateMenuDto) {
+    try {
+      const result = await this.menuRepository.update(data.id, data);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async remove(id: string) {
     try {
