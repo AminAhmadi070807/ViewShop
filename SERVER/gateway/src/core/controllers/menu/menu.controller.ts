@@ -5,11 +5,13 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller('core/menus')
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class MenusController {
   constructor(private readonly coreService: CoreService) {}
 
