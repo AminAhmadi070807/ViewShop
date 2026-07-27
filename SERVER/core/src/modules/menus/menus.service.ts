@@ -18,6 +18,7 @@ export class MenusService {
       const existing = await this.menuRepository.findOneBy({
         section: data.section,
         title: data.title,
+        alias: data.alias,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
