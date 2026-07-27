@@ -6,6 +6,10 @@ export class MenuDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @IsNotEmpty({ message: 'نام متسعار نمیتواند خالی باشد' })
+  @IsString({ message: 'نام مستعار باید رشته باشد' })
+  alias: string;
+
   @IsNotEmpty({ message: 'بخش نمیتواند خالی باشد' })
   @IsEnum(MenuSectionEnum, { message: 'بخش نامعتبر است' })
   section: MenuSectionEnum;
