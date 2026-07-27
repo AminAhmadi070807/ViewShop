@@ -74,5 +74,21 @@ export class MenusService {
 
   update(data: MenuDto) {}
 
-  remove(id: string) {}
+  async remove(id: string) {
+    try {
+      const result = await this.menuRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
