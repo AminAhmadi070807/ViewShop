@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { MenuDto } from './menu.dto';
 import {
@@ -23,5 +23,10 @@ export class MenusController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: MenuDto) {
     return this.coreService.send('MENU:CREATE', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('MENU:FIND')
   }
 }
