@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MenusService } from './menus.service';
 import { MenuDto } from './dto/menu.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class MenusController {
@@ -18,8 +19,8 @@ export class MenusController {
   }
 
   @MessagePattern('findOneMenu')
-  findOne(@Payload() id: string) {
-    return this.menusService.findOne(id);
+  findOne(@Payload() data: Validate) {
+    return this.menusService.findOne(data.id);
   }
 
   @MessagePattern('updateMenu')
@@ -28,7 +29,7 @@ export class MenusController {
   }
 
   @MessagePattern('removeMenu')
-  remove(@Payload() id: string) {
-    return this.menusService.remove(id);
+  remove(@Payload() data: Validate) {
+    return this.menusService.remove(data.id);
   }
 }
