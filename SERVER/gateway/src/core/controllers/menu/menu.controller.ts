@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { MenuDto, UpdateMenuDto } from './menu.dto';
 import {
@@ -53,6 +61,11 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdateMenuDto) {
+    return this.coreService.send('MENU:UPDATE', data);
+  }
+
+  @Delete()
+  delete(@Body() data: ValidateUUID) {
     return this.coreService.send('MENU:UPDATE', data);
   }
 }
