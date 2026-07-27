@@ -10,6 +10,7 @@ import { AttributeController } from './attribute/attribute.controller';
 import { SubCategoryService } from './subCategory/sub.category.service';
 import { AttributeService } from './attribute/attribute.service';
 import { Media } from '../media/entities/media.entity';
+import { FiltersModule } from '../filters/filters.module';
 
 @Module({
   controllers: [
@@ -20,6 +21,7 @@ import { Media } from '../media/entities/media.entity';
   providers: [CategoriesService, SubCategoryService, AttributeService],
   imports: [
     TypeOrmModule.forFeature([Category, SubCategory, Attribute, Media]),
+    FiltersModule,
   ],
   exports: [CategoriesService, SubCategoryService, AttributeService],
 })
