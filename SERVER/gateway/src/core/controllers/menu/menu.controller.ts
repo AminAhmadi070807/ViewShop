@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { MenuDto } from './menu.dto';
+import { MenuDto, UpdateMenuDto } from './menu.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -43,5 +43,10 @@ export class MenusController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('MENU:ONE', data);
+  }
+
+  @Patch()
+  update(@Body() data: UpdateMenuDto) {
+    return this.coreService.send('MENU:UPDATE', data);
   }
 }
