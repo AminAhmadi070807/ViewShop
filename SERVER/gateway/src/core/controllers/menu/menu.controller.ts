@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { MenuDto } from './menu.dto';
 import {
@@ -10,6 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/menus')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -30,5 +31,10 @@ export class MenusController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('MENU:FIND');
+  }
+
+  @Get(':id')
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('MENU:ONE', data);
   }
 }
