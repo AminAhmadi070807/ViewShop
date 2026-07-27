@@ -15,6 +15,9 @@ export class Menu {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
+  @Column({ type: 'varchar', nullable: false })
+  alias: string;
+
   @Column({ type: 'enum', enum: MenuSectionEnum, nullable: false })
   section: MenuSectionEnum;
 
