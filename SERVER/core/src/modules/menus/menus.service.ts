@@ -1,26 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { MenuDto } from './dto/menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
 
 @Injectable()
 export class MenusService {
-  create(createMenuDto: MenuDto) {
-    return 'This action adds a new menu';
-  }
+  create(data: MenuDto) {}
 
-  findAll() {
-    return `This action returns all menus`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} menu`;
-  }
+  findOne(id: string) {}
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
-  }
+  update(data: MenuDto) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
-  }
+  remove(id: string) {}
 }

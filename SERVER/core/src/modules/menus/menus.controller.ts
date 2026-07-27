@@ -2,7 +2,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MenusService } from './menus.service';
 import { MenuDto } from './dto/menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
 
 @Controller()
 export class MenusController {
@@ -19,17 +18,17 @@ export class MenusController {
   }
 
   @MessagePattern('findOneMenu')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.menusService.findOne(id);
   }
 
   @MessagePattern('updateMenu')
-  update(@Payload() updateMenuDto: UpdateMenuDto) {
-    return this.menusService.update(updateMenuDto.id, updateMenuDto);
+  update(@Payload() data: MenuDto) {
+    return this.menusService.update(data);
   }
 
   @MessagePattern('removeMenu')
-  remove(@Payload() id: number) {
+  remove(@Payload() id: string) {
     return this.menusService.remove(id);
   }
 }
