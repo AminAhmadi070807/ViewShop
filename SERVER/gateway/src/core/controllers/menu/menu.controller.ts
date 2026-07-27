@@ -11,6 +11,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('core/menus')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -28,12 +29,16 @@ export class MenusController {
   }
 
   @Get()
+  @Public()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('MENU:FIND');
   }
 
   @Get(':id')
+  @Public()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('MENU:ONE', data);
   }
