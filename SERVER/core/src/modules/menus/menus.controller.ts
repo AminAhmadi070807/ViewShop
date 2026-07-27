@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MenusService } from './menus.service';
-import { CreateMenuDto } from './dto/create-menu.dto';
+import { MenuDto } from './dto/menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 
 @Controller()
@@ -9,7 +9,7 @@ export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
   @MessagePattern('createMenu')
-  create(@Payload() createMenuDto: CreateMenuDto) {
+  create(@Payload() createMenuDto: MenuDto) {
     return this.menusService.create(createMenuDto);
   }
 
