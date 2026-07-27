@@ -8,27 +8,27 @@ import { Validate } from '../../common/validations/validate.dto';
 export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
-  @MessagePattern('createMenu')
+  @MessagePattern('MENU:CREATE')
   create(@Payload() createMenuDto: MenuDto) {
     return this.menusService.create(createMenuDto);
   }
 
-  @MessagePattern('findAllMenus')
+  @MessagePattern('MENU:FIND')
   findAll() {
     return this.menusService.findAll();
   }
 
-  @MessagePattern('findOneMenu')
+  @MessagePattern('MENU:ONE')
   findOne(@Payload() data: Validate) {
     return this.menusService.findOne(data.id);
   }
 
-  @MessagePattern('updateMenu')
+  @MessagePattern('MENU:UPDATE')
   update(@Payload() data: MenuDto) {
     return this.menusService.update(data);
   }
 
-  @MessagePattern('removeMenu')
+  @MessagePattern('MENU:DELETE')
   remove(@Payload() data: Validate) {
     return this.menusService.remove(data.id);
   }
