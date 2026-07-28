@@ -31,6 +31,7 @@ import { NewsletterModule } from './modules/newsletter/newsletter.module';
 import { FiltersModule } from './modules/filters/filters.module';
 import { FilterTypeModule } from './modules/filter-type/filter-type.module';
 import { MenusModule } from './modules/menus/menus.module';
+import { SettingsModule } from './modules/settings/settings.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { MenusModule } from './modules/menus/menus.module';
     FiltersModule,
     FilterTypeModule,
     MenusModule,
+    SettingsModule,
   ],
 })
 export class AppModule {}
