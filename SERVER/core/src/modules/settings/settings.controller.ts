@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { SettingsService } from '../services/settings.service';
-import { CreateSettingDto } from '../dto/create-setting.dto';
+import { SettingsService } from './settings.service';
+import { SettingDto } from './dto/setting.dto';
 import { UpdateSettingDto } from '../dto/update-setting.dto';
 
 @Controller()
@@ -9,7 +9,7 @@ export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
   @MessagePattern('createSetting')
-  create(@Payload() createSettingDto: CreateSettingDto) {
+  create(@Payload() createSettingDto: SettingDto) {
     return this.settingsService.create(createSettingDto);
   }
 

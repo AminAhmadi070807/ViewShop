@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSettingDto } from '../dto/create-setting.dto';
+import { SettingDto } from './dto/setting.dto';
 import { UpdateSettingDto } from '../dto/update-setting.dto';
 
 @Injectable()
 export class SettingsService {
-  create(createSettingDto: CreateSettingDto) {
+  create(createSettingDto: SettingDto) {
     return 'This action adds a new setting';
   }
 
