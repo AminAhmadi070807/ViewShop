@@ -8,11 +8,11 @@ export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
   @MessagePattern('SETTING')
-  setting(@Payload() createSettingDto: SettingDto) {
-    return this.settingsService.setting(createSettingDto);
+  setting(@Payload() data: SettingDto) {
+    return this.settingsService.setting(data);
   }
 
-  @MessagePattern('findOneSetting')
+  @MessagePattern('FIND')
   find() {
     return this.settingsService.find();
   }
