@@ -12,6 +12,7 @@ import { CategoriesModule } from '../categories/categories.module';
 import { MediaModule } from '../media/media.module';
 import { StoreModule } from '../store/store.module';
 import { ColorsModule } from '../colors/colors.module';
+import { FiltersModule } from '../filters/filters.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
@@ -21,7 +22,8 @@ import { ColorsModule } from '../colors/colors.module';
     CategoriesModule,
     MediaModule,
     StoreModule,
-    ColorsModule
+    ColorsModule,
+    FiltersModule,
   ],
   exports: [ProductService, ParentProductsService],
 })
