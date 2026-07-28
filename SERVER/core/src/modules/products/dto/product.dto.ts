@@ -34,6 +34,11 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
 
+  @ArrayNotEmpty({ message: 'ارایه فیلتر ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'فیلترس باید ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
+  filters: string[];
+
   @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
