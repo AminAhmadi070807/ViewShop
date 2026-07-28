@@ -121,7 +121,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { id },
-        relations: ['medias', 'store'],
+        relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
         select: {
           medias: {
             id: true,
@@ -134,6 +134,15 @@ export class ProductService {
             logo: true,
             banner: true,
             alias: true,
+          },
+          filters: {
+            id: true,
+            title: true,
+            filterTypes: {
+              id: true,
+              title: true,
+              public: true,
+            },
           },
         },
       });
