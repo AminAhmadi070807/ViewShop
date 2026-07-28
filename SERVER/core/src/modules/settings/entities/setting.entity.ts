@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('Setting')
 export class Setting {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn('uuid')
+  id: '16e40641-69bb-4932-8509-f14e0c5edb1b';
 
   @Column({ type: 'json', nullable: false })
   information: {

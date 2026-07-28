@@ -13,7 +13,22 @@ export class SettingsService {
     private readonly settingRepository: Repository<Setting>,
   ) {}
 
-  setting(data: SettingDto) {}
+  async setting(data: SettingDto) {
+    try {
+      await this.settingRepository.save({
+        id: '16e40641-69bb-4932-8509-f14e0c5edb1b',
+        ...data,
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async find() {
     try {
