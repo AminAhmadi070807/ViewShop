@@ -42,30 +42,30 @@ export class Setting {
 
   @Column({ type: 'json', nullable: false })
   social_media: {
-    instagram: string;
-    telegram: string;
-    twitter: string;
-    facebook: string;
-    whatsApp: string;
-    eitaa: string;
-    rubika: string;
+    instagram?: string;
+    telegram?: string;
+    twitter?: string;
+    facebook?: string;
+    whatsApp?: string;
+    eitaa?: string;
+    rubika?: string;
   };
 
   @Column({ type: 'json', nullable: false })
   links: {
     direct: string;
-    bazaar: string;
-    myket: string;
-    sibApp: string;
+    bazaar?: string;
+    myket?: string;
+    sibApp?: string;
   };
 
   @Column({ type: 'json', nullable: false })
   support: {
-    direct: string;
+    status: boolean;
     cell_phone: string;
-    instagram: string;
-    whatsApp: string;
-    telegram: string;
+    instagram?: string;
+    whatsApp?: string;
+    telegram?: string;
   };
 
   @Column({ type: 'json', nullable: false })
