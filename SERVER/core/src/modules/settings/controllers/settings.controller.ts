@@ -1,8 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { SettingsService } from './settings.service';
-import { CreateSettingDto } from './dto/create-setting.dto';
-import { UpdateSettingDto } from './dto/update-setting.dto';
+import { SettingsService } from '../services/settings.service';
+import { CreateSettingDto } from '../dto/create-setting.dto';
+import { UpdateSettingDto } from '../dto/update-setting.dto';
 
 @Controller()
 export class SettingsController {
