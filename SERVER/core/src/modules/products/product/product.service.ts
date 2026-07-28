@@ -87,10 +87,8 @@ export class ProductService {
   async findAll() {
     try {
       const products: Product[] = await this.productRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
-        relations: ['medias', 'store'],
+        order: { createdAt: 'DESC' },
+        relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
         select: {
           medias: {
             id: true,
@@ -103,6 +101,15 @@ export class ProductService {
             logo: true,
             banner: true,
             alias: true,
+          },
+          filters: {
+            id: true,
+            title: true,
+            filterTypes: {
+              id: true,
+              title: true,
+              public: true,
+            },
           },
         },
       });
