@@ -15,6 +15,7 @@ import { RpcException } from '@nestjs/microservices';
 import { StoreService } from '../../store/store.service';
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import { ColorsService } from '../../colors/colors.service';
+import { FiltersService } from '../../filters/filters.service';
 
 @Injectable()
 export class ProductService {
@@ -26,6 +27,7 @@ export class ProductService {
     private readonly mediaService: MediaService,
     private readonly storeService: StoreService,
     private readonly colorService: ColorsService,
+    private readonly filterService: FiltersService,
   ) {}
 
   async create(data: ProductDto) {
@@ -51,10 +53,12 @@ export class ProductService {
         id: data.store,
       });
       const colors = await this.colorService.findByCode(resultColor);
+      const filters = await this.filterService.findById(data.filters);
 
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
       if (colors instanceof CustomException) return colors;
+      if (filters instanceof CustomException) return filters;
 
       const product: Product = this.productRepository.create({
         user: { id: data.userId },
@@ -63,6 +67,7 @@ export class ProductService {
         alias: data.alias,
         store: store.body,
         details: data.details,
+        filters: filters.body,
       });
 
       const newProduct = await this.productRepository.save(product);
