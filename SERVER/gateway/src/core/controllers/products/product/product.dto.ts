@@ -55,6 +55,17 @@ export class ProductDto {
   store: string;
 
   @ApiProperty({
+    type: [String],
+    required: true,
+    nullable: false,
+    example: [''],
+  })
+  @ArrayNotEmpty({ message: 'ارایه فیلتر ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'فیلترس باید ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
+  filters: string[];
+
+  @ApiProperty({
     type: String,
     required: true,
     nullable: false,
