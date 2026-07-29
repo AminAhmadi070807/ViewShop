@@ -95,6 +95,20 @@ export class FilterTypeController {
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'FILTER-TYPE',
+      enum: ['FILTER-TYPE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   update(@Body() data: UpdateFilterTypeDto) {
     return this.coreService.send('FILTER:TYPE:UPDATE', data);
   }
