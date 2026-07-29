@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SettingDto } from './setting.dto';
 import {
@@ -19,6 +19,11 @@ export class SettingController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   setting(@Body() data: SettingDto) {
-    return this.coreService.send('SETTING', data);
+    return this.coreService.send('SETTING:UPDATE', data);
+  }
+
+  @Get()
+  find() {
+    return this.coreService.send('SETTING:FIND');
   }
 }

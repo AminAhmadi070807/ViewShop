@@ -7,12 +7,12 @@ import { SettingDto } from './dto/setting.dto';
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
-  @MessagePattern('SETTING')
+  @MessagePattern('SETTING:UPDATE')
   setting(@Payload() data: SettingDto) {
     return this.settingsService.setting(data);
   }
 
-  @MessagePattern('FIND')
+  @MessagePattern('SETTING:FIND')
   find() {
     return this.settingsService.find();
   }
