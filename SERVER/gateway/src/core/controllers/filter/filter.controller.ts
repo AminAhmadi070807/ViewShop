@@ -25,9 +25,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/filter')
-@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-@ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class FilterController {
   constructor(private readonly coreService: CoreService) {}
@@ -128,7 +125,24 @@ export class FilterController {
 
   @Patch('toggle/type')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'FILTER',
+      enum: ['FILTER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'TOGGLE',
+      enum: ['TOGGLE'],
+    },
+  ])
   toggleType(@Body() data: FilterOptionsDto) {
     return this.coreService.send('FILTER:TOGGLE:TYPE', data);
   }
