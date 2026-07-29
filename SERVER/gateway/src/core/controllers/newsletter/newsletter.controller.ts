@@ -6,6 +6,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -23,6 +24,20 @@ export class NewsletterController {
   @Public()
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'NEWSLETTER',
+      enum: ['NEWSLETTER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   create(@Body() data: NewsletterDto) {
     return this.coreService.send('NEWSLETTER:CREATE', data);
   }
