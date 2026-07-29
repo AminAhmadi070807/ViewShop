@@ -58,7 +58,22 @@ export class FilterController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'FILTER',
+      enum: ['FILTER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('FILTER:FIND');
   }
