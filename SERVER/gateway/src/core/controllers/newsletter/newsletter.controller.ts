@@ -71,6 +71,20 @@ export class NewsletterController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'NEWSLETTER',
+      enum: ['NEWSLETTER'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('NEWSLETTER:DELETE', data);
   }
