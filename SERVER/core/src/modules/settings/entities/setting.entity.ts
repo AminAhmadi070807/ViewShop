@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity('Setting')
 export class Setting {
   @PrimaryColumn('uuid')
-  id: '16e40641-69bb-4932-8509-f14e0c5edb1b';
+  id: string;
 
   @Column({ type: 'json', nullable: false })
   information: {
