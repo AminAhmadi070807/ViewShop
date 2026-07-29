@@ -116,6 +116,20 @@ export class FilterTypeController {
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'FILTER-TYPE',
+      enum: ['FILTER-TYPE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'DELETE',
+      enum: ['DELETE'],
+    },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('FILTER:TYPE:DELETE', data);
   }
