@@ -4,6 +4,7 @@ import { SettingDto } from './setting.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -18,6 +19,20 @@ export class SettingController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SETTING',
+      enum: ['SETTING'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE',
+      enum: ['UPDATE'],
+    },
+  ])
   setting(@Body() data: SettingDto) {
     return this.coreService.send('SETTING:UPDATE', data);
   }
