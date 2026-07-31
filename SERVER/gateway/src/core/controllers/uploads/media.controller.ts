@@ -90,6 +90,7 @@ export class MediaController {
       path: file.path,
       title: data.title,
       user: user.userId,
+      type: data.type,
     });
   }
 

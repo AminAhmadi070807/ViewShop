@@ -6,14 +6,13 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 export class MediaDto {
   @ApiProperty({
     type: String,
     nullable: false,
     required: true,
-    minLength: 3,
-    maxLength: 24,
     example: '',
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
@@ -23,11 +22,12 @@ export class MediaDto {
   title: string;
 
   @ApiProperty({
-    type: Boolean,
+    type: String,
+    enum: MediaTypeEnum,
     nullable: false,
     required: true,
-    example: true,
+    example: MediaTypeEnum.PUBLIC,
   })
   @IsBoolean({ message: 'پابلیک نامعتبر است' })
-  public: boolean;
+  type: boolean;
 }
