@@ -23,8 +23,10 @@ export class FiltersService {
 
       const result = this.filterRepository.create(data);
 
+      await this.filterRepository.save(result);
+
       return {
-        status: 200,
+        status: 201,
         message: statusMessages.fa['201'],
         body: result,
       };

@@ -9,8 +9,8 @@ export class FiltersController {
   constructor(private readonly filtersService: FiltersService) {}
 
   @MessagePattern('FILTER:CREATE')
-  create(@Payload() createFilterDto: FilterDto) {
-    return this.filtersService.create(createFilterDto);
+  create(@Payload() data: FilterDto) {
+    return this.filtersService.create(data);
   }
 
   @MessagePattern('FILTER:FIND')
