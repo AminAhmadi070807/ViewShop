@@ -60,6 +60,7 @@ export class AddressController {
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
     {
       name: 'feature',
@@ -86,6 +87,7 @@ export class AddressController {
 
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     {
@@ -107,6 +109,7 @@ export class AddressController {
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     {
