@@ -24,7 +24,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { AddressDto } from './address.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { Public } from '../../../common/decorators/public.decorator';
 
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })

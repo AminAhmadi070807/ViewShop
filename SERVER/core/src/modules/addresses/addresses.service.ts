@@ -50,9 +50,7 @@ export class AddressesService {
     try {
       const result = await this.addressRepository.find({
         where: { user: { id: data.user } },
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
       });
 
       return {

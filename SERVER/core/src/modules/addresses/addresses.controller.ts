@@ -15,6 +15,7 @@ export class AddressesController {
 
   @MessagePattern('ADDRESS:FIND')
   findAll(@Payload() data: Validate) {
+    console.log(data);
     return this.addressesService.findAll(data);
   }
 
