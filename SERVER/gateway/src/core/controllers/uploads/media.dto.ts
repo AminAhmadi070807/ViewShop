@@ -1,4 +1,5 @@
 import {
+  Allow,
   IsEnum,
   IsNotEmpty,
   IsString,
@@ -10,9 +11,10 @@ import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 export class MediaDto {
   @ApiProperty({
-    type: String,
+    type: 'string',
     format: 'binary',
   })
+  @Allow()
   media: any;
 
   @ApiProperty({

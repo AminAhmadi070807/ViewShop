@@ -2,6 +2,7 @@ import { diskStorage } from 'multer';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { BadRequestException } from '@nestjs/common';
+import { statusMessages } from '../messages/status.message';
 
 export const MulterOptions = {
   storage: diskStorage({
@@ -28,7 +29,7 @@ export const MulterOptions = {
   ) => {
     if (file) callback(null, true);
     else {
-      callback(new BadRequestException('File not found'), false);
+      callback(new BadRequestException(statusMessages.fa['404']), false);
     }
   },
 };
