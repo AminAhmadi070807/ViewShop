@@ -75,7 +75,7 @@ export class FilterController {
     return this.coreService.send('FILTER:FIND');
   }
 
-  @Get('id')
+  @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -96,7 +96,7 @@ export class FilterController {
     },
   ])
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('FILTER:FIND', data);
+    return this.coreService.send('FILTER:ONE', data);
   }
 
   @Patch()
