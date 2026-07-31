@@ -43,10 +43,10 @@ export class UpdateFilterTypeDto {
   title: string;
 
   @ApiProperty({
-    type: String,
+    type: Boolean,
     required: true,
     nullable: false,
-    example: '',
+    example: false,
   })
   @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
   public: boolean;
