@@ -77,7 +77,11 @@ export class AddressController {
   findAll(@Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
-    return this.coreService.send('ADDRESS:FIND', { user: user.userId });
+    return this.coreService.send('ADDRESS:FIND', {
+      user: user.userId,
+      id: user.userId,
+      role: user.role,
+    });
   }
 
   @Get('/:id')
