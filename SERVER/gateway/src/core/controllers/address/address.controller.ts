@@ -124,7 +124,12 @@ export class AddressController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
-    return this.coreService.send('ADDRESS:DELETE', data);
+  delete(@Body() data: ValidateUUID, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('ADDRESS:DELETE', {
+      id: data.id,
+      user: user.userId,
+    });
   }
 }
