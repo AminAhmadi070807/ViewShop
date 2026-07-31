@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { MediaDto } from './dto/media.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Media } from './entities/media.entity';
-import { In, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 
 @Injectable()
 export class MediaService {
@@ -80,7 +81,8 @@ export class MediaService {
     try {
       const medias: Media[] = await this.mediaRepository.find({
         where: {
-          title: title.trim(),
+          title: ILike(`%${title}%`),
+          type: MediaTypeEnum.PUBLIC,
         },
       });
 
