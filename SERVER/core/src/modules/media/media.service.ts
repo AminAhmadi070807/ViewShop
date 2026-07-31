@@ -21,6 +21,7 @@ export class MediaService {
           id: data.user,
         },
         title: data.title,
+        public: data.type,
       });
 
       const save: Media = await this.mediaRepository.save(media);

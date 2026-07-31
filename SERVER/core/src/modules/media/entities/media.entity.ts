@@ -20,7 +20,7 @@ export class Media {
   path: string;
 
   @Column({ type: 'enum', enum: MediaTypeEnum, default: MediaTypeEnum.PUBLIC })
-  public: MediaTypeEnum;
+  type: MediaTypeEnum;
 
   @ManyToOne((): typeof User => User)
   @JoinColumn({ name: 'User_Media' })
