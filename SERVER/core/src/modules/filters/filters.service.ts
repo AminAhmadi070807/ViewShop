@@ -143,8 +143,8 @@ export class FiltersService {
       });
 
       if (existing) {
-        result.body.filterTypes = result.body.filterTypes.filter((type) => {
-          return type.id !== data.id;
+        result.body.filterTypes = result.body.filterTypes.filter((item) => {
+          return item.id !== data.typeId;
         });
       } else result.body.filterTypes.push(filterType.body);
 
