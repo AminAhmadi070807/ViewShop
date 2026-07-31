@@ -81,7 +81,6 @@ export class AddressController {
     return this.coreService.send('ADDRESS:FIND', {
       user: user.userId,
       id: user.userId,
-      role: user.role,
     });
   }
 
