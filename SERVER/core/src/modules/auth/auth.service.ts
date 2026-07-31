@@ -320,13 +320,9 @@ export class AuthService {
 
   async validateToken(data: AuthValidateDto) {
     try {
-      const tokens: Auth[] = await this.authRepository.find({
-        where: {
-          user: { id: data.userId },
-        },
-        order: {
-          id: 'DESC',
-        },
+      const tokens = await this.authRepository.find({
+        where: { user: { id: data.userId } },
+        order: { createdAt: 'DESC' },
       });
 
       // token validate boolean array
