@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 @Entity('Media')
 export class Media {
@@ -18,8 +19,8 @@ export class Media {
   @Column({ type: 'varchar', nullable: false, unique: true })
   path: string;
 
-  @Column({ type: 'boolean', default: true, nullable: false })
-  public: boolean;
+  @Column({ type: 'enum', enum: MediaTypeEnum, default: MediaTypeEnum.PUBLIC })
+  public: MediaTypeEnum;
 
   @ManyToOne((): typeof User => User)
   @JoinColumn({ name: 'User_Media' })
