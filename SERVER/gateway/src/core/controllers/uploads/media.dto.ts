@@ -1,5 +1,5 @@
 import {
-  IsBoolean,
+  IsEnum,
   IsNotEmpty,
   IsString,
   MaxLength,
@@ -28,6 +28,6 @@ export class MediaDto {
     required: true,
     example: MediaTypeEnum.PUBLIC,
   })
-  @IsBoolean({ message: 'پابلیک نامعتبر است' })
+  @IsEnum(MediaTypeEnum, { message: 'نوع مدیا نامعتبر است' })
   type: boolean;
 }
