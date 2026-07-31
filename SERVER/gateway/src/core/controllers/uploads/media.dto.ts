@@ -11,6 +11,12 @@ import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 export class MediaDto {
   @ApiProperty({
     type: String,
+    format: 'binary',
+  })
+  media: any;
+
+  @ApiProperty({
+    type: String,
     nullable: false,
     required: true,
     example: '',
@@ -29,5 +35,5 @@ export class MediaDto {
     example: MediaTypeEnum.PUBLIC,
   })
   @IsEnum(MediaTypeEnum, { message: 'نوع مدیا نامعتبر است' })
-  type: boolean;
+  type: MediaTypeEnum;
 }

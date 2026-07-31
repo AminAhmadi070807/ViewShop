@@ -10,7 +10,6 @@ import {
 import { Upload } from '../../../common/decorators/upload.decorator';
 import {
   ApiBadRequestResponse,
-  ApiBody,
   ApiConflictResponse,
   ApiConsumes,
   ApiCreatedResponse,
@@ -46,24 +45,6 @@ export class MediaController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        media: {
-          type: 'string',
-          format: 'binary',
-          description: 'uploading file',
-        },
-        title: {
-          type: 'string',
-          minLength: 3,
-          maxLength: 24,
-          example: '',
-        },
-      },
-    },
-  })
   @Upload('media')
   @ApiHeaders([
     {
