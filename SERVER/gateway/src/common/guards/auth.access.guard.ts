@@ -47,7 +47,12 @@ export class JwtAccessTokenAuthGuard extends AuthGuard('access-jwt-token') {
       throw new UnauthorizedException(statusMessages.fa['401']);
     }
 
-    await firstValueFrom(this.coreService.send('USER:ONE', userReq.userId));
+    await firstValueFrom(
+      this.coreService.send('USER:ONE', {
+        user: userReq.userId,
+        id: userReq.userId,
+      }),
+    );
 
     return canactivate;
   }
