@@ -28,7 +28,9 @@ export class FiltersService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: {
+          id: result.id,
+        },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
