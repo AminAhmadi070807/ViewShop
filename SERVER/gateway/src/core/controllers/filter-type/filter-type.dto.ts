@@ -1,8 +1,8 @@
 import {
   ArrayNotEmpty,
-  IsBoolean,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   ValidateNested,
@@ -45,7 +45,8 @@ export class FilterTypeDto {
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
-  details: FilterTypeOptionsDto[];
+  @IsOptional({ message: 'ارایه دیتا ها اختیاری است' })
+  details?: FilterTypeOptionsDto[];
 }
 
 export class UpdateFilterTypeDto {
@@ -81,5 +82,6 @@ export class UpdateFilterTypeDto {
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
-  details: FilterTypeOptionsDto[];
+  @IsOptional({ message: 'ارایه دیتا ها اختیاری است' })
+  details?: FilterTypeOptionsDto[];
 }
