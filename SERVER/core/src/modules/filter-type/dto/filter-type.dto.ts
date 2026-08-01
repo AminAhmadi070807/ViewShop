@@ -12,6 +12,9 @@ export class FilterTypeDto {
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
 
+  @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر تایپ نامعتبر است' })
+  type: FilterTypeEnum;
+
   @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
   public: boolean;
 }
