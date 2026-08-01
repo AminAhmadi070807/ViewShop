@@ -35,7 +35,8 @@ export class FilterTypeDto {
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
-  details: FilterTypeOptionsDto[];
+  @IsOptional({ message: 'ارایه دیتا ها اختیاری است' })
+  details?: FilterTypeOptionsDto[];
 }
 
 export class UpdateFilterTypeDto {
