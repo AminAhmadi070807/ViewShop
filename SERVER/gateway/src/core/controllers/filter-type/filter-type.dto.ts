@@ -60,6 +60,16 @@ export class UpdateFilterTypeDto {
   title: string;
 
   @ApiProperty({
+    type: String,
+    enum: FilterTypeEnum,
+    required: true,
+    nullable: false,
+    example: FilterTypeEnum.SEARCH,
+  })
+  @IsEnum(FilterTypeEnum, { message: 'نوع نامعتبر است' })
+  type: FilterTypeEnum;
+
+  @ApiProperty({
     type: Boolean,
     required: true,
     nullable: false,
