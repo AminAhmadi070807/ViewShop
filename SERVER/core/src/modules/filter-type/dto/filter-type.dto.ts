@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   ValidateNested,
@@ -54,5 +55,6 @@ export class UpdateFilterTypeDto {
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
-  details: FilterTypeOptionsDto[];
+  @IsOptional({ message: 'ارایه دیتا ها اختیاری است' })
+  details?: FilterTypeOptionsDto[];
 }
