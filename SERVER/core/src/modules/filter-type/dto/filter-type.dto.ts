@@ -50,4 +50,9 @@ export class UpdateFilterTypeDto {
 
   @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
   public: boolean;
+
+  @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
+  @ValidateNested()
+  @Type(() => FilterTypeOptionsDto)
+  details: FilterTypeOptionsDto[];
 }
