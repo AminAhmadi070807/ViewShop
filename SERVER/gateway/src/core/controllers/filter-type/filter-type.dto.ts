@@ -79,6 +79,12 @@ export class UpdateFilterTypeDto {
   @IsEnum(FilterTypeEnum, { message: 'نوع نامعتبر است' })
   type: FilterTypeEnum;
 
+  @ApiProperty({
+    type: () => FilterTypeOptionsDto,
+    required: true,
+    nullable: false,
+    example: FilterTypeOptionsDto,
+  })
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
