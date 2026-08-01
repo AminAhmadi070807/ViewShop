@@ -12,10 +12,22 @@ import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 import { Type } from 'class-transformer';
 
 class FilterTypeOptionsDto {
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+  })
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار نامعتبر است' })
   alias: string;
