@@ -17,11 +17,16 @@ export class FiltersService {
 
   async create(data: FilterDto) {
     try {
+      const filterType = await this.filterTypeService.findOne(data.typeId);
       const existing = await this.filterRepository.findOneBy(data);
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (filterType instanceof CustomException) return filterType;
 
-      const result = this.filterRepository.create(data);
+      const result = this.filterRepository.create({
+        filterTypes: [filterType.body],
+        title: data.title,
+      });
 
       await this.filterRepository.save(result);
 
