@@ -21,6 +21,12 @@ export class FilterType {
   @Column({ type: 'boolean', nullable: false, default: false })
   public: boolean;
 
+  @Column({ type: 'simple-json', nullable: false, array: true })
+  details: {
+    title: string;
+    alias: string;
+  }[];
+
   @CreateDateColumn()
   createdAt: Date;
 
