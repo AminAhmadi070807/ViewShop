@@ -18,7 +18,9 @@ export class FiltersService {
   async create(data: FilterDto) {
     try {
       const filterType = await this.filterTypeService.findOne(data.typeId);
-      const existing = await this.filterRepository.findOneBy({ title: data.title });
+      const existing = await this.filterRepository.findOneBy({
+        title: data.title,
+      });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
       if (filterType instanceof CustomException) return filterType;

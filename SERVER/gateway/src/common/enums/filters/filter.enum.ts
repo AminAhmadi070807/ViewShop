@@ -3,6 +3,5 @@ export enum FilterTypeEnum {
   MIN_PRICE = 'MIN_PRICE',
   MAX_PRICE = 'MAX_PRICE',
   CHECK_BOX = 'CHECK_BOX',
-  COLLECTION = 'COLLECTION',
   SWITCH = 'SWITCH',
 }
