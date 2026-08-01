@@ -1,4 +1,11 @@
-import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 
 export class FilterTypeDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
@@ -16,6 +23,9 @@ export class UpdateFilterTypeDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
+
+  @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر تایپ نامعتبر است' })
+  type: FilterTypeEnum;
 
   @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
   public: boolean;
