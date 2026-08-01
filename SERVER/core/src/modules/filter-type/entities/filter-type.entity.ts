@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 
 @Entity('Filter_Type')
 export class FilterType {
@@ -13,6 +14,9 @@ export class FilterType {
 
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
+
+  @Column({ type: 'enum', enum: FilterTypeEnum, nullable: false })
+  type: FilterTypeEnum;
 
   @Column({ type: 'boolean', nullable: false, default: false })
   public: boolean;
