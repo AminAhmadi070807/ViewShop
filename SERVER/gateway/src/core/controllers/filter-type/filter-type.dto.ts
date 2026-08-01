@@ -1,5 +1,12 @@
-import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 
 export class FilterTypeDto {
   @ApiProperty({
@@ -11,6 +18,16 @@ export class FilterTypeDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
+
+  @ApiProperty({
+    type: String,
+    enum: FilterTypeEnum,
+    required: true,
+    nullable: false,
+    example: FilterTypeEnum.SEARCH,
+  })
+  @IsEnum(FilterTypeEnum, { message: 'نوع نامعتبر است' })
+  type: FilterTypeEnum;
 
   @ApiProperty({
     type: Boolean,
