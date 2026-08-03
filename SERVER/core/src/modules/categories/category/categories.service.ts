@@ -5,14 +5,12 @@ import { Category } from '../entities/category.entity';
 import { In, Repository } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
-import { FiltersService } from '../../filters/filters.service';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
-    private readonly filterService: FiltersService,
   ) {}
 
   async create(data: CategoryDto) {
@@ -127,10 +125,6 @@ export class CategoriesService {
 
   async update(data: UpdateCategoryDto) {
     try {
-      const filters = await this.filterService.findById(data.filters);
-
-      if (filters instanceof CustomException) return filters;
-
       const result = await this.categoryRepository.findOne({
         where: { id: data.id },
         relations: ['icon'],
