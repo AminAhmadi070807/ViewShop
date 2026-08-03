@@ -26,20 +26,11 @@ export class CategoriesService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const filters = await this.filterService.findById(data.filters);
-
-      if (filters instanceof CustomException) return filters;
-
       const category = this.categoryRepository.create({
         title: data.title.trim(),
         alias: data.alias.trim().toLowerCase(),
-        user: {
-          id: data.user,
-        },
-        icon: {
-          id: data.icon,
-        },
-        filters: filters.body,
+        user: { id: data.user },
+        icon: { id: data.icon },
       });
 
       await this.categoryRepository.save(category);
