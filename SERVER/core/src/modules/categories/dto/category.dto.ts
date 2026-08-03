@@ -1,6 +1,4 @@
 import {
-  ArrayNotEmpty,
-  IsArray,
   IsNotEmpty,
   IsString,
   IsUUID,
@@ -34,11 +32,6 @@ export class CategoryDto {
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
-
-  @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
-  @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
-  filters: string[];
 }
 
 export class UpdateCategoryDto {
@@ -61,9 +54,4 @@ export class UpdateCategoryDto {
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
-
-  @ArrayNotEmpty({ message: 'شناسه فیلتر نمیتواند خالی باشد' })
-  @IsArray({ message: 'شناسه های فیلتر باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر نامعتبر است', each: true })
-  filters: string[];
 }
