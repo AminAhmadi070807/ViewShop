@@ -78,9 +78,7 @@ export class CategoriesService {
   async findId(id: string[]) {
     try {
       const categories: Category[] = await this.categoryRepository.find({
-        where: {
-          id: In(id),
-        },
+        where: { id: In(id) },
       });
 
       if (!categories.length) {
