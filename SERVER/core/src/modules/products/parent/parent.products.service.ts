@@ -52,8 +52,8 @@ export class ParentProductsService {
       // get category from service
       const category = await this.categoryService.findOne(data.category);
       // get sub category from service
-      const subCategory = await this.subCategoryService.findOne(
-        data.subCategory,
+      const subCategories = await this.subCategoryService.findById(
+        data.subCategories,
       );
       // get medias from service
       const medias = await this.mediaService.findId(data.media);
@@ -62,14 +62,14 @@ export class ParentProductsService {
 
       // check category & sub category & medias error
       if (category instanceof RpcException) return category;
-      if (subCategory instanceof RpcException) return subCategory;
+      if (subCategories instanceof RpcException) return subCategories;
       if (medias instanceof RpcException) return medias;
       if (attributes instanceof RpcException) return attributes;
 
       const product: ParentProduct = this.parentProductRepository.create({
         user: user,
         category: category.body,
-        subCategories: [subCategory.body],
+        subCategories: subCategories.body,
         medias: medias.body,
         attributes: attributes.body,
         title: data.title,
