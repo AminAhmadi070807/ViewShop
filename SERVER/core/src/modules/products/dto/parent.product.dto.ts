@@ -1,4 +1,5 @@
 import {
+  ArrayNotEmpty,
   IsArray,
   IsEnum,
   IsNotEmpty,
@@ -27,9 +28,9 @@ export class ParentProductDto {
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   category: string;
 
-  @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
-  subCategory: string;
+  @ArrayNotEmpty({ message: 'شناسه های زیر دسته نمیتوناد خالی باشد' })
+  @IsUUID('4', { message: 'شناسه زیر دسته نامعتبر است', each: true })
+  subCategories: string[];
 
   @IsNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی اتریبیوت هارا در ارایه ارسال کنید' })
