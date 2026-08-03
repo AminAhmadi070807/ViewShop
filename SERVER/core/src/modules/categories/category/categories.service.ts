@@ -99,7 +99,7 @@ export class CategoriesService {
     try {
       const category = await this.categoryRepository.findOne({
         where: { id },
-        relations: ['user', 'filters', 'filters.filterTypes'],
+        relations: ['user'],
         select: {
           icon: {
             id: true,
@@ -109,14 +109,6 @@ export class CategoriesService {
           user: {
             id: true,
             fullName: true,
-          },
-          filters: {
-            id: true,
-            title: true,
-            filterTypes: {
-              id: true,
-              title: true,
-            },
           },
         },
       });
