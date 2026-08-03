@@ -85,9 +85,9 @@ export class ParentProduct {
   @JoinColumn({ name: 'Category_ParentProduct' })
   category: Category;
 
-  @ManyToOne(() => SubCategory, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'SubCategory_ParentProduct' })
-  subCategory: SubCategory;
+  @ManyToMany(() => SubCategory, { nullable: false, onUpdate: 'CASCADE' })
+  @JoinTable({ name: 'SubCategory_ParentProduct' })
+  subCategory: SubCategory[];
 
   @ManyToMany(() => Attribute, { nullable: false, onUpdate: 'CASCADE' })
   @JoinTable({ name: 'ParentProduct_Attribute' })

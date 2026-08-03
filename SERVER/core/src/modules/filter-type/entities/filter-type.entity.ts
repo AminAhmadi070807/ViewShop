@@ -15,15 +15,6 @@ export class FilterType {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @Column({ type: 'enum', enum: FilterTypeEnum, nullable: false })
-  type: FilterTypeEnum;
-
-  @Column({ type: 'jsonb', nullable: true, default: [] })
-  details: {
-    title: string;
-    alias: string;
-  }[];
-
   @CreateDateColumn()
   createdAt: Date;
 
