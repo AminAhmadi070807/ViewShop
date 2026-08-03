@@ -160,16 +160,18 @@ export class CategoriesService {
 
       if (filters instanceof CustomException) return filters;
 
-      const result = await this.categoryRepository.update(data.id, {
-        alias: data.alias,
-        title: data.title,
-        icon: { id: data.icon },
-        filters: filters.body,
+      const result = await this.categoryRepository.findOne({
+        where: { id: data.id },
+        relations: ['icon', 'filters'],
       });
 
-      if (!result.affected) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      result.title = data.title.trim();
+      result.icon.id = data.icon;
+      result.filters = filters.body;
+
+      await this.categoryRepository.save(result);
 
       return {
         status: 204,
