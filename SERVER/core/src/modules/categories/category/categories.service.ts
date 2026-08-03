@@ -133,14 +133,13 @@ export class CategoriesService {
 
       const result = await this.categoryRepository.findOne({
         where: { id: data.id },
-        relations: ['icon', 'filters'],
+        relations: ['icon'],
       });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
       result.title = data.title.trim();
       result.icon.id = data.icon;
-      result.filters = filters.body;
 
       await this.categoryRepository.save(result);
 
