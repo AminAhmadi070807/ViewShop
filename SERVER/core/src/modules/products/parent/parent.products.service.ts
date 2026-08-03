@@ -69,7 +69,7 @@ export class ParentProductsService {
       const product: ParentProduct = this.parentProductRepository.create({
         user: user,
         category: category.body,
-        subCategory: subCategory.body,
+        subCategories: [subCategory.body],
         medias: medias.body,
         attributes: attributes.body,
         title: data.title,
