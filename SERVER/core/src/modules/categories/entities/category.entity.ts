@@ -3,15 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
-import { Filter } from '../../filters/entities/filter.entity';
 
 @Entity('Category')
 export class Category {
@@ -31,10 +28,6 @@ export class Category {
   @ManyToOne(() => User, { nullable: false, onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'User_Category' })
   user: User;
-
-  @ManyToMany(() => Filter, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinTable({ name: 'Filter_Category' })
-  filters: Filter[];
 
   @CreateDateColumn()
   createdAt: Date;
