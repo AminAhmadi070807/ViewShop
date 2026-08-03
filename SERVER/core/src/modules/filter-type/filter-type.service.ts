@@ -38,8 +38,7 @@ export class FilterTypeService {
           id: result.id,
         },
       };
-    } catch (error) {
-      console.log(error.message);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

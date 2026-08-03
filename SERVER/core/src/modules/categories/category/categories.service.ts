@@ -17,7 +17,7 @@ export class CategoriesService {
 
   async create(data: CategoryDto) {
     try {
-      const existing: Category | null = await this.categoryRepository.findOne({
+      const existing = await this.categoryRepository.findOne({
         where: [
           { title: data.title.trim() },
           { alias: data.alias.trim().toLowerCase() },
@@ -42,12 +42,14 @@ export class CategoriesService {
         filters: filters.body,
       });
 
-      const newCategory = await this.categoryRepository.save(category);
+      await this.categoryRepository.save(category);
 
       return {
         status: 201,
-        body: newCategory,
         message: statusMessages.fa['201'],
+        body: {
+          id: category.id,
+        },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
