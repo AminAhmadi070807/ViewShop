@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SubCategory } from '../entities/sub.category.entity';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, In, Repository, UpdateResult } from 'typeorm';
 import { SubCategoryDto, UpdateSubCategoryDto } from '../dto/sub.category.dto';
 import { statusMessages } from '../../../common/message/message.status';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
@@ -83,6 +83,26 @@ export class SubCategoryService {
         status: 200,
         message: statusMessages.fa['200'],
         body: subCategories,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findById(ids: string[]) {
+    try {
+      const result = await this.subCategoryRepository.find({
+        where: { id: In(ids) },
+      });
+
+      if (!result.length) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
