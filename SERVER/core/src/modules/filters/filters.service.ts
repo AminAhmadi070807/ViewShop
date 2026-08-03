@@ -53,6 +53,7 @@ export class FiltersService {
             id: true,
             title: true,
             public: true,
+            type: true,
           },
         },
         order: {
