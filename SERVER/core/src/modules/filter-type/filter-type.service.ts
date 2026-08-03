@@ -21,7 +21,13 @@ export class FilterTypeService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const result = this.filterTypeRepository.create(data);
+      const result = this.filterTypeRepository.create({
+        type: data.type,
+        title: data.title,
+        ...(data.details && {
+          details: data.details,
+        }),
+      });
 
       await this.filterTypeRepository.save(result);
 
@@ -32,7 +38,8 @@ export class FilterTypeService {
           id: result.id,
         },
       };
-    } catch {
+    } catch (error) {
+      console.log(error.message);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
