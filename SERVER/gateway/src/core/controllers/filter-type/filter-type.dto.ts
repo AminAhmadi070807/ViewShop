@@ -56,8 +56,9 @@ export class FilterTypeDto {
 
   @ApiProperty({
     type: () => FilterTypeOptionsDto,
+    isArray: true,
     required: true,
-    nullable: false,
+    nullable: true,
     example: FilterTypeOptionsDto,
   })
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })

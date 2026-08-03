@@ -52,7 +52,6 @@ export class FiltersService {
           filterTypes: {
             id: true,
             title: true,
-            public: true,
             type: true,
             details: true,
           },
@@ -102,7 +101,6 @@ export class FiltersService {
           filterTypes: {
             id: true,
             title: true,
-            public: true,
             type: true,
             details: true,
           },

@@ -108,7 +108,6 @@ export class ProductService {
             filterTypes: {
               id: true,
               title: true,
-              public: true,
             },
           },
         },
@@ -148,7 +147,6 @@ export class ProductService {
             filterTypes: {
               id: true,
               title: true,
-              public: true,
             },
           },
         },
@@ -190,7 +188,6 @@ export class ProductService {
             filterTypes: {
               id: true,
               title: true,
-              public: true,
             },
           },
         },

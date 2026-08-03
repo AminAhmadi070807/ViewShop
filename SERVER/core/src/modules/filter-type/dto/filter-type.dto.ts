@@ -1,6 +1,5 @@
 import {
   ArrayNotEmpty,
-  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -29,9 +28,6 @@ export class FilterTypeDto {
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر تایپ نامعتبر است' })
   type: FilterTypeEnum;
 
-  @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
-  public: boolean;
-
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => FilterTypeOptionsDto)
@@ -49,9 +45,6 @@ export class UpdateFilterTypeDto {
 
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر تایپ نامعتبر است' })
   type: FilterTypeEnum;
-
-  @IsBoolean({ message: 'لطفا برای حالت عمومی را درست ست کنید' })
-  public: boolean;
 
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @ValidateNested()

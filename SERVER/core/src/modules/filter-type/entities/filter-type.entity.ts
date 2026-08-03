@@ -18,9 +18,6 @@ export class FilterType {
   @Column({ type: 'enum', enum: FilterTypeEnum, nullable: false })
   type: FilterTypeEnum;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  public: boolean;
-
   @Column({ type: 'simple-json', nullable: true, array: true })
   details: {
     title: string;
