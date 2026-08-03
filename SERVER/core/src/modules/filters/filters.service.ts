@@ -54,6 +54,7 @@ export class FiltersService {
             title: true,
             public: true,
             type: true,
+            details: true,
           },
         },
         order: {
