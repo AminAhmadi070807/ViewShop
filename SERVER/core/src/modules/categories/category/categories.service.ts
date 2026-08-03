@@ -77,8 +77,6 @@ export class CategoriesService {
             filterTypes: {
               id: true,
               title: true,
-              type: true,
-              details: true,
             },
           },
         },
