@@ -176,7 +176,7 @@ export class ParentProductsService {
           ...data,
           attributes: attributes.body,
           medias: medias.body,
-          subCategory: subCategory.body,
+          subCategories: [subCategory.body],
           category: category.body,
         },
       );
