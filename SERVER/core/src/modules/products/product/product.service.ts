@@ -102,10 +102,6 @@ export class ProductService {
             banner: true,
             alias: true,
           },
-          filters: {
-            id: true,
-            title: true,
-          },
         },
       });
 
