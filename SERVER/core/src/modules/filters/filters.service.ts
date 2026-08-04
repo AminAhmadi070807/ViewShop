@@ -43,13 +43,6 @@ export class FiltersService {
   async findAll() {
     try {
       const result = await this.filterRepository.find({
-        relations: ['filterTypes'],
-        select: {
-          filterTypes: {
-            id: true,
-            title: true,
-          },
-        },
         order: { createdAt: 'DESC' },
       });
 
