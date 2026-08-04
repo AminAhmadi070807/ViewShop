@@ -123,7 +123,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { id },
-        relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
+        relations: ['medias', 'store', 'filters'],
         select: {
           medias: {
             id: true,
@@ -140,10 +140,6 @@ export class ProductService {
           filters: {
             id: true,
             title: true,
-            filterTypes: {
-              id: true,
-              title: true,
-            },
           },
         },
       });
