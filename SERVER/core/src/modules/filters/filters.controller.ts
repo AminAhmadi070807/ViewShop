@@ -28,11 +28,6 @@ export class FiltersController {
     return this.filtersService.update(data);
   }
 
-  @MessagePattern('FILTER:TOGGLE:TYPE')
-  filterToggleType(@Payload() data: UpdateFilterDto) {
-    return this.filtersService.filterToggleType(data);
-  }
-
   @MessagePattern('FILTER:DELETE')
   remove(@Payload() data: Validate) {
     return this.filtersService.remove(data.id);
