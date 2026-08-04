@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 
 @Entity('Filter_Type')
 export class FilterType {
