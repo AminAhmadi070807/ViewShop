@@ -18,6 +18,9 @@ export class Filter {
   @Column({ type: 'enum', enum: FilterTypeEnum, nullable: false })
   type: FilterTypeEnum;
 
+  @Column({ type: 'jsonb', nullable: true })
+  details: { title: string }[];
+
   @CreateDateColumn()
   createdAt: Date;
 
