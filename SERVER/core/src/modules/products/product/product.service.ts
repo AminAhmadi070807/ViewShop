@@ -160,7 +160,7 @@ export class ProductService {
     try {
       const product: Product[] = await this.productRepository.find({
         where: { id: In(id) },
-        relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
+        relations: ['medias', 'store', 'filters'],
         select: {
           medias: {
             id: true,
