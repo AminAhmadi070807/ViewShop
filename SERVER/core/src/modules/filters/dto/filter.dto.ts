@@ -8,9 +8,6 @@ export class FilterDto {
 
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر نامعتبر است' })
   type: FilterTypeEnum;
-
-  @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
-  typeId: string;
 }
 
 export class UpdateFilterDto {
@@ -23,7 +20,4 @@ export class UpdateFilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
-
-  @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
-  typeId: string;
 }
