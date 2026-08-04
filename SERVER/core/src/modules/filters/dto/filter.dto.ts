@@ -2,6 +2,7 @@ import {
   ArrayNotEmpty,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUUID,
   ValidateNested,
@@ -18,10 +19,11 @@ export class FilterDto {
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر نامعتبر است' })
   type: FilterTypeEnum;
 
-  @ArrayNotEmpty({ message: 'ارایه اطلاعات دیتاها نمیتواند خالی باشد' })
+  @ArrayNotEmpty({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
-  details: ValidateTitle;
+  @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
+  details?: ValidateTitle;
 }
 
 export class UpdateFilterDto {
