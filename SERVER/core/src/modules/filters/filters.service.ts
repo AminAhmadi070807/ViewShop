@@ -79,16 +79,7 @@ export class FiltersService {
 
   async findOne(id: string) {
     try {
-      const result = await this.filterRepository.findOne({
-        where: { id },
-        relations: ['filterTypes'],
-        select: {
-          filterTypes: {
-            id: true,
-            title: true,
-          },
-        },
-      });
+      const result = await this.filterRepository.findOne({ where: { id } });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
