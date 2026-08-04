@@ -34,4 +34,9 @@ export class UpdateFilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
+
+  @ArrayNotEmpty({ message: 'ارایه اطلاعات دیتاها نمیتواند خالی باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ValidateTitle)
+  details: ValidateTitle;
 }
