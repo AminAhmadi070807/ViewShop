@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FilterDto, FilterOptionsDto, UpdateFilterDto } from './dto/filter.dto';
+import { FilterDto, UpdateFilterDto } from './dto/filter.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Filter } from './entities/filter.entity';
 import { In, Repository } from 'typeorm';
@@ -135,7 +135,7 @@ export class FiltersService {
     }
   }
 
-  async filterToggleType(data: FilterOptionsDto) {
+  async filterToggleType(data: UpdateFilterDto) {
     try {
       const result = await this.findOne(data.id);
       const filterType = await this.filterTypeService.findOne(data.typeId);

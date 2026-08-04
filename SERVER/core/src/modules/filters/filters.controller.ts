@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { FiltersService } from './filters.service';
-import { FilterDto, FilterOptionsDto, UpdateFilterDto } from './dto/filter.dto';
+import { FilterDto, UpdateFilterDto } from './dto/filter.dto';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
@@ -29,7 +29,7 @@ export class FiltersController {
   }
 
   @MessagePattern('FILTER:TOGGLE:TYPE')
-  filterToggleType(@Payload() data: FilterOptionsDto) {
+  filterToggleType(@Payload() data: UpdateFilterDto) {
     return this.filtersService.filterToggleType(data);
   }
 
