@@ -1,5 +1,14 @@
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
+import { ValidateTitle } from '../../../common/validations/title.dto';
+import { Type } from 'class-transformer';
 
 export class FilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
@@ -8,6 +17,11 @@ export class FilterDto {
 
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر نامعتبر است' })
   type: FilterTypeEnum;
+
+  @ArrayNotEmpty({ message: 'ارایه اطلاعات دیتاها نمیتواند خالی باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ValidateTitle)
+  details: ValidateTitle;
 }
 
 export class UpdateFilterDto {
