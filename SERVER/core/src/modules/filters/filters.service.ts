@@ -6,6 +6,7 @@ import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { FilterTypeService } from '../filter-type/filter-type.service';
+import { FilterTypeEnum } from '../../common/enums/filters/filter.enum';
 
 @Injectable()
 export class FiltersService {
@@ -26,8 +27,11 @@ export class FiltersService {
       if (filterType instanceof CustomException) return filterType;
 
       const result = this.filterRepository.create({
-        filterTypes: [filterType.body],
+        ...(data.type === FilterTypeEnum.CHECK_BOX && {
+          filterTypes: [filterType.body],
+        }),
         title: data.title,
+        type: data.type,
       });
 
       await this.filterRepository.save(result);
