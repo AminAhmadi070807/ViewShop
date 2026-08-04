@@ -6,30 +6,23 @@ import { In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { FilterTypeService } from '../filter-type/filter-type.service';
-import { FilterTypeEnum } from '../../common/enums/filters/filter.enum';
 
 @Injectable()
 export class FiltersService {
   constructor(
     @InjectRepository(Filter)
     private readonly filterRepository: Repository<Filter>,
-    private readonly filterTypeService: FilterTypeService,
   ) {}
 
   async create(data: FilterDto) {
     try {
-      const filterType = await this.filterTypeService.findOne(data.typeId);
       const existing = await this.filterRepository.findOneBy({
         title: data.title,
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
-      if (filterType instanceof CustomException) return filterType;
 
       const result = this.filterRepository.create({
-        ...(data.type === FilterTypeEnum.CHECK_BOX && {
-          filterTypes: [filterType.body],
-        }),
         title: data.title,
         type: data.type,
       });
