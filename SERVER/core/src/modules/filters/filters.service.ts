@@ -58,9 +58,7 @@ export class FiltersService {
             title: true,
           },
         },
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
       });
 
       return {
@@ -132,36 +130,6 @@ export class FiltersService {
       return {
         status: 204,
         message: statusMessages.fa['204'],
-        body: null,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
-  async filterToggleType(data: UpdateFilterDto) {
-    try {
-      const result = await this.findOne(data.id);
-      const filterType = await this.filterTypeService.findOne(data.typeId);
-
-      if (result instanceof CustomException) return result;
-      if (filterType instanceof CustomException) return filterType;
-
-      const existing = result.body.filterTypes.some((type) => {
-        return type.id === data.typeId;
-      });
-
-      if (existing) {
-        result.body.filterTypes = result.body.filterTypes.filter((item) => {
-          return item.id !== data.typeId;
-        });
-      } else result.body.filterTypes.push(filterType.body);
-
-      await this.filterRepository.save(result.body);
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
         body: null,
       };
     } catch {
