@@ -40,5 +40,6 @@ export class UpdateFilterDto {
   @ArrayNotEmpty({ message: 'ارایه اطلاعات دیتاها نمیتواند خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
-  details: ValidateTitle;
+  @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
+  details?: ValidateTitle;
 }
