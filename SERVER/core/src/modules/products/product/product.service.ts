@@ -148,10 +148,10 @@ export class ProductService {
     }
   }
 
-  async findById(id: string[]) {
+  async findById(ids: string[]) {
     try {
       const product: Product[] = await this.productRepository.find({
-        where: { id: In(id) },
+        where: { id: In(ids) },
         relations: ['medias', 'store', 'filters'],
         select: {
           medias: {
