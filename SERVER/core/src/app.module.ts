@@ -29,7 +29,6 @@ import { WalletModule } from './modules/wallet/wallet.module';
 import { ColorsModule } from './modules/colors/colors.module';
 import { NewsletterModule } from './modules/newsletter/newsletter.module';
 import { FiltersModule } from './modules/filters/filters.module';
-import { FilterTypeModule } from './modules/filter-type/filter-type.module';
 import { MenusModule } from './modules/menus/menus.module';
 import { SettingsModule } from './modules/settings/settings.module';
 
@@ -68,7 +67,6 @@ import { SettingsModule } from './modules/settings/settings.module';
     ColorsModule,
     NewsletterModule,
     FiltersModule,
-    FilterTypeModule,
     MenusModule,
     SettingsModule,
   ],

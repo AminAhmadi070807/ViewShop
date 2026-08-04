@@ -105,10 +105,6 @@ export class ProductService {
           filters: {
             id: true,
             title: true,
-            filterTypes: {
-              id: true,
-              title: true,
-            },
           },
         },
       });
