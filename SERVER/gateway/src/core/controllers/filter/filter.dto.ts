@@ -60,5 +60,5 @@ export class FilterOptionsDto {
     example: '',
   })
   @IsUUID('4', { message: 'شناسه نوع فیلتر نامعتبر است' })
-  typeId: string;
+  title: string;
 }
