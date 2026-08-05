@@ -97,6 +97,8 @@ export class FiltersService {
     try {
       const result = await this.filterRepository.update(data.id, {
         title: data.title,
+        type: data.type,
+        ...(data.details && { details: data.details }),
       });
 
       if (!result.affected) {
