@@ -1,5 +1,6 @@
 import {
   ArrayNotEmpty,
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -20,6 +21,7 @@ export class FilterDto {
   type: FilterTypeEnum;
 
   @ArrayNotEmpty({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
+  @IsArray({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
   @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
@@ -38,6 +40,7 @@ export class UpdateFilterDto {
   title: string;
 
   @ArrayNotEmpty({ message: 'ارایه اطلاعات دیتاها نمیتواند خالی باشد' })
+  @IsArray({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
   @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
