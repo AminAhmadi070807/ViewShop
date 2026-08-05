@@ -1,5 +1,6 @@
 import {
   ArrayNotEmpty,
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -23,14 +24,29 @@ export class FilterDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @ApiProperty({
+    type: String,
+    enum: FilterTypeEnum,
+    nullable: false,
+    required: true,
+    example: FilterTypeEnum.SEARCH,
+  })
   @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر نامعتبر است' })
   type: FilterTypeEnum;
 
+  @ApiProperty({
+    type: () => ValidateTitle,
+    nullable: true,
+    isArray: true,
+    required: true,
+    example: ValidateTitle,
+  })
   @ArrayNotEmpty({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
+  @IsArray({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
   @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
-  details?: ValidateTitle;
+  details?: ValidateTitle[];
 }
 
 export class UpdateFilterDto {
