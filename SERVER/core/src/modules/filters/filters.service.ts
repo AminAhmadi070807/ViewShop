@@ -24,6 +24,7 @@ export class FiltersService {
       const result = this.filterRepository.create({
         title: data.title,
         type: data.type,
+        details: data.details,
       });
 
       await this.filterRepository.save(result);
