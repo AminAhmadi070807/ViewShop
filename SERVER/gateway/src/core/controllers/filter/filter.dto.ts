@@ -81,6 +81,7 @@ export class UpdateFilterDto {
 
   @ApiProperty({
     type: () => ValidateTitle,
+    isArray: true,
     nullable: true,
     required: true,
     example: ValidateTitle,
