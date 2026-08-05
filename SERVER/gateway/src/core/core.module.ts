@@ -34,7 +34,6 @@ import { WalletController } from './controllers/wallet/wallet.controller';
 import { ColorController } from './controllers/colors/color.controller';
 import { NewsletterController } from './controllers/newsletter/newsletter.controller';
 import { FilterController } from './controllers/filter/filter.controller';
-import { FilterTypeController } from './controllers/filter-type/filter-type.controller';
 import { SettingController } from './controllers/settings/setting.controller';
 
 @Module({
@@ -50,7 +49,6 @@ import { SettingController } from './controllers/settings/setting.controller';
     AddressController,
     MediaController,
     FilterController,
-    FilterTypeController,
     CategoryController,
     SubCategoryController,
     AttributeController,
