@@ -52,4 +52,26 @@ export class UpdateFilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
+
+  @ApiProperty({
+    type: String,
+    enum: FilterTypeEnum,
+    nullable: false,
+    required: true,
+    example: FilterTypeEnum.SEARCH,
+  })
+  @IsEnum(FilterTypeEnum, { message: 'نوع فیلتر نامعتبر است' })
+  type: FilterTypeEnum;
+
+  @ApiProperty({
+    type: () => ValidateTitle,
+    nullable: true,
+    required: true,
+    example: ValidateTitle,
+  })
+  @ArrayNotEmpty({ message: 'ارایه دیتاها نمیتواند خالی باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ValidateTitle)
+  @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
+  details?: ValidateTitle;
 }
