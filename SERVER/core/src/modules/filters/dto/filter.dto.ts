@@ -23,7 +23,7 @@ export class FilterDto {
   @ValidateNested({ each: true })
   @Type(() => ValidateTitle)
   @IsOptional({ message: 'ارایه دیتاها اختیاری است' })
-  details?: ValidateTitle;
+  details?: ValidateTitle[];
 }
 
 export class UpdateFilterDto {
