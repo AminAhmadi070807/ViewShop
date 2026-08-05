@@ -133,7 +133,6 @@ export class CategoryController {
       alias: data.alias,
       icon: data.icon,
       user: user.userId,
-      filters: data.filters,
     });
   }
 
