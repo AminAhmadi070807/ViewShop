@@ -6,7 +6,7 @@ import {
 } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
-import { In, Repository, UpdateResult } from 'typeorm';
+import { ILike, In, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { ParentProduct } from '../entities/parent.product.entity';
@@ -16,6 +16,7 @@ import { StoreService } from '../../store/store.service';
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import { ColorsService } from '../../colors/colors.service';
 import { FiltersService } from '../../filters/filters.service';
+import { ProductFilterDto } from '../../search/dto/search.dto';
 
 @Injectable()
 export class ProductService {
@@ -84,9 +85,32 @@ export class ProductService {
     }
   }
 
-  async findAll() {
+  async findAll(data: ProductFilterDto) {
     try {
       const products: Product[] = await this.productRepository.find({
+        where: {
+          ...(data.title && {
+            parentProduct: {
+              title: ILike(`%${data.title}%`),
+            },
+          }),
+          ...(data.product_type && {
+            parentProduct: {
+              product_type: data.product_type,
+            },
+          }),
+          ...(data.return_policy_type && {
+            parentProduct: {
+              return_policy_type: data.return_policy_type,
+            },
+          }),
+          ...(data.warranty_type && {
+            parentProduct: {
+              warranty_type: data.warranty_type,
+            },
+          }),
+          status: ProductStatusEnum.ACTIVE,
+        },
         order: { createdAt: 'DESC' },
         relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
         select: {

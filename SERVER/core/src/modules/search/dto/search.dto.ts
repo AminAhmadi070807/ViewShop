@@ -2,6 +2,7 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
+  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -32,7 +33,7 @@ export class ProductFilterDto {
 
   @ArrayNotEmpty({ message: 'رنگ ها باید در ارایه باشد' })
   @IsArray({ message: 'رنگ ها باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه رنگ ها نامعتبر است', each: true })
+  @IsHexColor({ message: 'شناسه رنگ ها نامعتبر است', each: true })
   @IsOptional({ message: 'رنگ ها اختیاری است' })
   colors?: string[];
 
@@ -59,4 +60,22 @@ export class ProductFilterDto {
   @Min(0, { message: 'حدقل تعداد نمیتواند پاین تر از 0 باشد' })
   @IsOptional({ message: 'حدقل موجودی اختیاری است' })
   minimum_quantity?: number;
+
+  @IsNotEmpty({ message: 'حدقل قیمت قابل ثبت' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدقل قیمت نامعتبر است' },
+  )
+  @Min(0, { message: 'حدقل قیمت نمیتواند کمتر از 0 باشد' })
+  @IsOptional({ message: 'حدقل قیمت اختیاری است' })
+  min_price?: number;
+
+  @IsNotEmpty({ message: 'حدکثر قیمت قابل ثبت' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'حدکثر قیمت نامعتبر است' },
+  )
+  @Min(1_000_000, { message: 'حدکثر قیمت نمیتواند کوتر از 1000000 باشد' })
+  @IsOptional({ message: 'حدکثر قیمت اختیاری است' })
+  max_price?: number;
 }

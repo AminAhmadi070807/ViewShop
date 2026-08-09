@@ -4,15 +4,15 @@ import { Search } from './entities/search.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-import { ParentProductsService } from '../products/parent/parent.products.service';
 import { ProductFilterDto } from './dto/search.dto';
+import { ProductService } from '../products/product/product.service';
 
 @Injectable()
 export class SearchService {
   constructor(
     @InjectRepository(Search)
     private readonly searchRepository: Repository<Search>,
-    private readonly parentProductService: ParentProductsService,
+    private readonly productService: ProductService,
   ) {}
 
   async findAll(page: number = 1) {
@@ -51,7 +51,7 @@ export class SearchService {
         await this.searchRepository.save(newSearch);
       }
 
-      const productResult = await this.parentProductService.findAll(data);
+      const productResult = await this.productService.findAll(data);
 
       return {
         status: 200,
