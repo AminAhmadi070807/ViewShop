@@ -7,6 +7,7 @@ import {
   UpdateStatusProductDto,
 } from '../dto/product.dto';
 import { Validate } from '../../../common/validations/validate.dto';
+import { ProductFilterDto } from '../../search/dto/search.dto';
 
 @Controller()
 export class ProductController {
@@ -18,8 +19,8 @@ export class ProductController {
   }
 
   @MessagePattern('PRODUCT:CHILD:FIND')
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Payload() data: ProductFilterDto) {
+    return this.productService.findAll(data);
   }
 
   @MessagePattern('PRODUCT:CHILD:ONE')
