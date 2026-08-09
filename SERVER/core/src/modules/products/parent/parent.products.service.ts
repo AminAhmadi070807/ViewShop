@@ -98,7 +98,7 @@ export class ParentProductsService {
     try {
       const result: ParentProduct[] = await this.parentProductRepository.find({
         where: {
-          title: ILike(`%${title}%`),
+          ...(title && { title: ILike(`%${title}%`) }),
         },
         order: {
           createdAt: 'DESC',
