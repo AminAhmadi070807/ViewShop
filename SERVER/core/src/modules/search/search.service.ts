@@ -5,6 +5,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ParentProductsService } from '../products/parent/parent.products.service';
+import { ProductFilterDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {
@@ -31,9 +32,11 @@ export class SearchService {
     }
   }
 
-  async search(search: string) {
+  async search(data: ProductFilterDto) {
     try {
-      const existing = await this.searchRepository.findOneBy({ search });
+      const existing = await this.searchRepository.findOneBy({
+        search: data.title,
+      });
 
       if (existing) {
         existing.numberOfSearch = +existing.numberOfSearch + 1;
@@ -42,13 +45,13 @@ export class SearchService {
       } else {
         const newSearch: Search = this.searchRepository.create({
           numberOfSearch: 1,
-          search: search.trim(),
+          search: data.title?.trim(),
         });
 
         await this.searchRepository.save(newSearch);
       }
 
-      const productResult = await this.parentProductService.findAll(search);
+      const productResult = await this.parentProductService.findAll(data);
 
       return {
         status: 200,
