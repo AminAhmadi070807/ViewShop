@@ -21,7 +21,7 @@ import {
 export class ProductFilterDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
-  @MinLength(9, { message: 'حدقل کارکتر عنوان باید 9 رشته باشد' })
+  @MinLength(3, { message: 'حدقل کارکتر عنوان باید 3 رشته باشد' })
   @MaxLength(255, { message: 'حدکثر کارتر عنوان میتواند 255 باشد' })
   title?: string;
 
