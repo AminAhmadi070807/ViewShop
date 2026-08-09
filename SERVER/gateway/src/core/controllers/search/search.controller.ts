@@ -12,7 +12,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
-import { SearchDto } from './search.dto';
+import { ProductFilterDto } from './search.dto';
 
 @Controller('core/search')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -57,8 +57,8 @@ export class SearchController {
       enum: ['CREATE'],
     },
   ])
-  search(@Query() data: SearchDto) {
-    return this.coreService.send('SEARCH:SEARCH', data.title);
+  search(@Query() data: ProductFilterDto) {
+    return this.coreService.send('SEARCH:SEARCH', data);
   }
 
   @Delete()
