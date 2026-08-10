@@ -46,7 +46,7 @@ export class CommentService {
       comment.user = user.body;
       comment.description = data.description;
       comment.score = Number(data.score);
-      comment.product = product.body;
+      comment.product = product.body.product;
 
       await this.commentRepository.save(comment);
 
