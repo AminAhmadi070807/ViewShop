@@ -40,7 +40,7 @@ export class WishlistService {
         user: {
           id: data.user,
         },
-        product: product.body,
+        product: product.body.product,
         title: data.title,
       });
 
