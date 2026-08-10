@@ -19,6 +19,11 @@ export class CommentController {
     return this.commentService.findAll(data.page);
   }
 
+  @MessagePattern('COMMENT:FIND:PRODUCT')
+  findProductComments(@Payload() data: Validate) {
+    return this.commentService.findProductComments(data.id);
+  }
+
   @MessagePattern('COMMENT:UPDATE')
   update(@Payload() data: UpdateCommentDto) {
     return this.commentService.update(data);
