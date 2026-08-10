@@ -29,7 +29,7 @@ export class CartService {
 
       let price = 0;
 
-      product.body.details.forEach((item) => {
+      product.body.product.details.forEach((item) => {
         if (item.color === data.color) {
           price = Number(data.quantity) * Number(item.price);
         }
@@ -50,7 +50,7 @@ export class CartService {
 
           let price = 0;
 
-          product.body.details.forEach((item) => {
+          product.body.product.details.forEach((item) => {
             if (item.color === data.color) {
               price = Number(data.quantity) * Number(item.price);
             }
