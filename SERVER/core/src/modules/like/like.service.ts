@@ -32,7 +32,7 @@ export class LikeService {
       if (!existing) {
         const like: Like = this.likeRepository.create({
           user: { id: data.user },
-          product: product.body,
+          product: product.body.product,
         });
 
         await this.likeRepository.save(like);
