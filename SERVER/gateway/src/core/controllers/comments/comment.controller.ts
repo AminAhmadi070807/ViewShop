@@ -80,6 +80,8 @@ export class CommentController {
   }
 
   @Get('product/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findProductComments(@Param() data: ValidateUUID) {
     return this.coreService.send('COMMENT:FIND:PRODUCT', data);
   }
