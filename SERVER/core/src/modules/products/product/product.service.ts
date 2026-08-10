@@ -17,6 +17,7 @@ import { ProductStatusEnum } from '../../../common/enums/products/product/status
 import { ColorsService } from '../../colors/colors.service';
 import { FiltersService } from '../../filters/filters.service';
 import { ProductFilterDto } from '../../search/dto/search.dto';
+import { CommentService } from '../../comment/comment.service';
 
 @Injectable()
 export class ProductService {
@@ -29,6 +30,7 @@ export class ProductService {
     private readonly storeService: StoreService,
     private readonly colorService: ColorsService,
     private readonly filterService: FiltersService,
+    private readonly commentService: CommentService,
   ) {}
 
   async create(data: ProductDto) {
@@ -179,10 +181,17 @@ export class ProductService {
 
       if (!product) return new CustomException(statusMessages.fa['404'], 404);
 
+      const result = await this.commentService.findProductComments(product.id);
+
+      if (result instanceof CustomException) return result;
+
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: product,
+        body: {
+          comments: result.body,
+          product: product,
+        },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
