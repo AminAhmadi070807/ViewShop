@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ParentProductsService } from './parent/parent.products.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ParentProduct } from './entities/parent.product.entity';
@@ -13,6 +13,7 @@ import { MediaModule } from '../media/media.module';
 import { StoreModule } from '../store/store.module';
 import { ColorsModule } from '../colors/colors.module';
 import { FiltersModule } from '../filters/filters.module';
+import { CommentModule } from '../comment/comment.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
@@ -24,6 +25,7 @@ import { FiltersModule } from '../filters/filters.module';
     StoreModule,
     ColorsModule,
     FiltersModule,
+    forwardRef(() => CommentModule),
   ],
   exports: [ProductService, ParentProductsService],
 })

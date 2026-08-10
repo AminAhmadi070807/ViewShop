@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import {
   ProductDto,
   UpdateProductDto,
@@ -30,6 +30,7 @@ export class ProductService {
     private readonly storeService: StoreService,
     private readonly colorService: ColorsService,
     private readonly filterService: FiltersService,
+    @Inject(forwardRef(() => CommentService))
     private readonly commentService: CommentService,
   ) {}
 

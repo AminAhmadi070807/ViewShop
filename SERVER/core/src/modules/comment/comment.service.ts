@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, IsNull, Repository, UpdateResult } from 'typeorm';
@@ -14,6 +14,7 @@ export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    @Inject(forwardRef(() => ProductService))
     private readonly productService: ProductService,
     private readonly userService: UsersService,
   ) {}
