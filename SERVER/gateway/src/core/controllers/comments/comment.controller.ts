@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Req,
@@ -76,6 +77,11 @@ export class CommentController {
   ])
   findAll() {
     return this.coreService.send('COMMENT:FIND');
+  }
+
+  @Get('product/:id')
+  findProductComments(@Param() data: ValidateUUID) {
+    return this.coreService.send('COMMENT:FIND:PRODUCT', data);
   }
 
   @Patch()
