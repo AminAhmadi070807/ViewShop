@@ -17,7 +17,7 @@ export class CartService {
     private readonly productService: ProductService,
   ) {}
 
-  async create(data: CartDto) {
+  async getting(data: CartDto) {
     try {
       const existing = await this.cartRepository.findOneBy({ id: data.id });
 
@@ -37,7 +37,27 @@ export class CartService {
         }
       });
 
-      if (existing) return this.update(data);
+      return {
+        status: 200,
+        message: statusMessages.fa['500'],
+        body: {
+          product: product.body.product,
+          cart: existing,
+          price,
+        },
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async create(data: CartDto) {
+    try {
+      const result = await this.getting(data);
+
+      if (result instanceof CustomException) return result;
+
+      if (result.body.cart) return this.update(data);
 
       const cart = this.cartRepository.create({
         id: data.id,
@@ -45,10 +65,10 @@ export class CartService {
           {
             product: data.product,
             quantity: data.quantity,
-            price,
+            price: result.body.price,
           },
         ],
-        price,
+        price: result.body.price,
       });
 
       await this.cartRepository.save(cart);
