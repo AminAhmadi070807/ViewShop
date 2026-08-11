@@ -27,6 +27,13 @@ class ProductDetailDto {
     { message: 'قیمت نامعتبر است' },
   )
   price: number;
+
+  @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'تعداد موجودی نامعتبر است' },
+  )
+  stock: number;
 }
 
 export class ProductDto {
