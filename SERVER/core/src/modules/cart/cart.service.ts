@@ -30,7 +30,11 @@ export class CartService {
       product.body.product.details.forEach((item) => {
         const isColor = item.color === data.color;
 
-        if (isColor) price = Number(data.quantity) * Number(item.price);
+        if (isColor) {
+          if (item.stock >= +data.quantity) {
+            return (price = Number(data.quantity) * Number(item.price));
+          }
+        }
       });
 
       if (existing) {
