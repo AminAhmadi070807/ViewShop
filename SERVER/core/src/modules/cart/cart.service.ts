@@ -19,7 +19,9 @@ export class CartService {
 
   async getting(data: CartDto) {
     try {
-      const existing = await this.cartRepository.findOneBy({ id: data.id });
+      const existing = (await this.cartRepository.findOneBy({
+        id: data.id,
+      })) as Cart;
 
       const product = await this.productService.findOne(data.product);
 
@@ -53,11 +55,13 @@ export class CartService {
 
   async create(data: CartDto) {
     try {
+      const existing = await this.cartRepository.findOneBy({ id: data.id });
+
+      if (existing) return this.update(data);
+
       const result = await this.getting(data);
 
       if (result instanceof CustomException) return result;
-
-      if (result.body.cart) return this.update(data);
 
       const cart = this.cartRepository.create({
         id: data.id,
@@ -85,30 +89,16 @@ export class CartService {
 
   async update(data: CartDto) {
     try {
-      const existing = await this.cartRepository.findOneBy({ id: data.id });
-      const product = await this.productService.findOne(data.product);
+      const result = await this.getting(data);
 
-      if (product instanceof RpcException) return product;
-      if (!existing) return new CustomException(statusMessages.fa['404'], 404);
+      if (result instanceof CustomException) return result;
 
-      let price = 0;
-
-      product.body.product.details.forEach((item) => {
-        const isColor = item.color === data.color;
-
-        if (isColor) {
-          if (item.stock >= +data.quantity) {
-            return (price = Number(data.quantity) * Number(item.price));
-          }
-        }
-      });
-
-      const existProduct: boolean = existing.metadata.some(
+      const existProduct: boolean = result.body.cart.metadata.some(
         (metaData) => metaData.product === data.product,
       );
 
       let totalPrice: number = 0;
-      for (const metaData of existing.metadata) {
+      for (const metaData of result.body.cart.metadata) {
         const product = await this.productService.findOne(metaData.product);
 
         if (product instanceof RpcException) {
@@ -127,23 +117,23 @@ export class CartService {
       }
 
       if (existProduct) {
-        existing.metadata.forEach((metaData) => {
+        result.body.cart.metadata.forEach((metaData) => {
           if (metaData.product === data.product) {
             metaData.quantity = data.quantity;
-            metaData.price = price;
+            metaData.price = result.body.price;
           }
         });
       } else {
-        existing.metadata.push({
+        result.body.cart.metadata.push({
           quantity: data.quantity,
           product: data.product,
-          price,
+          price: result.body.price,
         });
       }
 
-      existing.price = totalPrice;
+      result.body.cart.price = totalPrice;
 
-      await this.cartRepository.save(existing);
+      await this.cartRepository.save(result.body.cart);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
