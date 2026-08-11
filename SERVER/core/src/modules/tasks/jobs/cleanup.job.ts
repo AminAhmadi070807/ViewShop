@@ -9,7 +9,7 @@ export class CleanupJob {
     @InjectRepository(Auth) private readonly authRepository: Repository<Auth>,
   ) {}
 
-  async cleanup() {
+  async auth() {
     const result: Auth[] = await this.authRepository.find();
 
     for (const auth of result) {

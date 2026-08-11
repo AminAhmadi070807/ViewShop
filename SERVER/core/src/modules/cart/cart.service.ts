@@ -23,16 +23,14 @@ export class CartService {
 
       const product = await this.productService.findOne(data.product);
 
-      if (product instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (product instanceof RpcException) return product;
 
       let price = 0;
 
       product.body.product.details.forEach((item) => {
-        if (item.color === data.color) {
-          price = Number(data.quantity) * Number(item.price);
-        }
+        const isColor = item.color === data.color;
+
+        if (isColor) price = Number(data.quantity) * Number(item.price);
       });
 
       if (existing) {
@@ -79,7 +77,7 @@ export class CartService {
         await this.cartRepository.save(existing);
       }
 
-      const cart: Cart = this.cartRepository.create({
+      const cart = this.cartRepository.create({
         id: data.id,
         metadata: [
           {

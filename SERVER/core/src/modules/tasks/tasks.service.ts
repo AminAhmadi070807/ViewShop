@@ -7,7 +7,7 @@ export class TasksService {
   constructor(private readonly cleanUpJob: CleanupJob) {}
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
-  cleanOtpData() {
-    return this.cleanUpJob.cleanup();
+  auth() {
+    return this.cleanUpJob.auth();
   }
 }
