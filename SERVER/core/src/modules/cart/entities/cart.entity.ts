@@ -16,6 +16,7 @@ export class Cart {
   metadata: [
     {
       product: string;
+      product_detail_id: string;
       quantity: number;
       price: number;
     },
