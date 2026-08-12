@@ -18,6 +18,10 @@ import { ProductStatusEnum } from '../../../common/enums/products/product/status
 import { Type } from 'class-transformer';
 
 class ProductDetailDto {
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id: string;
+
   @IsHexColor({ message: 'رنگ نامعتبر است' })
   color: string;
 
