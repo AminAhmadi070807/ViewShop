@@ -69,6 +69,7 @@ export class CartService {
           {
             product: data.product,
             quantity: data.quantity,
+            product_detail_id: data.product_detail_id,
             price: result.body.price,
           },
         ],
