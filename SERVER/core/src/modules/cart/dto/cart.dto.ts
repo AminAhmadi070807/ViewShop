@@ -8,13 +8,16 @@ import {
 } from 'class-validator';
 
 export class CartDto {
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی محصول نامعتبر هست' })
+  @IsNotEmpty({ message: 'شناسه محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه محصول نامعتبر هست' })
   product: string;
+
+  @IsUUID('4', { message: 'شناسه محصول انتخابی نامعتبر است' })
+  product_detail_id: string;
 
   @IsHexColor({ message: 'رنگ نامعتبر است' })
   color: string;
