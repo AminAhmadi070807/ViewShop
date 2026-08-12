@@ -193,6 +193,34 @@ export class OrderService {
 
       if (wallet instanceof RpcException) return wallet;
 
+      const productIds = order.cart.map((item) => item.product);
+
+      const products = await this.productService.findById(productIds);
+
+      if (products instanceof CustomException) return products;
+
+      const isStockAvailable = order.cart.every((item) => {
+        const product = products.body.find(
+          (product) => product.id === item.product,
+        );
+
+        if (!product) {
+          return false;
+        }
+
+        const detail = product.details.find(
+          (detail) =>
+            detail.id === item.product_detail_id &&
+            detail.stock >= item.quantity,
+        );
+
+        return !!detail;
+      });
+
+      if (!isStockAvailable) {
+        return new CustomException('موجودی محصول کمتر می‌باشد', 400);
+      }
+
       order.status = OrderStatusEnum.SUCCESS;
 
       await this.orderRepository.save(order);
