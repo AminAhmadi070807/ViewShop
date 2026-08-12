@@ -27,6 +27,7 @@ export class Order {
   cart: [
     {
       product: string;
+      product_detail_id: string;
       price: number;
       quantity: number;
     },
