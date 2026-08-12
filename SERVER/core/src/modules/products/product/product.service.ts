@@ -64,13 +64,21 @@ export class ProductService {
       if (colors instanceof CustomException) return colors;
       if (filters instanceof CustomException) return filters;
 
-      const product: Product = this.productRepository.create({
+      const product = this.productRepository.create({
         user: { id: data.userId },
         parentProduct: parentProduct,
         medias: media.body,
         alias: data.alias,
         store: store.body,
-        details: data.details,
+        details: data.details.map((item) => {
+          const id = crypto.randomUUID();
+          return {
+            id: id,
+            price: item.price,
+            stock: item.stock,
+            color: item.color,
+          };
+        }),
         filters: filters.body,
       });
 
