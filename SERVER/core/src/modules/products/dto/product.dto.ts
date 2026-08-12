@@ -116,3 +116,15 @@ export class UpdateStatusProductDto {
   @IsEnum(ProductStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: ProductStatusEnum;
 }
+
+export class UpdateProductQuantityDto {
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id: string;
+
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
+}
