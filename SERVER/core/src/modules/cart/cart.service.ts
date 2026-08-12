@@ -126,6 +126,7 @@ export class CartService {
       } else {
         result.body.cart.metadata.push({
           quantity: data.quantity,
+          product_detail_id: data.product_detail_id,
           product: data.product,
           price: result.body.price,
         });
