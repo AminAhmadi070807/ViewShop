@@ -7,8 +7,10 @@ export enum OrderStatusEnum {
 
 export enum OrderStatusBoxEnum {
   NONE = 'NONE',
-  ARRIVED = 'ARRIVED',
-  CANCELED = 'CANCELED',
-  FAILED = 'FAILED',
-  WAITING = 'WAITING',
+  PENDING = 'PENDING',
+  COLLECTING = 'COLLECTING',
+  PACKING = 'PACKING',
+  SHIPPING = 'SHIPPING',
+  DELIVERED = 'DELIVERED',
+  CANCELLED = 'CANCELLED',
 }
