@@ -38,7 +38,7 @@ export class Sale {
   @Column({
     type: 'enum',
     enum: OrderStatusBoxEnum,
-    default: OrderStatusBoxEnum,
+    default: OrderStatusBoxEnum.PENDING,
     nullable: false,
   })
   status: OrderStatusBoxEnum;
