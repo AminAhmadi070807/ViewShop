@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 import { ProductService } from '../products/product/product.service';
 import { StoreService } from '../store/store.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class SalesService {
@@ -15,9 +17,24 @@ export class SalesService {
     private readonly storeService: StoreService,
   ) {}
 
-  sale(data: SaleDto) {}
+  sale(data: SaleDto) {
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
-  findAll() {}
+  findAll() {
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
-  findStoreSale(id: string) {}
+  findStoreSale(id: string) {
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
