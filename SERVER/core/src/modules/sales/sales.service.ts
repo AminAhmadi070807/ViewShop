@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { SaleDto } from './dto/sale.dto';
-import { UpdateSaleDto } from './dto/update-sale.dto';
 
 @Injectable()
 export class SalesService {
-  create(createSaleDto: SaleDto) {
+  sale(data: SaleDto) {
     return 'This action adds a new sale';
   }
 
@@ -12,15 +11,7 @@ export class SalesService {
     return `This action returns all sales`;
   }
 
-  findOne(id: number) {
+  findStoreSale(id: string) {
     return `This action returns a #${id} sale`;
-  }
-
-  update(id: number, updateSaleDto: UpdateSaleDto) {
-    return `This action updates a #${id} sale`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sale`;
   }
 }
