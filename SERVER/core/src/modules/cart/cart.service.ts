@@ -102,14 +102,16 @@ export class CartService {
       for (const metaData of result.body.cart.metadata) {
         const product = await this.productService.findOne(metaData.product);
 
-        if (product instanceof RpcException) {
-          return new CustomException(statusMessages.fa['404'], 404);
-        }
+        if (product instanceof RpcException) return product;
 
         let price = 0;
 
         product.body.product.details.forEach((item) => {
           if (item.color === data.color) {
+            if (item.stock < +data.quantity) {
+              return new CustomException('تعداد انتخابی نامعتبر است', 409);
+            }
+
             price = Number(data.quantity) * Number(item.price);
           }
         });
@@ -118,12 +120,22 @@ export class CartService {
       }
 
       if (existProduct) {
-        result.body.cart.metadata.forEach((metaData) => {
-          if (metaData.product === data.product) {
-            metaData.quantity = data.quantity;
-            metaData.price = result.body.price;
+        for (const item of result.body.cart.metadata) {
+          if (item.product === data.product) {
+            const product = await this.productService.findOne(item.product);
+
+            if (product instanceof RpcException) return product;
+
+            if (item.product_detail_id === data.product_detail_id) {
+              if (item.quantity < +data.quantity) {
+                return new CustomException('تعداد انتخابی نامعتبر است', 409);
+              }
+
+              item.quantity = data.quantity;
+              item.price = result.body.price;
+            }
           }
-        });
+        }
       } else {
         result.body.cart.metadata.push({
           quantity: data.quantity,

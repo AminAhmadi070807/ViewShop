@@ -51,29 +51,7 @@ export class OrderService {
 
       if (products instanceof CustomException) return products;
 
-      const isStockAvailable = cart.body.metadata.every((item) => {
-        const product = products.body.find(
-          (product) => product.id === item.product,
-        );
-
-        if (!product) {
-          return false;
-        }
-
-        const detail = product.details.find(
-          (detail) =>
-            detail.id === item.product_detail_id &&
-            detail.stock >= item.quantity,
-        );
-
-        return !!detail;
-      });
-
-      if (!isStockAvailable) {
-        return new CustomException('موجودی محصول کمتر می‌باشد', 400);
-      }
-
-      const order: Order = this.orderRepository.create({
+      const order = this.orderRepository.create({
         status: OrderStatusEnum.WAITING,
         user: user.body,
         price: +cart.body.price,
