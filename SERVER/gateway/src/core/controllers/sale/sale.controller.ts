@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import {
   ApiBadRequestResponse,
@@ -7,6 +7,8 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import express from 'express';
+import { JwtPayload } from '../../../common/validation/jwt.dto';
 
 @Controller('core/sales')
 @ApiOkResponse({ description: statusMessages.fa['200'] })
@@ -22,7 +24,13 @@ export class SaleController {
   }
 
   @Get()
-  findStoreSales() {
-    return this.coreService.send('SALES:FIND:STORE');
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  findStoreSales(@Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('SALES:FIND:STORE', {
+      user: user.userId,
+      id: user.userId,
+    });
   }
 }
