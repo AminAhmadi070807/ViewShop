@@ -199,6 +199,7 @@ export class OrderService {
 
       if (wallet instanceof RpcException) return wallet;
 
+      let minusPrice = 0;
       for (const item of order.cart) {
         const result = await this.productService.updateStock({
           id: item.product,
@@ -207,6 +208,7 @@ export class OrderService {
         });
 
         if (result instanceof CustomException) {
+          minusPrice = minusPrice + +item.price;
           await this.walletService.charge({
             user: order.user.id,
             amount: item.price,
@@ -214,6 +216,7 @@ export class OrderService {
         }
       }
 
+      order.price = +order.price - minusPrice;
       order.status = OrderStatusEnum.SUCCESS;
 
       await this.orderRepository.save(order);
