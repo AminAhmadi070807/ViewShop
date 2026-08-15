@@ -126,6 +126,10 @@ export class UpdateStockProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  product_detail_id: string;
+
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
     { message: 'موجودی محصول باید نامبر باشد' },

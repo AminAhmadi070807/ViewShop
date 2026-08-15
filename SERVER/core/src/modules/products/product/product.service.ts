@@ -3,6 +3,7 @@ import {
   ProductDto,
   UpdateProductDto,
   UpdateStatusProductDto,
+  UpdateStockProductDto,
 } from '../dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
@@ -291,5 +292,35 @@ export class ProductService {
     }
   }
 
-  async updateStock(data: ProductDto) {}
+  async updateStock(data: UpdateStockProductDto) {
+    try {
+      const result = await this.productRepository.findOneBy({ id: data.id });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      for (const item of result.details) {
+        if (item.id === data.product_detail_id) {
+          item.stock -= +data.stock;
+
+          await this.productRepository.save(result);
+
+          return {
+            status: 200,
+            message: statusMessages.fa['200'],
+            body: null,
+          };
+        }
+      }
+
+      return {
+        status: 404,
+        message: statusMessages.fa['404'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
