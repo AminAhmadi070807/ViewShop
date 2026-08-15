@@ -33,7 +33,7 @@ export class Order {
       product_detail_id: string;
       price: number;
       quantity: number;
-      status: OrderStatusEnum.WAITING;
+      status: OrderStatusEnum;
     },
   ];
 

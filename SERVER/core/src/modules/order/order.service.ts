@@ -8,10 +8,7 @@ import { CartService } from '../cart/cart.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
-import {
-  OrderStatusBoxEnum,
-  OrderStatusEnum,
-} from '../../common/enums/order/order.status.enum';
+import { OrderStatusBoxEnum, OrderStatusEnum, } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
 import { ProductService } from '../products/product/product.service';
 import { WalletService } from '../wallet/wallet.service';
@@ -212,6 +209,7 @@ export class OrderService {
 
         if (result instanceof CustomException) {
           minusPrice = minusPrice + +item.price;
+          item.status = OrderStatusEnum.FAILED;
           await this.walletService.charge({
             user: order.user.id,
             amount: item.price,
