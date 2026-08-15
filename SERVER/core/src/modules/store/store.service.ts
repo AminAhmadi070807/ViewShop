@@ -103,9 +103,7 @@ export class StoreService {
   async findOne(data: Validate) {
     try {
       const store = await this.storeRepository.findOne({
-        where: {
-          id: data.id,
-        },
+        where: { id: data.id },
         relations: ['logo', 'banner', 'categories'],
         select: {
           categories: { id: true, title: true, icon: { id: true, path: true } },
