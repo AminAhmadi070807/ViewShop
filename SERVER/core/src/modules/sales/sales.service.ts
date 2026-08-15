@@ -62,8 +62,44 @@ export class SalesService {
     }
   }
 
-  findAll() {
+  async findAll() {
     try {
+      const result = await this.saleRepository.find({
+        relations: [
+          'product',
+          'store',
+          'product.parentProduct',
+          'product.medias',
+        ],
+        select: {
+          product: {
+            id: true,
+            details: true,
+            parentProduct: {
+              id: true,
+              title: true,
+              alias: true,
+            },
+            medias: {
+              id: true,
+              title: true,
+              path: true,
+              type: true,
+            },
+          },
+          store: {
+            id: true,
+            title: true,
+            alias: true,
+          },
+        },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
