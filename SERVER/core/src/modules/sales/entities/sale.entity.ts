@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Store } from '../../store/entities/store.entity';
+import { OrderStatusBoxEnum } from '../../../common/enums/order/order.status.enum';
 
 @Entity('Sales')
 export class Sale {
@@ -27,6 +28,14 @@ export class Sale {
 
   @Column({ type: 'bigint', nullable: false })
   price: number;
+
+  @Column({
+    type: 'enum',
+    enum: OrderStatusBoxEnum,
+    default: OrderStatusBoxEnum,
+    nullable: false,
+  })
+  status: OrderStatusBoxEnum;
 
   @CreateDateColumn()
   createdAt: Date;
