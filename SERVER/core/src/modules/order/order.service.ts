@@ -228,6 +228,13 @@ export class OrderService {
 
       for (const item of order.cart) {
         if (item.status === OrderStatusEnum.SUCCESS) {
+          await this.salesService.sale({
+            product: item.product,
+            product_detail_id: item.product_detail_id,
+            price: item.price,
+            product_price: item.price / item.quantity,
+            quantity: item.quantity,
+          });
         }
       }
 
