@@ -290,4 +290,6 @@ export class ProductService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async updateStock(data: ProductDto) {}
 }
