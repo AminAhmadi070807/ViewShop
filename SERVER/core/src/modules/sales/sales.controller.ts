@@ -17,7 +17,7 @@ export class SalesController {
     return this.salesService.sale(data);
   }
 
-  @MessagePattern('SALE:FIND')
+  @MessagePattern('SALES:FIND')
   findAll() {
     return this.salesService.findAll();
   }
