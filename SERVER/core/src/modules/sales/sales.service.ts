@@ -106,8 +106,46 @@ export class SalesService {
     }
   }
 
-  findStoreSale(id: string) {
+  async findStoreSale(id: string) {
     try {
+      const result = await this.saleRepository.find({
+        where: { store: { id } },
+        relations: [
+          'product',
+          'store',
+          'product.parentProduct',
+          'product.medias',
+        ],
+        select: {
+          product: {
+            id: true,
+            details: true,
+            parentProduct: {
+              id: true,
+              title: true,
+              alias: true,
+            },
+            medias: {
+              id: true,
+              title: true,
+              path: true,
+              type: true,
+            },
+          },
+          store: {
+            id: true,
+            title: true,
+            alias: true,
+          },
+        },
+        order: { createdAt: 'DESC' },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
