@@ -35,6 +35,7 @@ import { ColorController } from './controllers/colors/color.controller';
 import { NewsletterController } from './controllers/newsletter/newsletter.controller';
 import { FilterController } from './controllers/filter/filter.controller';
 import { SettingController } from './controllers/settings/setting.controller';
+import { SaleController } from './controllers/sale/sale.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -72,6 +73,7 @@ import { SettingController } from './controllers/settings/setting.controller';
     ColorController,
     NewsletterController,
     SettingController,
+    SaleController,
   ],
   exports: [CoreService],
 })
