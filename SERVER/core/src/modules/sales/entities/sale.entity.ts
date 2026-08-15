@@ -29,6 +29,12 @@ export class Sale {
   @Column({ type: 'bigint', nullable: false })
   price: number;
 
+  @Column({ type: 'bigint', nullable: false })
+  product_price: number;
+
+  @Column({ type: 'bigint', nullable: false })
+  quantity: number;
+
   @Column({
     type: 'enum',
     enum: OrderStatusBoxEnum,
