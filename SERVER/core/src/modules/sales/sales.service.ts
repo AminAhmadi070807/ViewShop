@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSaleDto } from './dto/create-sale.dto';
+import { SaleDto } from './dto/sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 
 @Injectable()
 export class SalesService {
-  create(createSaleDto: CreateSaleDto) {
+  create(createSaleDto: SaleDto) {
     return 'This action adds a new sale';
   }
 

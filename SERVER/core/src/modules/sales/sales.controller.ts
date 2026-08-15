@@ -1,35 +1,24 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SalesService } from './sales.service';
-import { CreateSaleDto } from './dto/create-sale.dto';
-import { UpdateSaleDto } from './dto/update-sale.dto';
+import { SaleDto } from './dto/sale.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
-
-  @MessagePattern('createSale')
-  create(@Payload() createSaleDto: CreateSaleDto) {
-    return this.salesService.create(createSaleDto);
+  @MessagePattern('SALES:FIND:STORE')
+  findStoreSale(@Payload() data: Validate) {
+    return this.salesService.findStoreSale(data.id);
   }
 
-  @MessagePattern('findAllSales')
-  findAll() {
-    return this.salesService.findAll();
-  }
-
-  @MessagePattern('findOneSale')
-  findOne(@Payload() id: number) {
-    return this.salesService.findOne(id);
-  }
-
-  @MessagePattern('updateSale')
-  update(@Payload() updateSaleDto: UpdateSaleDto) {
-    return this.salesService.update(updateSaleDto.id, updateSaleDto);
+  @MessagePattern('SALES:SALE')
+  sale(@Payload() data: SaleDto) {
+    return this.salesService.sale(data);
   }
 
   @MessagePattern('removeSale')
-  remove(@Payload() id: number) {
-    return this.salesService.remove(id);
+  findAll() {
+    return this.salesService.findAll();
   }
 }
