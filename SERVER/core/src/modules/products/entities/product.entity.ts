@@ -71,7 +71,7 @@ export class Product {
   medias: Media[];
 
   @ManyToOne(() => Store, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinTable({ name: 'Store_Product' })
+  @JoinColumn({ name: 'Store_Product' })
   store: Store;
 
   @ManyToMany(() => Filter, { nullable: false })
