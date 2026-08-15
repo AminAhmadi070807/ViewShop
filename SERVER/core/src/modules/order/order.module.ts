@@ -8,6 +8,7 @@ import { AddressesModule } from '../addresses/addresses.module';
 import { CartModule } from '../cart/cart.module';
 import { ProductsModule } from '../products/products.module';
 import { WalletModule } from '../wallet/wallet.module';
+import { SalesModule } from '../sales/sales.module';
 
 @Module({
   controllers: [OrderController],
@@ -19,6 +20,7 @@ import { WalletModule } from '../wallet/wallet.module';
     CartModule,
     ProductsModule,
     WalletModule,
+    SalesModule,
   ],
 })
 export class OrderModule {}
