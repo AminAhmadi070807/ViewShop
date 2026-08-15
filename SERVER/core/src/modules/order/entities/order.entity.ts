@@ -46,7 +46,7 @@ export class Order {
   @Column({
     type: 'enum',
     enum: OrderStatusBoxEnum,
-    default: OrderStatusBoxEnum.WAITING,
+    default: OrderStatusBoxEnum.NONE,
   })
   status_box: OrderStatusBoxEnum;
 

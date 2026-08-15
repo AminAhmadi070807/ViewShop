@@ -6,6 +6,7 @@ export enum OrderStatusEnum {
 }
 
 export enum OrderStatusBoxEnum {
+  NONE = 'NONE',
   ARRIVED = 'ARRIVED',
   CANCELED = 'CANCELED',
   FAILED = 'FAILED',
