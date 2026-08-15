@@ -15,7 +15,6 @@ export class SalesService {
     @InjectRepository(Sale)
     private readonly saleRepository: Repository<Sale>,
     private readonly productService: ProductService,
-    private readonly storeService: StoreService,
   ) {}
 
   async sale(data: SaleDto) {
@@ -23,10 +22,6 @@ export class SalesService {
       const product = await this.productService.findOne(data.product);
 
       if (product instanceof CustomException) return product;
-
-      const store = await this.storeService.findOne({ id: data.store });
-
-      if (store instanceof CustomException) return store;
 
       let isDetailInProduct: boolean = false;
       for (const detail of product.body.product.details) {
@@ -46,7 +41,7 @@ export class SalesService {
         product_detail_id: data.product_detail_id,
         quantity: data.quantity,
         product_price: data.product_price,
-        store: store.body,
+        store: { id: product.body.product.store.id },
         status: OrderStatusBoxEnum.PENDING,
       });
 

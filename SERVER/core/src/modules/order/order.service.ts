@@ -16,6 +16,7 @@ import { AddressesService } from '../addresses/addresses.service';
 import { ProductService } from '../products/product/product.service';
 import { WalletService } from '../wallet/wallet.service';
 import { Validate } from '../../common/validations/validate.dto';
+import { SalesService } from '../sales/sales.service';
 
 @Injectable()
 export class OrderService {
@@ -27,6 +28,7 @@ export class OrderService {
     private readonly addressService: AddressesService,
     private readonly productService: ProductService,
     private readonly walletService: WalletService,
+    private readonly salesService: SalesService,
   ) {}
 
   async create(data: OrderDto) {
@@ -223,6 +225,11 @@ export class OrderService {
       order.price = +order.price - minusPrice;
       order.status = OrderStatusEnum.SUCCESS;
       order.status_box = OrderStatusBoxEnum.PENDING;
+
+      for (const item of order.cart) {
+        if (item.status === OrderStatusEnum.SUCCESS) {
+        }
+      }
 
       await this.orderRepository.save(order);
 
