@@ -93,6 +93,7 @@ export class SalesService {
             alias: true,
           },
         },
+        order: { createdAt: 'DESC' },
       });
 
       return {
