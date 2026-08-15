@@ -18,6 +18,12 @@ export class SaleDto {
 
   @IsNumber(
     { allowInfinity: true, allowNaN: false },
+    { message: 'قیمت محصول نامبر باشد' },
+  )
+  product_price: number;
+
+  @IsNumber(
+    { allowInfinity: true, allowNaN: false },
     { message: 'تعداد باید نامبر باشد' },
   )
   quantity: number;
