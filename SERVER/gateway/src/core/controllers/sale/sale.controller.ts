@@ -20,4 +20,9 @@ export class SaleController {
   findAll() {
     return this.coreService.send('SALES:FIND');
   }
+
+  @Get()
+  findStoreSales() {
+    return this.coreService.send('SALES:FIND:STORE');
+  }
 }
