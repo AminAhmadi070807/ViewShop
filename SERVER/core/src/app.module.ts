@@ -31,6 +31,7 @@ import { NewsletterModule } from './modules/newsletter/newsletter.module';
 import { FiltersModule } from './modules/filters/filters.module';
 import { MenusModule } from './modules/menus/menus.module';
 import { SettingsModule } from './modules/settings/settings.module';
+import { SalesModule } from './modules/sales/sales.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { SettingsModule } from './modules/settings/settings.module';
     FiltersModule,
     MenusModule,
     SettingsModule,
+    SalesModule,
   ],
 })
 export class AppModule {}
