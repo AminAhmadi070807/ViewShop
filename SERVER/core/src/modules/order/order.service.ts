@@ -199,6 +199,21 @@ export class OrderService {
 
       if (wallet instanceof RpcException) return wallet;
 
+      for (const item of order.cart) {
+        const result = await this.productService.updateStock({
+          id: item.product,
+          product_detail_id: item.product_detail_id,
+          stock: item.quantity,
+        });
+
+        if (result instanceof CustomException) {
+          await this.walletService.charge({
+            user: order.user.id,
+            amount: item.price,
+          });
+        }
+      }
+
       order.status = OrderStatusEnum.SUCCESS;
 
       await this.orderRepository.save(order);
