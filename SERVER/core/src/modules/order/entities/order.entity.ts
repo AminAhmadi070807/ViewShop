@@ -8,7 +8,10 @@ import {
 } from 'typeorm';
 import { Address } from '../../addresses/entities/address.entity';
 import { User } from '../../users/entities/user.entity';
-import { OrderStatusEnum } from '../../../common/enums/order/order.status.enum';
+import {
+  OrderStatusBoxEnum,
+  OrderStatusEnum,
+} from '../../../common/enums/order/order.status.enum';
 
 @Entity('Order')
 export class Order {
@@ -39,6 +42,13 @@ export class Order {
     default: OrderStatusEnum.WAITING,
   })
   status: OrderStatusEnum;
+
+  @Column({
+    type: 'enum',
+    enum: OrderStatusBoxEnum,
+    default: OrderStatusBoxEnum.WAITING,
+  })
+  status_box: OrderStatusBoxEnum;
 
   @Column({ type: 'bigint', nullable: false })
   price: number;
