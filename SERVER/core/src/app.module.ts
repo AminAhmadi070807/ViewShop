@@ -32,6 +32,7 @@ import { FiltersModule } from './modules/filters/filters.module';
 import { MenusModule } from './modules/menus/menus.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { SalesModule } from './modules/sales/sales.module';
+import { SmsModule } from './modules/sms/sms.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { SalesModule } from './modules/sales/sales.module';
     MenusModule,
     SettingsModule,
     SalesModule,
+    SmsModule,
   ],
 })
 export class AppModule {}
