@@ -7,5 +7,5 @@ export class SmsService {
 
   findAll() {}
 
-  findOne(id: number) {}
+  findOne(id: string) {}
 }
