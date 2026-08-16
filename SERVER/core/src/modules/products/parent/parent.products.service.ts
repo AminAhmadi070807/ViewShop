@@ -123,19 +123,16 @@ export class ParentProductsService {
 
   async findOne(id: string) {
     try {
-      const result: ParentProduct | null =
-        await this.parentProductRepository.findOne({
-          where: {
-            id: id,
+      const result = await this.parentProductRepository.findOne({
+        where: { id: id },
+        relations: ['user'],
+        select: {
+          user: {
+            id: true,
+            fullName: true,
           },
-          relations: ['user'],
-          select: {
-            user: {
-              id: true,
-              fullName: true,
-            },
-          },
-        });
+        },
+      });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
