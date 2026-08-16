@@ -3,6 +3,7 @@ import { CoreService } from '../../core.service';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -20,6 +21,20 @@ export class SaleController {
   constructor(private readonly coreService: CoreService) {}
 
   @Get()
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SALE',
+      enum: ['SALE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('SALES:FIND');
   }
