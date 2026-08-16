@@ -37,7 +37,6 @@ export class Attribute {
   icon: Media;
 
   @ManyToOne(() => User, {
-    eager: true,
     onUpdate: 'CASCADE',
     nullable: false,
   })
