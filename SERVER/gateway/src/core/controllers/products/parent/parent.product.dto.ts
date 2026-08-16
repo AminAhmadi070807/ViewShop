@@ -6,7 +6,6 @@ import {
   IsNumber,
   IsString,
   IsUUID,
-  Matches,
   Max,
   MaxLength,
   Min,
@@ -32,14 +31,15 @@ export class ParentProductDto {
   category: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
+    isArray: true,
     required: true,
     nullable: true,
-    example: '',
+    example: [''],
   })
   @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
-  subCategory: string;
+  subCategory: string[];
 
   @ApiProperty({
     type: [String],
