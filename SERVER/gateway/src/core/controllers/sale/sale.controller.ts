@@ -41,6 +41,20 @@ export class SaleController {
 
   @Get(':id')
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SALE',
+      enum: ['SALE'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:SECTION',
+      enum: ['READ:SECTION'],
+    },
+  ])
   findStoreSales(@Param() data: ValidateUUID, @Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
