@@ -190,13 +190,10 @@ export class ParentProductsService {
     try {
       const product = await this.parentProductRepository.findOneBy({ id });
 
-      if (!product) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      } else {
+      if (!product) return new CustomException(statusMessages.fa['404'], 404);
+      else {
         const existing = await this.productRepository.find({
-          where: {
-            parentProduct: { id },
-          },
+          where: { parentProduct: { id } },
         });
 
         if (existing.length) {
