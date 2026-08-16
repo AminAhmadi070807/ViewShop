@@ -36,8 +36,9 @@ export class ParentProductDto {
     nullable: true,
     example: [''],
   })
-  @IsUUID('4', { message: 'شناسه زیر درسته بندی نامعتبر است' })
-  subCategory: string[];
+  @IsArray({ message: 'شناسه های زیر دسته بندی باید در ارایه ارسال شوند' })
+  @IsUUID('4', { message: 'شناسه زیر درسته بندی نامعتبر است', each: true })
+  subCategories: string[];
 
   @ApiProperty({
     type: [String],
@@ -122,10 +123,7 @@ export class ParentProductDto {
     example: ProductTypeEnum.DIGITAL,
   })
   @IsNotEmpty({ message: 'نوع محصول نمیتواند خالی باشد' })
-  @IsEnum(ProductTypeEnum, {
-    message:
-      'نوع محصول باید یکی از این موارد باشد (PHYSICAL, DIGITAL, SERVICE, BUNDLE)',
-  })
+  @IsEnum(ProductTypeEnum, { message: 'نوع محصول نامعتبر است' })
   product_type: ProductTypeEnum;
 
   // product tax amount
@@ -156,8 +154,7 @@ export class ParentProductDto {
   })
   @IsNotEmpty({ message: 'لطفا نوع گرانتی را مشخص کنید' })
   @IsEnum(ProductWarrantyTypeEnum, {
-    message:
-      'نوع گرانتی میتواند یکی از این موارد باشد (MANUFACTURER, SELLER, PLATFORM, NO_WARRANTY)',
+    message: 'نوع گرانتی نامعتبر است',
   })
   warranty_type: ProductWarrantyTypeEnum;
 
@@ -170,10 +167,7 @@ export class ParentProductDto {
     enum: ProductReturnPolicyTypeEnum,
   })
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
-  @IsEnum(ProductReturnPolicyTypeEnum, {
-    message:
-      'نوع بازگشت میتواند یکی از این موارد باشد (STANDARD, EXTENDED, NO_RETURN, EXCHANGE_ONLY)',
-  })
+  @IsEnum(ProductReturnPolicyTypeEnum, { message: 'نوع بازگشت نامعتبر است' })
   return_policy_type: ProductReturnPolicyTypeEnum;
 
   // product minimum quantity

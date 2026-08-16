@@ -1,12 +1,10 @@
 import {
-  ArrayNotEmpty,
   IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
   IsUUID,
-  Matches,
   Max,
   MaxLength,
   Min,
@@ -28,7 +26,7 @@ export class ParentProductDto {
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
   category: string;
 
-  @ArrayNotEmpty({ message: 'شناسه های زیر دسته نمیتوناد خالی باشد' })
+  @IsArray({ message: 'شناسه های زیر درسته بندی باید در ارایه ارسال شوند' })
   @IsUUID('4', { message: 'شناسه زیر دسته نامعتبر است', each: true })
   subCategories: string[];
 
