@@ -9,7 +9,7 @@ export class SmsController {
 
   @MessagePattern('SMS:SEND')
   sms(@Payload() data: SmDto) {
-    return this.smsService.create(data);
+    return this.smsService.sms(data);
   }
 
   @MessagePattern('SMS:FIND')

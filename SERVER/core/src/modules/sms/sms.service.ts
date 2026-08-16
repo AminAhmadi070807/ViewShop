@@ -1,26 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { SmDto } from './dto/sm.dto';
-import { UpdateSmDto } from './dto/update-sm.dto';
 
 @Injectable()
 export class SmsService {
-  create(createSmDto: SmDto) {
-    return 'This action adds a new sm';
-  }
+  sms(data: SmDto) {}
 
-  findAll() {
-    return `This action returns all sms`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} sm`;
-  }
-
-  update(id: number, updateSmDto: UpdateSmDto) {
-    return `This action updates a #${id} sm`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sm`;
-  }
+  findOne(id: number) {}
 }
