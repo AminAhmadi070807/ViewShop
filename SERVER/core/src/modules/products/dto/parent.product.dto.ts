@@ -58,9 +58,6 @@ export class ParentProductDto {
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
   @MaxLength(255, { message: 'نام مستعار حدکثر میتواند 255 کارکتر داشته باشد' })
-  @Matches(/^[a-zA-Z0-9-_]{9,255}$/, {
-    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
-  })
   alias: string;
 
   // product stock quantity
