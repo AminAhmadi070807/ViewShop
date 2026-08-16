@@ -26,8 +26,7 @@ export class ParentProductDto {
     nullable: true,
     example: '',
   })
-  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
+  @IsUUID('4', { message: 'شناسه دسته بندی نامعتبر است' })
   category: string;
 
   @ApiProperty({
@@ -37,8 +36,7 @@ export class ParentProductDto {
     nullable: true,
     example: [''],
   })
-  @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید' })
+  @IsUUID('4', { message: 'شناسه زیر درسته بندی نامعتبر است' })
   subCategory: string[];
 
   @ApiProperty({
@@ -48,9 +46,9 @@ export class ParentProductDto {
     example: [''],
     isArray: true,
   })
-  @ArrayNotEmpty({ message: 'ایدی اتریبیوت ها نمیتواند خالی باشد' })
-  @IsArray({ message: 'ایدی اتریبیوت هارا در ارایه ارسال کنید' })
-  @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
+  @ArrayNotEmpty({ message: 'شناسه های اتریبیوت ها نمیتواند خالی باشد' })
+  @IsArray({ message: 'شناسه های اتریبیوت هارا در ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'شناسه های دسته بندی نامعتبر است', each: true })
   attributes: string[];
 
   @ApiProperty({
@@ -60,9 +58,9 @@ export class ParentProductDto {
     example: [''],
     isArray: true,
   })
-  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا نمیتواند خالی باشد' })
-  @IsArray({ message: 'ایدی مدیا هارا در ارایه ارسال کنید' })
-  @IsUUID('4', { message: 'لطفا ایدی مدیا را درست وارد کنید', each: true })
+  @ArrayNotEmpty({ message: 'شناسه تصوایر نمیتواند خالی باشد' })
+  @IsArray({ message: 'شناسه تصوایر هارا در ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'شناسه تصوایر را درست وارد کنید', each: true })
   media: string[];
 
   @ApiProperty({
