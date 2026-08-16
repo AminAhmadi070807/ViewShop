@@ -42,7 +42,7 @@ export class MediaService {
   async findAll(page: number = 1) {
     try {
       const medias: Media[] = await this.mediaRepository.find({
-        take: (page ?? 1) * 15,
+        take: (page ?? 1) * 150,
       });
 
       return {
