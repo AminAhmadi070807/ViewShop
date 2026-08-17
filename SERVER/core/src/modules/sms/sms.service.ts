@@ -19,11 +19,11 @@ export class SmsService {
     private readonly smsIrService: SmsIrService,
   ) {}
 
-  farazSms() {}
+  farazSms(data: SmDto) {}
 
-  mediana() {}
+  mediana(data: SmDto) {}
 
-  smsIr() {}
+  smsIr(data: SmDto) {}
 
   sms(data: SmDto) {}
 
