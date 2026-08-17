@@ -3,12 +3,18 @@ import { SmDto } from './dto/sm.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sms } from './entities/sm.entity';
 import { Repository } from 'typeorm';
+import { FarazSmsService } from './services/faraz-sms.service';
+import { MedianaService } from './services/mediana.service';
+import { SmsIrService } from './services/sms-ir.service';
 
 @Injectable()
 export class SmsService {
   constructor(
     @InjectRepository(Sms)
     private readonly smsRepository: Repository<Sms>,
+    private readonly farazSmsService: FarazSmsService,
+    private readonly medianaService: MedianaService,
+    private readonly smsIrService: SmsIrService,
   ) {}
 
   sms(data: SmDto) {}
