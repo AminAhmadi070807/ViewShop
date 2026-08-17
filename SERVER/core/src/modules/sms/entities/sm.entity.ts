@@ -4,7 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SmsEnum } from '../../../common/enums/sms/sms.enum';
+import { SmsEnum, SmsServiceEnum } from '../../../common/enums/sms/sms.enum';
 
 @Entity('Sms')
 export class Sms {
@@ -19,6 +19,9 @@ export class Sms {
 
   @Column({ type: 'enum', enum: SmsEnum, default: SmsEnum.OTP })
   status: SmsEnum;
+
+  @Column({ type: 'enum', enum: SmsServiceEnum })
+  service: SmsServiceEnum;
 
   @CreateDateColumn()
   createdAt: Date;

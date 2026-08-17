@@ -3,7 +3,7 @@ export enum SmsEnum {
   MESSAGE = 'MESSAGE',
 }
 
-export enum OtpEnum {
+export enum SmsServiceEnum {
   SMS_IR = 'SMS_IR',
   MEDIA_NA = 'MEDIA_NA',
   FARAZ_SMS = 'FARAZ_SMS',
