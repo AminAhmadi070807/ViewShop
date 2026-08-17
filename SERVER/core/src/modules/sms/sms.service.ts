@@ -26,6 +26,4 @@ export class SmsService {
   sms(data: SmDto) {}
 
   findAll() {}
-
-  findOne(id: string) {}
 }
