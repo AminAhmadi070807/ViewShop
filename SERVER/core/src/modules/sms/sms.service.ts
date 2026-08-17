@@ -8,6 +8,7 @@ import { MedianaService } from './services/mediana.service';
 import { SmsIrService } from './services/sms-ir.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { SmsServiceEnum } from '../../common/enums/sms/sms.enum';
 
 @Injectable()
 export class SmsService {
@@ -25,7 +26,25 @@ export class SmsService {
 
   smsIr(data: SmDto) {}
 
-  sms(data: SmDto) {}
+  sms(data: SmDto) {
+    try {
+      switch (data.service) {
+        case SmsServiceEnum.FARAZ_SMS:
+          this.farazSms(data);
+          break;
+        case SmsServiceEnum.SMS_IR:
+          this.smsIr(data);
+          break;
+        case SmsServiceEnum.MEDIA_NA:
+          this.mediana(data);
+          break;
+        default:
+          return new CustomException(statusMessages.fa['404'], 404);
+      }
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async findAll() {
     try {
