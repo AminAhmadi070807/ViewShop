@@ -11,10 +11,10 @@ export class Sms {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'string', nullable: false })
-  phone: string;
+  @Column({ type: 'varchar', nullable: false })
+  cell_phone: string;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   message: string;
 
   @Column({ type: 'enum', enum: SmsEnum, default: SmsEnum.OTP })
