@@ -17,6 +17,12 @@ export class SmsService {
     private readonly smsIrService: SmsIrService,
   ) {}
 
+  farazSms() {}
+
+  mediana() {}
+
+  smsIr() {}
+
   sms(data: SmDto) {}
 
   findAll() {}
