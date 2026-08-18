@@ -2,6 +2,11 @@ import { CustomException } from '../../../common/exceptions/custom.exception.err
 import { statusMessages } from '../../../common/message/message.status';
 import { ConfigService } from '@nestjs/config';
 
+interface smsIr {
+  status: number;
+  message: string;
+}
+
 export class SmsIrService {
   constructor(private readonly configService: ConfigService) {}
 
@@ -36,6 +41,12 @@ export class SmsIrService {
 
       if (!response.ok) {
         return new CustomException(response.statusText, response.status);
+      }
+
+      const result: smsIr = (await response.json()) as smsIr;
+
+      if (result.status === 200) {
+        return new CustomException(result.message, response.status);
       }
 
       return {
