@@ -94,14 +94,11 @@ export class SmsService {
 
       switch (data.service) {
         case SmsServiceEnum.FARAZ_SMS:
-          this.farazSms(data);
-          break;
+          return this.farazSms(data);
         case SmsServiceEnum.SMS_IR:
-          this.smsIr(data);
-          break;
+          return this.smsIr(data);
         case SmsServiceEnum.MEDIA_NA:
-          this.mediana(data);
-          break;
+          return this.mediana(data);
         default:
           return new CustomException(statusMessages.fa['404'], 404);
       }
