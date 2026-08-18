@@ -4,6 +4,7 @@ import { SmDto } from './sms.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -18,6 +19,20 @@ export class SmsController {
 
   @Post()
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS',
+      enum: ['SMS'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'CREATE',
+      enum: ['CREATE'],
+    },
+  ])
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
   }
