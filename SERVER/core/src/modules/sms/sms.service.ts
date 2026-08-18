@@ -20,6 +20,22 @@ export class SmsService {
     private readonly smsIrService: SmsIrService,
   ) {}
 
+  private async setData(data: SmDto) {
+    try {
+      const result = this.smsRepository.create(data);
+
+      await this.smsRepository.save(result);
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: { id: result.id },
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   farazSms(data: SmDto) {}
 
   mediana(data: SmDto) {}
