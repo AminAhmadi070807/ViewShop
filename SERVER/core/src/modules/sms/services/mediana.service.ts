@@ -8,15 +8,13 @@ export class MedianaService {
   private get Headers() {
     return {
       'Content-Type': 'application/json',
-      'x-api-key': this.configService.get<string>(
-        'SMS_MEDIANA_API_KEY',
-      ) as string,
+      'x-api-key': process.env.SMS_MEDIANA_API_KEY as string,
     };
   }
 
   private Body(cell_phone: string, message: string) {
     return {
-      patternCode: this.configService.get<string>('SMS_MEDIANA_PATTERN_KEY'),
+      patternCode: process.env.SMS_MEDIANA_PATTERN_KEY,
       recipient: cell_phone,
       otpCode: message,
     };
