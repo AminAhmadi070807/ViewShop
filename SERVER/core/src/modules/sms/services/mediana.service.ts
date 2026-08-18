@@ -1,10 +1,7 @@
-import { ConfigService } from '@nestjs/config';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 
 export class MedianaService {
-  constructor(private readonly configService: ConfigService) {}
-
   private get Headers() {
     return {
       'Content-Type': 'application/json',
