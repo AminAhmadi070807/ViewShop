@@ -2,6 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SmDto } from './sms.dto';
 import {
+  ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
@@ -16,6 +17,7 @@ export class SmsController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiBadRequestResponse({ description: statusMessages.fa['200'] })
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
   }
