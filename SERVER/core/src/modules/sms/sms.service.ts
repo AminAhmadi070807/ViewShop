@@ -38,7 +38,24 @@ export class SmsService {
 
   farazSms(data: SmDto) {}
 
-  mediana(data: SmDto) {}
+  async mediana(data: SmDto) {
+    try {
+      const smsResult = await this.medianaService.sms(
+        data.cell_phone,
+        data.message,
+      );
+
+      if (smsResult instanceof CustomException) return smsResult;
+
+      const result = await this.setData(data);
+
+      if (result instanceof CustomException) return result;
+
+      return result;
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async smsIr(data: SmDto) {
     try {
