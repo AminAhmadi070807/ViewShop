@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SmDto } from './sms.dto';
 import {
@@ -20,5 +20,10 @@ export class SmsController {
   @ApiBadRequestResponse({ description: statusMessages.fa['200'] })
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
+  }
+
+  @Get()
+  findAll() {
+    return this.coreService.send('SMS:FIND');
   }
 }
