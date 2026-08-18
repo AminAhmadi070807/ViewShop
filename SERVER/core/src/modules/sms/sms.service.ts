@@ -32,7 +32,7 @@ export class SmsService {
         body: { id: result.id },
       };
     } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
+      return new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
@@ -40,7 +40,24 @@ export class SmsService {
 
   mediana(data: SmDto) {}
 
-  smsIr(data: SmDto) {}
+  async smsIr(data: SmDto) {
+    try {
+      const smsResult = await this.smsIrService.sms(
+        data.cell_phone,
+        data.message,
+      );
+
+      if (smsResult instanceof CustomException) return smsResult;
+
+      const result = await this.setData(data);
+
+      if (result instanceof CustomException) return result;
+
+      return result;
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async sms(data: SmDto) {
     try {
