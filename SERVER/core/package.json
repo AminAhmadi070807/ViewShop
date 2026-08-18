@@ -31,7 +31,7 @@
     "@nestjs/schedule": "^6.1.3",
     "@nestjs/typeorm": "^11.0.1",
     "@types/bcrypt": "^6.0.0",
-    "axios": "^1.16.0",
+    "axios": "^1.19.0",
     "bcrypt": "^6.0.0",
     "cache-manager-ioredis-yet": "^2.1.2",
     "class-transformer": "^0.5.1",
