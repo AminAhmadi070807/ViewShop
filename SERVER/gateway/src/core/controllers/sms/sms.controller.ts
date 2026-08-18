@@ -17,7 +17,7 @@ export class SmsController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiBadRequestResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
   }
