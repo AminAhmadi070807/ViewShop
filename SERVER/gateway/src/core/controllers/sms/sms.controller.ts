@@ -10,8 +10,8 @@ import {
 import { statusMessages } from '../../../common/messages/status.message';
 
 @Controller()
-@ApiUnauthorizedResponse()
-@ApiForbiddenResponse()
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class SmsController {
   constructor(private readonly coreService: CoreService) {}
