@@ -38,6 +38,20 @@ export class SmsController {
   }
 
   @Get()
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS',
+      enum: ['SMS'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('SMS:FIND');
   }
