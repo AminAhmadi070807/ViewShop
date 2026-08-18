@@ -1,6 +1,5 @@
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
-import { ConfigService } from '@nestjs/config';
 
 interface smsIr {
   status: number;
@@ -8,20 +7,18 @@ interface smsIr {
 }
 
 export class SmsIrService {
-  constructor(private readonly configService: ConfigService) {}
-
   private get Headers() {
     return {
       'Content-Type': 'application/json',
       Accept: 'text/plain',
-      'x-api-key': this.configService.get<string>('SMS_IR_API_KEY') as string,
+      'x-api-key': process.env.SMS_IR_API_KEY as string,
     };
   }
 
   private Body(cell_phone: string, message: string) {
     return {
       mobile: cell_phone,
-      templateId: this.configService.get<string>('SMS_IR_TEMPLATE_ID'),
+      templateId: process.env.SMS_IR_TEMPLATE_ID ?? '439538',
       parameters: [
         {
           name: 'OTP',
