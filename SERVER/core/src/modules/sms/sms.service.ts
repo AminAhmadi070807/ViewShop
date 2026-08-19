@@ -137,9 +137,11 @@ export class SmsService {
 
   async setting(data: SmSettingDto) {
     try {
-      const existing = await this.smsRepository.findOneBy(data);
+      const existing = await this.smsRepository.findOneBy({
+        section: data.section,
+      });
 
-      if (existing) {
+      if (!existing) {
         const result = this.smsSettingRepository.create(data);
 
         await this.smsSettingRepository.save(result);
