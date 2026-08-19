@@ -32,16 +32,6 @@ export class StoreDto {
   @MaxLength(100, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
-  @IsNotEmpty({ message: 'نام و نام خانوادگی صاحب فروشگاه نمیتواند خالی باشد' })
-  @IsString({ message: 'نام و نام خانوادگی صاحب فروشگاه باید رشته باشد' })
-  @MinLength(8, {
-    message: 'نام و نام خانوادگی صاحب حدثل باید 8 کارکتر داشته باشد',
-  })
-  @MaxLength(30, {
-    message: 'نام و نام خانوادگی صاحب حدکثر میتواند 30 کارکتر داشته باشد',
-  })
-  fullName: string;
-
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
   owner: string;
