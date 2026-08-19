@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+} from 'class-validator';
 import { SmsEnum, SmsServiceEnum } from '../../../common/enums/sms/sms.enum';
 
 export class SmDto {
@@ -10,6 +16,7 @@ export class SmDto {
   message: string;
 
   @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
+  @IsOptional({ message: 'ارسال بخش اختیاری است' })
   section: SmsEnum;
 
   @IsEnum(SmsServiceEnum, { message: 'سروریس پیامکی نامعتبر است' })
