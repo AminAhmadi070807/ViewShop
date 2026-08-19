@@ -102,7 +102,6 @@ export class AuthService {
 
       if (ttl > 0) {
         const route = await this.redisService.get(data.phone);
-
         if (!route) return new CustomException(statusMessages.fa['500'], 500);
 
         return {
