@@ -8,7 +8,7 @@ import { MedianaService } from './services/mediana.service';
 import { SmsIrService } from './services/sms-ir.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-import { SmsServiceEnum } from '../../common/enums/sms/sms.enum';
+import { SmsEnum, SmsServiceEnum } from '../../common/enums/sms/sms.enum';
 import { Sms_Setting } from './entities/sms.setting.entity';
 
 @Injectable()
@@ -104,7 +104,19 @@ export class SmsService {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
-      switch (data.service) {
+      let service = data.service;
+
+      if (!service) {
+        const setting = await this.smsSettingRepository.findOneBy({
+          section: SmsEnum.OTP,
+        });
+
+        if (!setting) return new CustomException(statusMessages.fa['500'], 500);
+
+        service = setting.service;
+      }
+
+      switch (service) {
         case SmsServiceEnum.FARAZ_SMS:
           return this.farazSms(data);
         case SmsServiceEnum.SMS_IR:

@@ -16,11 +16,11 @@ export class SmDto {
   message: string;
 
   @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
-  @IsOptional({ message: 'ارسال بخش اختیاری است' })
   section: SmsEnum;
 
   @IsEnum(SmsServiceEnum, { message: 'سروریس پیامکی نامعتبر است' })
-  service: SmsServiceEnum;
+  @IsOptional({ message: 'سرویس ارسال پیامک کاملا اختیاری است' })
+  service?: SmsServiceEnum;
 }
 
 export class SmSettingDto {
