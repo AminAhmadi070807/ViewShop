@@ -9,12 +9,15 @@ import { SmsIrService } from './services/sms-ir.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { SmsServiceEnum } from '../../common/enums/sms/sms.enum';
+import { Sms_Setting } from './entities/sms.setting.entity';
 
 @Injectable()
 export class SmsService {
   constructor(
     @InjectRepository(Sms)
     private readonly smsRepository: Repository<Sms>,
+    @InjectRepository(Sms_Setting)
+    private readonly smsSettingRepository: Repository<Sms_Setting>,
     private readonly farazSmsService: FarazSmsService,
     private readonly medianaService: MedianaService,
     private readonly smsIrService: SmsIrService,
