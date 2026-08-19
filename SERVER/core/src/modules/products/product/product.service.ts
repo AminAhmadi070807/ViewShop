@@ -121,7 +121,7 @@ export class ProductService {
         order: {
           createdAt: 'DESC',
         },
-        relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
+        relations: ['medias', 'store', 'filters'],
         select: {
           medias: {
             id: true,
@@ -160,7 +160,8 @@ export class ProductService {
         message: statusMessages.fa['200'],
         body: result_array,
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
