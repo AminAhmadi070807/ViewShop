@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { SmDto } from './sms.dto';
+import { SmDto, SmSettingDto } from './sms.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -35,6 +35,11 @@ export class SmsController {
   ])
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
+  }
+
+  @Post('setting')
+  sms_setting(@Body() data: SmSettingDto) {
+    return this.coreService.send('SMS:SETTING', data);
   }
 
   @Get()
