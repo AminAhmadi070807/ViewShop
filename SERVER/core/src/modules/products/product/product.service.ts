@@ -118,13 +118,10 @@ export class ProductService {
 
           status: ProductStatusEnum.ACTIVE,
         },
-
         order: {
           createdAt: 'DESC',
         },
-
         relations: ['medias', 'store', 'filters', 'filters.filterTypes'],
-
         select: {
           medias: {
             id: true,
