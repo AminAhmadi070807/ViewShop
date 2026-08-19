@@ -61,24 +61,6 @@ export class StoreDto {
     type: String,
     required: true,
     nullable: false,
-    minLength: 8,
-    maxLength: 30,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'نام و نام خانوادگی صاحب فروشگاه نمیتواند خالی باشد' })
-  @IsString({ message: 'نام و نام خانوادگی صاحب فروشگاه باید رشته باشد' })
-  @MinLength(8, {
-    message: 'نام و نام خانوادگی صاحب حدثل باید 8 کارکتر داشته باشد',
-  })
-  @MaxLength(30, {
-    message: 'نام و نام خانوادگی صاحب حدکثر میتواند 30 کارکتر داشته باشد',
-  })
-  fullName: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
     example: '',
   })
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
