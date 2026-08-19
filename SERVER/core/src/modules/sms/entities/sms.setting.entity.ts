@@ -12,7 +12,7 @@ export class Sms_Setting {
   id: string;
 
   @Column({ type: 'enum', enum: SmsEnum, default: SmsEnum.OTP })
-  status: SmsEnum;
+  section: SmsEnum;
 
   @Column({ type: 'enum', enum: SmsServiceEnum })
   service: SmsServiceEnum;
