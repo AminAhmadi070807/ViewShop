@@ -7,7 +7,7 @@ import {
 import { SmsEnum, SmsServiceEnum } from '../../../common/enums/sms/sms.enum';
 
 @Entity('Sms_Setting')
-export class Sms {
+export class Sms_Setting {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
