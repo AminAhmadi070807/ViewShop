@@ -47,11 +47,7 @@ export class SmsService {
 
       if (smsResult instanceof CustomException) return smsResult;
 
-      const result = await this.setData(data);
-
-      if (result instanceof CustomException) return result;
-
-      return result;
+      return await this.setData(data);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -66,11 +62,7 @@ export class SmsService {
 
       if (smsResult instanceof CustomException) return smsResult;
 
-      const result = await this.setData(data);
-
-      if (result instanceof CustomException) return result;
-
-      return result;
+      return await this.setData(data);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
