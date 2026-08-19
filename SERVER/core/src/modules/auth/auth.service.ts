@@ -16,10 +16,11 @@ import { AuthTokenInterface } from '../../common/interfaces/auth.interface';
 import { User } from '../users/entities/user.entity';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
-import { SmsService } from '../../common/services/sms.service';
 import crypto from 'crypto';
 import { RedisService } from '../../common/services/redis.service';
 import { statusMessages } from '../../common/message/message.status';
+import { SmsService } from '../sms/sms.service';
+import { SmsEnum } from '../../common/enums/sms/sms.enum';
 
 @Injectable()
 export class AuthService {
@@ -30,8 +31,8 @@ export class AuthService {
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-    private readonly smsService: SmsService,
     private readonly redisService: RedisService,
+    private readonly smsService: SmsService,
   ) {}
 
   generateToken(id: string, role: UserRoleEnum, secret: string) {
@@ -90,63 +91,52 @@ export class AuthService {
 
   async register(data: AuthRegisterDto) {
     try {
-      // find user with phone number from database
-      const existing: User | null = await this.userRepository.findOneBy({
+      const existing = await this.userRepository.findOneBy({
         phone: data.phone,
         verified: true,
       });
 
-      // send conflict exception
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const ttl: number = await this.redisService.ttl(data.phone);
+      const ttl = await this.redisService.ttl(data.phone);
 
-      // was a ttl phone number send remaining ttl
       if (ttl > 0) {
-        // get route from redis with phone number
-        const route: string = (await this.redisService.get(
-          data.phone,
-        )) as string;
-        // send response to client
+        const route = await this.redisService.get(data.phone);
+
+        if (!route) return new CustomException(statusMessages.fa['500'], 500);
+
         return {
           status: HttpStatus.OK,
           message: statusMessages.fa['409'],
-          body: {
-            route,
-            ttl,
-          },
+          body: { route, ttl },
         };
       }
 
-      // random otp code
-      const randomCode: number = crypto.randomInt(100000, 999999);
+      const randomCode = crypto.randomInt(100000, 999999);
 
-      // send otp code to user by sms service
-      const sms = await this.smsService.SmsIr({
-        phone: data.phone,
-        code: `${randomCode}`,
+      const smsResult = await this.smsService.sms({
+        cell_phone: data.phone,
+        message: `${randomCode}`,
+        section: SmsEnum.OTP,
       });
 
-      if (sms instanceof CustomException) return sms;
+      if (smsResult instanceof CustomException) return smsResult;
 
-      // hashed user password
       const hashedPassword: string = await bcrypt.hash(data.password, 12);
-      // random user verify route
-      const randomRoute = crypto.randomUUID();
+      const access_route = crypto.randomUUID();
 
       await this.redisService.set(
-        randomRoute,
+        access_route,
         `phone:=:${data.phone}___password:=:${hashedPassword}}___fullName:=:${data.fullName}___otp:=:${randomCode}`,
         180,
       );
-      await this.redisService.set(data.phone, randomRoute, 180);
+      await this.redisService.set(data.phone, access_route, 180);
 
-      // send request
       return {
         status: HttpStatus.OK,
         message: 'The otp was send successfully.',
         body: {
-          route: randomRoute,
+          route: access_route,
           ttl: 180,
         },
       };

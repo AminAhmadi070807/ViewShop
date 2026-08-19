@@ -39,7 +39,13 @@ export class SmsService {
     }
   }
 
-  farazSms(data: SmDto) {}
+  farazSms(data: SmDto) {
+    return {
+      status: 404,
+      message: statusMessages.fa['404'],
+      body: null,
+    };
+  }
 
   async mediana(data: SmDto) {
     try {
