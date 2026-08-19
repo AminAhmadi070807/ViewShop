@@ -6,10 +6,11 @@ import { Auth } from './entities/auth.entity';
 import { User } from '../users/entities/user.entity';
 import { SmsService } from '../../common/services/sms.service';
 import { RedisService } from '../../common/services/redis.service';
+import { SmsModule } from '../sms/sms.module';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthService, SmsService, RedisService],
-  imports: [TypeOrmModule.forFeature([Auth, User])],
+  imports: [TypeOrmModule.forFeature([Auth, User]), SmsModule],
 })
 export class AuthModule {}
