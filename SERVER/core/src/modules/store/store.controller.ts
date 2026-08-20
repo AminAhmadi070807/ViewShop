@@ -1,7 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoreService } from './store.service';
-import { StoreDto, UpdateStoreDto } from './dto/store.dto';
+import {
+  StoreDto,
+  UpdateStoreDto,
+  UpdateStoreStatusDto,
+} from './dto/store.dto';
 import { Validate } from '../../common/validations/validate.dto';
 import { PageFilter } from '../../common/filters/page.filter';
 
@@ -30,7 +34,7 @@ export class StoreController {
   }
 
   @MessagePattern('STORE:DELETE')
-  delete(@Payload() data: Validate) {
-    return this.storeService.delete(data.id);
+  updateStatus(@Payload() data: UpdateStoreStatusDto) {
+    return this.storeService.updateStatus(data);
   }
 }
