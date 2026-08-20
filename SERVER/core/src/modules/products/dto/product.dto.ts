@@ -78,10 +78,14 @@ export class ProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
-  @IsNotEmpty({ message: '' })
-  @IsNumber({ allowNaN: false, allowInfinity: true }, { message: '' })
-  @Min(0, { message: '' })
-  discount_amount: number;
+  @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'درصد تخفیف باید اعداد باشد' },
+  )
+  @Min(0, { message: 'حدثل درصد تخفیف 0 هست' })
+  @Max(100, { message: 'درصد تخفیف نمیتواند بالاتر از 100 باشد' })
+  discount_percent: number;
 }
 
 export class UpdateProductDto {
