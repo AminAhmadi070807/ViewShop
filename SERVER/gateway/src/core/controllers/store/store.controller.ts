@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { StoreDto, UpdateStoreDto } from './store.dto';
+import { StoreDto, UpdateStoreDto, UpdateStoreStatusDto } from './store.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -139,11 +139,11 @@ export class StoreController {
     {
       name: 'permission',
       required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
+      example: 'UPDATE:STATUS',
+      enum: ['UPDATE:STATUS'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
-    return this.coreService.send('STORE:DELETE', data);
+  delete(@Body() data: UpdateStoreStatusDto) {
+    return this.coreService.send('STORE:STATUS', data);
   }
 }
