@@ -89,9 +89,7 @@ export class ProductService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: {
-          id: newProduct.id,
-        },
+        body: { id: newProduct.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
