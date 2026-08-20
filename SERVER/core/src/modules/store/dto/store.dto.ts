@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsOptional,
+  IsPhoneNumber,
   IsString,
   IsUUID,
   Matches,
@@ -32,8 +33,7 @@ export class StoreDto {
   @MaxLength(100, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
   owner: string;
 
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
