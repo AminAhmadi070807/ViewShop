@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
@@ -10,6 +11,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { StoreStatusEnum } from '../../../common/enums/store/store.status';
 
 export class StoreDto {
   @ApiProperty({
@@ -107,4 +109,12 @@ export class UpdateStoreDto {
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
+}
+
+export class UpdateStoreStatusDto {
+  @IsUUID('4', { message: 'ایدی نامعتبر هست' })
+  id: string;
+
+  @IsEnum(StoreStatusEnum, { message: 'وضیعت فروشگاه نامعتبر است' })
+  status: StoreStatusEnum;
 }
