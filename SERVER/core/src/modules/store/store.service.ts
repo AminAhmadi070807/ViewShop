@@ -97,7 +97,7 @@ export class StoreService {
 
   async update(data: UpdateStoreDto) {
     try {
-      const media = await this.mediaService.findId([data.logo, data.banner]);
+      const media = await this.mediaService.findId([data.logo]);
 
       if (media instanceof RpcException) {
         return new CustomException(statusMessages.fa['404'], 404);
