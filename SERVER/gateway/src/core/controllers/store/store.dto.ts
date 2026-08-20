@@ -3,9 +3,9 @@ import {
   IsArray,
   IsNotEmpty,
   IsOptional,
+  IsPhoneNumber,
   IsString,
   IsUUID,
-  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -31,23 +31,6 @@ export class StoreDto {
     required: true,
     nullable: false,
     minLength: 5,
-    maxLength: 100,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'نام مستعار فروشگاه نمیتواند خالی باشد' })
-  @IsString({ message: 'نام مستعار فروشگاه باید رشته باشد' })
-  @MinLength(5, { message: 'نام مستعار حدثل باید 5 کارکتر داشته باشد' })
-  @MaxLength(100, { message: 'نام مستعار حدکثر میتواند 100 کارکتر داشته باشد' })
-  @Matches(/^[a-zA-Z0-9-_]{5,100}$/, {
-    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
-  })
-  alias: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    minLength: 5,
     maxLength: 255,
     example: '',
   })
@@ -63,9 +46,8 @@ export class StoreDto {
     nullable: false,
     example: '',
   })
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
-  owner: string;
+  @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
+  cell_phone: string;
 
   @ApiProperty({
     type: String,
@@ -76,16 +58,6 @@ export class StoreDto {
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'بنر فروشگاه نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'بنر فروشگاه نامعتبر هست' })
-  banner: string;
 
   @ApiProperty({
     type: [String],
@@ -130,33 +102,9 @@ export class UpdateStoreDto {
     type: String,
     required: true,
     nullable: false,
-    minLength: 5,
-    maxLength: 100,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'توضیحات فروشگاه نمیتواند خالی باشد' })
-  @IsString({ message: 'توضیحات فروشگاه باید رشته باشد' })
-  @MinLength(5, { message: 'توضیحات حدثل باید 5 کارکتر داشته باشد' })
-  @MaxLength(100, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
-  alias: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
     example: '',
   })
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'بنر فروشگاه نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'بنر فروشگاه نامعتبر هست' })
-  banner: string;
 }
