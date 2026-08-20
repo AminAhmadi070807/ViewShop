@@ -93,21 +93,10 @@ export class WishlistService {
             discount_percent: true,
             details: true,
             alias: true,
-            store: {
-              id: true,
-              title: true,
-              alias: true,
-            },
-            parentProduct: {
-              id: true,
-              title: true,
-            },
+            store: { id: true, title: true },
+            parentProduct: { id: true, title: true },
           },
-          user: {
-            id: true,
-            fullName: true,
-            phone: true,
-          },
+          user: { id: true, fullName: true, phone: true },
         },
       });
 
