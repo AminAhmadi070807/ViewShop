@@ -9,7 +9,7 @@ export class SalesController {
   constructor(private readonly salesService: SalesService) {}
   @MessagePattern('SALES:FIND:STORE')
   findStoreSale(@Payload() data: Validate) {
-    return this.salesService.findStoreSale(data.id, data.user as string);
+    return this.salesService.findStoreSale(data.id);
   }
 
   @MessagePattern('SALES:SALE')
