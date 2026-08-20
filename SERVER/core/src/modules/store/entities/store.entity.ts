@@ -34,10 +34,6 @@ export class Store {
   @Column({ type: 'varchar', unique: true, nullable: false })
   cell_phone: string;
 
-  @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'Media_Banner_Store' })
-  banner: Media;
-
   @ManyToMany(() => Category)
   @JoinTable({ name: 'Category_Store' })
   categories: Category[];
