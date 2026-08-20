@@ -151,12 +151,7 @@ export class ProductDto {
 }
 
 export class UpdateProductDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
@@ -173,11 +168,11 @@ export class UpdateProductDto {
   medias: string[];
 
   @ApiProperty({
-    type: [ProductDetailDto],
+    type: () => ProductDetailDto,
     isArray: true,
     required: true,
     nullable: false,
-    example: [ProductDetailDto],
+    example: ProductDetailDto,
   })
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
