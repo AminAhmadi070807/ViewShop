@@ -22,9 +22,6 @@ export class Store {
   @Column({ type: 'varchar', unique: true, nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
-  alias: string;
-
   @Column({ type: 'varchar', nullable: false })
   description: string;
 
