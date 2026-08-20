@@ -126,25 +126,14 @@ export class ProductDto {
     example: 0,
     minimum: 0,
   })
-  @IsNotEmpty({ message: 'قیمت محصول نمیتواند خالی باشد' })
+  @IsNotEmpty({ message: 'درصد تخفیف نمیتواند خالی باشد' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
-    { message: 'قیمت محصول باید اعداد باشد' },
+    { message: 'درصد تخفیف باید اعداد باشد' },
   )
-  @Min(0, { message: 'قیمت محثول نمیتواند از 0 کوتاه تر باشد' })
-  price: number;
-
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: false,
-    example: 0,
-    minimum: 0,
-  })
-  @IsNotEmpty({ message: '' })
-  @IsNumber({ allowNaN: false, allowInfinity: true }, { message: '' })
-  @Min(0, { message: '' })
-  discount_amount: number;
+  @Min(0, { message: 'درصد تخفیف نامعتبر است' })
+  @Max(100, { message: 'درصد تخفیف نامعتبر است' })
+  discount_percent: number;
 }
 
 export class UpdateProductDto {
