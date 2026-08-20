@@ -107,7 +107,6 @@ export class StoreService {
         { id: data.id },
         {
           logo: { id: data.logo },
-          banner: { id: data.banner },
           title: data.title,
         },
       );
