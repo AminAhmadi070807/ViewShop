@@ -1,14 +1,17 @@
-import { IsOptional, IsUUID } from 'class-validator';
+import { IsOptional, IsPhoneNumber, IsUUID } from 'class-validator';
 
 export class Validate {
   @IsUUID('4', { message: 'شناسه نامعتبر است' })
   id: string;
 
-  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
+  @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
+  cell_phone: string;
+
   @IsOptional({ message: 'شناسه کاربر اختیاری است' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user?: string;
 
-  @IsUUID('4', { message: 'شناسه نقش کابر نامعتبر است' })
   @IsOptional({ message: 'شناسه نقش کاربر اختیاری است' })
+  @IsUUID('4', { message: 'شناسه نقش کابر نامعتبر است' })
   role?: string;
 }

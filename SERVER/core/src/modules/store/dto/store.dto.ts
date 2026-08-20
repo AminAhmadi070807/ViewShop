@@ -34,7 +34,7 @@ export class StoreDto {
   description: string;
 
   @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
-  owner: string;
+  cell_phone: string;
 
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })

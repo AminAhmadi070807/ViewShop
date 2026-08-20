@@ -12,7 +12,6 @@ import {
 import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { StoreStatusEnum } from '../../../common/enums/store/store.enum';
-import { User } from '../../users/entities/user.entity';
 
 @Entity('Store')
 export class Store {
@@ -32,9 +31,8 @@ export class Store {
   })
   status: StoreStatusEnum;
 
-  @OneToOne((): typeof User => User, { nullable: false, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'Owner_Store' })
-  owner: User;
+  @Column({ type: 'varchar', unique: true, nullable: false })
+  cell_phone: string;
 
   @OneToOne((): typeof Media => Media, { nullable: false, onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'Media_Banner_Store' })

@@ -9,7 +9,6 @@ import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
-import { UsersService } from '../users/users.service';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
@@ -19,45 +18,22 @@ export class StoreService {
     private readonly storeRepository: Repository<Store>,
     private readonly mediaService: MediaService,
     private readonly categoriesService: CategoriesService,
-    private readonly usersService: UsersService,
   ) {}
 
   async create(data: StoreDto) {
     try {
-      const owner = await this.usersService.findOne({
-        id: data.owner,
-        user: data.owner,
-      });
       const media = await this.mediaService.findId([data.logo, data.banner]);
       const categories = await this.categoriesService.findId(data.categories);
 
-      if (
-        owner instanceof RpcException ||
-        media instanceof RpcException ||
-        categories instanceof RpcException
-      ) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
-
-      const existing: Store | null = await this.storeRepository.findOneBy({
-        alias: data.alias,
-      });
-
-      if (existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (media instanceof CustomException) return media;
+      if (categories instanceof CustomException) return categories;
 
       const store: Store = this.storeRepository.create({
         title: data.title,
-        alias: data.alias,
         description: data.description,
-        logo: {
-          id: data.logo,
-        },
-        banner: {
-          id: data.banner,
-        },
-        owner: {
-          id: data.owner,
-        },
+        logo: { id: data.logo },
+        banner: { id: data.banner },
+        cell_phone: data.cell_phone,
         categories: categories.body,
       });
 
