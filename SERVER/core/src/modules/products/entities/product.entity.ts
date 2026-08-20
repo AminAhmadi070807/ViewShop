@@ -25,6 +25,12 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ type: 'varchar', nullable: false })
+  title: string;
+
+  @Column({ type: 'text', nullable: false })
+  description: string;
+
   @Column({ type: 'varchar', nullable: false, unique: true })
   alias: string;
 
