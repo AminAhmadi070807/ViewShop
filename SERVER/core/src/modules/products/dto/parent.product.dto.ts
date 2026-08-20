@@ -140,18 +140,11 @@ export class UpdateParentProductDto {
   @IsUUID('4', { message: 'لطفا ایدی دسته بندی درست وارد کنید', each: true })
   attributes: string[];
 
-  // product status
   @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(ProductStatusEnum, {
-    message:
-      'وضیعت باید یکی از این موارد باشد (ACTIVE, INACTIVE, DRAFT, DELETED, PENDING_APPROVAL)',
-  })
+  @IsEnum(ProductStatusEnum, { message: 'وضیعت محصول نامعتبر است' })
   status: ProductStatusEnum;
 
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
-  @IsEnum(ProductReturnPolicyTypeEnum, {
-    message:
-      'نوع بازگشت میتواند یکی از این موارد باشد (STANDARD, EXTENDED, NO_RETURN, EXCHANGE_ONLY)',
-  })
+  @IsEnum(ProductReturnPolicyTypeEnum, { message: 'نوع بازگشت نامعتبر است' })
   return_policy_type: ProductReturnPolicyTypeEnum;
 }
