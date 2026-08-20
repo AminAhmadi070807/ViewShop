@@ -108,6 +108,7 @@ export class StoreService {
         {
           logo: { id: data.logo },
           title: data.title,
+          description: data.description,
         },
       );
 
