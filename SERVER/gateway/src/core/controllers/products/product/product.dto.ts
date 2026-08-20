@@ -46,7 +46,7 @@ class ProductDetailDto {
     required: true,
     nullable: false,
     minimum: 0,
-    example: 1_000_000,
+    example: 1_000,
   })
   @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
   @IsNumber(

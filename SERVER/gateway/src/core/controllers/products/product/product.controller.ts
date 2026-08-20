@@ -62,8 +62,8 @@ export class ProductController {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('PRODUCT:CHILD:CREATE', {
-      userId: user.userId,
       ...data,
+      userId: user.userId,
     });
   }
 

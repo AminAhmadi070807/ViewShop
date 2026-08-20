@@ -5,6 +5,7 @@ import {
   IsHexColor,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   IsUUID,
   Max,
@@ -17,9 +18,10 @@ import { ProductStatusEnum } from '../../../common/enums/products/product/status
 import { Type } from 'class-transformer';
 
 class ProductDetailDto {
+  @IsOptional()
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
-  id: string;
+  id?: string;
 
   @IsHexColor({ message: 'رنگ نامعتبر است' })
   color: string;
@@ -44,14 +46,14 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
 
+  @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
+  store: string;
+
   @ArrayNotEmpty({ message: 'ارایه فیلتر ها نمیتواند خالی باشد' })
   @IsArray({ message: 'فیلترس باید ارایه باشد' })
   @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
   filters: string[];
-
-  @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
-  store: string;
 
   @IsNotEmpty({ message: 'ایدی محصول اصلی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول اصلی را به درستی وارد کنید' })
@@ -62,25 +64,25 @@ export class ProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
-  @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
-  @IsString({ message: 'نام مستعار باید رشته باشد' })
-  @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
-  @MaxLength(255, { message: 'نام مستعار حدکثر میتواند 255 کارکتر داشته باشد' })
-  alias: string;
-
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
+  @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
+  @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'نام مستعار حدکثر میتواند 255 کارکتر داشته باشد' })
+  alias: string;
+
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
     { message: 'درصد تخفیف باید اعداد باشد' },
   )
-  @Min(0, { message: 'حدثل درصد تخفیف 0 هست' })
-  @Max(100, { message: 'درصد تخفیف نمیتواند بالاتر از 100 باشد' })
+  @Min(0, { message: 'درصد تخفیف نامعتبر است' })
+  @Max(100, { message: 'درصد تخفیف نامعتبر است' })
   discount_percent: number;
 }
 

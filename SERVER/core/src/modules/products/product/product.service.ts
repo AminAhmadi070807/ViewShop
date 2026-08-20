@@ -84,12 +84,12 @@ export class ProductService {
         discount_percent: data.discount_percent,
       });
 
-      const newProduct = await this.productRepository.save(product);
+      await this.productRepository.save(product);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: { id: newProduct.id },
+        body: { id: product.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -246,7 +246,14 @@ export class ProductService {
       product.medias = medias.body;
       product.discount_percent = data.discount_percent;
       product.status = ProductStatusEnum.PENDING_APPROVAL;
-      product.details = data.details;
+      product.details = data.details.map((item) => {
+        return {
+          id: item.id as string,
+          stock: item.stock,
+          color: item.color,
+          price: item.price,
+        };
+      });
 
       await this.productRepository.save(product);
 
