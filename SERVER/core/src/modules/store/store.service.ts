@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { StoreDto, UpdateStoreDto } from './dto/store.dto';
+import {
+  StoreDto,
+  UpdateStoreDto,
+  UpdateStoreStatusDto,
+} from './dto/store.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Store } from './entities/store.entity';
 import { Repository } from 'typeorm';
@@ -8,7 +12,6 @@ import { statusMessages } from '../../common/message/message.status';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
-import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
@@ -126,10 +129,10 @@ export class StoreService {
     }
   }
 
-  async delete(id: string) {
+  async updateStatus(data: UpdateStoreStatusDto) {
     try {
-      const result = await this.storeRepository.update(id, {
-        status: StoreStatusEnum.DELETED,
+      const result = await this.storeRepository.update(data.id, {
+        status: data.status,
       });
 
       if (!result.affected) {

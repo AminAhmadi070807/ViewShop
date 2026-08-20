@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
@@ -9,6 +10,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { StoreStatusEnum } from '../../../common/enums/store/store.enum';
 
 export class StoreDto {
   @IsNotEmpty({ message: 'عنوان فروشگاه نمیتواند خالی باشد' })
@@ -57,4 +59,12 @@ export class UpdateStoreDto {
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
+}
+
+export class UpdateStoreStatusDto {
+  @IsUUID('4', { message: 'ایدی نامعتبر هست' })
+  id: string;
+
+  @IsEnum(StoreStatusEnum, { message: 'وضیعت فروشگاه نامعتبر است' })
+  status: StoreStatusEnum;
 }
