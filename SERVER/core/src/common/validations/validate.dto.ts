@@ -4,9 +4,6 @@ export class Validate {
   @IsUUID('4', { message: 'شناسه نامعتبر است' })
   id: string;
 
-  @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
-  cell_phone: string;
-
   @IsOptional({ message: 'شناسه کاربر اختیاری است' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user?: string;
