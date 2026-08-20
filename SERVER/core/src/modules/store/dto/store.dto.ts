@@ -18,15 +18,6 @@ export class StoreDto {
   @MaxLength(100, { message: 'عنوان حدکثر میتواند 100 کارکتر داشته باشد' })
   title: string;
 
-  @IsNotEmpty({ message: 'نام مستعار فروشگاه نمیتواند خالی باشد' })
-  @IsString({ message: 'نام مستعار فروشگاه باید رشته باشد' })
-  @MinLength(5, { message: 'نام مستعار حدثل باید 5 کارکتر داشته باشد' })
-  @MaxLength(100, { message: 'نام مستعار حدکثر میتواند 100 کارکتر داشته باشد' })
-  @Matches(/^[a-zA-Z0-9-_]{5,100}$/, {
-    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
-  })
-  alias: string;
-
   @IsNotEmpty({ message: 'توضیحات فروشگاه نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات فروشگاه باید رشته باشد' })
   @MinLength(5, { message: 'توضیحات حدثل باید 5 کارکتر داشته باشد' })
