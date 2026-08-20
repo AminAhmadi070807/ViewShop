@@ -80,7 +80,6 @@ export class LikeService {
             status: true,
             store: {
               id: true,
-              alias: true,
               title: true,
               logo: true,
             },
