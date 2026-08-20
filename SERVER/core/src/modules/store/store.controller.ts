@@ -33,7 +33,7 @@ export class StoreController {
     return this.storeService.update(data);
   }
 
-  @MessagePattern('STORE:DELETE')
+  @MessagePattern('STORE:STATUS')
   updateStatus(@Payload() data: UpdateStoreStatusDto) {
     return this.storeService.updateStatus(data);
   }
