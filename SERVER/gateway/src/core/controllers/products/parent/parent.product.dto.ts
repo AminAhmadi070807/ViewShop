@@ -185,36 +185,6 @@ export class ParentProductDto {
   )
   @Min(1, { message: 'حدقل تعداد نمیتواند پاین تر از 0 باشد' })
   minimum_quantity: number;
-
-  // product minimum price
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: true,
-    example: 1,
-    minimum: 1_000,
-  })
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  @Min(1000, { message: 'حدکثر قیمت نمیتواند پاین تر از 1000 تومان باشد' })
-  min_price: number;
-
-  // product maximum price
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: true,
-    example: 0,
-  })
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدکثر قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  max_price: number;
 }
 
 export class UpdateParentProductDto {
@@ -327,33 +297,4 @@ export class UpdateParentProductDto {
       'نوع بازگشت میتواند یکی از این موارد باشد (STANDARD, EXTENDED, NO_RETURN, EXCHANGE_ONLY)',
   })
   return_policy_type: ProductReturnPolicyTypeEnum;
-
-  // product minimum price
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: false,
-    example: 1000,
-    minimum: 1000,
-  })
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  @Min(1000, { message: 'حدکثر قیمت نمیتواند پاین تر از 1000 تومان باشد' })
-  min_price: number;
-
-  // product maximum price
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: false,
-  })
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدکثر قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  max_price: number;
 }
