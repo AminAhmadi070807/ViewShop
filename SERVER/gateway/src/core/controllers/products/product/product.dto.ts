@@ -221,9 +221,6 @@ export class UpdateStatusProductDto {
   })
   @IsNotEmpty()
   @IsString()
-  @IsEnum(ProductStatusEnum, {
-    message:
-      'وضیعت محصول فقط میتواند یکی از این موارد باشد (PENDING_APPROVAL, DELETED, DRAFT, INACTIVE, ACTIVE)',
-  })
+  @IsEnum(ProductStatusEnum, { message: 'وضیعت وحصول نامعتبر است' })
   status: ProductStatusEnum;
 }
