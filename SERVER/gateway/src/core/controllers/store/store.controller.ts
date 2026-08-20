@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoreDto, UpdateStoreDto, UpdateStoreStatusDto } from './store.dto';
@@ -123,7 +124,7 @@ export class StoreController {
     return this.coreService.send('STORE:UPDATE', data);
   }
 
-  @Delete()
+  @Put()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -143,7 +144,7 @@ export class StoreController {
       enum: ['UPDATE:STATUS'],
     },
   ])
-  delete(@Body() data: UpdateStoreStatusDto) {
+  updateStatus(@Body() data: UpdateStoreStatusDto) {
     return this.coreService.send('STORE:STATUS', data);
   }
 }
