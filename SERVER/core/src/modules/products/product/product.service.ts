@@ -59,7 +59,6 @@ export class ProductService {
       });
       const colors = await this.colorService.findByCode(resultColor);
       const filters = await this.filterService.findById(data.filters);
-      console.log(media, store, colors, filters);
 
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
@@ -92,20 +91,20 @@ export class ProductService {
         message: statusMessages.fa['201'],
         body: { id: product.id },
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
   async findAll(data: ProductFilterDto) {
     try {
-      const result: Product[] = await this.productRepository.find({
+      const result = await this.productRepository.find({
         where: {
+          ...(data.title && {
+            title: ILike(`%${data.title}%`),
+            description: ILike(`%${data.title}%`),
+          }),
           parentProduct: {
-            ...(data.title && {
-              title: ILike(`%${data.title}%`),
-            }),
             ...(data.product_type && {
               product_type: data.product_type,
             }),
@@ -116,24 +115,13 @@ export class ProductService {
               warranty_type: data.warranty_type,
             }),
           },
-
           status: ProductStatusEnum.ACTIVE,
         },
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
         relations: ['medias', 'store', 'filters'],
         select: {
-          medias: {
-            id: true,
-            path: true,
-            title: true,
-          },
-          store: {
-            id: true,
-            title: true,
-            logo: true,
-          },
+          medias: { id: true, path: true, title: true },
+          store: { id: true, title: true, logo: true },
         },
       });
 
@@ -159,8 +147,7 @@ export class ProductService {
         message: statusMessages.fa['200'],
         body: result_array,
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
