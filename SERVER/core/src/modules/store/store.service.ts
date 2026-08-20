@@ -109,12 +109,11 @@ export class StoreService {
       }
 
       const result = await this.storeRepository.update(
-        { id: data.id, owner: { id: data.user } },
+        { id: data.id },
         {
           logo: { id: data.logo },
           banner: { id: data.banner },
           title: data.title,
-          alias: data.alias,
         },
       );
 
