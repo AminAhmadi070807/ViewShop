@@ -112,9 +112,17 @@ export class UpdateStoreDto {
 }
 
 export class UpdateStoreStatusDto {
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی نامعتبر هست' })
   id: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: StoreStatusEnum.PENDING,
+    enum: StoreStatusEnum,
+  })
   @IsEnum(StoreStatusEnum, { message: 'وضیعت فروشگاه نامعتبر است' })
   status: StoreStatusEnum;
 }
