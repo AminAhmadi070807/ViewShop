@@ -81,6 +81,7 @@ export class ProductService {
           };
         }),
         filters: filters.body,
+        discount_percent: data.discount_percent,
       });
 
       const newProduct = await this.productRepository.save(product);
