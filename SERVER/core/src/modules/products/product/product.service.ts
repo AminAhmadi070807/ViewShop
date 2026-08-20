@@ -217,8 +217,6 @@ export class ProductService {
             id: true,
             title: true,
             logo: true,
-            banner: true,
-            alias: true,
           },
         },
       });
