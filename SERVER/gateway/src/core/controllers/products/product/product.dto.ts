@@ -79,12 +79,7 @@ export class ProductDto {
   @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
   filters: string[];
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'ایدی محصول اصلی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول اصلی را به درستی وارد کنید' })
   parentProductId: string;
@@ -101,18 +96,20 @@ export class ProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
+  @ApiProperty({
+    type: () => ProductDetailDto,
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: ProductDetailDto,
+  })
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
