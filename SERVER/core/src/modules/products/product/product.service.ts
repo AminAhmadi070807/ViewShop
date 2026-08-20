@@ -104,19 +104,19 @@ export class ProductService {
         where: {
           ...(data.title && {
             title: ILike(`%${data.title}%`),
-            description: ILike(`%${data.title}%`),
+            // description: ILike(`%${data.title}%`),
           }),
-          parentProduct: {
-            ...(data.product_type && {
-              product_type: data.product_type,
-            }),
-            ...(data.return_policy_type && {
-              return_policy_type: data.return_policy_type,
-            }),
-            ...(data.warranty_type && {
-              warranty_type: data.warranty_type,
-            }),
-          },
+          // parentProduct: {
+          //   ...(data.product_type && {
+          //     product_type: data.product_type,
+          //   }),
+          //   ...(data.return_policy_type && {
+          //     return_policy_type: data.return_policy_type,
+          //   }),
+          //   ...(data.warranty_type && {
+          //     warranty_type: data.warranty_type,
+          //   }),
+          // },
           status: ProductStatusEnum.ACTIVE,
         },
         order: { createdAt: 'DESC' },
@@ -127,27 +127,10 @@ export class ProductService {
         },
       });
 
-      const result_array: Product[] = result.filter((item) => {
-        return item.details.some((detail) => {
-          const colorMatch =
-            !data.colors ||
-            data.colors.length === 0 ||
-            data.colors.includes(detail.color);
-
-          const minPriceMatch =
-            !data.min_price || detail.price >= Number(data.min_price);
-
-          const maxPriceMatch =
-            !data.max_price || detail.price <= Number(data.max_price);
-
-          return colorMatch && minPriceMatch && maxPriceMatch;
-        });
-      });
-
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: result_array,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
