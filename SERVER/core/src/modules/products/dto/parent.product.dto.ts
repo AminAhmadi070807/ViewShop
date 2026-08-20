@@ -58,7 +58,6 @@ export class ParentProductDto {
   @MaxLength(255, { message: 'نام مستعار حدکثر میتواند 255 کارکتر داشته باشد' })
   alias: string;
 
-  // product stock quantity
   @IsNotEmpty({ message: 'مقدار موجودی نمیتواند خالی باشد' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
@@ -67,7 +66,6 @@ export class ParentProductDto {
   @Min(0)
   stock_quantity: number;
 
-  // product type
   @IsNotEmpty({ message: 'نوع محصول نمیتواند خالی باشد' })
   @IsEnum(ProductTypeEnum, {
     message:
@@ -84,7 +82,6 @@ export class ParentProductDto {
   @Max(100, { message: 'حداکثر پورسانت مالیات 100 میباشد' })
   tax_percent: number;
 
-  // product warranty type
   @IsNotEmpty({ message: 'لطفا نوع گرانتی را مشخص کنید' })
   @IsEnum(ProductWarrantyTypeEnum, {
     message:
@@ -92,7 +89,6 @@ export class ParentProductDto {
   })
   warranty_type: ProductWarrantyTypeEnum;
 
-  // product return policy type
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
   @IsEnum(ProductReturnPolicyTypeEnum, {
     message:
@@ -100,7 +96,6 @@ export class ParentProductDto {
   })
   return_policy_type: ProductReturnPolicyTypeEnum;
 
-  // product minimum quantity
   @IsNotEmpty({ message: 'حدقل تعداد قابل ثبت' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
@@ -153,28 +148,10 @@ export class UpdateParentProductDto {
   })
   status: ProductStatusEnum;
 
-  // product return policy type
   @IsNotEmpty({ message: 'لطفا نوع بازگشت را مشخص کنید' })
   @IsEnum(ProductReturnPolicyTypeEnum, {
     message:
       'نوع بازگشت میتواند یکی از این موارد باشد (STANDARD, EXTENDED, NO_RETURN, EXCHANGE_ONLY)',
   })
   return_policy_type: ProductReturnPolicyTypeEnum;
-
-  // product minimum price
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدقل قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  @Min(1000, { message: 'حدکثر قیمت نمیتواند پاین تر از 1000 تومان باشد' })
-  min_price: number;
-
-  // product maximum price
-  @IsNotEmpty({ message: 'حدقل فیمت قابل فروش نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'حدکثر قیمت محصول قابل فروش باید اعداد باشد' },
-  )
-  max_price: number;
 }

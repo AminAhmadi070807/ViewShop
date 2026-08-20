@@ -97,18 +97,10 @@ export class ParentProductsService {
   async findAll(title?: string) {
     try {
       const result = await this.parentProductRepository.find({
-        where: {
-          ...(title && { title: ILike(`%${title}%`) }),
-        },
+        where: { ...(title && { title: ILike(`%${title}%`) }) },
         order: { createdAt: 'DESC' },
         relations: ['user'],
-        select: {
-          user: {
-            id: true,
-            role: true,
-            fullName: true,
-          },
-        },
+        select: { user: { id: true, role: true, fullName: true } },
       });
 
       return {
