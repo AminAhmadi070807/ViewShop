@@ -99,7 +99,7 @@ export class ParentProductsService {
       const result = await this.parentProductRepository.find({
         where: { ...(title && { title: ILike(`%${title}%`) }) },
         order: { createdAt: 'DESC' },
-        relations: ['user'],
+        relations: ['user', 'medias'],
         select: { user: { id: true, role: true, fullName: true } },
       });
 
