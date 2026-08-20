@@ -72,8 +72,8 @@ export class SmsController {
     {
       name: 'permission',
       required: true,
-      example: 'READ',
-      enum: ['READ'],
+      example: 'READ:SETTING',
+      enum: ['READ:SETTING'],
     },
   ])
   findSetting() {
