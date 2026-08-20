@@ -84,7 +84,6 @@ export class SalesService {
           store: {
             id: true,
             title: true,
-            alias: true,
           },
         },
         order: { createdAt: 'DESC' },
