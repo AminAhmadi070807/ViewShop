@@ -22,7 +22,7 @@ export class StoreService {
 
   async create(data: StoreDto) {
     try {
-      const media = await this.mediaService.findId([data.logo, data.banner]);
+      const media = await this.mediaService.findId([data.logo]);
       const categories = await this.categoriesService.findId(data.categories);
 
       if (media instanceof CustomException) return media;
