@@ -32,7 +32,6 @@ export class StoreService {
         title: data.title,
         description: data.description,
         logo: { id: data.logo },
-        banner: { id: data.banner },
         cell_phone: data.cell_phone,
         categories: categories.body,
       });
