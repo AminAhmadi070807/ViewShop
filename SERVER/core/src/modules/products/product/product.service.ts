@@ -82,6 +82,8 @@ export class ProductService {
         }),
         filters: filters.body,
         discount_percent: data.discount_percent,
+        title: parentProduct.title,
+        description: parentProduct.description,
       });
 
       await this.productRepository.save(product);
