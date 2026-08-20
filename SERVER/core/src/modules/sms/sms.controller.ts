@@ -21,4 +21,9 @@ export class SmsController {
   setting(@Payload() data: SmSettingDto) {
     return this.smsService.setting(data);
   }
+
+  @MessagePattern('SMS:SETTING:FIND')
+  findSetting() {
+    return this.smsService.findSetting();
+  }
 }
