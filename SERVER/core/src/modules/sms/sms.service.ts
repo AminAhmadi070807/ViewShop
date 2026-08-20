@@ -178,4 +178,20 @@ export class SmsService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async findSetting() {
+    try {
+      const result = await this.smsSettingRepository.find({
+        order: { createdAt: 'DESC' },
+      });
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
