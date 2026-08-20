@@ -76,11 +76,10 @@ export class StoreService {
     try {
       const store = await this.storeRepository.findOne({
         where: { id: data.id },
-        relations: ['logo', 'banner', 'categories'],
+        relations: ['logo', 'categories'],
         select: {
           categories: { id: true, title: true, icon: { id: true, path: true } },
           logo: { id: true, path: true },
-          banner: { id: true, path: true },
         },
       });
 
