@@ -55,11 +55,10 @@ export class StoreService {
       const stores: Store[] = await this.storeRepository.find({
         take: (page ?? 1) * 15,
         order: { createdAt: 'DESC' },
-        relations: ['logo', 'banner', 'categories'],
+        relations: ['logo', 'categories'],
         select: {
           categories: { id: true, title: true, icon: { id: true, path: true } },
           logo: { id: true, path: true },
-          banner: { id: true, path: true },
         },
       });
 
