@@ -52,7 +52,7 @@ export class Product {
   })
   approval_status: ProductApprovalStatusEnum;
 
-  @Column({ type: 'simple-json', nullable: false, array: true })
+  @Column({ type: 'jsonb', nullable: false })
   details: { id: string; color: string; price: number; stock: number }[];
 
   @Column({ type: 'integer', nullable: false, default: 0 })

@@ -59,6 +59,7 @@ export class ProductService {
       });
       const colors = await this.colorService.findByCode(resultColor);
       const filters = await this.filterService.findById(data.filters);
+      console.log(media, store, colors, filters);
 
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
@@ -91,7 +92,8 @@ export class ProductService {
         message: statusMessages.fa['201'],
         body: { id: product.id },
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

@@ -84,13 +84,11 @@ export class ColorsService {
   async findByCode(colorsCode: string[]) {
     try {
       const colors: Color[] = await this.colorRepository.find({
-        where: {
-          color: In(colorsCode),
-        },
+        where: { color: In(colorsCode) },
       });
 
       if (!colors.length) {
-        return new CustomException(statusMessages.fa['500'], 500);
+        return new CustomException(statusMessages.fa['404'], 404);
       }
 
       return {
