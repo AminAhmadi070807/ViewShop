@@ -50,6 +50,9 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
 
+  @IsUUID('4', { message: 'شناسه برند نامعتبر است' })
+  brand: string;
+
   @ArrayNotEmpty({ message: 'ارایه فیلتر ها نمیتواند خالی باشد' })
   @IsArray({ message: 'فیلترس باید ارایه باشد' })
   @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
