@@ -42,11 +42,9 @@ class ProductDetailDto {
 }
 
 export class ProductDto {
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
 
-  @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
 
@@ -58,7 +56,6 @@ export class ProductDto {
   @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
   filters: string[];
 
-  @IsNotEmpty({ message: 'ایدی محصول اصلی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول اصلی را به درستی وارد کنید' })
   parentProductId: string;
 
