@@ -19,6 +19,7 @@ import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
 import { Filter } from '../../filters/entities/filter.entity';
+import { Brand } from '../../brands/entities/brand.entity';
 
 @Entity('Product')
 export class Product {
@@ -83,6 +84,10 @@ export class Product {
   @ManyToMany(() => Filter, { nullable: false })
   @JoinTable({ name: 'Filter_Product' })
   filters: Filter[];
+
+  @ManyToMany(() => Brand, { nullable: false })
+  @JoinTable({ name: 'Brand_Product' })
+  brand: Brand[];
 
   @CreateDateColumn()
   createdAt: Date;
