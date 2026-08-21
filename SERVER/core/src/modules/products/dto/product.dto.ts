@@ -112,13 +112,11 @@ export class UpdateProductDto {
 }
 
 export class UpdateStatusProductDto {
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @IsEnum(ProductStatusEnum, { message: 'وضیعت نامعتبر است' })
+  @IsNotEmpty({ message: 'وضیعت محصول نمیتواند خالی باشد' })
+  @IsEnum(ProductStatusEnum, { message: 'وضیعت محصول نامعتبر است' })
   status: ProductStatusEnum;
 }
 
