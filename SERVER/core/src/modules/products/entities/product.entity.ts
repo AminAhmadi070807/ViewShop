@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -85,9 +86,9 @@ export class Product {
   @JoinTable({ name: 'Filter_Product' })
   filters: Filter[];
 
-  @ManyToMany(() => Brand, { nullable: false })
-  @JoinTable({ name: 'Brand_Product' })
-  brand: Brand[];
+  @OneToOne(() => Brand, { nullable: false })
+  @JoinColumn({ name: 'Brand_Product' })
+  brand: Brand;
 
   @CreateDateColumn()
   createdAt: Date;
