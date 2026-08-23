@@ -59,32 +59,16 @@ export class SalesService {
   async findAll() {
     try {
       const result = await this.saleRepository.find({
-        relations: [
-          'product',
-          'store',
-          'product.parentProduct',
-          'product.medias',
-        ],
+        relations: ['product', 'store', 'product.medias'],
         select: {
           product: {
             id: true,
-            details: true,
-            parentProduct: {
-              id: true,
-              title: true,
-              alias: true,
-            },
-            medias: {
-              id: true,
-              title: true,
-              path: true,
-              type: true,
-            },
-          },
-          store: {
-            id: true,
             title: true,
+            description: true,
+            details: true,
+            medias: { id: true, title: true, path: true },
           },
+          store: { id: true, title: true },
         },
         order: { createdAt: 'DESC' },
       });
