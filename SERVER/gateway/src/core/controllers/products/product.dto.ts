@@ -140,8 +140,7 @@ export class ProductDto {
 
 export class UpdateProductDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
@@ -162,9 +161,9 @@ export class UpdateProductDto {
     nullable: false,
     example: [''],
   })
-  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
-  @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
-  @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
+  @ArrayNotEmpty({ message: 'شناسه های تصاویر نامعتبر است' })
+  @IsArray({ message: 'شناسه های تصوایر باید در ارایه ارسال شوند' })
+  @IsUUID('4', { message: 'شناسه تصوایر نامعتبر است' })
   medias: string[];
 
   @ApiProperty({
