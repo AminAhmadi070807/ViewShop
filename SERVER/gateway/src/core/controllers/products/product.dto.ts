@@ -84,11 +84,6 @@ export class ProductDto {
   @IsUUID('4', { message: 'شناسه برند نامعتبر است', each: true })
   brand: string;
 
-  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'ایدی محصول اصلی نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول اصلی را به درستی وارد کنید' })
-  parentProductId: string;
-
   @ApiProperty({
     type: [String],
     required: true,
