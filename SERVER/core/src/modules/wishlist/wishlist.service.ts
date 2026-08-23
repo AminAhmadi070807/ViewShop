@@ -80,7 +80,7 @@ export class WishlistService {
           id: data.id,
           user: { id: data.user },
         },
-        relations: ['product', 'user', 'product', 'product.store'],
+        relations: ['product', 'user', 'product.store'],
         select: {
           product: {
             id: true,
