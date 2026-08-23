@@ -95,8 +95,16 @@ export class ProductService {
     try {
       const result = await this.productRepository.find({
         where: [
-          { title: ILike(`%${data.title}%`) },
-          { description: ILike(`%${data.title}%`) },
+          {
+            ...(data.title && {
+              title: ILike(`%${data.title}%`),
+            }),
+          },
+          {
+            ...(data.title && {
+              description: ILike(`%${data.title}%`),
+            }),
+          },
         ],
         order: { createdAt: 'DESC' },
         relations: ['medias', 'store', 'filters'],
@@ -106,11 +114,7 @@ export class ProductService {
         },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
