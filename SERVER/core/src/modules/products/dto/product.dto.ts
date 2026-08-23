@@ -100,6 +100,14 @@ export class UpdateProductDto {
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
 
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  title: string;
+
+  @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات محصول باید رشته باشد' })
+  description: string;
+
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
