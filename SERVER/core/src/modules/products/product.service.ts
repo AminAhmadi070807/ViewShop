@@ -93,31 +93,10 @@ export class ProductService {
 
   async findAll(data: ProductFilterDto) {
     try {
-      const commonFilter = {
-        parentProduct: {
-          ...(data.product_type && {
-            product_type: data.product_type,
-          }),
-          ...(data.return_policy_type && {
-            return_policy_type: data.return_policy_type,
-          }),
-          ...(data.warranty_type && {
-            warranty_type: data.warranty_type,
-          }),
-        },
-        status: ProductStatusEnum.ACTIVE,
-      };
-
       const result = await this.productRepository.find({
         where: [
-          {
-            ...commonFilter,
-            title: ILike(`%${data.title}%`),
-          },
-          {
-            ...commonFilter,
-            description: ILike(`%${data.title}%`),
-          },
+          { title: ILike(`%${data.title}%`) },
+          { description: ILike(`%${data.title}%`) },
         ],
         order: { createdAt: 'DESC' },
         relations: ['medias', 'store', 'filters'],
@@ -181,16 +160,8 @@ export class ProductService {
         where: { id: In(ids) },
         relations: ['medias', 'store', 'filters'],
         select: {
-          medias: {
-            id: true,
-            path: true,
-            title: true,
-          },
-          store: {
-            id: true,
-            title: true,
-            logo: true,
-          },
+          medias: { id: true, path: true, title: true },
+          store: { id: true, title: true, logo: true },
         },
       });
 
