@@ -144,17 +144,6 @@ export class UpdateProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
-  @ApiProperty({
-    type: [String],
-    required: true,
-    nullable: false,
-    example: [''],
-  })
-  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
-  @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
-  @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
-  medias: string[];
-
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان محصول باید رشته باشد' })
@@ -166,6 +155,17 @@ export class UpdateProductDto {
   @IsString({ message: 'توضیحات محصول باید رشته باشد' })
   @MinLength(255, { message: 'توضیحات نمیتواند کمتر از 255 کارکتر باشد' })
   description: string;
+
+  @ApiProperty({
+    type: [String],
+    required: true,
+    nullable: false,
+    example: [''],
+  })
+  @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
+  @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
+  @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
+  medias: string[];
 
   @ApiProperty({
     type: () => ProductDetailDto,
@@ -180,12 +180,7 @@ export class UpdateProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
-  @ApiProperty({
-    type: Number,
-    required: true,
-    nullable: false,
-    example: 0,
-  })
+  @ApiProperty({ type: Number, required: true, nullable: false, example: 0 })
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
@@ -197,14 +192,8 @@ export class UpdateProductDto {
 }
 
 export class UpdateStatusProductDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
 
   @ApiProperty({
@@ -214,8 +203,6 @@ export class UpdateStatusProductDto {
     nullable: false,
     required: true,
   })
-  @IsNotEmpty()
-  @IsString()
   @IsEnum(ProductStatusEnum, { message: 'وضیعت وحصول نامعتبر است' })
   status: ProductStatusEnum;
 }
