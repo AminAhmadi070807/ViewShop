@@ -171,16 +171,15 @@ export class ProductService {
   async update(data: UpdateProductDto) {
     try {
       const medias = await this.mediaService.findId(data.medias);
-      const product = await this.productRepository.findOneBy({ id: data.id });
+      const product = await this.findOne(data.id);
 
-      if (medias instanceof RpcException || !product) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (medias instanceof CustomException) return medias;
+      if (product instanceof CustomException) return product;
 
-      product.medias = medias.body;
-      product.discount_percent = data.discount_percent;
-      product.status = ProductStatusEnum.PENDING_APPROVAL;
-      product.details = data.details.map((item) => {
+      product.body.product.medias = medias.body;
+      product.body.product.discount_percent = data.discount_percent;
+      product.body.product.status = ProductStatusEnum.PENDING_APPROVAL;
+      product.body.product.details = data.details.map((item) => {
         return {
           id: item.id as string,
           stock: item.stock,
@@ -189,13 +188,9 @@ export class ProductService {
         };
       });
 
-      await this.productRepository.save(product);
+      await this.productRepository.save(product.body.product);
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
