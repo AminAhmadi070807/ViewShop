@@ -20,17 +20,15 @@ export class LikeService {
     try {
       const product = await this.productService.findOne(data.product);
 
-      if (product instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (product instanceof RpcException) return product;
 
-      const existing: Like | null = await this.likeRepository.findOneBy({
+      const existing = await this.likeRepository.findOneBy({
         user: { id: data.user },
         product: { id: data.product },
       });
 
       if (!existing) {
-        const like: Like = this.likeRepository.create({
+        const like = this.likeRepository.create({
           user: { id: data.user },
           product: product.body.product,
         });
@@ -43,11 +41,7 @@ export class LikeService {
         });
       }
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: null,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -55,43 +49,29 @@ export class LikeService {
 
   async findAll() {
     try {
-      const likes: Like[] = await this.likeRepository.find({
+      const likes = await this.likeRepository.find({
         relations: [
           'product',
           'user',
-          'product.parentProduct',
+          'product',
           'product.medias',
           'product.store',
         ],
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
         select: {
           product: {
             id: true,
+            title: true,
+            description: true,
             details: true,
-            medias: {
-              title: true,
-              path: true,
-            },
-            parentProduct: {
-              title: true,
-            },
+            medias: { id: true, title: true, path: true },
             status: true,
-            store: {
-              id: true,
-              title: true,
-              logo: true,
-            },
+            store: { id: true, title: true, logo: true },
           },
         },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: likes,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: likes };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
