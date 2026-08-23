@@ -4,22 +4,22 @@ import {
   UpdateProductDto,
   UpdateStatusProductDto,
   UpdateStockProductDto,
-} from '../dto/product.dto';
+} from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from '../entities/product.entity';
+import { Product } from './entities/product.entity';
 import { ILike, In, Repository, UpdateResult } from 'typeorm';
-import { CustomException } from '../../../common/exceptions/custom.exception.error';
-import { statusMessages } from '../../../common/message/message.status';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 import { ParentProduct } from '../entities/parent.product.entity';
-import { MediaService } from '../../media/media.service';
+import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
-import { StoreService } from '../../store/store.service';
-import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
-import { ColorsService } from '../../colors/colors.service';
-import { FiltersService } from '../../filters/filters.service';
-import { ProductFilterDto } from '../../search/dto/search.dto';
-import { CommentService } from '../../comment/comment.service';
-import { BrandsService } from '../../brands/brands.service';
+import { StoreService } from '../store/store.service';
+import { ProductStatusEnum } from '../../common/enums/products/product/status.enum';
+import { ColorsService } from '../colors/colors.service';
+import { FiltersService } from '../filters/filters.service';
+import { ProductFilterDto } from '../search/dto/search.dto';
+import { CommentService } from '../comment/comment.service';
+import { BrandsService } from '../brands/brands.service';
 
 @Injectable()
 export class ProductService {

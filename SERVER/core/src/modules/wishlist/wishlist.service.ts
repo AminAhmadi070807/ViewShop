@@ -3,7 +3,7 @@ import { UpdateWishlistDto, WishlistDto } from './dto/wishlist.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wishlist } from './entities/wishlist.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { ProductService } from '../products/product/product.service';
+import { ProductService } from '../products/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';

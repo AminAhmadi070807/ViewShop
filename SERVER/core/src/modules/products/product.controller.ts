@@ -5,9 +5,9 @@ import {
   ProductDto,
   UpdateProductDto,
   UpdateStatusProductDto,
-} from '../dto/product.dto';
-import { Validate } from '../../../common/validations/validate.dto';
-import { ProductFilterDto } from '../../search/dto/search.dto';
+} from './dto/product.dto';
+import { Validate } from '../../common/validations/validate.dto';
+import { ProductFilterDto } from '../search/dto/search.dto';
 
 @Controller()
 export class ProductController {

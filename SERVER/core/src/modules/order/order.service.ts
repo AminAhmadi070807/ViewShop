@@ -13,7 +13,7 @@ import {
   OrderStatusEnum,
 } from '../../common/enums/order/order.status.enum';
 import { AddressesService } from '../addresses/addresses.service';
-import { ProductService } from '../products/product/product.service';
+import { ProductService } from '../products/product.service';
 import { WalletService } from '../wallet/wallet.service';
 import { Validate } from '../../common/validations/validate.dto';
 import { SalesService } from '../sales/sales.service';

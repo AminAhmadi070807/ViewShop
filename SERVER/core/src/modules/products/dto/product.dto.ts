@@ -56,9 +56,6 @@ export class ProductDto {
   @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
   filters: string[];
 
-  @IsUUID('4', { message: 'لطفا ایدی محصول اصلی را به درستی وارد کنید' })
-  parentProductId: string;
-
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })

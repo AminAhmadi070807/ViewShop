@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, IsNull, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-import { ProductService } from '../products/product/product.service';
+import { ProductService } from '../products/product.service';
 import { UsersService } from '../users/users.service';
 import { RpcException } from '@nestjs/microservices';
 import { Comment } from './entities/comment.entity';

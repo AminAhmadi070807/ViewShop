@@ -5,7 +5,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { ProductFilterDto } from './dto/search.dto';
-import { ProductService } from '../products/product/product.service';
+import { ProductService } from '../products/product.service';
 
 @Injectable()
 export class SearchService {
