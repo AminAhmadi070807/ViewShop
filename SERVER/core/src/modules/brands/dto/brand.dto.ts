@@ -3,7 +3,6 @@ import {
   IsString,
   IsUrl,
   IsUUID,
-  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -19,16 +18,13 @@ export class BrandDto {
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
   @MinLength(50, { message: 'توضیحات حدقل باید 50 کارکتر داشته باشد' })
-  @MaxLength(1000, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
+  @MaxLength(2000, { message: 'توضیحات حدکثر میتواند 2000 کارکتر داشته باشد' })
   description: string;
 
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(1, { message: 'نام مستعار حدقل باید 1 کارکتر داشته باشد' })
   @MaxLength(24, { message: 'نام مستعار حدکثر میتواند 24 کارکتر داشته باشد' })
-  @Matches(/^[a-zA-Z0-9-_]{1,24}$/, {
-    message: 'لطفا برای نام مستعار از کلمات انگلیسی استفاده کنید',
-  })
   alias: string;
 
   @IsNotEmpty({ message: 'شناسه لوگو نمیتواند خالی باشد' })
