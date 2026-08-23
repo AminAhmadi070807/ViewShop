@@ -16,7 +16,7 @@ import { SubCategoryController } from './controllers/categories/subCategory/sub.
 import { AttributeController } from './controllers/categories/attribute/attribute.controller';
 import { ParentProductController } from './controllers/products/parent/parent.product.controller';
 import { StoreController } from './controllers/store/store.controller';
-import { ProductController } from './controllers/products/product/product.controller';
+import { ProductController } from './controllers/products/product.controller';
 import { CommentController } from './controllers/comments/comment.controller';
 import { StoryController } from './controllers/story/story.controller';
 import { ArticleController } from './controllers/articles/article.controller';

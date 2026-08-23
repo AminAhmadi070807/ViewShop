@@ -1,17 +1,19 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Patch,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
-import { CoreService } from '../../../core.service';
-import { ParentProductDto, UpdateParentProductDto } from './parent.product.dto';
-import express from 'express';
-import { JwtPayload } from '../../../../common/validation/jwt.dto';
+import { CoreService } from '../../core.service';
+import {
+  ProductDto,
+  UpdateProductDto,
+  UpdateStatusProductDto,
+} from './product.dto';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -24,27 +26,30 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { statusMessages } from '../../../../common/messages/status.message';
-import { ValidateUUID } from '../../../../common/validation/uuid.dto';
+import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import express from 'express';
+import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { ProductFilterDto } from '../search/search.dto';
 
-@Controller('core/parent/product')
+@Controller('core/product')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-export class ParentProductController {
+export class ProductController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiCreatedResponse({ description: statusMessages.fa['201'] })
+  @ApiCreatedResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiNoContentResponse({ description: statusMessages.fa['404'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
     {
       name: 'feature',
       required: true,
-      example: 'PARENT:PRODUCT',
-      enum: ['PARENT:PRODUCT'],
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
     },
     {
       name: 'permission',
@@ -53,25 +58,23 @@ export class ParentProductController {
       enum: ['CREATE'],
     },
   ])
-  create(@Body() data: ParentProductDto, @Req() req: express.Request) {
+  create(@Body() data: ProductDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
-    return this.coreService.send('PRODUCT:PARENT:CREATE', {
-      userId: user.userId,
+    return this.coreService.send('PRODUCT:CHILD:CREATE', {
       ...data,
+      userId: user.userId,
     });
   }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
     {
       name: 'feature',
       required: true,
-      example: 'PARENT:PRODUCT',
-      enum: ['PARENT:PRODUCT'],
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
     },
     {
       name: 'permission',
@@ -80,22 +83,20 @@ export class ParentProductController {
       enum: ['READ'],
     },
   ])
-  findAll() {
-    return this.coreService.send('PRODUCT:PARENT:FIND');
+  findAll(@Query() data: ProductFilterDto) {
+    return this.coreService.send('PRODUCT:CHILD:FIND', data);
   }
 
   @Get('/:id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     {
       name: 'feature',
       required: true,
-      example: 'PARENT:PRODUCT',
-      enum: ['PARENT:PRODUCT'],
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
     },
     {
       name: 'permission',
@@ -105,7 +106,7 @@ export class ParentProductController {
     },
   ])
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('PRODUCT:PARENT:ONE', data);
+    return this.coreService.send('PRODUCT:CHILD:ONE', data);
   }
 
   @Patch()
@@ -114,13 +115,12 @@ export class ParentProductController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
     {
       name: 'feature',
       required: true,
-      example: 'PARENT:PRODUCT',
-      enum: ['PARENT:PRODUCT'],
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
     },
     {
       name: 'permission',
@@ -129,35 +129,31 @@ export class ParentProductController {
       enum: ['UPDATE'],
     },
   ])
-  update(@Body() data: UpdateParentProductDto) {
-    return this.coreService.send('PRODUCT:PARENT:ONE', data);
+  update(@Body() data: UpdateProductDto) {
+    return this.coreService.send('PRODUCT:CHILD:UPDATE', data);
   }
 
-  @Delete()
+  @Patch('status')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  @ApiConflictResponse({
-    description:
-      'امکان حذف محصول وجود ندارد؛ این محصول دارای محصولات وابسته است.',
-  })
   @ApiHeaders([
     {
       name: 'feature',
       required: true,
-      example: 'PARENT:PRODUCT',
-      enum: ['PARENT:PRODUCT'],
+      example: 'PRODUCT',
+      enum: ['PRODUCT'],
     },
     {
       name: 'permission',
       required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
+      example: 'UPDATE:STATUS',
+      enum: ['UPDATE:STATUS'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
-    return this.coreService.send('PRODUCT:PARENT:ONE', data);
+  updateStatus(@Body() data: UpdateStatusProductDto) {
+    return this.coreService.send('PRODUCT:CHILD:UPDATE:STATUS', data);
   }
 }

@@ -14,7 +14,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { ProductStatusEnum } from '../../../../common/enums/products/status.enum';
+import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 import { Type } from 'class-transformer';
 
 class ProductDetailDto {
