@@ -7,7 +7,7 @@ import {
 } from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { ILike, In, Repository, UpdateResult } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { MediaService } from '../media/media.service';
@@ -214,22 +214,15 @@ export class ProductService {
 
   async updateStatus(data: UpdateStatusProductDto) {
     try {
-      const result: UpdateResult = await this.productRepository.update(
-        data.id,
-        {
-          status: data.status,
-        },
-      );
+      const result = await this.productRepository.update(data.id, {
+        status: data.status,
+      });
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
