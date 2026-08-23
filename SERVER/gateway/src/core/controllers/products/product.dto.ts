@@ -180,13 +180,13 @@ export class UpdateProductDto {
   details: ProductDetailDto[];
 
   @ApiProperty({ type: Number, required: true, nullable: false, example: 0 })
-  @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
+  @IsNotEmpty({ message: 'درصد تخفیف نامعتبر است' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
-    { message: 'درصد تخفیف باید اعداد باشد' },
+    { message: 'درصد تخفیف نامعتبر است' },
   )
-  @Min(0, { message: 'حدثل درصد تخفیف 0 هست' })
-  @Max(100, { message: 'درصد تخفیف نمیتواند بالاتر از 100 باشد' })
+  @Min(0, { message: 'درصد تخفیف نامعتبر است' })
+  @Max(100, { message: 'درصد تخفیف نامعتبر است' })
   discount_percent: number;
 }
 
