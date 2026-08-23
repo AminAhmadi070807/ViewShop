@@ -149,7 +149,7 @@ export class ProductService {
 
   async findById(ids: string[]) {
     try {
-      const product: Product[] = await this.productRepository.find({
+      const product = await this.productRepository.find({
         where: { id: In(ids) },
         relations: ['medias', 'store', 'filters'],
         select: {
@@ -162,11 +162,7 @@ export class ProductService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: product,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: product };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
