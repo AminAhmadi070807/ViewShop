@@ -73,11 +73,7 @@ export class SalesService {
         order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -87,17 +83,13 @@ export class SalesService {
     try {
       const result = await this.saleRepository.find({
         where: { store: { id } },
-        relations: [
-          'product',
-          'store',
-          'product.parentProduct',
-          'product.medias',
-        ],
+        relations: ['product', 'store', 'product.medias'],
         select: {
           product: {
             id: true,
+            title: true,
+            description: true,
             details: true,
-            parentProduct: { id: true, title: true, alias: true },
             medias: { id: true, title: true, path: true, type: true },
           },
           store: { id: true, title: true },
@@ -105,11 +97,7 @@ export class SalesService {
         order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
