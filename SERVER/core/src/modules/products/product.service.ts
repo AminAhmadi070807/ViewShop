@@ -126,16 +126,8 @@ export class ProductService {
         where: { id },
         relations: ['medias', 'store', 'filters'],
         select: {
-          medias: {
-            id: true,
-            path: true,
-            title: true,
-          },
-          store: {
-            id: true,
-            title: true,
-            logo: true,
-          },
+          medias: { id: true, path: true, title: true },
+          store: { id: true, title: true, logo: true },
         },
       });
 
@@ -148,10 +140,7 @@ export class ProductService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: {
-          comments: result.body,
-          product: product,
-        },
+        body: { comments: result.body, product: product },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
