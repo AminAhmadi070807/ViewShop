@@ -1,10 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { ParentProductsService } from './parent/parent.products.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ParentProduct } from './entities/parent.product.entity';
 import { User } from '../users/entities/user.entity';
 import { ProductController } from './product.controller';
-import { ParentProductController } from './parent/parent.product.controller';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
 import { Media } from '../media/entities/media.entity';
@@ -17,10 +14,10 @@ import { CommentModule } from '../comment/comment.module';
 import { BrandsModule } from '../brands/brands.module';
 
 @Module({
-  controllers: [ParentProductController, ProductController],
-  providers: [ParentProductsService, ProductService],
+  controllers: [ProductController],
+  providers: [ProductService],
   imports: [
-    TypeOrmModule.forFeature([ParentProduct, User, Product, Media]),
+    TypeOrmModule.forFeature([User, Product, Media]),
     CategoriesModule,
     MediaModule,
     StoreModule,
@@ -29,6 +26,6 @@ import { BrandsModule } from '../brands/brands.module';
     forwardRef(() => CommentModule),
     BrandsModule,
   ],
-  exports: [ProductService, ParentProductsService],
+  exports: [ProductService],
 })
 export class ProductsModule {}
