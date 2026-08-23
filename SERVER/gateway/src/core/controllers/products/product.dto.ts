@@ -18,12 +18,7 @@ import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 import { Type } from 'class-transformer';
 
 class ProductDetailDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsHexColor({ message: 'رنگ نامعتبر است' })
   color: string;
 
