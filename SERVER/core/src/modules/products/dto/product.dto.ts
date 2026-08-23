@@ -48,6 +48,14 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
 
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  title: string;
+
+  @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات محصول باید رشته باشد' })
+  description: string;
+
   @IsUUID('4', { message: 'شناسه برند نامعتبر است' })
   brand: string;
 

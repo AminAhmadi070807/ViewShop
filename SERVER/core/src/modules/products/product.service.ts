@@ -10,7 +10,6 @@ import { Product } from './entities/product.entity';
 import { ILike, In, Repository, UpdateResult } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
-import { ParentProduct } from '../entities/parent.product.entity';
 import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { StoreService } from '../store/store.service';
@@ -26,8 +25,6 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-    @InjectRepository(ParentProduct)
-    private readonly parentProductRepository: Repository<ParentProduct>,
     private readonly mediaService: MediaService,
     private readonly storeService: StoreService,
     private readonly colorService: ColorsService,
@@ -44,14 +41,6 @@ export class ProductService {
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
-
-      const parentProduct = await this.parentProductRepository.findOneBy({
-        id: data.parentProductId,
-      });
-
-      if (!parentProduct) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
 
       const resultColor = data.details.map((item) => item.color);
       const media = await this.mediaService.findId(data.medias);
@@ -71,7 +60,6 @@ export class ProductService {
 
       const product = this.productRepository.create({
         user: { id: data.userId },
-        parentProduct: parentProduct,
         medias: media.body,
         alias: data.alias,
         store: store.body,
@@ -86,8 +74,8 @@ export class ProductService {
         }),
         filters: filters.body,
         discount_percent: data.discount_percent,
-        title: parentProduct.title,
-        description: parentProduct.description,
+        title: data.title,
+        description: data.description,
         brand: brand.body,
       });
 
