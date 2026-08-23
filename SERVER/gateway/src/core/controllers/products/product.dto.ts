@@ -57,12 +57,7 @@ class ProductDetailDto {
 }
 
 export class ProductDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
@@ -164,6 +159,18 @@ export class UpdateProductDto {
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
   @IsUUID('4', { each: true, message: 'لطفا ایدی مدیا های معتبری وارد کنید' })
   medias: string[];
+
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  @MinLength(8, { message: 'عنوان نمیتواند کمتر از 8 کارکتر باشد' })
+  title: string;
+
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات محصول باید رشته باشد' })
+  @MinLength(255, { message: 'توضیحات نمیتواند کمتر از 255 کارکتر باشد' })
+  description: string;
 
   @ApiProperty({
     type: () => ProductDetailDto,
