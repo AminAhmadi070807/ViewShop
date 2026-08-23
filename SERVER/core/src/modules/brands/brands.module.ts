@@ -9,5 +9,6 @@ import { MediaModule } from '../media/media.module';
   controllers: [BrandsController],
   providers: [BrandsService],
   imports: [TypeOrmModule.forFeature([Brand]), MediaModule],
+  exports: [BrandsService],
 })
 export class BrandsModule {}

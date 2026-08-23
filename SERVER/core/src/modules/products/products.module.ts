@@ -14,6 +14,7 @@ import { StoreModule } from '../store/store.module';
 import { ColorsModule } from '../colors/colors.module';
 import { FiltersModule } from '../filters/filters.module';
 import { CommentModule } from '../comment/comment.module';
+import { BrandsModule } from '../brands/brands.module';
 
 @Module({
   controllers: [ParentProductController, ProductController],
@@ -26,6 +27,7 @@ import { CommentModule } from '../comment/comment.module';
     ColorsModule,
     FiltersModule,
     forwardRef(() => CommentModule),
+    BrandsModule,
   ],
   exports: [ProductService, ParentProductsService],
 })
