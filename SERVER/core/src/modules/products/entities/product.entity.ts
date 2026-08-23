@@ -16,7 +16,6 @@ import {
   ProductStockStatusEnum,
 } from '../../../common/enums/products/product/status.enum';
 import { User } from '../../users/entities/user.entity';
-import { ParentProduct } from './parent.product.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
 import { Filter } from '../../filters/entities/filter.entity';
@@ -69,10 +68,6 @@ export class Product {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'User_Product' })
   user: User;
-
-  @ManyToOne(() => ParentProduct, { nullable: false })
-  @JoinColumn({ name: 'Product_ParentProduct' })
-  parentProduct: ParentProduct;
 
   @ManyToMany(() => Media, { nullable: false })
   @JoinTable({ name: 'Media_Product' })
