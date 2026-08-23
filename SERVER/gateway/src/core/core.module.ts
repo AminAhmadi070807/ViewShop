@@ -14,7 +14,6 @@ import { MediaController } from './controllers/uploads/media.controller';
 import { CategoryController } from './controllers/categories/category/category.controller';
 import { SubCategoryController } from './controllers/categories/subCategory/sub.category.controller';
 import { AttributeController } from './controllers/categories/attribute/attribute.controller';
-import { ParentProductController } from './controllers/products/parent/parent.product.controller';
 import { StoreController } from './controllers/store/store.controller';
 import { ProductController } from './controllers/products/product.controller';
 import { CommentController } from './controllers/comments/comment.controller';
@@ -55,7 +54,6 @@ import { SmsController } from './controllers/sms/sms.controller';
     CategoryController,
     SubCategoryController,
     AttributeController,
-    ParentProductController,
     ProductController,
     StoreController,
     CommentController,
