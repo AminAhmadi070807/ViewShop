@@ -17,6 +17,30 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 import { Type } from 'class-transformer';
 
+// filter details validation
+class FilterDetailDto {
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  title: string;
+
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  value: string;
+}
+
+// filter validation
+class ProductFilterDto {
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id: string;
+
+  @ArrayNotEmpty({ message: 'جزئیات فیلتر نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => FilterDetailDto)
+  details: FilterDetailDto[];
+}
+
 class ProductDetailDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsHexColor({ message: 'رنگ نامعتبر است' })
@@ -108,6 +132,19 @@ export class ProductDto {
   @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
+
+  @ApiProperty({
+    type: () => ProductFilterDto,
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: ProductFilterDto,
+  })
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductFilterDto)
+  filter_details: ProductFilterDto[];
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
