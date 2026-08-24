@@ -57,33 +57,33 @@ export class ProductService {
       if (filters instanceof CustomException) return filters;
       if (brand instanceof CustomException) return brand;
 
-      const product = this.productRepository.create({
-        user: { id: data.userId },
-        medias: media.body,
-        alias: data.alias,
-        store: store.body,
-        details: data.details.map((item) => {
-          const id = crypto.randomUUID();
-          return {
-            id: id,
-            price: item.price,
-            stock: item.stock,
-            color: item.color,
-          };
-        }),
-        filters: filters.body,
-        discount_percent: data.discount_percent,
-        title: data.title,
-        description: data.description,
-        brand: brand.body,
-      });
+      // const product = this.productRepository.create({
+      //   user: { id: data.userId },
+      //   medias: media.body,
+      //   alias: data.alias,
+      //   store: store.body,
+      //   details: data.details.map((item) => {
+      //     const id = crypto.randomUUID();
+      //     return {
+      //       id: id,
+      //       price: item.price,
+      //       stock: item.stock,
+      //       color: item.color,
+      //     };
+      //   }),
+      //   filters: filters.body,
+      //   discount_percent: data.discount_percent,
+      //   title: data.title,
+      //   description: data.description,
+      //   brand: brand.body,
+      // });
 
-      await this.productRepository.save(product);
+      // await this.productRepository.save(product);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: { id: product.id },
+        body: { id: 'adadfa' },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);

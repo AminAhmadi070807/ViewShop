@@ -18,7 +18,6 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
-import { Filter } from '../../filters/entities/filter.entity';
 import { Brand } from '../../brands/entities/brand.entity';
 
 @Entity('Product')

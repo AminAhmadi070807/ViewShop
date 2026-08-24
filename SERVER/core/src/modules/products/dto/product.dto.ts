@@ -105,14 +105,14 @@ export class ProductDto {
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
-  @Type(() => ProductFilterDto)
-  details: ProductFilterDto[];
+  @Type(() => ProductDetailDto)
+  details: ProductDetailDto[];
 
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
-  @Type(() => ProductDetailDto)
-  filter_details: ProductDetailDto[];
+  @Type(() => ProductFilterDto)
+  filter_details: ProductFilterDto[];
 
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })

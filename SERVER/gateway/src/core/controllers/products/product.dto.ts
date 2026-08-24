@@ -103,17 +103,6 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
 
-  @ApiProperty({
-    type: [String],
-    required: true,
-    nullable: false,
-    example: [''],
-  })
-  @ArrayNotEmpty({ message: 'ارایه فیلتر ها نمیتواند خالی باشد' })
-  @IsArray({ message: 'فیلترس باید ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلترس نامعتبر است', each: true })
-  filters: string[];
-
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه برند نامعتبر است', each: true })
   brand: string;
