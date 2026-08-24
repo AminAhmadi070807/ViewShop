@@ -17,6 +17,42 @@ import {
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import { Type } from 'class-transformer';
 
+class FilterDetailDto {
+  @IsOptional()
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id?: string;
+
+  @IsHexColor({ message: 'رنگ نامعتبر است' })
+  color: string;
+
+  @IsNotEmpty({ message: 'قیمت نمیتواند خالی بشاد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'قیمت نامعتبر است' },
+  )
+  price: number;
+
+  @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
+  @IsNumber(
+    { allowNaN: false, allowInfinity: true },
+    { message: 'تعداد موجودی نامعتبر است' },
+  )
+  stock: number;
+}
+
+class ProductFilterDetailDto {
+  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
+  id: string;
+
+  @ArrayNotEmpty({ message: 'جزئیات فیلتر نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => FilterDetailDto)
+  details: FilterDetailDto[];
+}
+
 class ProductDetailDto {
   @IsOptional()
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
@@ -74,8 +110,14 @@ export class ProductDto {
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
+  @Type(() => ProductFilterDetailDto)
+  details: ProductFilterDetailDto[];
+
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
-  details: ProductDetailDto[];
+  filter_details: ProductDetailDto[];
 
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
