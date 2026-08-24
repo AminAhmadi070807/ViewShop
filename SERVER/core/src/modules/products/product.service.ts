@@ -139,14 +139,14 @@ export class ProductService {
 
       if (!product) return new CustomException(statusMessages.fa['404'], 404);
 
-      const result = await this.commentService.findProductComments(product.id);
-
-      if (result instanceof CustomException) return result;
+      const comments = await this.commentService.findProductComments(
+        product.id,
+      );
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: { comments: result.body, product: product },
+        body: { comments: comments.body, product: product },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
