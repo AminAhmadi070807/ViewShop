@@ -17,6 +17,7 @@ import {
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import { Type } from 'class-transformer';
 
+// filter details validation
 class FilterDetailDto {
   @IsOptional()
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
@@ -41,7 +42,8 @@ class FilterDetailDto {
   stock: number;
 }
 
-class ProductFilterDetailDto {
+// filter validation
+class ProductFilterDto {
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
@@ -53,6 +55,7 @@ class ProductFilterDetailDto {
   details: FilterDetailDto[];
 }
 
+// product details validation
 class ProductDetailDto {
   @IsOptional()
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
@@ -77,6 +80,7 @@ class ProductDetailDto {
   stock: number;
 }
 
+// product validation
 export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
@@ -110,8 +114,8 @@ export class ProductDto {
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
   @ValidateNested({ each: true })
-  @Type(() => ProductFilterDetailDto)
-  details: ProductFilterDetailDto[];
+  @Type(() => ProductFilterDto)
+  details: ProductFilterDto[];
 
   @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات باید ارایه باشد' })
@@ -135,6 +139,7 @@ export class ProductDto {
   discount_percent: number;
 }
 
+// update product validation
 export class UpdateProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
@@ -168,6 +173,7 @@ export class UpdateProductDto {
   discount_percent: number;
 }
 
+// update product status validation
 export class UpdateStatusProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
@@ -177,6 +183,7 @@ export class UpdateStatusProductDto {
   status: ProductStatusEnum;
 }
 
+// update product stock validation
 export class UpdateStockProductDto {
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
