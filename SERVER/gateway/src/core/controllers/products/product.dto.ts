@@ -19,10 +19,12 @@ import { Type } from 'class-transformer';
 
 // filter details validation
 class FilterDetailDto {
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان محصول باید رشته باشد' })
   title: string;
 
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان محصول باید رشته باشد' })
   value: string;
@@ -30,10 +32,18 @@ class FilterDetailDto {
 
 // filter validation
 class ProductFilterDto {
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
+  @ApiProperty({
+    type: () => FilterDetailDto,
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: FilterDetailDto,
+  })
   @ArrayNotEmpty({ message: 'جزئیات فیلتر نمیتواند خالی بشاد' })
   @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
   @ValidateNested({ each: true })
