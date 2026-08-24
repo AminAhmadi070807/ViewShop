@@ -34,7 +34,7 @@ class FilterDetailDto {
 }
 
 // filter validation
-class ProductFilterDto {
+export class ProductFilterDto {
   @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;

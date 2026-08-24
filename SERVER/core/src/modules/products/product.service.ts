@@ -14,7 +14,6 @@ import { MediaService } from '../media/media.service';
 import { StoreService } from '../store/store.service';
 import { ProductStatusEnum } from '../../common/enums/products/product/status.enum';
 import { ColorsService } from '../colors/colors.service';
-import { FiltersService } from '../filters/filters.service';
 import { ProductFilterDto } from '../search/dto/search.dto';
 import { CommentService } from '../comment/comment.service';
 import { BrandsService } from '../brands/brands.service';
@@ -27,7 +26,6 @@ export class ProductService {
     private readonly mediaService: MediaService,
     private readonly storeService: StoreService,
     private readonly colorService: ColorsService,
-    private readonly filterService: FiltersService,
     @Inject(forwardRef(() => CommentService))
     private readonly commentService: CommentService,
     private readonly brandService: BrandsService,
@@ -48,42 +46,51 @@ export class ProductService {
         id: data.store,
       });
       const colors = await this.colorService.findByCode(resultColor);
-      const filters = await this.filterService.findById(data.filters);
       const brand = await this.brandService.findOne(data.brand);
 
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
       if (colors instanceof CustomException) return colors;
-      if (filters instanceof CustomException) return filters;
       if (brand instanceof CustomException) return brand;
 
-      // const product = this.productRepository.create({
-      //   user: { id: data.userId },
-      //   medias: media.body,
-      //   alias: data.alias,
-      //   store: store.body,
-      //   details: data.details.map((item) => {
-      //     const id = crypto.randomUUID();
-      //     return {
-      //       id: id,
-      //       price: item.price,
-      //       stock: item.stock,
-      //       color: item.color,
-      //     };
-      //   }),
-      //   filters: filters.body,
-      //   discount_percent: data.discount_percent,
-      //   title: data.title,
-      //   description: data.description,
-      //   brand: brand.body,
-      // });
+      const product = this.productRepository.create({
+        user: { id: data.userId },
+        medias: media.body,
+        alias: data.alias,
+        store: store.body,
+        details: data.details.map((item) => {
+          const id = crypto.randomUUID();
+          return {
+            id: id,
+            price: item.price,
+            stock: item.stock,
+            color: item.color,
+          };
+        }),
+        filters_detail: data.filter_details.map((item) => {
+          return {
+            id: item.id,
+            details: item.details.map((detail) => {
+              return {
+                id: crypto.randomUUID(),
+                title: detail.title,
+                value: detail.value,
+              };
+            }),
+          };
+        }),
+        discount_percent: data.discount_percent,
+        title: data.title,
+        description: data.description,
+        brand: brand.body,
+      });
 
-      // await this.productRepository.save(product);
+      await this.productRepository.save(product);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: { id: 'adadfa' },
+        body: { id: product.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
