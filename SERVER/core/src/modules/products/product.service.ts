@@ -11,7 +11,6 @@ import { ILike, In, Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { MediaService } from '../media/media.service';
-import { RpcException } from '@nestjs/microservices';
 import { StoreService } from '../store/store.service';
 import { ProductStatusEnum } from '../../common/enums/products/product/status.enum';
 import { ColorsService } from '../colors/colors.service';

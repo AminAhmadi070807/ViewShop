@@ -77,9 +77,11 @@ export class Product {
   @JoinColumn({ name: 'Store_Product' })
   store: Store;
 
-  @ManyToMany(() => Filter, { nullable: false })
-  @JoinTable({ name: 'Filter_Product' })
-  filters: Filter[];
+  @Column({ type: 'jsonb', nullable: false })
+  filters: {
+    id: string;
+    details: { id: string; title: string; value: string };
+  }[];
 
   @OneToOne(() => Brand, { nullable: false })
   @JoinColumn({ name: 'Brand_Product' })
