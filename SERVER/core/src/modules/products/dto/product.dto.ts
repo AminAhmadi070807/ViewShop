@@ -24,22 +24,13 @@ class FilterDetailDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id?: string;
 
-  @IsHexColor({ message: 'رنگ نامعتبر است' })
-  color: string;
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  title: string;
 
-  @IsNotEmpty({ message: 'قیمت نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'قیمت نامعتبر است' },
-  )
-  price: number;
-
-  @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'تعداد موجودی نامعتبر است' },
-  )
-  stock: number;
+  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان محصول باید رشته باشد' })
+  value: string;
 }
 
 // filter validation
