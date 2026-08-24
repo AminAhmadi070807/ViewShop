@@ -113,7 +113,7 @@ export class ProductService {
           },
         ],
         order: { createdAt: 'DESC' },
-        relations: ['medias', 'store', 'filters'],
+        relations: ['medias', 'store'],
         select: {
           medias: { id: true, path: true, title: true },
           store: { id: true, title: true, logo: true },
@@ -130,7 +130,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { id },
-        relations: ['medias', 'store', 'filters'],
+        relations: ['medias', 'store'],
         select: {
           medias: { id: true, path: true, title: true },
           store: { id: true, title: true, logo: true },
@@ -157,7 +157,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.find({
         where: { id: In(ids) },
-        relations: ['medias', 'store', 'filters'],
+        relations: ['medias', 'store'],
         select: {
           medias: { id: true, path: true, title: true },
           store: { id: true, title: true, logo: true },
