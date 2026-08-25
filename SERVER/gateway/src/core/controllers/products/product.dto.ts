@@ -210,6 +210,19 @@ export class UpdateProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
+  @ApiProperty({
+    type: () => ProductFilterDto,
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: ProductFilterDto,
+  })
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductFilterDto)
+  filter_details: ProductFilterDto[];
+
   @ApiProperty({ type: Number, required: true, nullable: false, example: 0 })
   @IsNotEmpty({ message: 'درصد تخفیف نامعتبر است' })
   @IsNumber(
