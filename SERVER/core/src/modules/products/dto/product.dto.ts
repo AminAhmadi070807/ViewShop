@@ -149,6 +149,12 @@ export class UpdateProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
+  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
+  @IsArray({ message: 'جزئیات باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => ProductFilterDto)
+  filter_details: ProductFilterDto[];
+
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
     { allowNaN: false, allowInfinity: true },
