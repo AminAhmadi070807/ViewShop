@@ -27,11 +27,11 @@ export class ProductFilterDto {
     minLength: 3,
     maxLength: 255,
   })
+  @IsOptional({ message: 'ارسال عنوان اختیاری است' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
-  @MinLength(9, { message: 'حدقل کارکتر عنوان باید 9 رشته باشد' })
+  @MinLength(3, { message: 'حدقل کارکتر عنوان باید 3 رشته باشد' })
   @MaxLength(255, { message: 'حدکثر کارتر عنوان میتواند 255 باشد' })
-  @IsOptional({ message: 'ارسال عنوان اختیاری است' })
   title?: string;
 
   @ApiPropertyOptional({
