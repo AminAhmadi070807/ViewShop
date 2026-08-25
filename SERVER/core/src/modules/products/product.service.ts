@@ -187,7 +187,7 @@ export class ProductService {
       product.body.product.status = ProductStatusEnum.PENDING_APPROVAL;
       product.body.product.details = data.details.map((item) => {
         return {
-          id: item.id as string,
+          id: crypto.randomUUID(),
           stock: item.stock,
           color: item.color,
           price: item.price,
@@ -198,7 +198,7 @@ export class ProductService {
           id: item.id,
           details: item.details.map((detail) => {
             return {
-              id: detail.id as string,
+              id: crypto.randomUUID(),
               title: detail.title,
               value: detail.value,
             };
