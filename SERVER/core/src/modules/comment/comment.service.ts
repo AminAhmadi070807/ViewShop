@@ -63,12 +63,8 @@ export class CommentService {
         relations: ['user', 'product'],
         order: { createdAt: 'DESC' },
         select: {
-          id: true,
           user: { id: true, fullName: true },
-          product: { id: true },
-          status: true,
-          description: true,
-          score: true,
+          product: { id: true, title: true, description: true },
         },
       });
 
@@ -94,7 +90,7 @@ export class CommentService {
   async findProductComments(id: string) {
     try {
       const result = await this.commentRepository.find({
-        where: { product: { id } },
+        where: { product: { id }, status: true },
       });
 
       return {

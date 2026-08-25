@@ -13,6 +13,7 @@ import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { StoryStatusEnum } from '../../../common/enums/story/status.enum';
 import { Payment } from '../../payment/entities/payment.entity';
+import { Product } from '../../products/entities/product.entity';
 
 @Entity('Story')
 export class Story {
@@ -21,9 +22,6 @@ export class Story {
 
   @Column({ type: 'varchar', nullable: false })
   title: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  link: string;
 
   @Column({
     type: 'enum',
@@ -38,13 +36,13 @@ export class Story {
   @Column({ type: 'smallint', nullable: false, default: 0 })
   view: number;
 
-  @ManyToOne(() => User, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: false,
-  })
+  @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'User_Story' })
   user: User;
+
+  @ManyToOne(() => Product, { nullable: false })
+  @JoinColumn({ name: 'Product_Story' })
+  product: Product;
 
   @ManyToOne(() => Media, { nullable: false, eager: true })
   @JoinColumn({ name: 'Media_Banner_Story' })
