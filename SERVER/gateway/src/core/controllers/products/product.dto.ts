@@ -51,6 +51,7 @@ class ProductFilterDto {
   details: FilterDetailDto[];
 }
 
+// product details validation
 class ProductDetailDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsHexColor({ message: 'رنگ نامعتبر است' })
@@ -85,6 +86,7 @@ class ProductDetailDto {
   stock: number;
 }
 
+// product validation
 export class ProductDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
@@ -169,6 +171,7 @@ export class ProductDto {
   discount_percent: number;
 }
 
+// update product validation
 export class UpdateProductDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
@@ -234,6 +237,7 @@ export class UpdateProductDto {
   discount_percent: number;
 }
 
+// update product status validation
 export class UpdateStatusProductDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
