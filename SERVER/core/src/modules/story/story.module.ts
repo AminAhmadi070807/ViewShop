@@ -5,10 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
 import { MediaModule } from '../media/media.module';
 import { CategoriesModule } from '../categories/categories.module';
+import { ProductsModule } from '../products/products.module';
 
 @Module({
   controllers: [StoryController],
   providers: [StoryService],
-  imports: [TypeOrmModule.forFeature([Story]), MediaModule, CategoriesModule],
+  imports: [
+    TypeOrmModule.forFeature([Story]),
+    MediaModule,
+    CategoriesModule,
+    ProductsModule,
+  ],
 })
 export class StoryModule {}

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { StoryDto } from './dto/story.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
