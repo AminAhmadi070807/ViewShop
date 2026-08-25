@@ -197,7 +197,7 @@ export class UpdateProductDto {
   })
   @ArrayNotEmpty({ message: 'شناسه های تصاویر نامعتبر است' })
   @IsArray({ message: 'شناسه های تصوایر باید در ارایه ارسال شوند' })
-  @IsUUID('4', { message: 'شناسه تصوایر نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه تصوایر نامعتبر است', each: true })
   medias: string[];
 
   @ApiProperty({
