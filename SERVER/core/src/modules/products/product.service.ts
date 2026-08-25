@@ -193,6 +193,18 @@ export class ProductService {
           price: item.price,
         };
       });
+      product.body.product.filters_detail = data.filter_details.map((item) => {
+        return {
+          id: item.id,
+          details: item.details.map((detail) => {
+            return {
+              id: detail.id as string,
+              title: detail.title,
+              value: detail.value,
+            };
+          }),
+        };
+      });
 
       await this.productRepository.save(product.body.product);
 
