@@ -7,7 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
 import { MediaService } from '../media/media.service';
-import { RpcException } from '@nestjs/microservices';
+import { ProductService } from '../products/product.service';
 
 @Injectable()
 export class StoryService {
@@ -16,30 +16,26 @@ export class StoryService {
     private readonly storyRepository: Repository<Story>,
     private readonly categoryService: CategoriesService,
     private readonly mediaService: MediaService,
+    private readonly productService: ProductService,
   ) {}
 
   async create(data: StoryDto) {
     try {
       const category = await this.categoryService.findId([data.category]);
       const media = await this.mediaService.findId([data.video, data.banner]);
+      const product = await this.productService.findOne(data.product);
 
-      if (category instanceof RpcException || media instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (category instanceof CustomException) return category;
+      if (media instanceof CustomException) return media;
+      if (product instanceof CustomException) return product;
 
       const story: Story = this.storyRepository.create({
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
         category: category.body[0],
-        banner: {
-          id: data.banner,
-        },
-        video: {
-          id: data.video,
-        },
+        banner: { id: data.banner },
+        video: { id: data.video },
         title: data.title,
-        link: data.link,
+        product: { id: data.product },
       });
 
       const newStory = await this.storyRepository.save(story);
@@ -47,9 +43,7 @@ export class StoryService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: {
-          id: newStory.id,
-        },
+        body: { id: newStory.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -58,16 +52,12 @@ export class StoryService {
 
   async findAll(page: number = 1) {
     try {
-      const stories: Story[] = await this.storyRepository.find({
+      const stories = await this.storyRepository.find({
         take: (page ?? 1) * 15,
         order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        body: stories,
-        message: statusMessages.fa['200'],
-      };
+      return { status: 200, body: stories, message: statusMessages.fa['200'] };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -75,15 +65,11 @@ export class StoryService {
 
   async findOne(id: string) {
     try {
-      const story: Story | null = await this.storyRepository.findOneBy({ id });
+      const story = await this.storyRepository.findOneBy({ id });
 
       if (!story) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: story,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: story };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -91,17 +77,13 @@ export class StoryService {
 
   async remove(id: string) {
     try {
-      const result: DeleteResult = await this.storyRepository.delete(id);
+      const result = await this.storyRepository.delete(id);
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
