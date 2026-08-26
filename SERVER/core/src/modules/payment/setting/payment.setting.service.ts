@@ -12,4 +12,6 @@ export class PaymentSettingService {
   ) {}
 
   create(data: PaymentSettingDto) {}
+
+  findAll() {}
 }
