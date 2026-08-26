@@ -11,4 +11,9 @@ export class PaymentSettingsController {
   create(@Payload() data: PaymentSettingDto) {
     return this.paymentSettingService.create(data);
   }
+
+  @MessagePattern('PAYMENT:SETTING:FIND')
+  findAll() {
+    return this.paymentSettingService.findAll();
+  }
 }
