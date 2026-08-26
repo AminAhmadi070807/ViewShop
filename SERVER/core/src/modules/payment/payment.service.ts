@@ -4,6 +4,8 @@ import { PaymentDto } from './dto/payment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaymentSetting } from './entities/payment.setting.entity';
 import { Repository } from 'typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
 export class PaymentService {
@@ -15,5 +17,19 @@ export class PaymentService {
 
   async zarinPal(data: PaymentDto) {
     return await this.zarinPalService.payment(data);
+  }
+
+  async findSetting() {
+    try {
+      const result = await this.paymentSettingRepository.find();
+
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: result,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 }
