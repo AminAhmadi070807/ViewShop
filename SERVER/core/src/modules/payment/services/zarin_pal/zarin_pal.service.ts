@@ -85,18 +85,12 @@ export class ZarinPalService {
 
         await this.paymentRepository.save(result);
 
-        return {
-          status: 402,
-          message: statusMessages.fa['402'],
-          body: null,
-        };
+        return { status: 402, message: statusMessages.fa['402'], body: null };
       }
 
       const request = await fetch(process.env.ZARIN_PAL_API + 'verify.json', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           merchant_id: process.env.ZARIN_PAL_MERCHANT,
           authority: data.Authority,
@@ -116,12 +110,8 @@ export class ZarinPalService {
 
       if (json.data.code === 100) {
         const update = await this.paymentRepository.update(
-          {
-            code: data.Authority,
-          },
-          {
-            status: PaymentStatusEnum.SUCCESS,
-          },
+          { code: data.Authority },
+          { status: PaymentStatusEnum.SUCCESS },
         );
 
         if (!update.affected) {
@@ -133,11 +123,7 @@ export class ZarinPalService {
           amount: result.amount,
         });
 
-        return {
-          status: 200,
-          message: statusMessages.fa['200'],
-          body: null,
-        };
+        return { status: 200, message: statusMessages.fa['200'], body: null };
       } else if (json.data.code === 101) {
         const result = await this.paymentRepository.findOneBy({
           code: data.Authority,
@@ -150,12 +136,8 @@ export class ZarinPalService {
         switch (result.status) {
           case PaymentStatusEnum.WAITING: {
             const result = await this.paymentRepository.update(
-              {
-                code: data.Authority,
-              },
-              {
-                status: PaymentStatusEnum.SUCCESS,
-              },
+              { code: data.Authority },
+              { status: PaymentStatusEnum.SUCCESS },
             );
 
             if (!result.affected) {
@@ -200,9 +182,7 @@ export class ZarinPalService {
     try {
       const existing = await this.paymentRepository.findOneBy({
         IPG: PaymentModelEnum.ZARIN_PAL,
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
         amount: data.amount,
         status: PaymentStatusEnum.WAITING,
       });
