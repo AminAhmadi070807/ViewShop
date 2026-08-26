@@ -56,7 +56,7 @@ export class Story {
   @JoinColumn({ name: 'Category_Story' })
   category: Category;
 
-  @OneToOne(() => Payment, { nullable: false, onUpdate: 'CASCADE' })
+  @OneToOne(() => Payment, { nullable: true, onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'Story_Payment' })
   payment: Payment;
 

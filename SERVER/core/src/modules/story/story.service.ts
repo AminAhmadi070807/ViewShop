@@ -29,7 +29,7 @@ export class StoryService {
       if (media instanceof CustomException) return media;
       if (product instanceof CustomException) return product;
 
-      const story: Story = this.storyRepository.create({
+      const story = this.storyRepository.create({
         user: { id: data.user },
         category: category.body[0],
         banner: { id: data.banner },
