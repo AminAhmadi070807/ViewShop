@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { randomUUID } from 'node:crypto';
 
 @Entity('Payment_Setting')
 export class PaymentSetting {
@@ -14,17 +15,12 @@ export class PaymentSetting {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  api: string;
-
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  key: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  call_back: string;
-
-  @Column({ type: 'varchar', nullable: false, unique: true })
-  url: string;
+  @Column({ type: 'jsonb', nullable: false })
+  details: {
+    id: string;
+    title: string;
+    value: string;
+  }[];
 
   @CreateDateColumn()
   createdAt: Date;
