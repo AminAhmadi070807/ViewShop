@@ -2,7 +2,6 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -19,9 +18,10 @@ class PaymentSettingDetailDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @IsOptional()
   @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار باید رشته باشد' })
-  value: string;
+  value?: string;
 
   @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر برگشت باید رشته باشد' })
@@ -38,8 +38,4 @@ export class PaymentSettingDto {
   @ValidateNested({ each: true })
   @Type(() => PaymentSettingDetailDto)
   details: PaymentSettingDetailDto[];
-
-  @IsOptional()
-  @IsNumber({}, { message: 'حدکثر مبلغ نامعتبر است' })
-  max_price?: number;
 }
