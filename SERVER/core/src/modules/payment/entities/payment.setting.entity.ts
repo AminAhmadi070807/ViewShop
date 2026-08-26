@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { randomUUID } from 'node:crypto';
 
 @Entity('Payment_Setting')
 export class PaymentSetting {
