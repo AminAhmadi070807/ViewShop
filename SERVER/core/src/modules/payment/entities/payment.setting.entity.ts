@@ -15,7 +15,7 @@ export class PaymentSetting {
   title: string;
 
   @Column({ type: 'jsonb', nullable: false })
-  details: { id: string; title: string; value: string }[];
+  details: { title: string; value: string; private: boolean }[];
 
   @Column({ type: 'varchar', nullable: false })
   call_back: string;
