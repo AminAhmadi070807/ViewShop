@@ -2,7 +2,9 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
   IsUUID,
   ValidateNested,
@@ -38,4 +40,8 @@ export class PaymentSettingDto {
   @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر برگشت باید رشته باشد' })
   call_back: string;
+
+  @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
+  @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
+  max_price: string;
 }

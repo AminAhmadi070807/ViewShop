@@ -50,5 +50,5 @@ export class PaymentSettingDto {
   @ApiProperty({ type: Number, nullable: true, required: false })
   @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
   @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
-  max_price: string;
+  max_price: number;
 }
