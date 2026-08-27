@@ -26,7 +26,7 @@ export class PaymentSettingsController {
     return this.paymentSettingService.findOne(data.id);
   }
 
-  @MessagePattern('PAYMENT:SETTING:ONE')
+  @MessagePattern('PAYMENT:SETTING:UPDATE')
   update(@Payload() data: UpdatePaymentSettingDto) {
     return this.paymentSettingService.update(data);
   }
