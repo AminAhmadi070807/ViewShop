@@ -6,10 +6,12 @@ import { ZarinPalService } from './payment/services/zarin_pal/zarin_pal.service'
 import { PaymentService } from './payment/payment.service';
 import { WalletModule } from '../wallet/wallet.module';
 import { PaymentSetting } from './entities/payment.setting.entity';
+import { PaymentSettingService } from './setting/payment.setting.service';
+import { PaymentSettingsController } from './setting/payment.setting.controller';
 
 @Module({
-  controllers: [PaymentController],
-  providers: [PaymentService, ZarinPalService],
+  controllers: [PaymentController, PaymentSettingsController],
+  providers: [PaymentService, ZarinPalService, PaymentSettingService],
   imports: [TypeOrmModule.forFeature([Payment, PaymentSetting]), WalletModule],
   exports: [TypeOrmModule, PaymentService],
 })
