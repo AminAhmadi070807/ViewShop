@@ -10,12 +10,9 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { PartialType } from '@nestjs/mapped-types';
 
 class PaymentSettingDetailDto {
-  @IsOptional()
-  @IsUUID('4', { message: 'شناسه دیتا نامعتبر است' })
-  id?: string;
-
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
@@ -43,4 +40,9 @@ export class PaymentSettingDto {
   @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
   @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
   max_price?: number;
+}
+
+export class UpdatePaymentSettingDto extends PartialType(PaymentSettingDto) {
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  id: string;
 }
