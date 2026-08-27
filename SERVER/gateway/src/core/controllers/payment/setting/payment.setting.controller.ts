@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import { PaymentSettingDto } from './payment.setting.dto';
 import { ValidateUUID } from '../../../../common/validation/uuid.dto';
@@ -20,5 +20,10 @@ export class PaymentSettingController {
   @Get(':id')
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('PAYMENT:SETTING:ONE', data);
+  }
+
+  @Delete()
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('PAYMENT:SETTING:DELETE', data);
   }
 }
