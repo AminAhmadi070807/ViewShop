@@ -20,8 +20,6 @@ class PaymentSettingDetailDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
-  @IsOptional()
-  @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار باید رشته باشد' })
   value?: string;
 }

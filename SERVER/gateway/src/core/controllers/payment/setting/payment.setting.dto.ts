@@ -3,7 +3,6 @@ import {
   IsArray,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsPositive,
   IsString,
   ValidateNested,
@@ -18,10 +17,8 @@ class PaymentSettingDetailDto {
   title: string;
 
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
-  @IsOptional()
-  @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار باید رشته باشد' })
-  value?: string;
+  value: string;
 }
 
 export class PaymentSettingDto {
