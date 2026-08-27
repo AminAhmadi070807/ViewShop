@@ -20,9 +20,4 @@ export class PaymentController {
   verifyZarinPal(@Payload() data: VerifyPaymentDto) {
     return this.zarinPalService.verify(data);
   }
-
-  @MessagePattern('PAYMENT:SETTING:FIND')
-  findSetting() {
-    return this.paymentService.findSetting();
-  }
 }
