@@ -13,7 +13,23 @@ export class PaymentSettingService {
     private readonly paymentSettingRepository: Repository<PaymentSetting>,
   ) {}
 
-  create(data: PaymentSettingDto) {}
+  async create(data: PaymentSettingDto) {
+    try {
+      const existing = await this.paymentSettingRepository.findOneBy({
+        title: data.title,
+      });
+
+      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+
+      const result = this.paymentSettingRepository.create(data);
+
+      await this.paymentSettingRepository.save(result);
+
+      return { status: 200, message: statusMessages.fa['200'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async findAll() {
     try {
