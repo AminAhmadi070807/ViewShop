@@ -11,7 +11,6 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { PartialType } from '@nestjs/mapped-types';
 
 class PaymentSettingDetailDto {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
@@ -55,8 +54,27 @@ export class PaymentSettingDto {
   max_price?: number;
 }
 
-export class UpdatePaymentSettingDto extends PartialType(PaymentSettingDto) {
+export class UpdatePaymentSettingDto {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsUUID('4', { message: 'شناسه نامعتبر است' })
   id: string;
+
+  @ApiProperty({
+    type: () => PaymentSettingDetailDto,
+    isArray: true,
+    required: true,
+    nullable: false,
+    example: PaymentSettingDetailDto,
+  })
+  @IsArray({ message: 'دیتاها باید در ارایه ارسال شوند' })
+  @ArrayNotEmpty({ message: 'دیتاها نمیتواند در ارایه خالی باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => PaymentSettingDetailDto)
+  details: PaymentSettingDetailDto[];
+
+  @ApiProperty({ type: Number, nullable: true, required: false })
+  @IsOptional()
+  @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
+  @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
+  max_price: number;
 }
