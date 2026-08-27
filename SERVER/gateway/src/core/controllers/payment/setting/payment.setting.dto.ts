@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   ValidateNested,
@@ -46,7 +47,8 @@ export class PaymentSettingDto {
   call_back: string;
 
   @ApiProperty({ type: Number, nullable: true, required: false })
+  @IsOptional()
   @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
   @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
-  max_price: number;
+  max_price?: number;
 }

@@ -39,7 +39,8 @@ export class PaymentSettingDto {
   @IsString({ message: 'مسیر برگشت باید رشته باشد' })
   call_back: string;
 
+  @IsOptional()
   @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
   @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
-  max_price: string;
+  max_price?: number;
 }
