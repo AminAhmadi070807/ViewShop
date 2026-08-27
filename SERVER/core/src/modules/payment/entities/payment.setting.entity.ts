@@ -15,11 +15,7 @@ export class PaymentSetting {
   title: string;
 
   @Column({ type: 'jsonb', nullable: false })
-  details: {
-    id: string;
-    title: string;
-    value: string;
-  }[];
+  details: { id: string; title: string; value: string }[];
 
   @CreateDateColumn()
   createdAt: Date;
