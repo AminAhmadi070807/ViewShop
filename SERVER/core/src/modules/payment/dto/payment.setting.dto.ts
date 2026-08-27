@@ -22,10 +22,6 @@ class PaymentSettingDetailDto {
   @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار باید رشته باشد' })
   value?: string;
-
-  @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
-  @IsString({ message: 'مسیر برگشت باید رشته باشد' })
-  call_back: string;
 }
 
 export class PaymentSettingDto {
@@ -38,4 +34,8 @@ export class PaymentSettingDto {
   @ValidateNested({ each: true })
   @Type(() => PaymentSettingDetailDto)
   details: PaymentSettingDetailDto[];
+
+  @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
+  @IsString({ message: 'مسیر برگشت باید رشته باشد' })
+  call_back: string;
 }
