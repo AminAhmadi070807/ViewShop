@@ -1,13 +1,13 @@
 import {
   ArrayNotEmpty,
   IsArray,
-  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
   IsUUID,
+  Matches,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -23,9 +23,10 @@ class PaymentSettingDetailDto {
   @IsString({ message: 'مقدار باید رشته باشد' })
   value: string;
 
-  @ApiProperty({ type: Boolean, example: false })
-  @IsBoolean({ message: 'ایا این فیلد خصوصی هست' })
-  private: boolean;
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
+  @IsString({ message: 'مقدار باید رشته باشد' })
+  @Matches(/^[a-zA-Z-_0-9]$/, { message: 'پتر باید انگلیسی باشد' })
+  pattern: string;
 }
 
 export class PaymentSettingDto {
