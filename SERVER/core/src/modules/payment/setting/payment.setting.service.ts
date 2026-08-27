@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaymentSetting } from '../entities/payment.setting.entity';
 import { Repository } from 'typeorm';
-import { PaymentSettingDto } from '../dto/payment.setting.dto';
+import {
+  PaymentSettingDto,
+  UpdatePaymentSettingDto,
+} from '../dto/payment.setting.dto';
 import { statusMessages } from '../../../common/message/message.status';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 
@@ -50,6 +53,24 @@ export class PaymentSettingService {
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
       return { status: 200, message: statusMessages.fa['200'], body: result };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async update(data: UpdatePaymentSettingDto) {
+    try {
+      const result = await this.paymentSettingRepository.update(data.id, data);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
