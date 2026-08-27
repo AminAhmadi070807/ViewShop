@@ -25,7 +25,7 @@ class PaymentSettingDetailDto {
 
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsString({ message: 'مقدار باید رشته باشد' })
-  @Matches(/^[a-zA-Z-_0-9]$/, { message: 'پتر باید انگلیسی باشد' })
+  @Matches(/^([a-zA-Z-_]{3,36})$/, { message: 'پتر باید انگلیسی باشد' })
   pattern: string;
 }
 
