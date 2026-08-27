@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -21,6 +22,10 @@ class PaymentSettingDetailDto {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsString({ message: 'مقدار باید رشته باشد' })
   value: string;
+
+  @ApiProperty({ type: Boolean, example: false })
+  @IsBoolean({ message: 'ایا این فیلد خصوصی هست' })
+  private: boolean;
 }
 
 export class PaymentSettingDto {
