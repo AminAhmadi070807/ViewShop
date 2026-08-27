@@ -1,7 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { PaymentSettingService } from './payment.setting.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { PaymentSettingDto } from '../dto/payment.setting.dto';
+import {
+  PaymentSettingDto,
+  UpdatePaymentSettingDto,
+} from '../dto/payment.setting.dto';
 import { Validate } from '../../../common/validations/validate.dto';
 
 @Controller()
@@ -21,6 +24,11 @@ export class PaymentSettingsController {
   @MessagePattern('PAYMENT:SETTING:ONE')
   findOne(@Payload() data: Validate) {
     return this.paymentSettingService.findOne(data.id);
+  }
+
+  @MessagePattern('PAYMENT:SETTING:ONE')
+  update(@Payload() data: UpdatePaymentSettingDto) {
+    return this.paymentSettingService.update(data);
   }
 
   @MessagePattern('PAYMENT:SETTING:DELETE')
