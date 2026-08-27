@@ -7,12 +7,15 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 class PaymentSettingDetailDto {
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsOptional()
   @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار باید رشته باشد' })
@@ -20,16 +23,24 @@ class PaymentSettingDetailDto {
 }
 
 export class PaymentSettingDto {
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @ApiProperty({
+    type: () => PaymentSettingDetailDto,
+    required: true,
+    nullable: false,
+    example: PaymentSettingDetailDto,
+  })
   @IsArray({ message: 'دیتاها باید در ارایه ارسال شوند' })
   @ArrayNotEmpty({ message: 'دیتاها نمیتواند در ارایه خالی باشد' })
   @ValidateNested({ each: true })
   @Type(() => PaymentSettingDetailDto)
   details: PaymentSettingDetailDto[];
 
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر برگشت باید رشته باشد' })
   call_back: string;
