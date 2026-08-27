@@ -13,12 +13,23 @@ import {
   UpdatePaymentSettingDto,
 } from './payment.setting.dto';
 import { ValidateUUID } from '../../../../common/validation/uuid.dto';
+import {
+  ApiBadRequestResponse,
+  ApiConflictResponse,
+  ApiForbiddenResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { statusMessages } from '../../../../common/messages/status.message';
 
 @Controller('core/payment/setting')
 export class PaymentSettingController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: PaymentSettingDto) {
     return this.coreService.send('PAYMENT:SETTING:CREATE', data);
   }
