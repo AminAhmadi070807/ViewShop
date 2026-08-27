@@ -19,7 +19,7 @@ export class PaymentSettingService {
         title: data.title,
       });
 
-      if (!existing) return new CustomException(statusMessages.fa['409'], 409);
+      if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const result = this.paymentSettingRepository.create(data);
 
