@@ -20,6 +20,9 @@ export class PaymentSetting {
   @Column({ type: 'varchar', nullable: false })
   call_back: string;
 
+  @Column({ type: 'bigint', nullable: false })
+  max_price: string;
+
   @Column({ type: 'boolean', nullable: false, default: false })
   status: boolean;
 
