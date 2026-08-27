@@ -22,4 +22,9 @@ export class PaymentSettingsController {
   findOne(@Payload() data: Validate) {
     return this.paymentSettingService.findOne(data.id);
   }
+
+  @MessagePattern('PAYMENT:SETTING:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.paymentSettingService.remove(data.id);
+  }
 }
