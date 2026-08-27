@@ -32,6 +32,7 @@ export class PaymentSettingDto {
 
   @ApiProperty({
     type: () => PaymentSettingDetailDto,
+    isArray: true,
     required: true,
     nullable: false,
     example: PaymentSettingDetailDto,
