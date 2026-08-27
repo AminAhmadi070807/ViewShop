@@ -17,17 +17,19 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 
 @Controller('core/payment/setting')
+@ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+@ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+@ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
 export class PaymentSettingController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: PaymentSettingDto) {
