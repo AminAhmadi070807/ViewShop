@@ -2,7 +2,9 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -44,4 +46,9 @@ export class PaymentSettingDto {
   @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
   @IsString({ message: 'مسیر برگشت باید رشته باشد' })
   call_back: string;
+
+  @ApiProperty({ type: Number, nullable: true, required: false })
+  @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
+  @IsPositive({ message: 'حدکثر قیمت نامعتبر است' })
+  max_price: string;
 }
