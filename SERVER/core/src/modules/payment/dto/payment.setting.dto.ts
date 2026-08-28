@@ -31,6 +31,10 @@ export class PaymentSettingDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @IsString({ message: 'نامک باید رشته باشد' })
+  @Matches(/^([a-zA-Z-_]{3,36})$/, { message: 'نامک باید انگلیسی باشد' })
+  alias: string;
+
   @IsArray({ message: 'دیتاها باید در ارایه ارسال شوند' })
   @ArrayNotEmpty({ message: 'دیتاها نمیتواند در ارایه خالی باشد' })
   @ValidateNested({ each: true })
