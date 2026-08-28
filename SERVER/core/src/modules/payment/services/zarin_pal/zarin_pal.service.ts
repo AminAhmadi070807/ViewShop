@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Payment } from '../../../entities/payment.entity';
+import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
 import {
   PaymentDto,
   VerifyPaymentDto,
   VerifyStatusEnum,
-} from '../../../dto/payment.dto';
-import { CustomException } from '../../../../../common/exceptions/custom.exception.error';
-import { statusMessages } from '../../../../../common/message/message.status';
-import { PaymentModelEnum } from '../../../../../common/enums/payment/ipg.enum';
-import { PaymentStatusEnum } from '../../../../../common/enums/payment/status.enum';
+} from '../../dto/payment.dto';
+import { CustomException } from '../../../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../../../common/message/message.status';
+import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
+import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 import {
   VerifyZarinPalInterface,
   ZarinPalInterface,
-} from '../../../../../common/interfaces/payment.interface';
-import { WalletService } from '../../../../wallet/wallet.service';
+} from '../../../../common/interfaces/payment.interface';
+import { WalletService } from '../../../wallet/wallet.service';
 
 @Injectable()
 export class ZarinPalService {

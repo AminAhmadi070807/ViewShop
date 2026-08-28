@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { PaymentService } from './payment.service';
-import { PaymentDto, VerifyPaymentDto } from '../dto/payment.dto';
+import { PaymentDto, VerifyPaymentDto } from './dto/payment.dto';
 import { ZarinPalService } from './services/zarin_pal/zarin_pal.service';
 
 @Controller()
