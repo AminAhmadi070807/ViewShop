@@ -1,8 +1,8 @@
 import {
   IsEnum,
-  IsInt,
   IsNotEmpty,
   IsNumber,
+  IsPositive,
   IsString,
   IsUUID,
 } from 'class-validator';
@@ -13,18 +13,14 @@ export enum VerifyStatusEnum {
 }
 
 export class PaymentDto {
-  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @IsUUID('4', { message: 'شناسه پرداخت نامعتبر است نامعتبر است' })
+  payment: string;
+
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user: string;
 
-  @IsNotEmpty({ message: 'قیمت نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowInfinity: true, allowNaN: false },
-    { message: 'قیمت باید عداد باشد' },
-  )
-  @IsInt({
-    message: 'قیمت نامعتبر است',
-  })
+  @IsNumber({}, { message: 'قیمت باید عداد باشد' })
+  @IsPositive({ message: 'قیمت نامعتبر است' })
   amount: number;
 }
 
