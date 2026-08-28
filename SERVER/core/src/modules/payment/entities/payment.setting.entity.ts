@@ -14,6 +14,9 @@ export class PaymentSetting {
   @Column({ type: 'varchar', nullable: false, unique: true })
   title: string;
 
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  alias: string;
+
   @Column({ type: 'jsonb', nullable: false })
   details: { title: string; value: string; pattern: string }[];
 
