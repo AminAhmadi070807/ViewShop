@@ -35,6 +35,10 @@ export class PaymentSettingDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @IsString({ message: 'نامک باید رشته باشد' })
+  @Matches(/^([a-zA-Z-_]{3,36})$/, { message: 'نامک باید انگلیسی باشد' })
+  alias: string;
+
   @ApiProperty({
     type: () => PaymentSettingDetailDto,
     isArray: true,
