@@ -1,4 +1,10 @@
-import { IsEnum, IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum PaymentVerifyStatusEnum {
@@ -7,29 +13,14 @@ export enum PaymentVerifyStatusEnum {
 }
 
 export class PaymentDto {
-  @ApiProperty({
-    type: Number,
-    required: true,
-    example: 100000,
-  })
-  @IsNotEmpty({ message: 'قیمت نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowInfinity: true, allowNaN: false },
-    { message: 'قیمت باید عداد باشد' },
-  )
-  @IsInt({
-    message: 'قیمت نامعتبر است',
-  })
+  @ApiProperty({ type: Number, required: true, example: 100000 })
+  @IsNumber({}, { message: 'قیمت باید عداد باشد' })
+  @IsPositive({ message: 'قیمت نامعتبر است' })
   amount: number;
 }
 
 export class VerifyPaymentDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
   @IsString({ message: 'اتوراریتی باید رشته باشد' })
   Authority: string;
@@ -41,9 +32,6 @@ export class VerifyPaymentDto {
     enum: PaymentVerifyStatusEnum,
     example: PaymentVerifyStatusEnum.OK,
   })
-  @IsNotEmpty({ message: 'اتوراریتی نمیتواند خالی باشد' })
-  @IsEnum(PaymentVerifyStatusEnum, {
-    message: 'لطفا وضیعت را بهدرستی وارد نماید',
-  })
+  @IsEnum(PaymentVerifyStatusEnum, { message: 'وضیعت پرداخت نامعتبر است' })
   Status: PaymentVerifyStatusEnum;
 }

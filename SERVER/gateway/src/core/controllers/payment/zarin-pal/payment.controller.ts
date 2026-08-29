@@ -28,12 +28,7 @@ export class ZarinPalController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'PAYMENT',
-      enum: ['PAYMENT'],
-    },
+    { name: 'feature', required: true, example: 'PAYMENT', enum: ['PAYMENT'] },
     {
       name: 'permission',
       required: true,
