@@ -20,7 +20,7 @@ import { PaymentDto } from './payment.dto';
 export class PaymentController {
   constructor(private readonly coreService: CoreService) {}
 
-  @Post(':id')
+  @Post()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
