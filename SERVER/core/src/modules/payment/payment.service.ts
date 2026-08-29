@@ -29,6 +29,7 @@ export class PaymentService {
           key: data.get('key') as string,
           url: data.get('url') as string,
           call_back: data.get('call_back') as string,
+          payment: payment.id,
         });
       }
       default: {
