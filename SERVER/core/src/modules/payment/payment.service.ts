@@ -13,11 +13,29 @@ export class PaymentService {
     private readonly paymentSettingService: PaymentSettingService,
   ) {}
 
-  async zarinPal(data: PaymentDto) {
-    return await this.zarinPalService.payment(data);
-  }
+  async separator(payment: PaymentSetting, user: string, amount: number) {
+    const alias = payment.alias.toUpperCase();
 
-  separator(payment: PaymentSetting) {}
+    const data = new Map<string, string>();
+
+    for (const item of payment.details) data.set(item.pattern, item.value);
+
+    switch (alias) {
+      case 'ZARIN_PAL': {
+        return await this.zarinPalService.payment({
+          amount,
+          user,
+          api: data.get('api') as string,
+          key: data.get('key') as string,
+          url: data.get('url') as string,
+          call_back: data.get('call_back') as string,
+        });
+      }
+      default: {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+    }
+  }
 
   async payment(data: PaymentDto) {
     try {
@@ -28,7 +46,7 @@ export class PaymentService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return this.separator(payment.body);
+      return this.separator(payment.body, data.user, data.amount);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

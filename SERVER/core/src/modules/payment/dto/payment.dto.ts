@@ -37,3 +37,12 @@ export class VerifyPaymentDto {
   @IsEnum(VerifyStatusEnum, { message: 'لطفا وضیعت را بهدرستی وارد نماید' })
   Status: VerifyStatusEnum;
 }
+
+export interface PaymentRequestInterface {
+  api: string;
+  key: string;
+  url: string;
+  call_back: string;
+  amount: number;
+  user: string;
+}

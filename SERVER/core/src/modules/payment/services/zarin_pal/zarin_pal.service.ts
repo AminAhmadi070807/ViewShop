@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
 import {
-  PaymentDto,
+  PaymentRequestInterface,
   VerifyPaymentDto,
   VerifyStatusEnum,
 } from '../../dto/payment.dto';
@@ -25,13 +25,11 @@ export class ZarinPalService {
     private readonly walletService: WalletService,
   ) {}
 
-  async request(data: PaymentDto) {
+  async request(data: PaymentRequestInterface) {
     try {
       const result = await fetch(process.env.ZARIN_PAL_API + 'request.json', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           merchant_id: process.env.ZARIN_PAL_MERCHANT,
           amount: data.amount,
@@ -52,9 +50,7 @@ export class ZarinPalService {
         status: PaymentStatusEnum.WAITING,
         code: json.data.authority,
         IPG: PaymentModelEnum.ZARIN_PAL,
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
       });
 
       await this.paymentRepository.save(payment);
@@ -161,24 +157,16 @@ export class ZarinPalService {
           }
         }
 
-        return {
-          status: 200,
-          message: statusMessages.fa['200'],
-          body: null,
-        };
+        return { status: 200, message: statusMessages.fa['200'], body: null };
       }
 
-      return {
-        status: 402,
-        message: statusMessages.fa['402'],
-        body: null,
-      };
+      return { status: 402, message: statusMessages.fa['402'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 
-  async payment(data: PaymentDto) {
+  async payment(data: PaymentRequestInterface) {
     try {
       const existing = await this.paymentRepository.findOneBy({
         IPG: PaymentModelEnum.ZARIN_PAL,
