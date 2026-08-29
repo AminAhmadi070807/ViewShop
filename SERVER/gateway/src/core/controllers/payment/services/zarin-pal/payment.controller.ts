@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import { PaymentDto, VerifyPaymentDto } from './payment.dto';
 import express from 'express';
-import { CoreService } from '../../../core.service';
-import { JwtPayload } from '../../../../common/validation/jwt.dto';
+import { CoreService } from '../../../../core.service';
+import { JwtPayload } from '../../../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -13,7 +13,7 @@ import {
   ApiPaymentRequiredResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { statusMessages } from '../../../../common/messages/status.message';
+import { statusMessages } from '../../../../../common/messages/status.message';
 
 @Controller('core/payment/zarin-pal')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })

@@ -1,27 +1,9 @@
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum PaymentVerifyStatusEnum {
   OK = 'OK',
   NOK = 'NOK',
-}
-
-export class PaymentDto {
-  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsUUID('4', { message: 'شناسه پرداخت نامعتبر است' })
-  payment: string;
-
-  @ApiProperty({ type: Number, required: true, example: 100000 })
-  @IsNumber({}, { message: 'قیمت باید عداد باشد' })
-  @IsPositive({ message: 'قیمت نامعتبر است' })
-  amount: number;
 }
 
 export class VerifyPaymentDto {
