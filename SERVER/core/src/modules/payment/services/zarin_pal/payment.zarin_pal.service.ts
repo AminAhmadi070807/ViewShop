@@ -22,18 +22,22 @@ export class ZarinPalService {
     private readonly walletService: WalletService,
   ) {}
 
+  payment_body(data: PaymentRequestInterface) {
+    return {
+      merchant_id: data.key,
+      amount: data.amount,
+      description: 'شارژ کیف پول کاربر',
+      callback_url: data.call_back,
+      currency: 'IRT',
+    };
+  }
+
   async request(data: PaymentRequestInterface) {
     try {
-      const result = await fetch(process.env.ZARIN_PAL_API + 'request.json', {
+      const result = await fetch(data.api + 'request.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          merchant_id: process.env.ZARIN_PAL_MERCHANT,
-          amount: data.amount,
-          description: 'شارژ کیف پول کاربر',
-          callback_url: process.env.ZARIN_PAL_CALLBACK,
-          currency: 'IRT',
-        }),
+        body: JSON.stringify(this.payment_body(data)),
       });
 
       if (result.status !== 200) {
@@ -55,9 +59,7 @@ export class ZarinPalService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: {
-          url: process.env.ZARIN_PAL_URL + json.data.authority,
-        },
+        body: { url: process.env.ZARIN_PAL_URL + json.data.authority },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
