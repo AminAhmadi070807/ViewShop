@@ -13,6 +13,7 @@ export class PaymentDto {
 }
 
 export interface PaymentRequestInterface {
+  payment: string;
   api: string;
   key: string;
   url: string;

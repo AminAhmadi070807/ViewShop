@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { PaymentRequestInterface } from '../../dto/payment.dto';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
-import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 import {
   VerifyZarinPalInterface,
@@ -54,7 +53,7 @@ export class ZarinPalService {
         amount: data.amount,
         status: PaymentStatusEnum.WAITING,
         code: json.data.authority,
-        IPG: PaymentModelEnum.ZARIN_PAL,
+        service: { id: data.payment },
         user: { id: data.user },
       });
 
@@ -91,7 +90,7 @@ export class ZarinPalService {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-          this.payment_verify(data.key, data.key, result.amount),
+          this.payment_verify(result.service.id, data.key, result.amount),
         ),
       });
 
@@ -170,7 +169,7 @@ export class ZarinPalService {
   async payment(data: PaymentRequestInterface) {
     try {
       const existing = await this.paymentRepository.findOneBy({
-        IPG: PaymentModelEnum.ZARIN_PAL,
+        service: { id: data.payment },
         user: { id: data.user },
         amount: data.amount,
         status: PaymentStatusEnum.WAITING,
@@ -180,9 +179,7 @@ export class ZarinPalService {
         return {
           status: 200,
           message: statusMessages.fa['200'],
-          body: {
-            url: (process.env.ZARIN_PAL_URL as string) + existing.code,
-          },
+          body: { url: (process.env.ZARIN_PAL_URL as string) + existing.code },
         };
       }
 
