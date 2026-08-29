@@ -16,9 +16,4 @@ export class PaymentController {
   payment(@Payload() data: PaymentDto) {
     return this.paymentService.payment(data);
   }
-
-  @MessagePattern('PAYMENT:VERIFY')
-  verify(@Payload() data: VerifyPaymentDto) {
-    return this.zarinPalService.verify(data);
-  }
 }
