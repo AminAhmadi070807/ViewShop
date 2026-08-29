@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PaymentModelEnum } from '../../../common/enums/payment/ipg.enum';
 import { PaymentStatusEnum } from '../../../common/enums/payment/status.enum';
 import { User } from '../../users/entities/user.entity';
+import { PaymentSetting } from './payment.setting.entity';
 
 @Entity('Payment')
 export class Payment {
@@ -31,13 +31,9 @@ export class Payment {
   })
   status: PaymentStatusEnum;
 
-  @Column({
-    type: 'enum',
-    enum: PaymentModelEnum,
-    nullable: false,
-    default: PaymentModelEnum.ZIBAL,
-  })
-  IPG: PaymentModelEnum;
+  @ManyToOne(() => PaymentSetting, { nullable: false })
+  @JoinColumn({ name: 'Payment_PaymentSetting' })
+  service: PaymentSetting;
 
   @Column({ type: 'varchar', nullable: false })
   code: string;

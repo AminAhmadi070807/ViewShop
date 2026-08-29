@@ -32,6 +32,10 @@ export class ZarinPalService {
     };
   }
 
+  payment_verify(key: string, payment_key: string, price: number) {
+    return { merchant_id: key, authority: payment_key, amount: price };
+  }
+
   async request(data: PaymentRequestInterface) {
     try {
       const result = await fetch(data.api + 'request.json', {
@@ -86,11 +90,9 @@ export class ZarinPalService {
       const request = await fetch(process.env.ZARIN_PAL_API + 'verify.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          merchant_id: process.env.ZARIN_PAL_MERCHANT,
-          authority: data.key,
-          amount: result.amount,
-        }),
+        body: JSON.stringify(
+          this.payment_verify(data.key, data.key, result.amount),
+        ),
       });
 
       if (request.status !== 200) {
