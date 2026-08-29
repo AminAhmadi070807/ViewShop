@@ -11,13 +11,13 @@ export class PaymentController {
     private readonly zarinPalService: ZarinPalService,
   ) {}
 
-  @MessagePattern('PAYMENT:ZARIN_PAL')
-  zarinPal(@Payload() data: PaymentDto) {
-    return this.paymentService.zarinPal(data);
+  @MessagePattern('PAYMENT:PAY')
+  payment(@Payload() data: PaymentDto) {
+    return this.paymentService.payment(data);
   }
 
-  @MessagePattern('PAYMENT:ZARIN_PAL:VERIFY')
-  verifyZarinPal(@Payload() data: VerifyPaymentDto) {
+  @MessagePattern('PAYMENT:VERIFY')
+  verify(@Payload() data: VerifyPaymentDto) {
     return this.zarinPalService.verify(data);
   }
 }
