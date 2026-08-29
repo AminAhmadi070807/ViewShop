@@ -37,6 +37,7 @@ import { SettingController } from './controllers/settings/setting.controller';
 import { SaleController } from './controllers/sale/sale.controller';
 import { SmsController } from './controllers/sms/sms.controller';
 import { PaymentSettingController } from './controllers/payment/setting/payment.setting.controller';
+import { PaymentController } from './controllers/payment/payment.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -50,6 +51,7 @@ import { PaymentSettingController } from './controllers/payment/setting/payment.
     AuthController,
     SmsController,
     PaymentSettingController,
+    PaymentController,
     AddressController,
     MediaController,
     FilterController,

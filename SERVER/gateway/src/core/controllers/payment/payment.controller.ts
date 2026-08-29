@@ -17,10 +17,10 @@ import { PaymentDto } from './payment.dto';
 
 @Controller('core/payment')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-export class ZarinPalController {
+export class PaymentController {
   constructor(private readonly coreService: CoreService) {}
 
-  @Post('')
+  @Post(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
