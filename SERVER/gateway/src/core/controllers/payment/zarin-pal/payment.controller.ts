@@ -37,7 +37,7 @@ export class ZarinPalController {
     },
   ])
   payment(@Body() data: PaymentDto, @Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
+    const user = req.user as JwtPayload;
 
     return this.coreService.send('PAYMENT:ZARIN_PAL', {
       user: user.userId,
@@ -53,21 +53,11 @@ export class ZarinPalController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'PAYMENT',
-      enum: ['PAYMENT'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'VERIFY',
-      enum: ['VERIFY'],
-    },
+    { name: 'feature', required: true, example: 'PAYMENT', enum: ['PAYMENT'] },
+    { name: 'permission', required: true, example: 'VERIFY', enum: ['VERIFY'] },
   ])
   verify(@Query() data: VerifyPaymentDto, @Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
+    const user = req.user as JwtPayload;
 
     return this.coreService.send('PAYMENT:ZARIN_PAL:VERIFY', {
       user: user.userId,
