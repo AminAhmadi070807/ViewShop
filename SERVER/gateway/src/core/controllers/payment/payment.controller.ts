@@ -39,7 +39,7 @@ export class PaymentController {
   payment(@Body() data: PaymentDto, @Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
-    return this.coreService.send('PAYMENT:ZARIN_PAL', {
+    return this.coreService.send('PAYMENT:PAY', {
       user: user.userId,
       ...data,
     });
