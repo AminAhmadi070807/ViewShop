@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalService } from './services/zarin_pal/zarin_pal.service';
+import { ZarinPalService } from './services/zarin_pal/payment.zarin_pal.service';
 import { PaymentDto } from './dto/payment.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';

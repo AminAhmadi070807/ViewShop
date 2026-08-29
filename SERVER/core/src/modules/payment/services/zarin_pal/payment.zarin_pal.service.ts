@@ -2,11 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
-import {
-  PaymentRequestInterface,
-  VerifyPaymentDto,
-  VerifyStatusEnum,
-} from '../../dto/payment.dto';
+import { PaymentRequestInterface } from '../../dto/payment.dto';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentModelEnum } from '../../../../common/enums/payment/ipg.enum';
@@ -16,6 +12,7 @@ import {
   ZarinPalInterface,
 } from '../../../../common/interfaces/payment.interface';
 import { WalletService } from '../../../wallet/wallet.service';
+import { VerifyPaymentDto, VerifyStatusEnum } from './zarin_pal.dto';
 
 @Injectable()
 export class ZarinPalService {
@@ -70,13 +67,13 @@ export class ZarinPalService {
   async verify(data: VerifyPaymentDto) {
     try {
       const result = await this.paymentRepository.findOneBy({
-        code: data.Authority,
+        code: data.key,
         user: { id: data.user },
       });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
-      if (data.Status === VerifyStatusEnum.NOK) {
+      if (data.status === VerifyStatusEnum.NOK) {
         result.status = PaymentStatusEnum.CANCELED;
 
         await this.paymentRepository.save(result);
@@ -89,7 +86,7 @@ export class ZarinPalService {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           merchant_id: process.env.ZARIN_PAL_MERCHANT,
-          authority: data.Authority,
+          authority: data.key,
           amount: result.amount,
         }),
       });
@@ -106,7 +103,7 @@ export class ZarinPalService {
 
       if (json.data.code === 100) {
         const update = await this.paymentRepository.update(
-          { code: data.Authority },
+          { code: data.key },
           { status: PaymentStatusEnum.SUCCESS },
         );
 
@@ -122,7 +119,7 @@ export class ZarinPalService {
         return { status: 200, message: statusMessages.fa['200'], body: null };
       } else if (json.data.code === 101) {
         const result = await this.paymentRepository.findOneBy({
-          code: data.Authority,
+          code: data.key,
         });
 
         if (!result) {
@@ -132,7 +129,7 @@ export class ZarinPalService {
         switch (result.status) {
           case PaymentStatusEnum.WAITING: {
             const result = await this.paymentRepository.update(
-              { code: data.Authority },
+              { code: data.key },
               { status: PaymentStatusEnum.SUCCESS },
             );
 
