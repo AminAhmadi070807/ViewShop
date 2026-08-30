@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalService } from './services/zarin_pal/payment.zarin_pal.service';
 import { PaymentDto } from './dto/payment.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
@@ -8,12 +7,9 @@ import { PaymentSetting } from './entities/payment.setting.entity';
 
 @Injectable()
 export class PaymentService {
-  constructor(
-    private readonly zarinPalService: ZarinPalService,
-    private readonly paymentSettingService: PaymentSettingService,
-  ) {}
+  constructor(private readonly paymentSettingService: PaymentSettingService) {}
 
-  async separator(payment: PaymentSetting, user: string, amount: number) {
+  separator(payment: PaymentSetting, user: string, amount: number) {
     const alias = payment.alias.toUpperCase();
 
     const data = new Map<string, string>();
@@ -21,17 +17,7 @@ export class PaymentService {
     for (const item of payment.details) data.set(item.pattern, item.value);
 
     switch (alias) {
-      case 'ZARIN_PAL': {
-        return await this.zarinPalService.payment({
-          amount,
-          user,
-          api: data.get('api') as string,
-          key: data.get('key') as string,
-          url: data.get('url') as string,
-          call_back: data.get('call_back') as string,
-          payment: payment.id,
-        });
-      }
+      case 'ZARIN_PAL':
       default: {
         return new CustomException(statusMessages.fa['404'], 404);
       }

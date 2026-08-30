@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { PaymentController } from './payment.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Payment } from './entities/payment.entity';
-import { ZarinPalService } from './services/zarin_pal/payment.zarin_pal.service';
 import { PaymentService } from './payment.service';
 import { WalletModule } from '../wallet/wallet.module';
 import { PaymentSetting } from './entities/payment.setting.entity';
@@ -11,7 +10,7 @@ import { PaymentSettingsController } from './setting/payment.setting.controller'
 
 @Module({
   controllers: [PaymentController, PaymentSettingsController],
-  providers: [PaymentService, ZarinPalService, PaymentSettingService],
+  providers: [PaymentService, PaymentSettingService],
   imports: [TypeOrmModule.forFeature([Payment, PaymentSetting]), WalletModule],
   exports: [TypeOrmModule, PaymentService],
 })
