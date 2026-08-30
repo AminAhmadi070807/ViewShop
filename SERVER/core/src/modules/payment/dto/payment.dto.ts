@@ -11,13 +11,3 @@ export class PaymentDto {
   @IsPositive({ message: 'قیمت نامعتبر است' })
   amount: number;
 }
-
-export interface PaymentRequestInterface {
-  payment: string;
-  api: string;
-  key: string;
-  url: string;
-  call_back: string;
-  amount: number;
-  user: string;
-}
