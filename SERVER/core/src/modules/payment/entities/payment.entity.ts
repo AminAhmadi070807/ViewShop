@@ -27,7 +27,6 @@ export class Payment {
     type: 'enum',
     enum: PaymentStatusEnum,
     default: PaymentStatusEnum.WAITING,
-    nullable: false,
   })
   status: PaymentStatusEnum;
 
@@ -36,7 +35,7 @@ export class Payment {
   service: PaymentSetting;
 
   @Column({ type: 'varchar', nullable: false })
-  code: string;
+  key: string;
 
   @CreateDateColumn()
   createdAt: Date;
