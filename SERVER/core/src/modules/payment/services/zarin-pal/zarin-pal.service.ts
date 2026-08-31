@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ZarinPalDto } from './zarin-pal.dto';
+import { ZarinPalDto, ZarinPalVerifyDto } from './zarin-pal.dto';
 
 @Injectable()
 export class ZarinPalService {
-  verify(data: ZarinPalDto) {}
+  verify(data: ZarinPalVerifyDto) {}
 
   payment(data: ZarinPalDto) {}
 }
