@@ -58,6 +58,18 @@ export class PaymentSettingService {
     }
   }
 
+  async findOneByTitle(title: string) {
+    try {
+      const result = await this.paymentSettingRepository.findOneBy({ title });
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      return { status: 200, message: statusMessages.fa['200'], body: result };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async update(data: UpdatePaymentSettingDto) {
     try {
       const result = await this.paymentSettingRepository.update(data.id, data);
