@@ -7,8 +7,8 @@ import { WalletModule } from '../wallet/wallet.module';
 import { PaymentSetting } from './entities/payment.setting.entity';
 import { PaymentSettingService } from './setting/payment.setting.service';
 import { PaymentSettingsController } from './setting/payment.setting.controller';
-import { ZarinPalService } from './services/zarin-pal/zarin-pal.service';
 import { ZarinPalController } from './services/zarin-pal/zarin-pal.controller';
+import { ZarinPalService } from './services/zarin-pal/zarin-pal.service';
 
 @Module({
   controllers: [

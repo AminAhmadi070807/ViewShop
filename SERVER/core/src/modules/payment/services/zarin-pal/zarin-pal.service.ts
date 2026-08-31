@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { ZarinPalDto, ZarinPalVerifyDto } from './zarin-pal.dto';
+import { ZarinPalDto, ZarinPalVerifyDto } from './dto/zarin-pal.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from '../../entities/payment.entity';
 import { Repository } from 'typeorm';
