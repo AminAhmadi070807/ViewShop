@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentSettingService } from '../../setting/payment.setting.service';
-import axios from 'axios';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -63,12 +62,20 @@ export class ZarinPalService implements OnModuleInit {
 
   async payment(data: ZarinPalDto) {
     try {
-      const request = await axios.post(this.api + 'request.json', {
-        amount: data.amount,
-        callback_url: this.callback_url,
-        merchant_id: this.key,
-        description: 'شارژگردن کیف پول کاربر',
+      const response = await fetch(this.api + 'request.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: data.amount,
+          callback_url: this.callback_url,
+          merchant_id: this.key,
+          description: 'شارژگردن کیف پول کاربر',
+        }),
       });
+
+      if (response.status !== 200) {
+        return new CustomException(response.statusText, response.status);
+      }
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
