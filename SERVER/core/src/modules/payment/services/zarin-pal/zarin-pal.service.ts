@@ -6,10 +6,14 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentSettingService } from '../../setting/payment.setting.service';
+import axios from 'axios';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
-  data: Map<string, any> = new Map();
+  api: string;
+  key: string;
+  url: string;
+  callback_url: string;
 
   constructor(
     @InjectRepository(Payment)
@@ -40,7 +44,7 @@ export class ZarinPalService implements OnModuleInit {
         service: { id: data.payment },
         user: { id: data.user },
         amount: data.amount,
-        key: data.key,
+        key: data.merchant_id,
       });
 
       await this.paymentRepository.save(payment);
@@ -59,7 +63,12 @@ export class ZarinPalService implements OnModuleInit {
 
   async payment(data: ZarinPalDto) {
     try {
-      const database = await this.database(data);
+      const request = await axios.post(this.api + 'request.json', {
+        amount: data.amount,
+        callback_url: this.callback_url,
+        merchant_id: this.key,
+        description: 'شارژگردن کیف پول کاربر',
+      });
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -73,8 +82,19 @@ export class ZarinPalService implements OnModuleInit {
       if (result instanceof CustomException) return result;
 
       for (const item of result.body.details) {
-        this.data.set(item.pattern, item.value);
+        if (item.pattern === 'api') {
+          this.api = item.value;
+          break;
+        } else if (item.pattern === 'key') {
+          this.key = item.value;
+          break;
+        } else if (item.pattern === 'url') {
+          this.url = item.value;
+          break;
+        }
       }
+
+      this.callback_url = result.body.call_back;
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
