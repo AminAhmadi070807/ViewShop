@@ -20,7 +20,7 @@ export class ZarinPalDto {
   @IsString({ message: 'شناسه کلید پرداخت نامعتبر است' })
   @MinLength(36, { message: 'شناسه کلید پرداخت نامعتبر است' })
   @MaxLength(36, { message: 'شناسه کلید پرداخت نامعتبر است' })
-  key: string;
+  merchant_id: string;
 
   @IsUrl({}, { message: 'مسیر بازگشت نامعتبر است' })
   callback_url: string;

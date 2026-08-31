@@ -17,9 +17,53 @@ export class ZarinPalService implements OnModuleInit {
     private readonly paymentSettingService: PaymentSettingService,
   ) {}
 
+  async database(data: ZarinPalDto) {
+    try {
+      const existing = await this.paymentRepository.findOneBy({
+        service: { id: data.payment },
+        user: { id: data.user },
+      });
+
+      if (existing) {
+        await this.paymentRepository.update(existing.id, {
+          amount: data.amount,
+        });
+
+        return {
+          status: 200,
+          message: statusMessages.fa['200'],
+          body: { id: existing.id },
+        };
+      }
+
+      const payment = this.paymentRepository.create({
+        service: { id: data.payment },
+        user: { id: data.user },
+        amount: data.amount,
+        key: data.key,
+      });
+
+      await this.paymentRepository.save(payment);
+
+      return {
+        status: 200,
+        messages: statusMessages.fa['200'],
+        body: { id: payment.id },
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   verify(data: ZarinPalVerifyDto) {}
 
-  payment(data: ZarinPalDto) {}
+  async payment(data: ZarinPalDto) {
+    try {
+      const database = await this.database(data);
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async onModuleInit() {
     try {
