@@ -53,7 +53,11 @@ export class PaymentSettingService {
 
   async findOne(id: string) {
     try {
-      const result = await this.paymentSettingRepository.findOneBy({ id: id });
+      const result = await this.paymentSettingRepository.findOne({
+        where: { id },
+        relations: ['media'],
+        select: { media: { id: true, title: true, path: true } },
+      });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
