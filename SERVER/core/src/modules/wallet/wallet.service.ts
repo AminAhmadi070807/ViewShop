@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WalletDto } from './dto/wallet.dto';
+import { WalletDto, WalletPaymentDto } from './dto/wallet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wallet } from './entities/wallet.entity';
 import { Repository } from 'typeorm';
@@ -79,7 +79,7 @@ export class WalletService {
     }
   }
 
-  async payment(data: WalletDto) {
+  async payment(data: WalletPaymentDto) {
     try {
       const existing = await this.walletRepository.findOneBy({
         user: {

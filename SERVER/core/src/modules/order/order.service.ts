@@ -214,6 +214,8 @@ export class OrderService {
           await this.walletService.charge({
             user: order.user.id,
             amount: item.price,
+            service: 'ORDER',
+            key: 'none',
           });
         }
       }
