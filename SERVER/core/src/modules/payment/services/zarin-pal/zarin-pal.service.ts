@@ -60,7 +60,9 @@ export class ZarinPalService implements OnModuleInit {
     }
   }
 
-  verify(data: ZarinPalVerifyDto) {}
+  verify(data: ZarinPalVerifyDto) {
+    return true;
+  }
 
   async payment(data: ZarinPalDto) {
     try {

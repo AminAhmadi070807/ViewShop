@@ -34,7 +34,7 @@ export class ZarinPalController {
   verify(@Query() data: ZarinPalVerifyDto, @Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
-    return this.coreService.send('PAYMENT:VERIFY', {
+    return this.coreService.send('PAYMENT:VERIFY:ZARIN_PAL', {
       user: user.userId,
       key: data.Authority,
       status: data.Status,
