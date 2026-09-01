@@ -19,6 +19,7 @@ import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
 import { Brand } from '../../brands/entities/brand.entity';
+import { ProductFilter } from '../../product-filters/entities/product-filter.entity';
 
 @Entity('Product')
 export class Product {
@@ -85,6 +86,10 @@ export class Product {
   @OneToOne(() => Brand, { nullable: false })
   @JoinColumn({ name: 'Brand_Product' })
   brand: Brand;
+
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'ProductFilter_Product' })
+  productFilter: ProductFilter;
 
   @CreateDateColumn()
   createdAt: Date;
