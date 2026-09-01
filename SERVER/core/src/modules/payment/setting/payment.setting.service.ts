@@ -77,7 +77,10 @@ export class PaymentSettingService {
 
   async update(data: UpdatePaymentSettingDto) {
     try {
-      const result = await this.paymentSettingRepository.update(data.id, data);
+      const result = await this.paymentSettingRepository.update(data.id, {
+        ...data,
+        media: { id: data.media },
+      });
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
