@@ -23,6 +23,9 @@ export class PaymentSetting {
   @Column({ type: 'varchar', nullable: false, unique: true })
   call_back: string;
 
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  api: string;
+
   @Column({ type: 'boolean', nullable: false, default: false })
   status: boolean;
 
