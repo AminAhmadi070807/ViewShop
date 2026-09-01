@@ -21,6 +21,9 @@ export class PaymentSetting {
   details: { title: string; value: string; pattern: string }[];
 
   @Column({ type: 'varchar', nullable: false, unique: true })
+  payment_key: string;
+
+  @Column({ type: 'varchar', nullable: false, unique: true })
   call_back: string;
 
   @Column({ type: 'varchar', nullable: false, unique: true })
