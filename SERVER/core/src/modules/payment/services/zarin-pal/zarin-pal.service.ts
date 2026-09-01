@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentSettingService } from '../../setting/payment.setting.service';
+import { ZarinPalInterface } from '../../../../common/interfaces/payment.interface';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -62,7 +63,6 @@ export class ZarinPalService implements OnModuleInit {
 
   async payment(data: ZarinPalDto) {
     try {
-      console.log(this.api);
       const response = await fetch(this.api + 'request.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -78,13 +78,18 @@ export class ZarinPalService implements OnModuleInit {
         return new CustomException(response.statusText, response.status);
       }
 
+      const result = (await response.json()) as ZarinPalInterface;
+
+      if (result.errors.length) {
+        return new CustomException(statusMessages.fa['402'], 402);
+      }
+
       return {
         status: 200,
         messages: statusMessages.fa['200'],
-        body: await response.json(),
+        body: { url: this.url + result.data.authority },
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
