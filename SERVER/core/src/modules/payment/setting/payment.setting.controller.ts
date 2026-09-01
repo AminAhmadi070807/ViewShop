@@ -31,6 +31,11 @@ export class PaymentSettingsController {
     return this.paymentSettingService.update(data);
   }
 
+  @MessagePattern('PAYMENT:SETTING:UPDATE:STATUS')
+  updateStatus(@Payload() data: Validate) {
+    return this.paymentSettingService.updateStatus(data.id);
+  }
+
   @MessagePattern('PAYMENT:SETTING:DELETE')
   remove(@Payload() data: Validate) {
     return this.paymentSettingService.remove(data.id);
