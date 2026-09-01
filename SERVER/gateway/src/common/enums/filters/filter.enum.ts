@@ -4,4 +4,5 @@ export enum FilterTypeEnum {
   MAX_PRICE = 'MAX_PRICE',
   CHECK_BOX = 'CHECK_BOX',
   SWITCH = 'SWITCH',
+  IN_SIDE = 'IN_SIDE',
 }
