@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Req } from '@nestjs/common';
-import { VerifyPaymentDto } from './payment.dto';
+import { ZarinPalVerifyDto } from './zarin-pal.dto';
 import express from 'express';
 import { CoreService } from '../../../../core.service';
 import { JwtPayload } from '../../../../../common/validation/jwt.dto';
@@ -31,12 +31,13 @@ export class ZarinPalController {
     { name: 'feature', required: true, example: 'PAYMENT', enum: ['PAYMENT'] },
     { name: 'permission', required: true, example: 'VERIFY', enum: ['VERIFY'] },
   ])
-  verify(@Query() data: VerifyPaymentDto, @Req() req: express.Request) {
+  verify(@Query() data: ZarinPalVerifyDto, @Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
     return this.coreService.send('PAYMENT:VERIFY', {
       user: user.userId,
-      ...data,
+      key: data.Authority,
+      status: data.Status,
     });
   }
 }
