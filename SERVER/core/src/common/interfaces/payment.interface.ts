@@ -3,6 +3,12 @@ import { HttpStatus } from '@nestjs/common';
 export interface VerifyZarinPalInterface {
   data: {
     code: number;
+    message: string;
+    card_hash: string;
+    card_pan: string;
+    ref_id: number;
+    fee_type: string;
+    fee: number;
   };
   errors: [];
 }

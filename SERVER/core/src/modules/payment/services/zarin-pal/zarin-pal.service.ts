@@ -6,7 +6,10 @@ import { Repository } from 'typeorm';
 import { CustomException } from '../../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentSettingService } from '../../setting/payment.setting.service';
-import { ZarinPalInterface } from '../../../../common/interfaces/payment.interface';
+import {
+  VerifyZarinPalInterface,
+  ZarinPalInterface,
+} from '../../../../common/interfaces/payment.interface';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 
 @Injectable()
@@ -63,7 +66,55 @@ export class ZarinPalService implements OnModuleInit {
     }
   }
 
-  verify(data: ZarinPalVerifyDto) {}
+  async verify(data: ZarinPalVerifyDto) {
+    try {
+      const result_database = await this.paymentRepository.findOne({
+        where: {
+          user: { id: data.user },
+          status: PaymentStatusEnum.WAITING,
+          service: { id: this.payment_id },
+          key: data.key,
+        },
+        relations: ['user', 'service'],
+      });
+
+      if (!result_database) {
+        return new CustomException(statusMessages.fa['402'], 402);
+      }
+
+      const response = await fetch(this.api + 'verify.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          merchant_id: this.key,
+          authority: result_database.key,
+          amount: result_database.amount,
+        }),
+      });
+
+      if (response.status !== 200) {
+        return new CustomException(response.statusText, response.status);
+      }
+
+      const result = (await response.json()) as VerifyZarinPalInterface;
+
+      if (result.errors.length) {
+        return new CustomException(response.statusText, response.status);
+      } else if (result.data.code === 100) {
+        result_database.status = PaymentStatusEnum.SUCCESS;
+
+        return new CustomException(statusMessages.fa['500'], 200);
+      } else if (result.data.code === 101) {
+        result_database.status = PaymentStatusEnum.SUCCESS;
+
+        return new CustomException(statusMessages.fa['500'], 200);
+      }
+
+      return new CustomException(statusMessages.fa['402'], 402);
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 
   async payment(data: ZarinPalDto) {
     try {
