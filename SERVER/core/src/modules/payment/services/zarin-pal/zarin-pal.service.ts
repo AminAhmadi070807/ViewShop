@@ -11,6 +11,7 @@ import {
   ZarinPalInterface,
 } from '../../../../common/interfaces/payment.interface';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
+import { WalletService } from '../../../wallet/wallet.service';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -24,6 +25,7 @@ export class ZarinPalService implements OnModuleInit {
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
     private readonly paymentSettingService: PaymentSettingService,
+    private readonly walletService: WalletService,
   ) {}
 
   async database(data: ZarinPalDto, authority: string) {
@@ -61,6 +63,19 @@ export class ZarinPalService implements OnModuleInit {
         messages: statusMessages.fa['200'],
         body: { id: payment.id },
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async wallet(user: string, amount: number, service: string, key: string) {
+    try {
+      await this.walletService.charge({
+        service,
+        user,
+        key,
+        amount,
+      });
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

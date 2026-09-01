@@ -20,6 +20,17 @@ export class WalletService {
       });
 
       if (existing) {
+        const check: boolean = existing.details.some((detail) => {
+          const is_service: boolean = detail.service === data.service;
+          const is_key: boolean = detail.key === data.key;
+
+          return is_service && is_key;
+        });
+
+        if (check) {
+          return { status: 409, message: statusMessages.fa['409'], body: null };
+        }
+
         existing.amount = +existing.amount + +data.amount;
         existing.details.push({
           id: crypto.randomUUID(),
