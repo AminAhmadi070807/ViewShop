@@ -36,6 +36,11 @@ export class PaymentSettingDto {
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
 
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
+  @IsNotEmpty({ message: 'کلید پرداخت نامعتبر است' })
+  @IsString({ message: 'کلید پرداخت نامعتبر است' })
+  payment_key: string;
+
   @IsString({ message: 'نامک باید رشته باشد' })
   @Matches(/^([a-zA-Z-_]{3,36})$/, { message: 'نامک باید انگلیسی باشد' })
   alias: string;
