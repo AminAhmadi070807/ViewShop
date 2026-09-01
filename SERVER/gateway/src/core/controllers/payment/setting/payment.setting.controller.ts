@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { CoreService } from '../../../core.service';
 import {
@@ -59,6 +60,13 @@ export class PaymentSettingController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdatePaymentSettingDto) {
     return this.coreService.send('PAYMENT:SETTING:UPDATE', data);
+  }
+
+  @Put()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  updateStatus(@Body() data: ValidateUUID) {
+    return this.coreService.send('PAYMENT:SETTING:UPDATE:VALIDATE', data);
   }
 
   @Delete()
