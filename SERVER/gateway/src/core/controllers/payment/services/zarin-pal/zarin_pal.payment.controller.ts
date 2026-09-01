@@ -5,15 +5,14 @@ import { CoreService } from '../../../../core.service';
 import { JwtPayload } from '../../../../../common/validation/jwt.dto';
 import {
   ApiBadRequestResponse,
-  ApiForbiddenResponse,
   ApiHeaders,
   ApiInternalServerErrorResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiPaymentRequiredResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../../common/messages/status.message';
+import { PublicAccess } from '../../../../../common/decorators/public.access.decorator';
 
 @Controller('core/payment/zarin-pal')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -21,12 +20,11 @@ export class ZarinPalController {
   constructor(private readonly coreService: CoreService) {}
 
   @Get('verify')
+  @PublicAccess()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiPaymentRequiredResponse({ description: statusMessages.fa['402'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'PAYMENT', enum: ['PAYMENT'] },
     { name: 'permission', required: true, example: 'VERIFY', enum: ['VERIFY'] },

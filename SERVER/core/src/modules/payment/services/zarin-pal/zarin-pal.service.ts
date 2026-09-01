@@ -108,13 +108,13 @@ export class ZarinPalService implements OnModuleInit {
       });
 
       if (response.status !== 200) {
-        return new CustomException(response.statusText, response.status);
+        return new CustomException(response.statusText, 402);
       }
 
       const result = (await response.json()) as VerifyZarinPalInterface;
 
       if (result.errors.length) {
-        return new CustomException(response.statusText, response.status);
+        return new CustomException(response.statusText, 402);
       } else if (result.data.code === 100) {
         result_database.status = PaymentStatusEnum.SUCCESS;
         await this.paymentRepository.save(result_database);
