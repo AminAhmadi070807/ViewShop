@@ -43,7 +43,7 @@ export class ZarinPalService implements OnModuleInit {
         service: { id: data.payment },
         user: { id: data.user },
         amount: data.amount,
-        key: data.merchant_id,
+        key: this.key,
       });
 
       await this.paymentRepository.save(payment);
@@ -62,6 +62,7 @@ export class ZarinPalService implements OnModuleInit {
 
   async payment(data: ZarinPalDto) {
     try {
+      console.log(this.api);
       const response = await fetch(this.api + 'request.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -76,7 +77,14 @@ export class ZarinPalService implements OnModuleInit {
       if (response.status !== 200) {
         return new CustomException(response.statusText, response.status);
       }
-    } catch {
+
+      return {
+        status: 200,
+        messages: statusMessages.fa['200'],
+        body: await response.json(),
+      };
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -89,21 +97,28 @@ export class ZarinPalService implements OnModuleInit {
       if (result instanceof CustomException) return result;
 
       for (const item of result.body.details) {
-        if (item.pattern === 'api') {
-          this.api = item.value;
-          break;
-        } else if (item.pattern === 'key') {
-          this.key = item.value;
-          break;
-        } else if (item.pattern === 'url') {
-          this.url = item.value;
-          break;
+        switch (item.pattern) {
+          case 'api':
+            this.api = item.value;
+            break;
+
+          case 'key':
+            this.key = item.value;
+            break;
+
+          case 'url':
+            this.url = item.value;
+            break;
         }
       }
 
       this.callback_url = result.body.call_back;
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
+
+      if (!this.api || !this.key || !this.callback_url) {
+        return new CustomException(statusMessages.fa['402'], 402);
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }

@@ -17,17 +17,6 @@ export class ZarinPalDto {
   @IsUUID('4', { message: 'شناسه سرویس پرداخت نامعتبر است' })
   payment: string;
 
-  @IsOptional()
-  @IsNotEmpty({ message: 'شناسه کلید پرداخت نمیتواند خالی باشد' })
-  @IsString({ message: 'شناسه کلید پرداخت نامعتبر است' })
-  @MinLength(36, { message: 'شناسه کلید پرداخت نامعتبر است' })
-  @MaxLength(36, { message: 'شناسه کلید پرداخت نامعتبر است' })
-  merchant_id?: string;
-
-  @IsOptional()
-  @IsUrl({}, { message: 'مسیر بازگشت نامعتبر است' })
-  callback_url?: string;
-
   @IsNumber({}, { message: 'مقدار پرداختی نامعتبر است' })
   @IsPositive({ message: 'مقدار پرداختی نامعتبر است' })
   amount: number;

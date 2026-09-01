@@ -4,20 +4,24 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/message/message.status';
 import { PaymentSettingService } from './setting/payment.setting.service';
 import { PaymentSetting } from './entities/payment.setting.entity';
+import { ZarinPalService } from './services/zarin-pal/zarin-pal.service';
 
 @Injectable()
 export class PaymentService {
-  constructor(private readonly paymentSettingService: PaymentSettingService) {}
+  constructor(
+    private readonly paymentSettingService: PaymentSettingService,
+    private readonly zarin_palService: ZarinPalService,
+  ) {}
 
-  separator(payment: PaymentSetting, user: string, amount: number) {
-    const alias = payment.alias.toUpperCase();
-
-    const data = new Map<string, string>();
-
-    for (const item of payment.details) data.set(item.pattern, item.value);
-
-    switch (alias) {
-      case 'ZARIN_PAL':
+  separator(payment: string, alias: string, user: string, amount: number) {
+    switch (alias.toUpperCase()) {
+      case 'ZARIN_PAL': {
+        return this.zarin_palService.payment({
+          amount,
+          user,
+          payment: payment,
+        });
+      }
       default: {
         return new CustomException(statusMessages.fa['404'], 404);
       }
@@ -33,7 +37,12 @@ export class PaymentService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return this.separator(payment.body, data.user, data.amount);
+      return this.separator(
+        data.payment,
+        payment.body.alias,
+        data.user,
+        data.amount,
+      );
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

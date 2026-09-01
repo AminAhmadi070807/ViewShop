@@ -60,7 +60,9 @@ export class PaymentSettingService {
 
   async findOneByTitle(title: string) {
     try {
-      const result = await this.paymentSettingRepository.findOneBy({ title });
+      const result = await this.paymentSettingRepository.findOneBy({
+        alias: title,
+      });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
