@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Media } from '../../media/entities/media.entity';
 
-@Entity('Payment_Setting')
+@Entity('PaymentSetting')
 export class PaymentSetting {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -31,6 +34,10 @@ export class PaymentSetting {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   status: boolean;
+
+  @OneToOne(() => Media, { nullable: false })
+  @JoinColumn({ name: 'Media_PaymentSetting' })
+  media: Media;
 
   @CreateDateColumn()
   createdAt: Date;
