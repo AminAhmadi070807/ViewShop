@@ -33,6 +33,7 @@ import { MenusModule } from './modules/menus/menus.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { SalesModule } from './modules/sales/sales.module';
 import { SmsModule } from './modules/sms/sms.module';
+import { ProductFiltersModule } from './modules/product-filters/product-filters.module';
 
 @Module({
   imports: [
@@ -73,6 +74,7 @@ import { SmsModule } from './modules/sms/sms.module';
     SettingsModule,
     SalesModule,
     SmsModule,
+    ProductFiltersModule,
   ],
 })
 export class AppModule {}
