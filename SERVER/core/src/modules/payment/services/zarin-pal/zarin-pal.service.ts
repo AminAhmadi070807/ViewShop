@@ -191,14 +191,6 @@ export class ZarinPalService implements OnModuleInit {
 
       for (const item of result.body.details) {
         switch (item.pattern) {
-          case 'api':
-            this.api = item.value;
-            break;
-
-          case 'key':
-            this.key = item.value;
-            break;
-
           case 'url':
             this.url = item.value;
             break;
@@ -207,6 +199,8 @@ export class ZarinPalService implements OnModuleInit {
 
       this.callback_url = result.body.call_back;
       this.payment_id = result.body.id;
+      this.api = result.body.api;
+      this.key = result.body.payment_key;
 
       if (!this.api || !this.key || !this.callback_url) {
         return new CustomException(statusMessages.fa['402'], 402);
