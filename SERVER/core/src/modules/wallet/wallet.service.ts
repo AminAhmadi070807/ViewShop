@@ -21,6 +21,12 @@ export class WalletService {
 
       if (existing) {
         existing.amount = +existing.amount + +data.amount;
+        existing.details.push({
+          id: crypto.randomUUID(),
+          service: data.service,
+          amount: data.amount,
+          key: data.key,
+        });
 
         await this.walletRepository.save(existing);
 
