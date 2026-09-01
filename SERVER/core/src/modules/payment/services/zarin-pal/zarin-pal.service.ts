@@ -12,6 +12,7 @@ import {
 } from '../../../../common/interfaces/payment.interface';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 import { WalletService } from '../../../wallet/wallet.service';
+import { readableStreamLikeToAsyncGenerator } from 'rxjs/internal/util/isReadableStreamLike';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -70,7 +71,7 @@ export class ZarinPalService implements OnModuleInit {
 
   async wallet(user: string, amount: number, service: string, key: string) {
     try {
-      await this.walletService.charge({
+      return await this.walletService.charge({
         service,
         user,
         key,
@@ -118,11 +119,25 @@ export class ZarinPalService implements OnModuleInit {
       } else if (result.data.code === 100) {
         result_database.status = PaymentStatusEnum.SUCCESS;
 
-        return new CustomException(statusMessages.fa['500'], 200);
+        await this.wallet(
+          data.user,
+          result_database.amount,
+          result_database.service.title,
+          result_database.key,
+        );
+
+        return new CustomException(statusMessages.fa['200'], 200);
       } else if (result.data.code === 101) {
         result_database.status = PaymentStatusEnum.SUCCESS;
 
-        return new CustomException(statusMessages.fa['500'], 200);
+        await this.wallet(
+          data.user,
+          result_database.amount,
+          result_database.service.title,
+          result_database.key,
+        );
+
+        return new CustomException(statusMessages.fa['200'], 200);
       }
 
       return new CustomException(statusMessages.fa['402'], 402);
