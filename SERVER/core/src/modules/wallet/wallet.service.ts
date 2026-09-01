@@ -16,9 +16,7 @@ export class WalletService {
   async charge(data: WalletDto) {
     try {
       const existing = await this.walletRepository.findOneBy({
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
       });
 
       if (existing) {
@@ -26,27 +24,17 @@ export class WalletService {
 
         await this.walletRepository.save(existing);
 
-        return {
-          status: 200,
-          message: statusMessages.fa['200'],
-          body: null,
-        };
+        return { status: 200, message: statusMessages.fa['200'], body: null };
       }
 
       const wallet = this.walletRepository.create({
         amount: +data.amount,
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
       });
 
       await this.walletRepository.save(wallet);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: null,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

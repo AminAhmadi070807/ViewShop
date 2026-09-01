@@ -20,6 +20,14 @@ export class Wallet {
   @JoinColumn({ name: 'User_Wallet' })
   user: User;
 
+  @Column({ type: 'jsonb', nullable: false, default: [] })
+  details: {
+    id: string;
+    amount: number;
+    key: string;
+    service: string;
+  }[];
+
   @Column({ type: 'bigint', nullable: false, default: 0 })
   amount: number;
 
