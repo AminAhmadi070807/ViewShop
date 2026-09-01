@@ -88,6 +88,8 @@ export class ZarinPalService implements OnModuleInit {
         return new CustomException(statusMessages.fa['402'], 402);
       }
 
+      await this.database(data, result.data.authority);
+
       return {
         status: 200,
         messages: statusMessages.fa['200'],
