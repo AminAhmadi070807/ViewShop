@@ -28,6 +28,9 @@ class PaymentSettingDetailDto {
 }
 
 export class PaymentSettingDto {
+  @IsUUID('4', { message: 'لوگوی سرویس پرداخت نامعتبر است' })
+  media: string;
+
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
