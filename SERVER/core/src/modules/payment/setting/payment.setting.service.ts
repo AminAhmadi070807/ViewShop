@@ -41,6 +41,8 @@ export class PaymentSettingService {
     try {
       const result = await this.paymentSettingRepository.find({
         order: { createdAt: 'DESC' },
+        relations: ['media'],
+        select: { media: { id: true, title: true, path: true } },
       });
 
       return { status: 200, message: statusMessages.fa['200'], body: result };
