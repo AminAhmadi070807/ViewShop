@@ -12,7 +12,6 @@ import {
 } from '../../../../common/interfaces/payment.interface';
 import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 import { WalletService } from '../../../wallet/wallet.service';
-import { readableStreamLikeToAsyncGenerator } from 'rxjs/internal/util/isReadableStreamLike';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -118,6 +117,7 @@ export class ZarinPalService implements OnModuleInit {
         return new CustomException(response.statusText, response.status);
       } else if (result.data.code === 100) {
         result_database.status = PaymentStatusEnum.SUCCESS;
+        await this.paymentRepository.save(result_database);
 
         await this.wallet(
           data.user,
@@ -129,6 +129,7 @@ export class ZarinPalService implements OnModuleInit {
         return new CustomException(statusMessages.fa['200'], 200);
       } else if (result.data.code === 101) {
         result_database.status = PaymentStatusEnum.SUCCESS;
+        await this.paymentRepository.save(result_database);
 
         await this.wallet(
           data.user,
