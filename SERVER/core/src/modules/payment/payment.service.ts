@@ -13,14 +13,10 @@ export class PaymentService {
     private readonly zarin_palService: ZarinPalService,
   ) {}
 
-  separator(payment: string, alias: string, user: string, amount: number) {
+  separator(alias: string, user: string, amount: number) {
     switch (alias.toUpperCase()) {
       case 'ZARIN_PAL': {
-        return this.zarin_palService.payment({
-          amount,
-          user,
-          payment: payment,
-        });
+        return this.zarin_palService.payment({ amount, user });
       }
       default: {
         return new CustomException(statusMessages.fa['404'], 404);
@@ -37,12 +33,7 @@ export class PaymentService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return this.separator(
-        data.payment,
-        payment.body.alias,
-        data.user,
-        data.amount,
-      );
+      return this.separator(payment.body.alias, data.user, data.amount);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

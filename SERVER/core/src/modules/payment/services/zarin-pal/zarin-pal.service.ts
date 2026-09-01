@@ -14,6 +14,7 @@ export class ZarinPalService implements OnModuleInit {
   key: string;
   url: string;
   callback_url: string;
+  payment_id: string;
 
   constructor(
     @InjectRepository(Payment)
@@ -24,7 +25,7 @@ export class ZarinPalService implements OnModuleInit {
   async database(data: ZarinPalDto) {
     try {
       const existing = await this.paymentRepository.findOneBy({
-        service: { id: data.payment },
+        service: { id: this.payment_id },
         user: { id: data.user },
       });
 
@@ -41,7 +42,7 @@ export class ZarinPalService implements OnModuleInit {
       }
 
       const payment = this.paymentRepository.create({
-        service: { id: data.payment },
+        service: { id: this.payment_id },
         user: { id: data.user },
         amount: data.amount,
         key: this.key,
@@ -118,12 +119,13 @@ export class ZarinPalService implements OnModuleInit {
       }
 
       this.callback_url = result.body.call_back;
+      this.payment_id = result.body.id;
 
       if (!this.api || !this.key || !this.callback_url) {
         return new CustomException(statusMessages.fa['402'], 402);
       }
-    } catch (error) {
-      throw error;
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
 }
