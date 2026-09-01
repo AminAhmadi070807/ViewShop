@@ -24,7 +24,10 @@ export class PaymentSettingService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const result = this.paymentSettingRepository.create(data);
+      const result = this.paymentSettingRepository.create({
+        ...data,
+        media: { id: data.media },
+      });
 
       await this.paymentSettingRepository.save(result);
 
