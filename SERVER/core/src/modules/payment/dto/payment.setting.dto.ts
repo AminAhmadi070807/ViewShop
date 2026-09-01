@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
   IsUUID,
   Matches,
   ValidateNested,
@@ -41,9 +42,11 @@ export class PaymentSettingDto {
   @Type(() => PaymentSettingDetailDto)
   details: PaymentSettingDetailDto[];
 
-  @IsNotEmpty({ message: 'مسیر برگشت نمیتواند خالی باشد' })
-  @IsString({ message: 'مسیر برگشت باید رشته باشد' })
+  @IsUrl({}, { message: 'مسیر برگشت نامعتبر است' })
   call_back: string;
+
+  @IsUrl({}, { message: 'ای پی ای نامعتبر است' })
+  api: string;
 
   @IsOptional()
   @IsNumber({}, { message: 'حدکثر قیمت نامعتبر است' })
