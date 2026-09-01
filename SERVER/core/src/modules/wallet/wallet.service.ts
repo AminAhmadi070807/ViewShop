@@ -30,6 +30,14 @@ export class WalletService {
       const wallet = this.walletRepository.create({
         amount: +data.amount,
         user: { id: data.user },
+        details: [
+          {
+            id: crypto.randomUUID(),
+            service: data.service,
+            amount: data.amount,
+            key: data.key,
+          },
+        ],
       });
 
       await this.walletRepository.save(wallet);
