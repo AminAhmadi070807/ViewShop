@@ -32,6 +32,10 @@ class PaymentSettingDetailDto {
 
 export class PaymentSettingDto {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
+  @IsUUID('4', { message: 'لوگوی سرویس پرداخت نامعتبر است' })
+  media: string;
+
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   title: string;
