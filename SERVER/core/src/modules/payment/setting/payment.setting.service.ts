@@ -80,11 +80,25 @@ export class PaymentSettingService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async updateStatus(id: string) {
+    try {
+      const result = await this.paymentSettingRepository.findOneBy({ id });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      result.status = !result.status;
+
+      await this.paymentSettingRepository.save(result);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
