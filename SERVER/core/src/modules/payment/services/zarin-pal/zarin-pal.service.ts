@@ -7,6 +7,7 @@ import { CustomException } from '../../../../common/exceptions/custom.exception.
 import { statusMessages } from '../../../../common/message/message.status';
 import { PaymentSettingService } from '../../setting/payment.setting.service';
 import { ZarinPalInterface } from '../../../../common/interfaces/payment.interface';
+import { PaymentStatusEnum } from '../../../../common/enums/payment/status.enum';
 
 @Injectable()
 export class ZarinPalService implements OnModuleInit {
@@ -22,16 +23,18 @@ export class ZarinPalService implements OnModuleInit {
     private readonly paymentSettingService: PaymentSettingService,
   ) {}
 
-  async database(data: ZarinPalDto) {
+  async database(data: ZarinPalDto, authority: string) {
     try {
       const existing = await this.paymentRepository.findOneBy({
         service: { id: this.payment_id },
         user: { id: data.user },
+        status: PaymentStatusEnum.WAITING,
       });
 
       if (existing) {
         await this.paymentRepository.update(existing.id, {
           amount: data.amount,
+          key: authority,
         });
 
         return {
@@ -45,7 +48,7 @@ export class ZarinPalService implements OnModuleInit {
         service: { id: this.payment_id },
         user: { id: data.user },
         amount: data.amount,
-        key: this.key,
+        key: authority,
       });
 
       await this.paymentRepository.save(payment);
@@ -60,9 +63,7 @@ export class ZarinPalService implements OnModuleInit {
     }
   }
 
-  verify(data: ZarinPalVerifyDto) {
-    return true;
-  }
+  verify(data: ZarinPalVerifyDto) {}
 
   async payment(data: ZarinPalDto) {
     try {
