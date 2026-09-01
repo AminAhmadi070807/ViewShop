@@ -20,7 +20,7 @@ export class PaymentSetting {
   @Column({ type: 'jsonb', nullable: false })
   details: { title: string; value: string; pattern: string }[];
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   call_back: string;
 
   @Column({ type: 'boolean', nullable: false, default: false })
