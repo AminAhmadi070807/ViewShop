@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Product } from '../../products/entities/product.entity';
 
 @Entity('ProductFilter')
 export class ProductFilter {
@@ -16,6 +18,9 @@ export class ProductFilter {
 
   @Column({ type: 'jsonb', nullable: true, default: [] })
   details: { id: string; title: string; value: string }[];
+
+  @ManyToOne(() => Product, (product) => product.productFilter)
+  product: Product;
 
   @CreateDateColumn()
   createdAt: Date;

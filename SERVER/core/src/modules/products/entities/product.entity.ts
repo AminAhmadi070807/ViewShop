@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -84,8 +85,7 @@ export class Product {
   @JoinColumn({ name: 'Brand_Product' })
   brand: Brand;
 
-  @ManyToOne(() => Product)
-  @JoinColumn({ name: 'ProductFilter_Product' })
+  @OneToMany(() => ProductFilter, (productFilter) => productFilter.product)
   productFilter: ProductFilter;
 
   @CreateDateColumn()
