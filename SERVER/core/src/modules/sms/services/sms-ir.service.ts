@@ -1,12 +1,13 @@
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
+import { OnModuleInit } from '@nestjs/common';
 
 interface smsIr {
   status: number;
   message: string;
 }
 
-export class SmsIrService {
+export class SmsIrService implements OnModuleInit {
   api: string = 'fUq7s4bTHuN59zrhyNg0feEPoIM4vt4ypzPodlpdlglFjfYo';
   template_id: string = '439538';
 
@@ -41,4 +42,6 @@ export class SmsIrService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  onModuleInit(): void {}
 }
