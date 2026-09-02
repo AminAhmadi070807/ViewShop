@@ -11,32 +11,32 @@ import { Validate } from '../../../common/validations/validate.dto';
 export class PaymentSettingsController {
   constructor(private readonly paymentSettingService: PaymentSettingService) {}
 
-  @MessagePattern('PAYMENT:SETTING:CREATE')
+  @MessagePattern('SETTING:PAYMENT:CREATE')
   create(@Payload() data: PaymentSettingDto) {
     return this.paymentSettingService.create(data);
   }
 
-  @MessagePattern('PAYMENT:SETTING:FIND')
+  @MessagePattern('SETTING:PAYMENT:FIND')
   findAll() {
     return this.paymentSettingService.findAll();
   }
 
-  @MessagePattern('PAYMENT:SETTING:ONE')
+  @MessagePattern('SETTING:PAYMENT:ONE')
   findOne(@Payload() data: Validate) {
     return this.paymentSettingService.findOne(data.id);
   }
 
-  @MessagePattern('PAYMENT:SETTING:UPDATE')
+  @MessagePattern('SETTING:PAYMENT:UPDATE')
   update(@Payload() data: UpdatePaymentSettingDto) {
     return this.paymentSettingService.update(data);
   }
 
-  @MessagePattern('PAYMENT:SETTING:UPDATE:STATUS')
+  @MessagePattern('SETTING:PAYMENT:UPDATE:STATUS')
   updateStatus(@Payload() data: Validate) {
     return this.paymentSettingService.updateStatus(data.id);
   }
 
-  @MessagePattern('PAYMENT:SETTING:DELETE')
+  @MessagePattern('SETTING:PAYMENT:DELETE')
   remove(@Payload() data: Validate) {
     return this.paymentSettingService.remove(data.id);
   }
