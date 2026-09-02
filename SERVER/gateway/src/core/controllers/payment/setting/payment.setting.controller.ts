@@ -39,40 +39,40 @@ export class PaymentSettingController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   create(@Body() data: PaymentSettingDto) {
-    return this.coreService.send('PAYMENT:SETTING:CREATE', data);
+    return this.coreService.send('SETTING:PAYMENT:CREATE', data);
   }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
-    return this.coreService.send('PAYMENT:SETTING:FIND');
+    return this.coreService.send('SETTING:PAYMENT:FIND');
   }
 
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('PAYMENT:SETTING:ONE', data);
+    return this.coreService.send('SETTING:PAYMENT:ONE', data);
   }
 
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   update(@Body() data: UpdatePaymentSettingDto) {
-    return this.coreService.send('PAYMENT:SETTING:UPDATE', data);
+    return this.coreService.send('SETTING:PAYMENT:UPDATE', data);
   }
 
   @Put()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   updateStatus(@Body() data: ValidateUUID) {
-    return this.coreService.send('PAYMENT:SETTING:UPDATE:STATUS', data);
+    return this.coreService.send('SETTING:PAYMENT:UPDATE:STATUS', data);
   }
 
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   remove(@Body() data: ValidateUUID) {
-    return this.coreService.send('PAYMENT:SETTING:DELETE', data);
+    return this.coreService.send('SETTING:PAYMENT:DELETE', data);
   }
 }
