@@ -108,7 +108,7 @@ export class ProductService {
           },
         ],
         order: { createdAt: 'DESC' },
-        relations: ['medias', 'store'],
+        relations: ['medias', 'store', 'specification'],
         select: {
           medias: { id: true, path: true, title: true },
           store: { id: true, title: true, logo: true },
