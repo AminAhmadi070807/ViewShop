@@ -7,22 +7,22 @@ import { SmsSettingDto } from './dto/sms-setting.dto';
 export class SmsSettingController {
   constructor(private readonly smsSettingService: SmsSettingService) {}
 
-  @MessagePattern('createSmsSetting')
+  @MessagePattern('SETTING:SMS:CREATE')
   create(@Payload() createSmsSettingDto: SmsSettingDto) {
     return this.smsSettingService.create(createSmsSettingDto);
   }
 
-  @MessagePattern('findAllSmsSetting')
+  @MessagePattern('SETTING:SMS:FIND')
   findAll() {
     return this.smsSettingService.findAll();
   }
 
-  @MessagePattern('findOneSmsSetting')
+  @MessagePattern('SETTING:SMS:ONE')
   findOne(@Payload() id: number) {
     return this.smsSettingService.findOne(id);
   }
 
-  @MessagePattern('removeSmsSetting')
+  @MessagePattern('SETTING:SMS:DELETE')
   remove(@Payload() id: number) {
     return this.smsSettingService.remove(id);
   }
