@@ -1,6 +1,10 @@
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../../common/message/message.status';
 import { OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SmsSetting } from '../../sms-setting/entities/sms-setting.entity';
+import { Repository } from 'typeorm';
+import { SmsServiceEnum } from '../../../common/enums/sms/sms.enum';
 
 interface smsIr {
   status: number;
@@ -8,8 +12,13 @@ interface smsIr {
 }
 
 export class SmsIrService implements OnModuleInit {
-  api: string = 'fUq7s4bTHuN59zrhyNg0feEPoIM4vt4ypzPodlpdlglFjfYo';
-  template_id: string = '439538';
+  api: string;
+  template_id: string;
+
+  constructor(
+    @InjectRepository(SmsSetting)
+    private readonly smsSettingRepository: Repository<SmsSetting>,
+  ) {}
 
   async sms(cell_phone: string, message: string) {
     try {
@@ -43,5 +52,32 @@ export class SmsIrService implements OnModuleInit {
     }
   }
 
-  onModuleInit(): void {}
+  async onModuleInit() {
+    try {
+      const result = await this.smsSettingRepository.findOneBy({
+        service: SmsServiceEnum.SMS_IR,
+      });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      for (const item of result.details) {
+        switch (item.title) {
+          case 'api':
+            this.api = item.value;
+            break;
+          case 'template_id':
+            this.template_id = item.value;
+            break;
+        }
+      }
+
+      if (!this.api || !this.template_id) {
+        return new CustomException(statusMessages.fa['400'], 400);
+      }
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
