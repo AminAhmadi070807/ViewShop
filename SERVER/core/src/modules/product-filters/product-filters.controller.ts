@@ -1,35 +1,35 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ProductFiltersService } from './product-filters.service';
-import { CreateProductFilterDto } from './dto/create-product-filter.dto';
-import { UpdateProductFilterDto } from './dto/update-product-filter.dto';
+import { ProductFilterDto } from './dto/product-filter.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class ProductFiltersController {
   constructor(private readonly productFiltersService: ProductFiltersService) {}
 
-  @MessagePattern('createProductFilter')
-  create(@Payload() createProductFilterDto: CreateProductFilterDto) {
-    return this.productFiltersService.create(createProductFilterDto);
+  @MessagePattern('PRODUCT:FILTER:CREATE')
+  create(@Payload() data: ProductFilterDto) {
+    return this.productFiltersService.create(data);
   }
 
-  @MessagePattern('findAllProductFilters')
+  @MessagePattern('PRODUCT:FILTER:FIND')
   findAll() {
     return this.productFiltersService.findAll();
   }
 
-  @MessagePattern('findOneProductFilter')
-  findOne(@Payload() id: number) {
-    return this.productFiltersService.findOne(id);
+  @MessagePattern('PRODUCT:FILTER:ONE')
+  findOne(@Payload() data: Validate) {
+    return this.productFiltersService.findOne(data.id);
   }
 
-  @MessagePattern('updateProductFilter')
-  update(@Payload() updateProductFilterDto: UpdateProductFilterDto) {
-    return this.productFiltersService.update(updateProductFilterDto.id, updateProductFilterDto);
+  @MessagePattern('PRODUCT:FILTER:UPDATE')
+  update(@Payload() data: ProductFilterDto) {
+    return this.productFiltersService.update(data);
   }
 
-  @MessagePattern('removeProductFilter')
-  remove(@Payload() id: number) {
-    return this.productFiltersService.remove(id);
+  @MessagePattern('PRODUCT:FILTER:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.productFiltersService.remove(data.id);
   }
 }

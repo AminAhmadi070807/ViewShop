@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductFilterDto } from './dto/create-product-filter.dto';
-import { UpdateProductFilterDto } from './dto/update-product-filter.dto';
+import { ProductFilterDto } from './dto/product-filter.dto';
 
 @Injectable()
 export class ProductFiltersService {
-  create(createProductFilterDto: CreateProductFilterDto) {
+  create(data: ProductFilterDto) {
     return 'This action adds a new productFilter';
   }
 
@@ -12,15 +11,15 @@ export class ProductFiltersService {
     return `This action returns all productFilters`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} productFilter`;
   }
 
-  update(id: number, updateProductFilterDto: UpdateProductFilterDto) {
-    return `This action updates a #${id} productFilter`;
+  update(data: ProductFilterDto) {
+    return `This action updates a productFilter`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} productFilter`;
   }
 }
