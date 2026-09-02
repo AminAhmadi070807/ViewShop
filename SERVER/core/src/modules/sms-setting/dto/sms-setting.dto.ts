@@ -12,7 +12,7 @@ import { Type } from 'class-transformer';
 class Details {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
-  @Matches(/^([A-Z]){2,24}$/, { message: 'عنوان نامعتبر است' })
+  @Matches(/^[a-zA-Z-_]+$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })

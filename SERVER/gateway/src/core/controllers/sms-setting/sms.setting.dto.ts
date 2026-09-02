@@ -14,7 +14,7 @@ class Details {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
-  @Matches(/^([A-Z]){2,24}$/, { message: 'عنوان نامعتبر است' })
+  @Matches(/^[a-zA-Z-_]+$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
