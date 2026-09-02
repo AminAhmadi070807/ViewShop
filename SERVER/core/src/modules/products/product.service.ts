@@ -173,9 +173,13 @@ export class ProductService {
     try {
       const medias = await this.mediaService.findId(data.medias);
       const product = await this.findOne(data.id);
+      const specification = await this.specificationService.findOne(
+        data.specification,
+      );
 
       if (medias instanceof CustomException) return medias;
       if (product instanceof CustomException) return product;
+      if (specification instanceof CustomException) return specification;
 
       product.body.product.medias = medias.body;
       product.body.product.discount_percent = data.discount_percent;
@@ -188,6 +192,7 @@ export class ProductService {
           price: item.price,
         };
       });
+      product.body.product.specification = specification.body;
 
       await this.productRepository.save(product.body.product);
 
