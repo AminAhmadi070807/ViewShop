@@ -22,7 +22,7 @@ export class SmsSettingController {
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   sms_setting(@Body() data: SmsSettingDto) {
-    return this.coreService.send('SMS:SETTING', data);
+    return this.coreService.send('SETTING:SMS:CREATE', data);
   }
 
   @Get()
