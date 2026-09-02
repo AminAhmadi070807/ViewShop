@@ -8,5 +8,6 @@ import { SmsSetting } from './entities/sms-setting.entity';
   controllers: [SmsSettingController],
   providers: [SmsSettingService],
   imports: [TypeOrmModule.forFeature([SmsSetting])],
+  exports: [TypeOrmModule],
 })
 export class SmsSettingModule {}
