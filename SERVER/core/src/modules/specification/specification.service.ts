@@ -21,7 +21,13 @@ export class SpecificationService {
           return {
             id: crypto.randomUUID(),
             title: item.title,
-            value: item.value,
+            details: item.details.map((detail) => {
+              return {
+                id: crypto.randomUUID(),
+                title: detail.title,
+                description: detail.description,
+              };
+            }),
           };
         }),
       });
