@@ -60,16 +60,9 @@ export class ProductDto {
   @MinLength(8, { message: 'عنوان نمیتواند کمتر از 8 کارکتر باشد' })
   title: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-    isArray: true,
-  })
-  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
-  productFilters: string;
+  specification: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
