@@ -17,40 +17,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 import { Type } from 'class-transformer';
 
-// filter details validation
-class FilterDetailDto {
-  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان محصول باید رشته باشد' })
-  title: string;
-
-  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان محصول باید رشته باشد' })
-  value: string;
-}
-
-// filter validation
-class ProductFilterDto {
-  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
-  id: string;
-
-  @ApiProperty({
-    type: () => FilterDetailDto,
-    isArray: true,
-    required: true,
-    nullable: false,
-    example: FilterDetailDto,
-  })
-  @ArrayNotEmpty({ message: 'جزئیات فیلتر نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => FilterDetailDto)
-  details: FilterDetailDto[];
-}
-
 // product details validation
 class ProductDetailDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
@@ -94,6 +60,17 @@ export class ProductDto {
   @MinLength(8, { message: 'عنوان نمیتواند کمتر از 8 کارکتر باشد' })
   title: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+    isArray: true,
+  })
+  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
+  productFilters: string;
+
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات محصول باید رشته باشد' })
@@ -134,19 +111,6 @@ export class ProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
-  @ApiProperty({
-    type: () => ProductFilterDto,
-    isArray: true,
-    required: true,
-    nullable: false,
-    example: ProductFilterDto,
-  })
-  @ArrayNotEmpty({ message: 'جزئیات نمیتواند نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => ProductFilterDto)
-  filter_details: ProductFilterDto[];
-
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
@@ -162,10 +126,7 @@ export class ProductDto {
     minimum: 0,
   })
   @IsNotEmpty({ message: 'درصد تخفیف نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'درصد تخفیف باید اعداد باشد' },
-  )
+  @IsNumber({}, { message: 'درصد تخفیف باید اعداد باشد' })
   @Min(0, { message: 'درصد تخفیف نامعتبر است' })
   @Max(100, { message: 'درصد تخفیف نامعتبر است' })
   discount_percent: number;
@@ -176,6 +137,17 @@ export class UpdateProductDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+    nullable: false,
+    example: '',
+    isArray: true,
+  })
+  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
+  productFilters: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
@@ -212,19 +184,6 @@ export class UpdateProductDto {
   @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
-
-  @ApiProperty({
-    type: () => ProductFilterDto,
-    isArray: true,
-    required: true,
-    nullable: false,
-    example: ProductFilterDto,
-  })
-  @ArrayNotEmpty({ message: 'جزئیات نمیتواند نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => ProductFilterDto)
-  filter_details: ProductFilterDto[];
 
   @ApiProperty({ type: Number, required: true, nullable: false, example: 0 })
   @IsNotEmpty({ message: 'درصد تخفیف نامعتبر است' })
