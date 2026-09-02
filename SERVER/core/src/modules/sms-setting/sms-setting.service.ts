@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSmsSettingDto } from './dto/create-sms-setting.dto';
-import { UpdateSmsSettingDto } from './dto/update-sms-setting.dto';
+import { SmsSettingDto } from './dto/sms-setting.dto';
 
 @Injectable()
 export class SmsSettingService {
-  create(createSmsSettingDto: CreateSmsSettingDto) {
+  create(data: SmsSettingDto) {
     return 'This action adds a new smsSetting';
   }
 
@@ -14,10 +13,6 @@ export class SmsSettingService {
 
   findOne(id: number) {
     return `This action returns a #${id} smsSetting`;
-  }
-
-  update(id: number, updateSmsSettingDto: UpdateSmsSettingDto) {
-    return `This action updates a #${id} smsSetting`;
   }
 
   remove(id: number) {
