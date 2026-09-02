@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SmsSettingDto } from './sms.setting.dto';
 import {
@@ -8,6 +8,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/setting/sms')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -32,5 +33,14 @@ export class SmsSettingController {
   ])
   findAll() {
     return this.coreService.send('SETTING:SMS:FIND');
+  }
+
+  @Delete()
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
+  delete(@Body() data: ValidateUUID) {
+    return this.coreService.send('SETTING:SMS:DELETE', data);
   }
 }
