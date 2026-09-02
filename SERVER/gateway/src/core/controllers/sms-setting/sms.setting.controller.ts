@@ -38,7 +38,7 @@ export class SmsSettingController {
   @Delete()
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
-    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   delete(@Body() data: ValidateUUID) {
     return this.coreService.send('SETTING:SMS:DELETE', data);
