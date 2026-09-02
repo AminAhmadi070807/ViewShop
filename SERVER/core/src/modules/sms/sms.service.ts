@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { SmDto, SmSettingDto } from './dto/sm.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sms } from './entities/sm.entity';
-import { Between, MoreThanOrEqual, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { FarazSmsService } from './services/faraz-sms.service';
 import { MedianaService } from './services/mediana.service';
 import { SmsIrService } from './services/sms-ir.service';
