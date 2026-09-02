@@ -1,7 +1,7 @@
 import { IsEnum } from 'class-validator';
 import { SmsEnum, SmsServiceEnum } from '../../../common/enums/sms/sms.enum';
 
-export class SmSettingDto {
+export class SmsSettingDto {
   @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
   section: SmsEnum;
 
