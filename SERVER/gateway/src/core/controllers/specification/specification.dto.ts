@@ -40,7 +40,7 @@ class ProductFilterDetailsDto {
   details: Details[];
 }
 
-export class ProductFilterDto {
+export class SpecificationDto {
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
