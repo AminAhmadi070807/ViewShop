@@ -14,8 +14,11 @@ export class SmsSetting {
   @Column({ type: 'enum', enum: SmsEnum, default: SmsEnum.OTP })
   section: SmsEnum;
 
-  @Column({ type: 'enum', enum: SmsServiceEnum })
+  @Column({ type: 'enum', enum: SmsServiceEnum, unique: true })
   service: SmsServiceEnum;
+
+  @Column({ type: 'jsonb', nullable: false })
+  details: { id: string; title: string; value: string }[];
 
   @CreateDateColumn()
   createdAt: Date;
