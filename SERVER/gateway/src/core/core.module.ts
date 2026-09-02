@@ -39,7 +39,7 @@ import { SmsController } from './controllers/sms/sms.controller';
 import { PaymentSettingController } from './controllers/payment/setting/payment.setting.controller';
 import { PaymentController } from './controllers/payment/payment.controller';
 import { SpecificationController } from './controllers/specification/specification.controller';
-import { SmsSettingController } from './controllers/sms-setting/sms.controller';
+import { SmsSettingController } from './controllers/sms-setting/sms.setting.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],

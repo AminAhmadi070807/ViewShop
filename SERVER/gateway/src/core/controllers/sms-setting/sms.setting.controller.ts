@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { SmSettingDto } from './sms.dto';
+import { SmsSettingDto } from './sms.setting.dto';
 import {
   ApiForbiddenResponse,
   ApiHeaders,
@@ -21,7 +21,7 @@ export class SmsSettingController {
     { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
-  sms_setting(@Body() data: SmSettingDto) {
+  sms_setting(@Body() data: SmsSettingDto) {
     return this.coreService.send('SMS:SETTING', data);
   }
 
