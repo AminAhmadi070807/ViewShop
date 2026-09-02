@@ -15,7 +15,7 @@ export class ProductFilter {
   title: string;
 
   @Column({ type: 'jsonb', nullable: true, default: [] })
-  details: { title: string; value: string }[];
+  details: { id: string; title: string; value: string }[];
 
   @CreateDateColumn()
   createdAt: Date;
