@@ -80,7 +80,7 @@ export class Product {
   brand: Brand;
 
   @OneToMany(() => ProductFilter, (productFilter) => productFilter.product)
-  productFilter: ProductFilter;
+  productFilter: ProductFilter[];
 
   @CreateDateColumn()
   createdAt: Date;
