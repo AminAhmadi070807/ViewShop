@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SmDto, SmSettingDto } from './dto/sm.dto';
+import { SmDto } from './dto/sm.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sms } from './entities/sm.entity';
 import { Repository } from 'typeorm';
@@ -111,46 +111,6 @@ export class SmsService {
   async findAll() {
     try {
       const result = await this.smsRepository.find({
-        order: { createdAt: 'DESC' },
-      });
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
-  async setting(data: SmSettingDto) {
-    try {
-      const existing = await this.smsSettingRepository.findOneBy({
-        section: data.section,
-      });
-
-      if (!existing) {
-        const result = this.smsSettingRepository.create(data);
-
-        await this.smsSettingRepository.save(result);
-      } else {
-        await this.smsSettingRepository.update({ section: data.section }, data);
-      }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: null,
-      };
-    } catch {
-      throw new CustomException(statusMessages.fa['500'], 500);
-    }
-  }
-
-  async findSetting() {
-    try {
-      const result = await this.smsSettingRepository.find({
         order: { createdAt: 'DESC' },
       });
 
