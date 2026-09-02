@@ -67,18 +67,6 @@ export class ProductService {
             color: item.color,
           };
         }),
-        filters_detail: data.filter_details.map((item) => {
-          return {
-            id: item.id,
-            details: item.details.map((detail) => {
-              return {
-                id: crypto.randomUUID(),
-                title: detail.title,
-                value: detail.value,
-              };
-            }),
-          };
-        }),
         discount_percent: data.discount_percent,
         title: data.title,
         description: data.description,
@@ -191,18 +179,6 @@ export class ProductService {
           stock: item.stock,
           color: item.color,
           price: item.price,
-        };
-      });
-      product.body.product.filters_detail = data.filter_details.map((item) => {
-        return {
-          id: item.id,
-          details: item.details.map((detail) => {
-            return {
-              id: crypto.randomUUID(),
-              title: detail.title,
-              value: detail.value,
-            };
-          }),
         };
       });
 

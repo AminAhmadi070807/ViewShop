@@ -60,12 +60,6 @@ export class Product {
   @Column({ type: 'jsonb', nullable: false })
   details: { id: string; color: string; price: number; stock: number }[];
 
-  @Column({ type: 'jsonb', nullable: false })
-  filters_detail: {
-    id: string;
-    details: { id: string; title: string; value: string }[];
-  }[];
-
   @Column({ type: 'integer', nullable: false, default: 0 })
   discount_percent: number;
 

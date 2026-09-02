@@ -17,35 +17,6 @@ import {
 import { ProductStatusEnum } from '../../../common/enums/products/product/status.enum';
 import { Type } from 'class-transformer';
 
-// filter details validation
-class FilterDetailDto {
-  @IsOptional()
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
-  id?: string;
-
-  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان محصول باید رشته باشد' })
-  title: string;
-
-  @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان محصول باید رشته باشد' })
-  value: string;
-}
-
-// filter validation
-export class ProductFilterDto {
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
-  id: string;
-
-  @ArrayNotEmpty({ message: 'جزئیات فیلتر نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات فیلتر باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => FilterDetailDto)
-  details: FilterDetailDto[];
-}
-
 // product details validation
 class ProductDetailDto {
   @IsOptional()
@@ -76,6 +47,10 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
 
+  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
+  productFilters: string;
+
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
 
@@ -103,12 +78,6 @@ export class ProductDto {
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
 
-  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => ProductFilterDto)
-  filter_details: ProductFilterDto[];
-
   @IsNotEmpty({ message: 'نام مستعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
   @MinLength(9, { message: 'نام مستعار حدقل باید 9 کارکتر داشته باشد' })
@@ -116,10 +85,7 @@ export class ProductDto {
   alias: string;
 
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'درصد تخفیف باید اعداد باشد' },
-  )
+  @IsNumber({}, { message: 'درصد تخفیف باید اعداد باشد' })
   @Min(0, { message: 'درصد تخفیف نامعتبر است' })
   @Max(100, { message: 'درصد تخفیف نامعتبر است' })
   discount_percent: number;
@@ -129,6 +95,10 @@ export class ProductDto {
 export class UpdateProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
+
+  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
+  productFilters: string;
 
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
@@ -148,12 +118,6 @@ export class UpdateProductDto {
   @ValidateNested({ each: true })
   @Type(() => ProductDetailDto)
   details: ProductDetailDto[];
-
-  @ArrayNotEmpty({ message: 'جزئیات نمیتواند خالی بشاد' })
-  @IsArray({ message: 'جزئیات باید ارایه باشد' })
-  @ValidateNested({ each: true })
-  @Type(() => ProductFilterDto)
-  filter_details: ProductFilterDto[];
 
   @IsNotEmpty({ message: 'لطفا درصد تخفیف را وارد کنید' })
   @IsNumber(
