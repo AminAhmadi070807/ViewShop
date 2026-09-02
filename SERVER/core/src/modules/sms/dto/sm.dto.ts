@@ -22,11 +22,3 @@ export class SmDto {
   @IsOptional({ message: 'سرویس ارسال پیامک کاملا اختیاری است' })
   service?: SmsServiceEnum;
 }
-
-export class SmSettingDto {
-  @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
-  section: SmsEnum;
-
-  @IsEnum(SmsServiceEnum, { message: 'سروریس پیامکی نامعتبر است' })
-  service: SmsServiceEnum;
-}
