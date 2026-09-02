@@ -11,11 +11,11 @@ export class SmsSettingService {
     return `This action returns all smsSetting`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} smsSetting`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} smsSetting`;
   }
 }
