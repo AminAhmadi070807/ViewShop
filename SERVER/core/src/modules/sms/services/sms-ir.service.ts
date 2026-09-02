@@ -13,6 +13,7 @@ interface smsIr {
 
 export class SmsIrService implements OnModuleInit {
   api: string;
+  key: string;
   template_id: string;
 
   constructor(
@@ -22,12 +23,12 @@ export class SmsIrService implements OnModuleInit {
 
   async sms(cell_phone: string, message: string) {
     try {
-      const response = await fetch('https://api.sms.ir/v1/send/verify', {
+      const response = await fetch(this.api, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           ACCEPT: 'text/plain',
-          'X-API-KEY': this.api,
+          'X-API-KEY': this.key,
         },
         body: JSON.stringify({
           mobile: cell_phone,
@@ -70,10 +71,13 @@ export class SmsIrService implements OnModuleInit {
           case 'template_id':
             this.template_id = item.value;
             break;
+          case 'key':
+            this.key = item.value;
+            break;
         }
       }
 
-      if (!this.api || !this.template_id) {
+      if (!this.api || !this.template_id || !this.key) {
         return new CustomException(statusMessages.fa['400'], 400);
       }
     } catch {
