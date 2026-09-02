@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ProductFilterDto } from './dto/product-filter.dto';
+import { SpecificationDto } from './dto/specification.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductFilter } from './entities/product-filter.entity';
+import { Specification } from './entities/specification.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
@@ -9,13 +9,13 @@ import { statusMessages } from '../../common/message/message.status';
 @Injectable()
 export class SpecificationService {
   constructor(
-    @InjectRepository(ProductFilter)
-    private readonly productRepository: Repository<ProductFilter>,
+    @InjectRepository(Specification)
+    private readonly specificationRepository: Repository<Specification>,
   ) {}
 
-  async create(data: ProductFilterDto) {
+  async create(data: SpecificationDto) {
     try {
-      const result = this.productRepository.create({
+      const result = this.specificationRepository.create({
         title: data.title,
         details: data.details.map((item) => {
           return {
@@ -26,7 +26,7 @@ export class SpecificationService {
         }),
       });
 
-      await this.productRepository.save(result);
+      await this.specificationRepository.save(result);
 
       return { status: 201, message: statusMessages.fa['201'], body: null };
     } catch {
@@ -36,7 +36,7 @@ export class SpecificationService {
 
   async findAll() {
     try {
-      const result = await this.productRepository.find({
+      const result = await this.specificationRepository.find({
         order: { createdAt: 'DESC' },
       });
 
@@ -48,7 +48,7 @@ export class SpecificationService {
 
   async findOne(id: string) {
     try {
-      const result = await this.productRepository.findOneBy({ id });
+      const result = await this.specificationRepository.findOneBy({ id });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
@@ -60,7 +60,7 @@ export class SpecificationService {
 
   async remove(id: string) {
     try {
-      const result = await this.productRepository.delete(id);
+      const result = await this.specificationRepository.delete(id);
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);

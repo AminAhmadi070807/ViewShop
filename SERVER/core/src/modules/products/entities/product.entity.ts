@@ -20,7 +20,7 @@ import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
 import { Brand } from '../../brands/entities/brand.entity';
-import { ProductFilter } from '../../specification/entities/product-filter.entity';
+import { ProductFilter } from '../../specification/entities/specification.entity';
 
 @Entity('Product')
 export class Product {

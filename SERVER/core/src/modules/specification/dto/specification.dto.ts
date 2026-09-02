@@ -17,7 +17,7 @@ class ProductFilterDetailsDto {
   value: string;
 }
 
-export class ProductFilterDto {
+export class SpecificationDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
