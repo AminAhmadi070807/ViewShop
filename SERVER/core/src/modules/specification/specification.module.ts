@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProductFiltersService } from './product-filters.service';
-import { ProductFiltersController } from './product-filters.controller';
+import { ProductFiltersService } from './specification.service';
+import { ProductFiltersController } from './specification.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductFilter } from './entities/product-filter.entity';
 
@@ -9,4 +9,4 @@ import { ProductFilter } from './entities/product-filter.entity';
   providers: [ProductFiltersService],
   imports: [TypeOrmModule.forFeature([ProductFilter])],
 })
-export class ProductFiltersModule {}
+export class SpecificationModule {}

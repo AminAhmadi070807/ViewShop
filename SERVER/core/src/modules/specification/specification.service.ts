@@ -7,7 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/message/message.status';
 
 @Injectable()
-export class ProductFiltersService {
+export class SpecificationService {
   constructor(
     @InjectRepository(ProductFilter)
     private readonly productRepository: Repository<ProductFilter>,
