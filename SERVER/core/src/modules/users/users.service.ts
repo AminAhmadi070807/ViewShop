@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,13 +30,9 @@ export class UsersService {
         fullName: data.fullName,
       });
 
-      const saveUser = await this.userRepository.save(user);
+      await this.userRepository.save(user);
 
-      return {
-        status: HttpStatus.CREATED,
-        message: statusMessages.fa['201'],
-        body: saveUser,
-      };
+      return { status: 201, message: statusMessages.fa['201'], body: user };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -47,19 +43,10 @@ export class UsersService {
       const user = await this.userRepository.find({
         take: (page ?? 1) * 15,
         order: { createdAt: 'DESC' },
-        select: {
-          id: true,
-          fullName: true,
-          phone: true,
-          role: true,
-        },
+        select: { password: false },
       });
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: user,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: user };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -67,16 +54,12 @@ export class UsersService {
 
   async findOne(data: Validate) {
     try {
-      if (data.id === data.user) {
+      if (data.role === 'ADMIN' || data.id === data.user) {
         const user = await this.userRepository.findOneBy({ id: data.id });
 
         if (!user) return new CustomException(statusMessages.fa['404'], 404);
 
-        return {
-          status: HttpStatus.OK,
-          message: statusMessages.fa['200'],
-          body: user,
-        };
+        return { status: 200, message: statusMessages.fa['200'], body: user };
       }
 
       return new CustomException(statusMessages.fa['403'], 403);
@@ -89,9 +72,7 @@ export class UsersService {
     try {
       const existing = await this.userRepository.findOneBy({ id: data.id });
 
-      if (!existing) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (!existing) return new CustomException(statusMessages.fa['404'], 404);
 
       if (existing.id !== data.user) {
         return new CustomException(statusMessages.fa['403'], 403);
@@ -101,11 +82,7 @@ export class UsersService {
 
       await this.userRepository.save(existing);
 
-      return {
-        status: HttpStatus.NO_CONTENT,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
