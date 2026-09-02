@@ -3,19 +3,11 @@ import { SmsSettingDto } from './dto/sms-setting.dto';
 
 @Injectable()
 export class SmsSettingService {
-  create(data: SmsSettingDto) {
-    return 'This action adds a new smsSetting';
-  }
+  create(data: SmsSettingDto) {}
 
-  findAll() {
-    return `This action returns all smsSetting`;
-  }
+  findAll() {}
 
-  findOne(id: string) {
-    return `This action returns a #${id} smsSetting`;
-  }
+  findOne(id: string) {}
 
-  remove(id: string) {
-    return `This action removes a #${id} smsSetting`;
-  }
+  remove(id: string) {}
 }
