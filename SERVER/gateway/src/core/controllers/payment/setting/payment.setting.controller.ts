@@ -27,7 +27,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../../common/messages/status.message';
 
-@Controller('core/payment/setting')
+@Controller('core/settings/payment')
 @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
