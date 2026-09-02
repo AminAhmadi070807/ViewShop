@@ -35,23 +35,4 @@ export class SmsController {
   findAll() {
     return this.coreService.send('SMS:FIND');
   }
-
-  @Post('setting')
-  sms_setting(@Body() data: SmSettingDto) {
-    return this.coreService.send('SMS:SETTING', data);
-  }
-
-  @Get('setting')
-  @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ:SETTING',
-      enum: ['READ:SETTING'],
-    },
-  ])
-  findSetting() {
-    return this.coreService.send('SMS:SETTING:FIND');
-  }
 }
