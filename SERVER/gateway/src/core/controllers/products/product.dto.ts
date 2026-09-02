@@ -61,7 +61,7 @@ export class ProductDto {
   title: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است' })
   specification: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
@@ -131,16 +131,9 @@ export class UpdateProductDto {
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-    isArray: true,
-  })
-  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
-  productFilters: string;
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است' })
+  specification: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'عنوان محصول نمیتواند خالی باشد' })

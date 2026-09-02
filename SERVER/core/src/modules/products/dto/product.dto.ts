@@ -47,9 +47,8 @@ export class ProductDto {
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   userId: string;
 
-  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
-  productFilters: string;
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است' })
+  specification: string;
 
   @IsUUID('4', { message: 'لطفا ایدی کاربر درست وارد کنید' })
   store: string;
@@ -96,9 +95,8 @@ export class UpdateProductDto {
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id: string;
 
-  @IsArray({ message: 'شناسه فیلتر های محصول باید در ارایه باشد' })
-  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است', each: true })
-  productFilters: string;
+  @IsUUID('4', { message: 'شناسه فیلتر های محصول نامعتبر است' })
+  specification: string;
 
   @ArrayNotEmpty({ message: 'لطفا ایدی مدیا  نمیتواند خالی باشد' })
   @IsArray({ message: 'ایدی مدیا ها باید ارایه باشد' })
@@ -147,9 +145,6 @@ export class UpdateStockProductDto {
   @IsUUID('4', { message: 'شناسه دیتا نامعتبر است' })
   product_detail_id: string;
 
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'موجودی محصول باید نامبر باشد' },
-  )
+  @IsNumber({}, { message: 'موجودی محصول باید نامبر باشد' })
   stock: number;
 }
