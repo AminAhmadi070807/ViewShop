@@ -15,7 +15,11 @@ export class Specification {
   title: string;
 
   @Column({ type: 'jsonb', nullable: true, default: [] })
-  details: { id: string; title: string; value: string }[];
+  details: {
+    id: string;
+    title: string;
+    details: { id: string; title: string; description: string }[];
+  }[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -6,7 +6,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -20,10 +19,7 @@ import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Store } from '../../store/entities/store.entity';
 import { Brand } from '../../brands/entities/brand.entity';
-import {
-  ProductFilter,
-  Specification,
-} from '../../specification/entities/specification.entity';
+import { Specification } from '../../specification/entities/specification.entity';
 
 @Entity('Product')
 export class Product {
