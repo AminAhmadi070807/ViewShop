@@ -6,12 +6,12 @@ import { Sms } from './entities/sm.entity';
 import { FarazSmsService } from './services/faraz-sms.service';
 import { MedianaService } from './services/mediana.service';
 import { SmsIrService } from './services/sms-ir.service';
-import { Sms_Setting } from './entities/sms.setting.entity';
+import { SmsSetting } from '../sms-setting/entities/sms-setting.entity';
 
 @Module({
   controllers: [SmsController],
   providers: [SmsService, FarazSmsService, MedianaService, SmsIrService],
-  imports: [TypeOrmModule.forFeature([Sms, Sms_Setting])],
+  imports: [TypeOrmModule.forFeature([Sms, SmsSetting])],
   exports: [SmsService],
 })
 export class SmsModule {}
