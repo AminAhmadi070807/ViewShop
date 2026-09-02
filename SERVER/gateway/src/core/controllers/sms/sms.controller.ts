@@ -20,18 +20,8 @@ export class SmsController {
   @Post()
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SMS',
-      enum: ['SMS'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   sms(@Body() data: SmDto) {
     return this.coreService.send('SMS:SEND', data);
@@ -39,18 +29,8 @@ export class SmsController {
 
   @Get()
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SMS',
-      enum: ['SMS'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('SMS:FIND');
@@ -63,12 +43,7 @@ export class SmsController {
 
   @Get('setting')
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SMS',
-      enum: ['SMS'],
-    },
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
     {
       name: 'permission',
       required: true,

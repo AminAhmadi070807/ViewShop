@@ -46,11 +46,7 @@ export class SmsIrService {
         return new CustomException(result.message, response.status);
       }
 
-      return {
-        status: 200,
-        message: message,
-        body: null,
-      };
+      return { status: 200, message: message, body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

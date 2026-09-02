@@ -79,37 +79,6 @@ export class SmsService {
 
   async sms(data: SmDto) {
     try {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
-
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
-
-      const day = await this.smsRepository.find({
-        where: {
-          cell_phone: data.cell_phone,
-          createdAt: Between(startOfDay, endOfDay),
-        },
-      });
-
-      if (day.length > 5) {
-        return new CustomException(statusMessages.fa['403'], 403);
-      }
-
-      const oneMonthAgo = new Date();
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-      const month = await this.smsRepository.find({
-        where: {
-          cell_phone: data.cell_phone,
-          createdAt: MoreThanOrEqual(oneMonthAgo),
-        },
-      });
-
-      if (month.length > 20) {
-        return new CustomException(statusMessages.fa['403'], 403);
-      }
-
       let service = data.service;
 
       if (!service) {
