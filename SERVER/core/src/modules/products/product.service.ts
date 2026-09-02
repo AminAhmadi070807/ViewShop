@@ -55,6 +55,7 @@ export class ProductService {
 
       const product = this.productRepository.create({
         user: { id: data.userId },
+        specification: { id: data.specification },
         medias: media.body,
         alias: data.alias,
         store: store.body,
