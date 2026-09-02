@@ -3,23 +3,13 @@ import { ProductFilterDto } from './dto/product-filter.dto';
 
 @Injectable()
 export class ProductFiltersService {
-  create(data: ProductFilterDto) {
-    return 'This action adds a new productFilter';
-  }
+  create(data: ProductFilterDto) {}
 
-  findAll() {
-    return `This action returns all productFilters`;
-  }
+  findAll() {}
 
-  findOne(id: string) {
-    return `This action returns a #${id} productFilter`;
-  }
+  findOne(id: string) {}
 
-  update(data: ProductFilterDto) {
-    return `This action updates a productFilter`;
-  }
+  update(data: ProductFilterDto) {}
 
-  remove(id: string) {
-    return `This action removes a #${id} productFilter`;
-  }
+  remove(id: string) {}
 }
