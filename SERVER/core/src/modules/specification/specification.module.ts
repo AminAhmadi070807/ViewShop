@@ -8,5 +8,6 @@ import { Specification } from './entities/specification.entity';
   controllers: [SpecificationController],
   providers: [SpecificationService],
   imports: [TypeOrmModule.forFeature([Specification])],
+  exports: [SpecificationService],
 })
 export class SpecificationModule {}
