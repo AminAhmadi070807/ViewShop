@@ -8,22 +8,22 @@ import { Validate } from '../../common/validations/validate.dto';
 export class SpecificationController {
   constructor(private readonly specificationService: SpecificationService) {}
 
-  @MessagePattern('PRODUCT:FILTER:CREATE')
+  @MessagePattern('SPECIFICATION:CREATE')
   create(@Payload() data: SpecificationDto) {
     return this.specificationService.create(data);
   }
 
-  @MessagePattern('PRODUCT:FILTER:FIND')
+  @MessagePattern('SPECIFICATION:FIND')
   findAll() {
     return this.specificationService.findAll();
   }
 
-  @MessagePattern('PRODUCT:FILTER:ONE')
+  @MessagePattern('SPECIFICATION:ONE')
   findOne(@Payload() data: Validate) {
     return this.specificationService.findOne(data.id);
   }
 
-  @MessagePattern('PRODUCT:FILTER:DELETE')
+  @MessagePattern('SPECIFICATION:DELETE')
   remove(@Payload() data: Validate) {
     return this.specificationService.remove(data.id);
   }
