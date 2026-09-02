@@ -2,14 +2,15 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SmsSettingService } from './sms-setting.service';
 import { SmsSettingDto } from './dto/sms-setting.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class SmsSettingController {
   constructor(private readonly smsSettingService: SmsSettingService) {}
 
   @MessagePattern('SETTING:SMS:CREATE')
-  create(@Payload() createSmsSettingDto: SmsSettingDto) {
-    return this.smsSettingService.create(createSmsSettingDto);
+  create(@Payload() data: SmsSettingDto) {
+    return this.smsSettingService.create(data);
   }
 
   @MessagePattern('SETTING:SMS:FIND')
@@ -18,12 +19,12 @@ export class SmsSettingController {
   }
 
   @MessagePattern('SETTING:SMS:ONE')
-  findOne(@Payload() id: number) {
-    return this.smsSettingService.findOne(id);
+  findOne(@Payload() data: Validate) {
+    return this.smsSettingService.findOne(data.id);
   }
 
   @MessagePattern('SETTING:SMS:DELETE')
-  remove(@Payload() id: number) {
-    return this.smsSettingService.remove(id);
+  remove(@Payload() data: Validate) {
+    return this.smsSettingService.remove(data.id);
   }
 }
