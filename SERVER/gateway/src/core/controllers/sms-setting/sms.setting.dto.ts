@@ -11,11 +11,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 class Details {
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   @Matches(/^([A-Z]){2,24}$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
+  @ApiProperty({ type: String, nullable: false, required: true, example: '' })
   @IsNotEmpty({ message: 'مقدار نمیتواند خالی باشد' })
   @IsString({ message: 'مقدار نامعتبر است' })
   value: string;
