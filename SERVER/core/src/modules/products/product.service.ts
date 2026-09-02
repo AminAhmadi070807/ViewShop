@@ -17,6 +17,7 @@ import { ColorsService } from '../colors/colors.service';
 import { ProductFilterDto } from '../search/dto/search.dto';
 import { CommentService } from '../comment/comment.service';
 import { BrandsService } from '../brands/brands.service';
+import { SpecificationService } from '../specification/specification.service';
 
 @Injectable()
 export class ProductService {
@@ -29,6 +30,7 @@ export class ProductService {
     @Inject(forwardRef(() => CommentService))
     private readonly commentService: CommentService,
     private readonly brandService: BrandsService,
+    private readonly specificationService: SpecificationService,
   ) {}
 
   async create(data: ProductDto) {
@@ -47,15 +49,19 @@ export class ProductService {
       });
       const colors = await this.colorService.findByCode(resultColor);
       const brand = await this.brandService.findOne(data.brand);
+      const specification = await this.specificationService.findOne(
+        data.specification,
+      );
 
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
       if (colors instanceof CustomException) return colors;
       if (brand instanceof CustomException) return brand;
+      if (specification instanceof CustomException) return specification;
 
       const product = this.productRepository.create({
         user: { id: data.userId },
-        specification: { id: data.specification },
+        specification: specification.body,
         medias: media.body,
         alias: data.alias,
         store: store.body,
