@@ -38,7 +38,6 @@ export class Product {
   @Column({
     type: 'enum',
     enum: ProductStatusEnum,
-    nullable: false,
     default: ProductStatusEnum.PENDING_APPROVAL,
   })
   status: ProductStatusEnum;
@@ -46,7 +45,6 @@ export class Product {
   @Column({
     type: 'enum',
     enum: ProductStockStatusEnum,
-    nullable: false,
     default: ProductStockStatusEnum.IN_STOCK,
   })
   stock_status: ProductStockStatusEnum;
@@ -54,7 +52,6 @@ export class Product {
   @Column({
     type: 'enum',
     enum: ProductApprovalStatusEnum,
-    nullable: false,
     default: ProductApprovalStatusEnum.PENDING,
   })
   approval_status: ProductApprovalStatusEnum;
