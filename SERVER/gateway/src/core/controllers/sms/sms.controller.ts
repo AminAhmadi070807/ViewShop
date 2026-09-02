@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { SmDto, SmSettingDto } from './sms.dto';
+import { SmDto } from './sms.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,

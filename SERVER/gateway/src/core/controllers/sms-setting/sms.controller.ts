@@ -13,7 +13,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
 @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
-export class SmsController {
+export class SmsSettingController {
   constructor(private readonly coreService: CoreService) {}
 
   @Post()
