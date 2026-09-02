@@ -58,7 +58,17 @@ export class ProductFiltersService {
     }
   }
 
-  update(data: ProductFilterDto) {}
+  async remove(id: string) {
+    try {
+      const result = await this.productRepository.delete(id);
 
-  remove(id: string) {}
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 200, message: statusMessages.fa['200'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
