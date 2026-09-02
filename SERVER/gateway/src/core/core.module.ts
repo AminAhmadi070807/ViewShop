@@ -38,6 +38,7 @@ import { SaleController } from './controllers/sale/sale.controller';
 import { SmsController } from './controllers/sms/sms.controller';
 import { PaymentSettingController } from './controllers/payment/setting/payment.setting.controller';
 import { PaymentController } from './controllers/payment/payment.controller';
+import { SpecificationController } from './controllers/specification/specification.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -49,12 +50,13 @@ import { PaymentController } from './controllers/payment/payment.controller';
   controllers: [
     UsersController,
     AuthController,
+    MediaController,
     SmsController,
     PaymentSettingController,
     PaymentController,
     ZarinPalController,
+    SpecificationController,
     AddressController,
-    MediaController,
     FilterController,
     CategoryController,
     SubCategoryController,
