@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsString,
@@ -55,4 +56,13 @@ export class SmsSettingDto {
   @ValidateNested({ each: true })
   @Type(() => Details)
   details: Details[];
+
+  @ApiProperty({
+    type: String,
+    nullable: false,
+    required: false,
+    example: true,
+  })
+  @IsBoolean({ message: 'حالت فعال نامعتبر است' })
+  active: boolean;
 }
