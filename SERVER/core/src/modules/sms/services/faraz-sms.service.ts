@@ -51,7 +51,7 @@ export class FarazSmsService implements OnModuleInit {
   async onModuleInit() {
     try {
       const result = await this.smsSettingRepository.findOneBy({
-        service: SmsServiceEnum.MEDIANA,
+        service: SmsServiceEnum.FARAZ_SMS,
         active: true,
       });
 
@@ -82,7 +82,14 @@ export class FarazSmsService implements OnModuleInit {
         }
       }
 
-      if (!this.api || !this.pattern_key || !this.key) {
+      if (
+        !this.api ||
+        !this.pattern_key ||
+        !this.key ||
+        !this.line_number ||
+        !this.attribute ||
+        !this.from_number
+      ) {
         return new CustomException(statusMessages.fa['400'], 400);
       }
     } catch {
