@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SmsSettingService } from './sms-setting.service';
-import { SmsSettingDto } from './dto/sms-setting.dto';
+import { SmsSettingDto, UpdateSmsSettingDto } from './dto/sms-setting.dto';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
@@ -21,6 +21,11 @@ export class SmsSettingController {
   @MessagePattern('SETTING:SMS:ONE')
   findOne(@Payload() data: Validate) {
     return this.smsSettingService.findOne(data.id);
+  }
+
+  @MessagePattern('SETTING:SMS:UPDATE')
+  update(@Payload() data: UpdateSmsSettingDto) {
+    return this.smsSettingService.findOne(data);
   }
 
   @MessagePattern('SETTING:SMS:DELETE')
