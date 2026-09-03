@@ -14,7 +14,7 @@ export class SmsSetting {
   @Column({ type: 'enum', enum: SmsEnum, default: SmsEnum.OTP })
   section: SmsEnum;
 
-  @Column({ type: 'enum', enum: SmsServiceEnum, unique: true })
+  @Column({ type: 'enum', enum: SmsServiceEnum })
   service: SmsServiceEnum;
 
   @Column({ type: 'jsonb', nullable: false })

@@ -1,6 +1,7 @@
 export enum SmsEnum {
   OTP = 'OTP',
   MESSAGE = 'MESSAGE',
+  NONE = 'NONE',
 }
 
 export enum SmsServiceEnum {
