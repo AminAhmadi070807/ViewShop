@@ -41,7 +41,8 @@ export class MedianaService implements OnModuleInit {
   async onModuleInit() {
     try {
       const result = await this.smsSettingRepository.findOneBy({
-        service: SmsServiceEnum.SMS_IR,
+        service: SmsServiceEnum.MEDIANA,
+        active: true,
       });
 
       if (!result) {
