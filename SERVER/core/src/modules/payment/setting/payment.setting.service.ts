@@ -87,7 +87,6 @@ export class PaymentSettingService {
 
       if (result instanceof CustomException) return result;
 
-      result.body.media.id = data.media;
       result.body.details = data.details.map((item) => {
         return { pattern: item.pattern, title: item.title, value: item.value };
       });
@@ -95,8 +94,7 @@ export class PaymentSettingService {
       await this.paymentSettingRepository.save(result.body);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
