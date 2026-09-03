@@ -83,17 +83,20 @@ export class PaymentSettingService {
 
   async update(data: UpdatePaymentSettingDto) {
     try {
-      const result = await this.paymentSettingRepository.update(data.id, {
-        ...data,
-        media: { id: data.media },
+      const result = await this.findOne(data.id);
+
+      if (result instanceof CustomException) return result;
+
+      result.body.media.id = data.media;
+      result.body.details = data.details.map((item) => {
+        return { pattern: item.pattern, title: item.title, value: item.value };
       });
 
-      if (!result.affected) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      await this.paymentSettingRepository.save(result.body);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
