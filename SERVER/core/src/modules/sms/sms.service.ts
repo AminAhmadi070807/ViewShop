@@ -84,9 +84,10 @@ export class SmsService {
       if (!service) {
         const setting = await this.smsSettingRepository.findOneBy({
           section: data.section,
+          active: true,
         });
 
-        if (!setting) return new CustomException(statusMessages.fa['500'], 500);
+        if (!setting) return new CustomException(statusMessages.fa['404'], 404);
 
         service = setting.service;
       }
@@ -98,7 +99,7 @@ export class SmsService {
           return this.farazSms(main_data);
         case SmsServiceEnum.SMS_IR:
           return this.smsIr(main_data);
-        case SmsServiceEnum.MEDIA_NA:
+        case SmsServiceEnum.MEDIANA:
           return this.mediana(main_data);
         default:
           return new CustomException(statusMessages.fa['404'], 404);

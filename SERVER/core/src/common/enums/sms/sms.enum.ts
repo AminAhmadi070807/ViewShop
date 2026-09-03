@@ -6,6 +6,6 @@ export enum SmsEnum {
 
 export enum SmsServiceEnum {
   SMS_IR = 'SMS_IR',
-  MEDIA_NA = 'MEDIA_NA',
+  MEDIANA = 'MEDIANA',
   FARAZ_SMS = 'FARAZ_SMS',
 }

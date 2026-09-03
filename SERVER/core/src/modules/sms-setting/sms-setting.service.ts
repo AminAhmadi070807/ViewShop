@@ -18,6 +18,7 @@ export class SmsSettingService {
       const existing = await this.smsSettingRepository.findOneBy({
         section: data.section,
         active: true,
+        service: data.service,
       });
 
       if (existing) {
