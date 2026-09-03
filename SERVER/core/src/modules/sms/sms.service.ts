@@ -39,12 +39,19 @@ export class SmsService {
     }
   }
 
-  farazSms(data: SmDto) {
-    return {
-      status: 404,
-      message: statusMessages.fa['404'],
-      body: null,
-    };
+  async farazSms(data: SmDto) {
+    try {
+      const smsResult = await this.farazSmsService.sms(
+        data.cell_phone,
+        data.message,
+      );
+
+      if (smsResult instanceof CustomException) return smsResult;
+
+      return await this.setData(data);
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
   }
 
   async mediana(data: SmDto) {
