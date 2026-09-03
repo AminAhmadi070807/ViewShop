@@ -17,6 +17,7 @@ export class SmsSettingService {
     try {
       const existing = await this.smsSettingRepository.findOneBy({
         section: data.section,
+        active: true,
       });
 
       if (existing) {
@@ -33,13 +34,13 @@ export class SmsSettingService {
             value: item.value,
           };
         }),
+        active: data.active,
       });
 
       await this.smsSettingRepository.save(result);
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

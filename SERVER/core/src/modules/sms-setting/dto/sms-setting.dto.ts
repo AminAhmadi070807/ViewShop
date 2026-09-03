@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsString,
@@ -31,4 +32,7 @@ export class SmsSettingDto {
   @ValidateNested({ each: true })
   @Type(() => Details)
   details: Details[];
+
+  @IsBoolean({ message: 'حالت فعال نامعتبر است' })
+  active: boolean;
 }
