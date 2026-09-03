@@ -25,7 +25,7 @@ export class SmsSettingController {
 
   @MessagePattern('SETTING:SMS:UPDATE')
   update(@Payload() data: UpdateSmsSettingDto) {
-    return this.smsSettingService.findOne(data);
+    return this.smsSettingService.update(data);
   }
 
   @MessagePattern('SETTING:SMS:DELETE')
