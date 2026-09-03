@@ -17,6 +17,9 @@ export class SmsSetting {
   @Column({ type: 'enum', enum: SmsServiceEnum })
   service: SmsServiceEnum;
 
+  @Column({ type: 'boolean', default: false })
+  active: boolean;
+
   @Column({ type: 'jsonb', nullable: false })
   details: { id: string; title: string; value: string }[];
 
