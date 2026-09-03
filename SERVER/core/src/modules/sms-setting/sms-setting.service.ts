@@ -69,6 +69,13 @@ export class SmsSettingService {
     }
   }
 
+  async update(data: SmsSettingDto) {
+    try {
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async remove(id: string) {
     try {
       const result = await this.smsSettingRepository.delete(id);

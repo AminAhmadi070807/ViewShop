@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsString,
+  IsUUID,
   Matches,
   ValidateNested,
 } from 'class-validator';
@@ -22,6 +23,25 @@ class Details {
 }
 
 export class SmsSettingDto {
+  @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
+  section: SmsEnum;
+
+  @IsEnum(SmsServiceEnum, { message: 'سروریس پیامکی نامعتبر است' })
+  service: SmsServiceEnum;
+
+  @IsArray({ message: 'دیتاها باید ارایه باشد' })
+  @ValidateNested({ each: true })
+  @Type(() => Details)
+  details: Details[];
+
+  @IsBoolean({ message: 'حالت فعال نامعتبر است' })
+  active: boolean;
+}
+
+export class UpdateSmsSettingDto {
+  @IsUUID('4', { message: 'شناسه سرویس نامعتبر است' })
+  id: string;
+
   @IsEnum(SmsEnum, { message: 'بخش نامعتبر است' })
   section: SmsEnum;
 
