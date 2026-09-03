@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SmsSettingDto } from './sms.setting.dto';
 import {
@@ -42,6 +50,15 @@ export class SmsSettingController {
   ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('SETTING:SMS:ONE', data);
+  }
+
+  @Patch()
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['UPDATE'] },
+  ])
+  update(@Param() data: SmsSettingDto) {
+    return this.coreService.send('SETTING:SMS:UPDATE', data);
   }
 
   @Delete()
