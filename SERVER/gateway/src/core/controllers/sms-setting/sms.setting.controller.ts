@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { SmsSettingDto, UpdateSmsSettingDto } from './sms.setting.dto';
@@ -59,6 +60,15 @@ export class SmsSettingController {
   ])
   update(@Body() data: UpdateSmsSettingDto) {
     return this.coreService.send('SETTING:SMS:UPDATE', data);
+  }
+
+  @Put(':id')
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['UPDATE'] },
+  ])
+  updateActivate(@Param() data: ValidateUUID) {
+    return this.coreService.send('SETTING:SMS:UPDATE:ACTIVATE', data);
   }
 
   @Delete()
