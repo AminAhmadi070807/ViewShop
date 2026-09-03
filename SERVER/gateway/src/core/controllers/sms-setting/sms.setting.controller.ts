@@ -62,12 +62,12 @@ export class SmsSettingController {
     return this.coreService.send('SETTING:SMS:UPDATE', data);
   }
 
-  @Put(':id')
+  @Put()
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
     { name: 'permission', required: true, example: 'READ', enum: ['UPDATE'] },
   ])
-  updateActivate(@Param() data: ValidateUUID) {
+  updateActivate(@Body() data: ValidateUUID) {
     return this.coreService.send('SETTING:SMS:UPDATE:ACTIVATE', data);
   }
 

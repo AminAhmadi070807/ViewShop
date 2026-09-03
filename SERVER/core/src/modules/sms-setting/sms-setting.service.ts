@@ -101,13 +101,15 @@ export class SmsSettingService {
 
       if (result instanceof CustomException) return result;
 
-      const existing = await this.smsSettingRepository.findOneBy({
-        section: result.body.section,
-        active: true,
+      const existing = await this.smsSettingRepository.find({
+        where: { section: result.body.section, active: true },
       });
 
-      if (existing) {
-        return new CustomException(statusMessages.fa['409'], 409);
+      if (existing.length) {
+        for (const item of existing) {
+          item.active = false;
+          await this.smsSettingRepository.save(item);
+        }
       }
 
       result.body.active = !result.body.active;
