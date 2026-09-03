@@ -95,6 +95,31 @@ export class SmsSettingService {
     }
   }
 
+  async updateActivate(id: string) {
+    try {
+      const result = await this.findOne(id);
+
+      if (result instanceof CustomException) return result;
+
+      const existing = await this.smsSettingRepository.findOneBy({
+        section: result.body.section,
+        active: true,
+      });
+
+      if (existing) {
+        return new CustomException(statusMessages.fa['409'], 409);
+      }
+
+      result.body.active = !result.body.active;
+
+      await this.smsSettingRepository.save(result.body);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async remove(id: string) {
     try {
       const result = await this.smsSettingRepository.delete(id);
