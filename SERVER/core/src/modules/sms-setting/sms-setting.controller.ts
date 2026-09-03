@@ -18,6 +18,11 @@ export class SmsSettingController {
     return this.smsSettingService.findAll();
   }
 
+  @MessagePattern('SETTING:SMS:ONE')
+  findOne(@Payload() data: Validate) {
+    return this.smsSettingService.findOne(data.id);
+  }
+
   @MessagePattern('SETTING:SMS:DELETE')
   remove(@Payload() data: Validate) {
     return this.smsSettingService.remove(data.id);
