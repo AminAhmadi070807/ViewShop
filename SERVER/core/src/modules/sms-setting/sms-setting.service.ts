@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SmsSettingDto } from './dto/sms-setting.dto';
+import { SmsSettingDto, UpdateSmsSettingDto } from './dto/sms-setting.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SmsSetting } from './entities/sms-setting.entity';
 import { Repository } from 'typeorm';
@@ -69,8 +69,26 @@ export class SmsSettingService {
     }
   }
 
-  async update(data: SmsSettingDto) {
+  async update(data: UpdateSmsSettingDto) {
     try {
+      const result = await this.findOne(data.id);
+
+      if (result instanceof CustomException) return result;
+
+      result.body.active = data.active;
+      result.body.service = data.service;
+      result.body.section = data.section;
+      result.body.details = data.details.map((item) => {
+        return {
+          id: crypto.randomUUID(),
+          title: item.title,
+          value: item.value,
+        };
+      });
+
+      await this.smsSettingRepository.save(data);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
