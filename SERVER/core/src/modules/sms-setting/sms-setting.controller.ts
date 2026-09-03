@@ -28,6 +28,11 @@ export class SmsSettingController {
     return this.smsSettingService.update(data);
   }
 
+  @MessagePattern('SETTING:SMS:UPDATE:ACTIVATE')
+  updateActivate(@Payload() data: Validate) {
+    return this.smsSettingService.updateActivate(data.id);
+  }
+
   @MessagePattern('SETTING:SMS:DELETE')
   remove(@Payload() data: Validate) {
     return this.smsSettingService.remove(data.id);
