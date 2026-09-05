@@ -20,7 +20,7 @@ import { Type } from 'class-transformer';
 // product details validation
 class ProductDetailDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsHexColor({ message: 'رنگ نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه رنگ نامعتبر است' })
   color: string;
 
   @ApiProperty({
@@ -31,10 +31,7 @@ class ProductDetailDto {
     example: 1_000_000,
   })
   @IsNotEmpty({ message: 'قیمت نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'قیمت نامعتبر است' },
-  )
+  @IsNumber({}, { message: 'قیمت نامعتبر است' })
   price: number;
 
   @ApiProperty({
@@ -45,10 +42,7 @@ class ProductDetailDto {
     example: 1_000,
   })
   @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'تعداد موجودی نامعتبر است' },
-  )
+  @IsNumber({}, { message: 'تعداد موجودی نامعتبر است' })
   stock: number;
 }
 
