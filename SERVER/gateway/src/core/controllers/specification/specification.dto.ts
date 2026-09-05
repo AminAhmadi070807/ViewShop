@@ -15,9 +15,9 @@ class Details {
   title: string;
 
   @ApiProperty({ type: String, nullable: false, required: true, example: '' })
-  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
-  @IsString({ message: 'عنوان نامعتبر است' })
-  description: string;
+  @IsNotEmpty({ message: 'توضیحات نامعتبر است نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات نامعتبر است' })
+  value: string;
 }
 
 class ProductFilterDetailsDto {

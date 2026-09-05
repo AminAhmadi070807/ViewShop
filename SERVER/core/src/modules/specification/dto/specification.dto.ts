@@ -14,7 +14,7 @@ class Details {
 
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
-  description: string;
+  value: string;
 }
 
 class SpecificationDetailsDto {

@@ -25,7 +25,7 @@ export class SpecificationService {
               return {
                 id: crypto.randomUUID(),
                 title: detail.title,
-                description: detail.description,
+                value: detail.value,
               };
             }),
           };
@@ -34,7 +34,11 @@ export class SpecificationService {
 
       await this.specificationRepository.save(result);
 
-      return { status: 201, message: statusMessages.fa['201'], body: null };
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: { id: result.id },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

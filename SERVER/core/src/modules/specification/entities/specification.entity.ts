@@ -18,7 +18,7 @@ export class Specification {
   details: {
     id: string;
     title: string;
-    details: { id: string; title: string; description: string }[];
+    details: { id: string; title: string; value: string }[];
   }[];
 
   @CreateDateColumn()
