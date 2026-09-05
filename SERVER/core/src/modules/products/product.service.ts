@@ -47,7 +47,7 @@ export class ProductService {
         user: data.userId,
         id: data.store,
       });
-      const colors = await this.colorService.findByCode(resultColor);
+      const colors = await this.colorService.findByIds(resultColor);
       const brand = await this.brandService.findOne(data.brand);
       const specification = await this.specificationService.findOne(
         data.specification,

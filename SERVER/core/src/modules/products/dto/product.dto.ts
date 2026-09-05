@@ -2,7 +2,6 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
-  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -20,25 +19,18 @@ import { Type } from 'class-transformer';
 // product details validation
 class ProductDetailDto {
   @IsOptional()
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لطفا ایدی محصول نامعتبر هست' })
   id?: string;
 
-  @IsHexColor({ message: 'رنگ نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه رنگ ها نامعتبر است' })
   color: string;
 
   @IsNotEmpty({ message: 'قیمت نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'قیمت نامعتبر است' },
-  )
+  @IsNumber({}, { message: 'قیمت نامعتبر است' })
   price: number;
 
   @IsNotEmpty({ message: 'تعداد موجودی نمیتواند خالی بشاد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'تعداد موجودی نامعتبر است' },
-  )
+  @IsNumber({}, { message: 'تعداد موجودی نامعتبر است' })
   stock: number;
 }
 
