@@ -81,21 +81,17 @@ export class ColorsService {
     }
   }
 
-  async findByCode(colorsCode: string[]) {
+  async findByIds(ids: string[]) {
     try {
-      const colors: Color[] = await this.colorRepository.find({
-        where: { color: In(colorsCode) },
+      const colors = await this.colorRepository.find({
+        where: { id: In(ids) },
       });
 
       if (!colors.length) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: colors,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: colors };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

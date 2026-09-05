@@ -56,8 +56,11 @@ export class ProductService {
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
       if (colors instanceof CustomException) return colors;
+      console.log('Colors');
       if (brand instanceof CustomException) return brand;
+      console.log('Brand');
       if (specification instanceof CustomException) return specification;
+      console.log('Specification');
 
       const product = this.productRepository.create({
         user: { id: data.userId },
