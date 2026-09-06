@@ -72,13 +72,14 @@ export class StoryService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, is_like: boolean = false) {
     try {
       const story = await this.storyRepository.findOneBy({ id });
 
       if (!story) return new CustomException(statusMessages.fa['404'], 404);
 
-      story.view = story.view + 1;
+      if (!is_like) story.view = story.view + 1;
+      else story.like = story.like + 1;
 
       await this.storyRepository.save(story);
 
