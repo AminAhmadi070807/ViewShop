@@ -20,8 +20,13 @@ export class StoryController {
   }
 
   @MessagePattern('STORY:ONE')
-  findStore(@Payload() data: Validate) {
+  findOne(@Payload() data: Validate) {
     return this.storyService.findOne(data.id);
+  }
+
+  @MessagePattern('STORY:ONE:LIKE')
+  like(@Payload() data: Validate) {
+    return this.storyService.findOne(data.id, true);
   }
 
   @MessagePattern('STORY:DELETE')
