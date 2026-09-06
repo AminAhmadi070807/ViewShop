@@ -6,6 +6,7 @@ import { Story } from './entities/story.entity';
 import { MediaModule } from '../media/media.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { ProductsModule } from '../products/products.module';
+import { WalletModule } from '../wallet/wallet.module';
 
 @Module({
   controllers: [StoryController],
@@ -15,6 +16,7 @@ import { ProductsModule } from '../products/products.module';
     MediaModule,
     CategoriesModule,
     ProductsModule,
+    WalletModule,
   ],
 })
 export class StoryModule {}

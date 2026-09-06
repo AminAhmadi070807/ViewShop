@@ -78,6 +78,10 @@ export class StoryService {
 
       if (!story) return new CustomException(statusMessages.fa['404'], 404);
 
+      story.view = story.view + 1;
+
+      await this.storyRepository.save(story);
+
       return { status: 200, message: statusMessages.fa['200'], body: story };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
