@@ -59,10 +59,10 @@ export class StoryService {
     }
   }
 
-  async findAll(page: number = 1) {
+  async findAll(page: number = 1, limit: number = 30) {
     try {
       const stories = await this.storyRepository.find({
-        take: (page ?? 1) * 15,
+        take: (page ?? 1) * limit,
         order: { createdAt: 'DESC' },
       });
 
