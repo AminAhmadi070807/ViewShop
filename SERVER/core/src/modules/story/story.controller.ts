@@ -14,7 +14,7 @@ export class StoryController {
     return this.storyService.create(createStoryDto);
   }
 
-  @MessagePattern('STORY:FIND:ALL')
+  @MessagePattern('STORY:FIND')
   findAll(@Payload() data: PageFilter) {
     return this.storyService.findAll(data.page);
   }
