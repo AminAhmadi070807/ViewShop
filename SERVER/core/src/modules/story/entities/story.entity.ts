@@ -12,7 +12,6 @@ import { User } from '../../users/entities/user.entity';
 import { Media } from '../../media/entities/media.entity';
 import { Category } from '../../categories/entities/category.entity';
 import { StoryStatusEnum } from '../../../common/enums/story/status.enum';
-import { Payment } from '../../payment/entities/payment.entity';
 import { Product } from '../../products/entities/product.entity';
 
 @Entity('Story')
@@ -55,10 +54,6 @@ export class Story {
   @ManyToOne(() => Category, { nullable: false, eager: true })
   @JoinColumn({ name: 'Category_Story' })
   category: Category;
-
-  @OneToOne(() => Payment, { nullable: true, onUpdate: 'CASCADE' })
-  @JoinColumn({ name: 'Story_Payment' })
-  payment: Payment;
 
   @CreateDateColumn()
   createdAt: Date;

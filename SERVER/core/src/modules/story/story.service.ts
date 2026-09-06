@@ -8,6 +8,7 @@ import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
 import { MediaService } from '../media/media.service';
 import { ProductService } from '../products/product.service';
+import { WalletService } from '../wallet/wallet.service';
 
 @Injectable()
 export class StoryService {
@@ -17,6 +18,7 @@ export class StoryService {
     private readonly categoryService: CategoriesService,
     private readonly mediaService: MediaService,
     private readonly productService: ProductService,
+    private readonly walletService: WalletService,
   ) {}
 
   async create(data: StoryDto) {
@@ -28,6 +30,13 @@ export class StoryService {
       if (category instanceof CustomException) return category;
       if (media instanceof CustomException) return media;
       if (product instanceof CustomException) return product;
+
+      const payment = await this.walletService.payment({
+        user: data.user,
+        amount: 1_000_000,
+      });
+
+      if (payment instanceof CustomException) return payment;
 
       const story = this.storyRepository.create({
         user: { id: data.user },
