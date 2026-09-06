@@ -2,7 +2,6 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEnum,
-  IsHexColor,
   IsNotEmpty,
   IsNumber,
   IsString,

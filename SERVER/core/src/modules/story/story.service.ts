@@ -38,12 +38,12 @@ export class StoryService {
         product: { id: data.product },
       });
 
-      const newStory = await this.storyRepository.save(story);
+      await this.storyRepository.save(story);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: { id: newStory.id },
+        body: { id: story.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
