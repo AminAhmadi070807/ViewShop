@@ -90,13 +90,22 @@ export class CommentService {
   async findProductComments(id: string) {
     try {
       const result = await this.commentRepository.find({
-        where: { product: { id }, status: true },
+        where: { product: { id }, status: true, parentComment: IsNull() },
       });
+
+      const commentsArray = [];
+      for (const comment of result) {
+        const comments = await this.commentRepository.find({
+          where: { parentComment: comment.id },
+        });
+
+        commentsArray.push({ ...comment, child: comments });
+      }
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: result,
+        body: commentsArray,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
