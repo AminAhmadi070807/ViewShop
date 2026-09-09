@@ -130,10 +130,24 @@ export class CommentService {
 
   async remove(id: string) {
     try {
-      const result = await this.commentRepository.delete(id);
+      const result = await this.commentRepository.findOne({
+        where: { id },
+      });
 
-      if (!result.affected) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
+      } else if (result.parentComment) {
+        await this.commentRepository.delete(id);
+
+        return { status: 204, message: statusMessages.fa['204'], body: null };
+      }
+
+      const comments = await this.commentRepository.find({
+        where: { parentComment: id },
+      });
+
+      for (const comment of comments) {
+        await this.commentRepository.delete(comment.id);
       }
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
