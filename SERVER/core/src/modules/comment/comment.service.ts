@@ -64,7 +64,7 @@ export class CommentService {
         order: { createdAt: 'DESC' },
         select: {
           user: { id: true, fullName: true },
-          product: { id: true, title: true, description: true },
+          product: { id: true, title: true, alias: true },
         },
       });
 
