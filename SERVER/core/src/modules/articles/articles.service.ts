@@ -6,7 +6,7 @@ import {
 } from './dto/article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { CategoriesService } from '../categories/category/categories.service';
@@ -40,26 +40,20 @@ export class ArticlesService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const article: Article = this.articleRepository.create({
+      const article = this.articleRepository.create({
         category: category.body,
         cover: media.body[0],
         store: store.body,
         title: data.title,
         description: data.description,
-        author: {
-          id: data.author,
-        },
+        author: { id: data.author },
         slug: data.slug,
         shortDescription: data.shortDescription,
       });
 
       await this.articleRepository.save(article);
 
-      return {
-        status: 201,
-        body: null,
-        message: statusMessages.fa['201'],
-      };
+      return { status: 201, message: statusMessages.fa['201'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
