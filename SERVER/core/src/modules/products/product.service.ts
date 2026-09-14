@@ -56,22 +56,18 @@ export class ProductService {
       if (media instanceof CustomException) return media;
       if (store instanceof CustomException) return store;
       if (colors instanceof CustomException) return colors;
-      console.log('Colors');
       if (brand instanceof CustomException) return brand;
-      console.log('Brand');
       if (specification instanceof CustomException) return specification;
-      console.log('Specification');
 
       const product = this.productRepository.create({
         user: { id: data.userId },
-        specification: specification.body,
+        specification: { id: data.specification },
         medias: media.body,
         alias: data.alias,
         store: store.body,
         details: data.details.map((item) => {
-          const id = crypto.randomUUID();
           return {
-            id: id,
+            id: crypto.randomUUID(),
             price: item.price,
             stock: item.stock,
             color: item.color,
@@ -90,7 +86,8 @@ export class ProductService {
         message: statusMessages.fa['201'],
         body: { id: product.id },
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
