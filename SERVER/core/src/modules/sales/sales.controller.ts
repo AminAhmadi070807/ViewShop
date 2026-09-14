@@ -7,9 +7,15 @@ import { Validate } from '../../common/validations/validate.dto';
 @Controller()
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
+
   @MessagePattern('SALES:FIND:STORE')
   findStoreSale(@Payload() data: Validate) {
     return this.salesService.findStoreSale(data.id);
+  }
+
+  @MessagePattern('SALES:FIND:USER')
+  findUserSale(@Payload() data: Validate) {
+    return this.salesService.findUserSale(data.id);
   }
 
   @MessagePattern('SALES:SALE')

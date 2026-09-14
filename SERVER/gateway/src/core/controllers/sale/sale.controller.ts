@@ -63,7 +63,7 @@ export class SaleController {
   findUserSales(@Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
-    return this.coreService.send('SALES:FIND:STORE', {
+    return this.coreService.send('SALES:FIND:USER', {
       user: user.userId,
       id: user.userId,
     });

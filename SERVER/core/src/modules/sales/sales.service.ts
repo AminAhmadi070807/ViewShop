@@ -98,4 +98,28 @@ export class SalesService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async findUserSale(id: string) {
+    try {
+      const result = await this.saleRepository.find({
+        where: { store: { id } },
+        relations: ['product', 'store', 'product.medias'],
+        select: {
+          product: {
+            id: true,
+            title: true,
+            description: true,
+            details: true,
+            medias: { id: true, title: true, path: true, type: true },
+          },
+          store: { id: true, title: true },
+        },
+        order: { createdAt: 'DESC' },
+      });
+
+      return { status: 200, message: statusMessages.fa['200'], body: result };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }

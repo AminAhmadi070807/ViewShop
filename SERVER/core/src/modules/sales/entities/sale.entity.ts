@@ -9,6 +9,7 @@ import {
 import { Product } from '../../products/entities/product.entity';
 import { Store } from '../../store/entities/store.entity';
 import { OrderStatusBoxEnum } from '../../../common/enums/order/order.status.enum';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('Sales')
 export class Sale {
@@ -18,6 +19,10 @@ export class Sale {
   @ManyToOne(() => Product, { nullable: false })
   @JoinColumn({ name: 'Product_Sales' })
   product: Product;
+
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'User_Sales' })
+  user: User;
 
   @ManyToOne(() => Store, { nullable: false })
   @JoinColumn({ name: 'Store_Sales' })
