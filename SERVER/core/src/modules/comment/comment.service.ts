@@ -136,7 +136,7 @@ export class CommentService {
 
       if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
-      } else if (result.parentComment) {
+      } else if (!result.parentComment) {
         await this.commentRepository.delete(id);
 
         return { status: 204, message: statusMessages.fa['204'], body: null };
