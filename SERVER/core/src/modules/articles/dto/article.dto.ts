@@ -1,11 +1,7 @@
 import {
   IsArray,
   IsEnum,
-  IsInt,
   IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsPositive,
   IsString,
   IsUUID,
   MaxLength,
@@ -128,16 +124,4 @@ export class UpdateArticleStatusDto {
 
   @IsEnum(ArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: ArticleStatusEnum;
-}
-
-export class FindArticleDto {
-  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(ArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
-  @IsOptional({ message: 'وضیعت اختیاری است' })
-  status?: ArticleStatusEnum;
-
-  @IsNumber({}, { message: 'صفحه باید رشته باشد' })
-  @IsPositive({ message: 'صفحه باید اینتیجر باشد' })
-  @IsOptional({ message: 'صفحه اختیاری است' })
-  page?: number;
 }

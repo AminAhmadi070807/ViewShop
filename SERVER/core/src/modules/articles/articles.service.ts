@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {
   ArticleDto,
-  FindArticleDto,
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
@@ -66,37 +65,15 @@ export class ArticlesService {
     }
   }
 
-  async findAll(data: FindArticleDto) {
+  async findAll(page?: number) {
     try {
-      let articles;
+      const articles = await this.articleRepository.find({
+        where: { status: ArticleStatusEnum.PUBLISHED },
+        take: (page ?? 1) * 15,
+        order: { createdAt: 'DESC' },
+      });
 
-      if (data.role === 'ADMIN') {
-        articles = await this.articleRepository.find({
-          where: {
-            ...(data.status && {
-              status: data.status,
-            }),
-          },
-          order: { createdAt: 'DESC' },
-          take: (data.page ?? 1) * 15,
-        });
-      } else {
-        articles = await this.articleRepository.find({
-          where: {
-            status: ArticleStatusEnum.PUBLISHED,
-          },
-          take: (data.page ?? 1) * 15,
-          order: {
-            createdAt: 'DESC',
-          },
-        });
-      }
-
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: articles,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: articles };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -104,17 +81,11 @@ export class ArticlesService {
 
   async findOne(id: string) {
     try {
-      const article: Article | null = await this.articleRepository.findOneBy({
-        id,
-      });
+      const article = await this.articleRepository.findOneBy({ id });
 
       if (!article) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: article,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: article };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -125,12 +96,8 @@ export class ArticlesService {
       const article = await this.articleRepository.update(
         { id: data.id, author: { id: data.author } },
         {
-          cover: {
-            id: data.cover,
-          },
-          category: {
-            id: data.category,
-          },
+          cover: { id: data.cover },
+          category: { id: data.category },
           title: data.title,
           description: data.description,
           slug: data.slug,
@@ -143,11 +110,7 @@ export class ArticlesService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        body: null,
-        message: statusMessages.fa['204'],
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -164,11 +127,7 @@ export class ArticlesService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -176,17 +135,13 @@ export class ArticlesService {
 
   async remove(id: string) {
     try {
-      const result: DeleteResult = await this.articleRepository.delete(id);
+      const result = await this.articleRepository.delete(id);
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
