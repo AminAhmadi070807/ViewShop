@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
   IsUUID,
   MaxLength,
@@ -122,36 +123,21 @@ export class UpdateArticleDto {
 }
 
 export class UpdateArticleStatusDto {
-  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(ArticleStatusEnum, {
-    message:
-      'وضیعت باید یکی از این ها باشد (COMPLETION, DELETED, PUBLISHED, DRAFT)',
-  })
+  @IsEnum(ArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: ArticleStatusEnum;
 }
 
 export class FindArticleDto {
-  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
-  user: string;
-
-  @IsNotEmpty({ message: 'نقش کاربر نمیتواند خالی باشد' })
-  @IsString({ message: 'نقش کاربر باید رشته باشد' })
-  role: string;
-
   @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
   @IsEnum(ArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
   @IsOptional({ message: 'وضیعت اختیاری است' })
   status?: ArticleStatusEnum;
 
-  @IsNumber(
-    { allowInfinity: true, allowNaN: false },
-    { message: 'صفحه باید رشته باشد' },
-  )
-  @IsInt({ message: 'صفحه باید اینتیجر باشد' })
+  @IsNumber({}, { message: 'صفحه باید رشته باشد' })
+  @IsPositive({ message: 'صفحه باید اینتیجر باشد' })
   @IsOptional({ message: 'صفحه اختیاری است' })
   page?: number;
 }
