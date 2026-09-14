@@ -23,12 +23,7 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   fullName: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRoleEnum,
-    default: UserRoleEnum.USER,
-    nullable: false,
-  })
+  @Column({ type: 'enum', enum: UserRoleEnum, default: UserRoleEnum.USER })
   role: UserRoleEnum;
 
   @Column({ type: 'boolean', nullable: false, default: false })

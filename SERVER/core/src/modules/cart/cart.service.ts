@@ -57,28 +57,17 @@ export class CartService {
         user: { id: data.user },
       });
 
-      if (existing) return this.update(data);
+      if (!existing) {
+        const cart = this.cartRepository.create({
+          user: { id: data.user },
+          metadata: [],
+          price: 0,
+        });
 
-      const result = await this.getting(data);
+        await this.cartRepository.save(cart);
+      }
 
-      if (result instanceof CustomException) return result;
-
-      const cart = this.cartRepository.create({
-        user: { id: data.user },
-        metadata: [
-          {
-            product: data.product,
-            quantity: data.quantity,
-            product_detail_id: data.product_detail_id,
-            price: result.body.price,
-          },
-        ],
-        price: result.body.price,
-      });
-
-      await this.cartRepository.save(cart);
-
-      return { status: 200, body: null, message: statusMessages.fa['200'] };
+      return this.update(data);
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

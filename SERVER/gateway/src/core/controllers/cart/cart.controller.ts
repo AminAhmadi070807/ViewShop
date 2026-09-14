@@ -22,43 +22,23 @@ export class CartController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'CART',
-      enum: ['CART'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: CartDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('CART:CREATE', {
       ...data,
-      id: user.userId,
+      user: user.userId,
     });
   }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'CART',
-      enum: ['CART'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('CART:FIND');
@@ -67,12 +47,7 @@ export class CartController {
   @Get('my-cart')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'CART',
-      enum: ['CART'],
-    },
+    { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
     {
       name: 'permission',
       required: true,

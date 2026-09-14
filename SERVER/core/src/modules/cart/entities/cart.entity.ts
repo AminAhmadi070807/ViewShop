@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -26,6 +27,7 @@ export class Cart {
   price: number;
 
   @OneToOne(() => User, (user: User) => user.cart, { nullable: false })
+  @JoinColumn({ name: 'User_Cart' })
   user: User;
 
   @UpdateDateColumn()
