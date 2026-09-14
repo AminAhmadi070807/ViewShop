@@ -96,8 +96,7 @@ export class WalletService {
         user: { id: data.user },
       });
 
-      if (!existing) return new CustomException(statusMessages.fa['404'], 404);
-      else if (data.amount > existing.amount) {
+      if (!existing || data.amount > existing.amount) {
         return new CustomException('موجودی کافی نیست', 409);
       }
 
