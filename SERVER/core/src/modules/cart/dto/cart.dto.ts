@@ -1,18 +1,9 @@
-import {
-  IsHexColor,
-  IsInt,
-  IsNotEmpty,
-  IsNumber,
-  IsUUID,
-  Min,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsUUID, Min } from 'class-validator';
 
 export class CartDto {
-  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
-  id: string;
+  user: string;
 
-  @IsNotEmpty({ message: 'شناسه محصول نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر هست' })
   product: string;
 
@@ -23,11 +14,7 @@ export class CartDto {
   color: string;
 
   @IsNotEmpty({ message: 'تعداد محصول نمیتواند خالی باشد' })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: true },
-    { message: 'تعداد درخاستی باید اعداد باشد' },
-  )
+  @IsNumber({}, { message: 'تعداد درخاستی باید اعداد باشد' })
   @Min(1, { message: 'حدقل درخاستی 1 عدد هست' })
-  @IsInt({ message: 'تعداد درخاستی باید بیشتر از 0 باشد' })
   quantity: number;
 }

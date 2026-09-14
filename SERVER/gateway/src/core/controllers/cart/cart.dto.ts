@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CartDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
-  id: string;
+  user: string;
 
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر هست' })
