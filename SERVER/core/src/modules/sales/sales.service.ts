@@ -42,6 +42,7 @@ export class SalesService {
         product_price: data.product_price,
         store: { id: product.body.product.store.id },
         status: OrderStatusBoxEnum.PENDING,
+        user: { id: data.user },
       });
 
       await this.saleRepository.save(sale);
