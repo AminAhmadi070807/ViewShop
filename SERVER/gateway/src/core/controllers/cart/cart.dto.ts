@@ -1,20 +1,20 @@
 import { IsHexColor, IsNotEmpty, IsNumber, IsUUID, Min } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CartDto {
-  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر هست' })
   id: string;
 
-  @IsNotEmpty({ message: 'شناسه محصول نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر هست' })
   product: string;
 
-  @IsUUID('4', { message: 'شناسه محصول انتخابی نامعتبر است' })
-  product_detail_id: string;
-
-  @IsHexColor({ message: 'رنگ نامعتبر است' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsUUID('4', { message: 'شناسه رنگ نامعتبر هست' })
   color: string;
 
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'تعداد محصول نمیتواند خالی باشد' })
   @IsNumber({}, { message: 'تعداد درخاستی باید اعداد باشد' })
   @Min(1, { message: 'حدقل درخاستی 1 عدد هست' })

@@ -19,9 +19,9 @@ export class CartService {
 
   async getting(data: CartDto) {
     try {
-      const existing = (await this.cartRepository.findOneBy({
-        id: data.id,
-      })) as Cart;
+      const existing = await this.cartRepository.findOneBy({ id: data.id });
+
+      if (!existing) return new CustomException(statusMessages.fa['404'], 404);
 
       const product = await this.productService.findOne(data.product);
 
@@ -42,11 +42,7 @@ export class CartService {
       return {
         status: 200,
         message: statusMessages.fa['500'],
-        body: {
-          product: product.body.product,
-          cart: existing,
-          price,
-        },
+        body: { product: product.body.product, cart: existing, price },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
