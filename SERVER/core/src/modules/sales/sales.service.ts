@@ -18,10 +18,8 @@ export class SalesService {
 
   async sale(data: SaleDto) {
     try {
-      console.log(data);
       const product = await this.productService.findOne(data.product);
 
-      console.log('product in sale');
       if (product instanceof CustomException) return product;
 
       let isDetailInProduct: boolean = false;
@@ -32,7 +30,6 @@ export class SalesService {
         }
       }
 
-      console.log('is detail in sale', isDetailInProduct);
       if (!isDetailInProduct) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
@@ -46,13 +43,11 @@ export class SalesService {
         store: { id: product.body.product.store.id },
         status: OrderStatusBoxEnum.PENDING,
       });
-      console.log(sale);
 
       await this.saleRepository.save(sale);
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
