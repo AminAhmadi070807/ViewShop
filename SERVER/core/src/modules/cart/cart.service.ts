@@ -19,7 +19,9 @@ export class CartService {
 
   async getting(data: CartDto) {
     try {
-      const existing = await this.cartRepository.findOneBy({ id: data.id });
+      const existing = await this.cartRepository.findOneBy({
+        user: { id: data.user },
+      });
 
       if (!existing) return new CustomException(statusMessages.fa['404'], 404);
 
@@ -51,7 +53,9 @@ export class CartService {
 
   async create(data: CartDto) {
     try {
-      const existing = await this.cartRepository.findOneBy({ id: data.id });
+      const existing = await this.cartRepository.findOneBy({
+        user: { id: data.user },
+      });
 
       if (existing) return this.update(data);
 
@@ -60,7 +64,7 @@ export class CartService {
       if (result instanceof CustomException) return result;
 
       const cart = this.cartRepository.create({
-        id: data.id,
+        user: { id: data.user },
         metadata: [
           {
             product: data.product,
