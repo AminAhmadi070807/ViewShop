@@ -46,11 +46,7 @@ export class SalesService {
 
       await this.saleRepository.save(sale);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: null,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

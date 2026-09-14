@@ -34,7 +34,6 @@ export class OrderService {
   async create(data: OrderDto) {
     try {
       const user = await this.userService.findOne({
-        user: data.user,
         id: data.user,
       });
       const cart = await this.cartService.findOne({
@@ -78,30 +77,19 @@ export class OrderService {
 
   async findAll(page: number = 1) {
     try {
-      const carts: Order[] = await this.orderRepository.find({
+      const carts = await this.orderRepository.find({
         take: (page ?? 1) * 10,
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
         select: {
           status: true,
-          user: {
-            id: true,
-            fullName: true,
-            phone: true,
-            role: true,
-          },
+          user: { id: true, fullName: true, phone: true, role: true },
           price: true,
           address: true,
           id: true,
         },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: carts,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: carts };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -117,12 +105,7 @@ export class OrderService {
           cart: true,
           price: true,
           address: true,
-          user: {
-            id: true,
-            fullName: true,
-            phone: true,
-            role: true,
-          },
+          user: { id: true, fullName: true, phone: true, role: true },
         },
       });
 
