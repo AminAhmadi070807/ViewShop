@@ -8,12 +8,15 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import bcrypt from 'bcrypt';
 import { statusMessages } from '../../common/message/message.status';
 import { Validate } from '../../common/validations/validate.dto';
+import { Wallet } from '../wallet/entities/wallet.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Wallet)
+    private readonly walletRepository: Repository<Wallet>,
   ) {}
 
   async create(data: CreateUserDto) {
@@ -31,6 +34,14 @@ export class UsersService {
       });
 
       await this.userRepository.save(user);
+
+      const wallet = this.walletRepository.create({
+        user,
+        amount: 0,
+        details: [],
+      });
+
+      await this.walletRepository.save(wallet);
 
       return { status: 201, message: statusMessages.fa['201'], body: user };
     } catch {
