@@ -8,9 +8,12 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { statusMessages } from '../../common/message/message.status';
 import { RpcException } from '@nestjs/microservices';
 import { Validate } from '../../common/validations/validate.dto';
+import { Product } from '../products/entities/product.entity';
 
 @Injectable()
 export class CartService {
+  product: Product;
+
   constructor(
     @InjectRepository(Cart)
     private readonly cartRepository: Repository<Cart>,
@@ -53,6 +56,12 @@ export class CartService {
 
   async create(data: CartDto) {
     try {
+      const product = await this.productService.findOne(data.product);
+
+      if (product instanceof RpcException) return product;
+
+      this.product = product.body.product;
+
       const existing = await this.cartRepository.findOneBy({
         user: { id: data.user },
       });
@@ -107,13 +116,14 @@ export class CartService {
       if (existProduct) {
         for (const item of result.body.cart.metadata) {
           if (item.product === data.product) {
-            const product = await this.productService.findOne(item.product);
-
-            if (product instanceof RpcException) return product;
-
             if (item.product_detail_id === data.product_detail_id) {
-              if (item.quantity < +data.quantity) {
-                return new CustomException('تعداد انتخابی نامعتبر است', 409);
+              for (const detail of this.product.details) {
+                if (detail.stock < +data.quantity) {
+                  return new CustomException(
+                    'تعداد موجودی محصول کمتر میباشد',
+                    404,
+                  );
+                }
               }
 
               item.quantity = data.quantity;
@@ -133,6 +143,8 @@ export class CartService {
       result.body.cart.price = totalPrice;
 
       await this.cartRepository.save(result.body.cart);
+
+      return { status: 200, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
