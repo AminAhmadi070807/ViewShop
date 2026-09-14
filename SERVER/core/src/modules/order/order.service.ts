@@ -65,11 +65,7 @@ export class OrderService {
 
       await this.orderRepository.save(order);
 
-      return {
-        status: 201,
-        body: null,
-        message: statusMessages.fa['200'],
-      };
+      return { status: 201, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
