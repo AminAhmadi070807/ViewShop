@@ -172,7 +172,6 @@ export class CartService {
   async findOne(data: Validate) {
     try {
       const cart = await this.cartRepository.findOneBy({
-        id: data.id,
         user: { id: data.user },
       });
 
