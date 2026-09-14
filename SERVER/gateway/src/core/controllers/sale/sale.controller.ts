@@ -48,4 +48,24 @@ export class SaleController {
       id: data.id,
     });
   }
+
+  @Get('user')
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:SECTION',
+      enum: ['READ:SECTION'],
+    },
+  ])
+  findUserSales(@Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('SALES:FIND:STORE', {
+      user: user.userId,
+      id: user.userId,
+    });
+  }
 }
