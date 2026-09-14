@@ -3,7 +3,6 @@ import { PaymentDto } from './dto/payment.dto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
 import { PaymentSettingService } from './setting/payment.setting.service';
-import { PaymentSetting } from './entities/payment.setting.entity';
 import { ZarinPalService } from './services/zarin-pal/zarin-pal.service';
 
 @Injectable()
