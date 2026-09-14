@@ -19,7 +19,7 @@ export class CartDto {
   @IsUUID('4', { message: 'شناسه محصول انتخابی نامعتبر است' })
   product_detail_id: string;
 
-  @IsHexColor({ message: 'رنگ نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه رنگ نامعتبر هست' })
   color: string;
 
   @IsNotEmpty({ message: 'تعداد محصول نمیتواند خالی باشد' })
