@@ -205,6 +205,7 @@ export class OrderService {
 
       for (const item of order.cart) {
         await this.salesService.sale({
+          user: order.user.id,
           product: item.product,
           product_detail_id: item.product_detail_id,
           price: item.price,
