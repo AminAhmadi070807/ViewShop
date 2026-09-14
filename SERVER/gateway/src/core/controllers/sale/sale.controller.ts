@@ -22,32 +22,17 @@ export class SaleController {
 
   @Get()
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SALE',
-      enum: ['SALE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('SALES:FIND');
   }
 
-  @Get(':id')
+  @Get('store/:id')
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SALE',
-      enum: ['SALE'],
-    },
+    { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
     {
       name: 'permission',
       required: true,
