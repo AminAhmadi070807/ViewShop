@@ -136,19 +136,21 @@ export class CommentService {
 
       if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
-      } else if (!result.parentComment) {
+      } else if (result.parentComment) {
+        const comments = await this.commentRepository.find({
+          where: { parentComment: id },
+        });
+
+        for (const comment of comments) {
+          await this.commentRepository.delete(comment.id);
+        }
+
         await this.commentRepository.delete(id);
 
         return { status: 204, message: statusMessages.fa['204'], body: null };
       }
 
-      const comments = await this.commentRepository.find({
-        where: { parentComment: id },
-      });
-
-      for (const comment of comments) {
-        await this.commentRepository.delete(comment.id);
-      }
+      await this.commentRepository.delete(id);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
