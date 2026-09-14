@@ -3,11 +3,11 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ArticlesService } from './articles.service';
 import {
   ArticleDto,
-  FindArticleDto,
   UpdateArticleDto,
   UpdateArticleStatusDto,
 } from './dto/article.dto';
 import { Validate } from '../../common/validations/validate.dto';
+import { PageFilter } from '../../common/filters/page.filter';
 
 @Controller()
 export class ArticlesController {
@@ -19,8 +19,8 @@ export class ArticlesController {
   }
 
   @MessagePattern('ARTICLE:FIND')
-  findAll(@Payload() data: FindArticleDto) {
-    return this.articlesService.findAll(data);
+  findAll(@Payload() data: PageFilter) {
+    return this.articlesService.findAll(data.page);
   }
 
   @MessagePattern('ARTICLE:ONE')
