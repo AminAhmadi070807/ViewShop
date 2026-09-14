@@ -102,7 +102,7 @@ export class SalesService {
   async findUserSale(id: string) {
     try {
       const result = await this.saleRepository.find({
-        where: { store: { id } },
+        where: { user: { id } },
         relations: ['product', 'store', 'product.medias'],
         select: {
           product: {
