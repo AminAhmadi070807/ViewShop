@@ -19,7 +19,7 @@ export class Sale {
   @JoinColumn({ name: 'Product_Sales' })
   product: Product;
 
-  @ManyToOne(() => Product, { nullable: false })
+  @ManyToOne(() => Store, { nullable: false })
   @JoinColumn({ name: 'Store_Sales' })
   store: Store;
 
@@ -32,14 +32,13 @@ export class Sale {
   @Column({ type: 'bigint', nullable: false })
   product_price: number;
 
-  @Column({ type: 'bigint', nullable: false })
+  @Column({ type: 'smallint', nullable: false })
   quantity: number;
 
   @Column({
     type: 'enum',
     enum: OrderStatusBoxEnum,
     default: OrderStatusBoxEnum.PENDING,
-    nullable: false,
   })
   status: OrderStatusBoxEnum;
 
