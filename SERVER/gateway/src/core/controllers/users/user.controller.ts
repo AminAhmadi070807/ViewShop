@@ -21,7 +21,6 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import express from 'express';
@@ -58,6 +57,25 @@ export class UsersController {
   ])
   findAll() {
     return this.coreService.send('USER:FIND');
+  }
+
+  @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:PROFILE',
+      enum: ['READ:PROFILE'],
+    },
+  ])
+  profile(@Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('USER:ONE', { id: user.userId });
   }
 
   @Get(':id')
