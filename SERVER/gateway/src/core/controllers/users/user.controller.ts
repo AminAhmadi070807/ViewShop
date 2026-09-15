@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserUpdateValidator, UserValidator } from './user.dto';
 import {
@@ -93,14 +84,8 @@ export class UsersController {
       enum: ['READ:ONE'],
     },
   ])
-  findOne(@Param() data: ValidateUUID, @Req() req: express.Request) {
-    const user = req.user as JwtPayload;
-
-    return this.coreService.send('USER:ONE', {
-      id: data.id,
-      user: user.userId,
-      role: user.role,
-    });
+  findOne(@Param() data: ValidateUUID) {
+    return this.coreService.send('USER:ONE', { id: data.id });
   }
 
   @Patch()
