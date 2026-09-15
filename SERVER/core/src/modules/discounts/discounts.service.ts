@@ -3,7 +3,7 @@ import { DiscountDto } from './dto/discount.dto';
 
 @Injectable()
 export class DiscountsService {
-  create(createDiscountDto: DiscountDto) {
+  create(data: DiscountDto) {
     return 'This action adds a new discount';
   }
 
