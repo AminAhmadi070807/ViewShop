@@ -35,17 +35,12 @@ import { SalesModule } from './modules/sales/sales.module';
 import { SmsModule } from './modules/sms/sms.module';
 import { SpecificationModule } from './modules/specification/specification.module';
 import { SmsSettingModule } from './modules/sms-setting/sms-setting.module';
-import { StatisticsModule } from './modules/statistics/statistics.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
-    JwtModule.register({
-      global: true,
-    }),
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    JwtModule.register({ global: true }),
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     AddressesModule,
     UsersModule,
@@ -78,7 +73,6 @@ import { StatisticsModule } from './modules/statistics/statistics.module';
     SmsModule,
     SpecificationModule,
     SmsSettingModule,
-    StatisticsModule,
   ],
 })
 export class AppModule {}
