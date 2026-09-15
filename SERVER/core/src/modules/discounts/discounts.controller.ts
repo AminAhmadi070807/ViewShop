@@ -7,22 +7,22 @@ import { DiscountDto } from './dto/discount.dto';
 export class DiscountsController {
   constructor(private readonly discountsService: DiscountsService) {}
 
-  @MessagePattern('createDiscount')
+  @MessagePattern('DISCOUNT:CREATE')
   create(@Payload() createDiscountDto: DiscountDto) {
     return this.discountsService.create(createDiscountDto);
   }
 
-  @MessagePattern('findAllDiscounts')
+  @MessagePattern('DISCOUNT:FIND')
   findAll() {
     return this.discountsService.findAll();
   }
 
-  @MessagePattern('findOneDiscount')
+  @MessagePattern('DISCOUNT:ONE')
   findOne(@Payload() id: number) {
     return this.discountsService.findOne(id);
   }
 
-  @MessagePattern('removeDiscount')
+  @MessagePattern('DISCOUNT:REMOVE')
   remove(@Payload() id: number) {
     return this.discountsService.remove(id);
   }
