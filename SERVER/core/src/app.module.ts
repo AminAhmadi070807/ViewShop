@@ -35,6 +35,7 @@ import { SalesModule } from './modules/sales/sales.module';
 import { SmsModule } from './modules/sms/sms.module';
 import { SpecificationModule } from './modules/specification/specification.module';
 import { SmsSettingModule } from './modules/sms-setting/sms-setting.module';
+import { DiscountsModule } from './modules/discounts/discounts.module';
 
 @Module({
   imports: [
@@ -73,6 +74,7 @@ import { SmsSettingModule } from './modules/sms-setting/sms-setting.module';
     SmsModule,
     SpecificationModule,
     SmsSettingModule,
+    DiscountsModule,
   ],
 })
 export class AppModule {}
