@@ -53,4 +53,12 @@ describe('Test ( Guards ) Service ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(guard_id);
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toEqual(204);
+  });
 });
