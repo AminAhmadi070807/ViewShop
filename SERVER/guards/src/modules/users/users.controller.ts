@@ -27,4 +27,9 @@ export class UsersController {
   toggleUserBanned(@Payload() data: ValidateUUID) {
     return this.usersService.toggleBanned(data);
   }
+
+  @MessagePattern('USER:DELETE')
+  remove(@Payload() data: ValidateUUID) {
+    return this.usersService.remove(data.id);
+  }
 }
