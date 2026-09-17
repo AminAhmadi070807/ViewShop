@@ -17,6 +17,7 @@ describe('Test ( Users ) Controller', () => {
   });
 
   afterAll(async () => {
+    await controller.remove({ id: user_id });
     await module.close();
   });
 
