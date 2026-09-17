@@ -20,10 +20,18 @@ describe('Test ( Users ) Service', () => {
     await module.close();
   });
 
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ id: crypto.randomUUID() });
+
+    if (result instanceof CustomException) return result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toBe(200);
+  });
+
   it('Test ( FindAll ) Feature', async () => {
     const result = await service.findAll();
-
-    if (result.body.length) user_id = result.body[0].id;
 
     expect(result.status).toBe(200);
   });
