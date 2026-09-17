@@ -50,7 +50,7 @@ export class SingularService {
       return {
         status: HttpStatus.CREATED,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: singular.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
