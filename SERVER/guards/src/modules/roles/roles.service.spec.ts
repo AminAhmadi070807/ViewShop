@@ -62,4 +62,12 @@ describe('Test ( Roles ) Service', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(role_id);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toBe(204);
+  });
 });
