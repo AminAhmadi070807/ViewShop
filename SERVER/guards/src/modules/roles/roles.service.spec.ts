@@ -36,7 +36,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( FindAll ) Feature', async () => {
     const result = await service.findAll();
 
-    expect(result.status).toBe(201);
+    expect(result.status).toBe(200);
   });
 
   it('Test ( FindOne ) Feature', async () => {
@@ -44,6 +44,14 @@ describe('Test ( Roles ) Service', () => {
 
     if (result instanceof CustomException) throw new Error(result.message);
 
-    expect(result.status).toBe(201);
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindById ) Feature', async () => {
+    const result = await service.findByIds([role_id]);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toBe(200);
   });
 });
