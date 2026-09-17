@@ -18,4 +18,12 @@ describe('Test ( Users ) Service', () => {
   afterAll(async () => {
     await module.close();
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await service.findAll();
+
+    if (result.body.length) user_id = result.body[0].id;
+
+    expect(result.status).toBe(200);
+  });
 });
