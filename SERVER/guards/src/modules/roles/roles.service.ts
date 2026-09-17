@@ -18,13 +18,13 @@ export class RolesService {
 
   async create(data: RolesDto) {
     try {
-      const existing: Role | null = await this.roleRepository.findOneBy({
+      const existing = await this.roleRepository.findOneBy({
         title: data.title.toUpperCase(),
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const role: Role = this.roleRepository.create({
+      const role = this.roleRepository.create({
         title: data.title.trim().toUpperCase(),
         description: data.description.trim(),
       });
@@ -32,9 +32,9 @@ export class RolesService {
       await this.roleRepository.save(role);
 
       return {
-        status: HttpStatus.CREATED,
+        status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: role.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
