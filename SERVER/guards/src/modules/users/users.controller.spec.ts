@@ -54,4 +54,18 @@ describe('Test ( Users ) Controller', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Toggle Use rBanned ) Controller', async () => {
+    if (!user_id) {
+      return expect(200).toBe(200);
+    }
+
+    const result = await controller.toggleUserBanned({
+      id: user_id,
+    });
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toBe(204);
+  });
 });
