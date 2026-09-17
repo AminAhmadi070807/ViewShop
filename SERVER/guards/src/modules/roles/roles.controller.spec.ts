@@ -36,6 +36,14 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: role_id });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(200);
   });
 });
