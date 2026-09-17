@@ -66,17 +66,14 @@ export class UsersService {
       const users: User[] = await this.userRepository.find({
         relations: ['role'],
         select: {
-          role: {
-            id: true,
-            title: true,
-          },
+          role: { id: true, title: true },
         },
       });
 
       return {
         status: HttpStatus.OK,
         message: statusMessages.fa['200'],
-        data: users,
+        body: users,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
