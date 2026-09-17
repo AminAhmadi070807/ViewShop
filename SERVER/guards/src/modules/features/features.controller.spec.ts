@@ -61,9 +61,7 @@ describe('Test ( Feature ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
-    const result = await controller.remove({
-      id: feature_id,
-    });
+    const result = await controller.remove({ id: feature_id });
 
     if (result instanceof CustomException) throw new Error(result.message);
 
