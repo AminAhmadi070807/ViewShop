@@ -54,4 +54,12 @@ describe('Test ( Roles ) Service', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({ title, description, id: role_id });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toBe(204);
+  });
 });
