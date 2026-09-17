@@ -7,7 +7,10 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 describe('FeaturesService', () => {
   let service: FeaturesService;
   let module: TestingModule;
+
   let feature_id: string;
+  const title = 'Unit Test';
+  const role_id = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
@@ -24,8 +27,8 @@ describe('FeaturesService', () => {
 
   it('Test ( Create ) Feature', async () => {
     const result = await service.create({
-      title: 'Unit Test',
-      roles: ['70591627-7622-4d8d-9d3c-9b8a6c09eeb4'],
+      title,
+      roles: [role_id],
     });
 
     if (result instanceof CustomException) throw new Error(result.message);
