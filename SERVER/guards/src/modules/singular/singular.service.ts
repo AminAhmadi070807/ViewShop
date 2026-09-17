@@ -198,7 +198,11 @@ export class SingularService {
   // remove singular
   async remove(data: ValidateUUID) {
     try {
-      await this.singularRepository.delete(data.id);
+      const result = await this.singularRepository.delete(data.id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return {
         status: HttpStatus.OK,
