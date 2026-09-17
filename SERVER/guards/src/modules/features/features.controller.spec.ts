@@ -39,4 +39,12 @@ describe('Test ( Feature ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: feature_id });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(200);
+  });
 });
