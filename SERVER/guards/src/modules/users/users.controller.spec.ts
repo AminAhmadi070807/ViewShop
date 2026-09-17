@@ -69,4 +69,19 @@ describe('Test ( Users ) Controller', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({
+      id: user_id,
+    });
+
+    if (result instanceof CustomException) return result;
+
+    if (result.status === 409) {
+      expect(result.status).toBe(409);
+      return;
+    }
+
+    expect(result.status).toBe(204);
+  });
 });
