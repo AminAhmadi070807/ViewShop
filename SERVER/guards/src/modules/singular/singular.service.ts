@@ -204,11 +204,7 @@ export class SingularService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
