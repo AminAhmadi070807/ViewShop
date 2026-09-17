@@ -38,4 +38,12 @@ describe('Test ( Roles ) Service', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(role_id);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toBe(201);
+  });
 });
