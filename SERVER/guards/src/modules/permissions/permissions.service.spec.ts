@@ -38,4 +38,12 @@ describe('Test ( Permission ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Service', async () => {
+    const result = await service.findOne(permission_id);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(200);
+  });
 });
