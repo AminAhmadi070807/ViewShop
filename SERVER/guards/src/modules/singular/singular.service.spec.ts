@@ -36,4 +36,12 @@ describe('Test ( Singular ) Service', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(201);
+  });
 });
