@@ -7,6 +7,9 @@ describe('Test ( Permission ) Controller ', () => {
   let controller: PermissionsController;
   let module: TestingModule;
 
+  let permission_id: string;
+  const title: string = 'unit test';
+
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [AppModule],
@@ -16,13 +19,16 @@ describe('Test ( Permission ) Controller ', () => {
   });
 
   afterAll(async () => {
+    await controller.remove({ id: permission_id });
     await module.close();
   });
 
-  it('Test ( Permission ) Controller', async () => {
-    const result = await controller.create({ title: 'Test Unit' });
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ title });
 
     if (result instanceof CustomException) throw new Error(result.message);
+
+    permission_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
