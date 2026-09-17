@@ -3,13 +3,10 @@ import { UserDto, UpdateUserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { CoreService } from '../../core/core.service';
 import { statusMessages } from '../../common/messages/status.message';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { Role } from '../roles/entities/role.entity';
-import { firstValueFrom } from 'rxjs';
 import { ValidateUUID } from '../../common/validations/id.dto';
-import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class UsersService {
@@ -151,6 +148,19 @@ export class UsersService {
         message: statusMessages.fa['204'],
         body: null,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      const result = await this.userRepository.delete(id);
+
+      if (!result.affected)
+        return new CustomException(statusMessages.fa['404'], 404);
+
+      return { status: 204, message: statusMessages.fa['204'], data: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

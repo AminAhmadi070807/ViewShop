@@ -17,6 +17,7 @@ describe('Test ( Users ) Service', () => {
   });
 
   afterAll(async () => {
+    await service.remove(user_id);
     await module.close();
   });
 
@@ -27,7 +28,7 @@ describe('Test ( Users ) Service', () => {
 
     user_id = result.body.id;
 
-    expect(result.status).toBe(200);
+    expect(result.status).toBe(201);
   });
 
   it('Test ( FindAll ) Feature', async () => {
@@ -74,6 +75,14 @@ describe('Test ( Users ) Service', () => {
       expect(result.status).toBe(409);
       return;
     }
+
+    expect(result.status).toBe(204);
+  });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(user_id);
+
+    if (result instanceof CustomException) return result;
 
     expect(result.status).toBe(204);
   });
