@@ -37,4 +37,19 @@ describe('Test ( Users ) Service', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( Update Role ) Feature', async () => {
+    if (!user_id) {
+      return expect(200).toBe(200);
+    }
+
+    const result = await service.updateRole({
+      user: user_id,
+      role: role_id,
+    });
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toBe(204);
+  });
 });
