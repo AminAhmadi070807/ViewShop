@@ -18,44 +18,32 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
-    private readonly coreService: CoreService,
   ) {}
 
   async create(data: UserDto) {
     try {
-      // check user in core database
-      const result: CustomException | object = (await firstValueFrom(
-        this.coreService.send('USER:ONE', data.id),
-      )) as CustomException | object;
-
-      if (result instanceof RpcException) return result;
-      // check user in guard database
-      const existing: User | null = await this.userRepository.findOneBy({
-        id: data.id,
-      });
+      const existing = await this.userRepository.findOneBy({ id: data.id });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      // create new user
       const numberOfUsers: number = await this.userRepository.count({});
 
-      const role: Role = (await this.roleRepository.findOneBy({
+      const role = await this.roleRepository.findOneBy({
         title: numberOfUsers ? 'USER' : 'ADMIN',
-      })) as Role;
+      });
 
-      const newUser: User = this.userRepository.create({
+      if (!role) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const newUser = this.userRepository.create({
         id: data.id,
         role: role,
       });
 
       const user = await this.userRepository.save(newUser);
 
-      // send success request
-      return {
-        status: HttpStatus.OK,
-        body: user,
-        message: statusMessages.fa['200'],
-      };
+      return { status: 201, message: statusMessages.fa['200'], body: user };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
