@@ -141,13 +141,18 @@ export class UsersService {
 
   async toggleBanned(data: ValidateUUID) {
     try {
-      const user: User | null = await this.userRepository.findOne({
-        where: {
-          id: data.id,
-        },
+      const user = await this.userRepository.findOne({
+        where: { id: data.id },
       });
 
       if (!user) return new CustomException(statusMessages.fa['404'], 404);
+      else if (user.role.title !== 'USER') {
+        return {
+          status: 409,
+          message: 'فقط میتواند کاربر عادی را مسدود کنید',
+          body: null,
+        };
+      }
 
       user.banned = !user.banned;
 
