@@ -100,11 +100,13 @@ export class FeaturesService {
 
   async validate(id: string, roleId: string) {
     try {
-      const feature: Feature | null = await this.featureRepository.findOne({
-        where: {
-          id,
-        },
+      const feature = await this.featureRepository.findOne({
+        where: { id },
         relations: ['roles', 'singular'],
+        select: {
+          roles: { id: true, title: true },
+          singular: { id: true },
+        },
       });
 
       if (!feature) return new CustomException(statusMessages.fa['404'], 404);

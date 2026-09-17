@@ -116,13 +116,9 @@ export class RolesService {
 
   async validate(id: string, singularId: string) {
     try {
-      const role: Role | null = await this.roleRepository.findOne({
-        where: {
-          id,
-        },
-        select: {
-          id: true,
-        },
+      const role = await this.roleRepository.findOne({
+        where: { id },
+        select: { id: true },
       });
 
       if (!role) return new CustomException(statusMessages.fa['404'], 404);
