@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { SingularController } from './singular.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { SingularService } from './singular.service';
 
 describe('Test ( Singular ) Service', () => {
   let module: TestingModule;
-  let controller: SingularController;
+  let service: SingularService;
 
   let singular_id: string;
 
@@ -16,11 +16,24 @@ describe('Test ( Singular ) Service', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
-    controller = module.get<SingularController>(SingularController);
+    service = module.get<SingularService>(SingularService);
   });
 
   afterAll(async () => {
-    await controller.remove({ id: singular_id });
+    await service.remove({ id: singular_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      feature: feature_id,
+      data: [{ role: role_id, permissions: [permission_id] }],
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    singular_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
