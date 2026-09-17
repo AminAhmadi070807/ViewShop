@@ -42,6 +42,18 @@ describe('Test ( Singular ) Service', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( ToggleAccess ) Feature', async () => {
+    const result = await service.toggleAccess({
+      id: singular_id,
+      permission: permission_id,
+      role: role_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
