@@ -61,9 +61,7 @@ export class SingularService {
   async findAll() {
     try {
       const singulars = await this.singularRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
         relations: ['feature'],
         select: {
           feature: {

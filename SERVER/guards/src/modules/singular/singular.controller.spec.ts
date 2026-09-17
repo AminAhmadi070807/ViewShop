@@ -36,4 +36,12 @@ describe('Test ( Singular ) Controller', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll();
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
