@@ -47,17 +47,11 @@ export class FeaturesService {
 
   async findAll() {
     try {
-      const result: Feature[] = await this.featureRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+      const result = await this.featureRepository.find({
+        order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
