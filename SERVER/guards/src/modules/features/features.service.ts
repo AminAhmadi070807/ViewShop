@@ -77,20 +77,20 @@ export class FeaturesService {
 
   async update(data: UpdateFeatureDto) {
     try {
-      const result: UpdateResult = await this.featureRepository.update(
-        data.id,
-        { title: data.title.trim().toUpperCase() },
-      );
+      const role = await this.roleService.findByIds(data.roles);
+
+      if (role instanceof RpcException) return role;
+
+      const result = await this.featureRepository.update(data.id, {
+        title: data.title.trim().toUpperCase(),
+        roles: role.body,
+      });
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

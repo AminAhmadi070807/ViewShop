@@ -31,4 +31,9 @@ export class UpdateFeatureDto {
   @MinLength(3)
   @MaxLength(50)
   title: string;
+
+  @ArrayNotEmpty({ message: 'شناسه نقش نمیتواند خالی باشد' })
+  @IsArray({ message: 'لطفا شناسه را براساس ارایه ارسال کنید' })
+  @IsUUID('4', { message: 'شناسه نقش نامعتبر است', each: true })
+  roles: string[];
 }
