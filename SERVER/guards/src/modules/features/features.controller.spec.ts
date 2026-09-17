@@ -47,4 +47,16 @@ describe('Test ( Feature ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: feature_id,
+      title: title,
+      roles: [role_id],
+    });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(204);
+  });
 });
