@@ -129,13 +129,13 @@ export class FeaturesService {
 
   async remove(id: string) {
     try {
-      await this.featureRepository.delete(id);
+      const result = await this.featureRepository.delete(id);
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
