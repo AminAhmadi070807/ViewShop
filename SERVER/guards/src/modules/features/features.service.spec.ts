@@ -40,4 +40,12 @@ describe('FeaturesService', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(feature_id);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(200);
+  });
 });
