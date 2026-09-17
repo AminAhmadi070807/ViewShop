@@ -16,5 +16,6 @@ import { PermissionsModule } from '../permissions/permissions.module';
     FeaturesModule,
     PermissionsModule,
   ],
+  exports: [GuardsService, TypeOrmModule],
 })
 export class GuardsModule {}

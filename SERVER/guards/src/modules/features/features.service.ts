@@ -18,8 +18,8 @@ export class FeaturesService {
 
   async create(data: FeatureDto) {
     try {
-      const existing: Feature | null = await this.featureRepository.findOneBy({
-        title: data.title,
+      const existing = await this.featureRepository.findOneBy({
+        title: data.title.toUpperCase(),
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
@@ -35,11 +35,7 @@ export class FeaturesService {
 
       await this.featureRepository.save(result);
 
-      return {
-        status: 201,
-        message: statusMessages.fa['201'],
-        body: null,
-      };
+      return { status: 201, message: statusMessages.fa['201'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

@@ -8,7 +8,7 @@ export const TypeOrmModuleConfig: TypeOrmModuleAsyncOptions = {
     host: config.get<string>('GUARD_DB_HOST', '127.0.0.1'),
     port: parseInt(config.get<string>('GUARD_DB_PORT', '5432')),
     username: config.get<string>('GUARD_DB_USER', 'postgres'),
-    password: config.get<string>('GUARD_DB_PASS'),
+    password: config.get<string>('GUARD_DB_PASS', '@Amin2007'),
     database: config.get<string>('GUARD_DB_NAME', 'ViewShop_Guard'),
     autoLoadEntities: true,
     synchronize:
