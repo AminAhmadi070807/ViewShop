@@ -38,8 +38,6 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( FindOne ) Feature', async () => {
-    if (!user_id) return;
-
     const result = await service.findOne(user_id);
 
     if (result instanceof CustomException) return result;
@@ -48,10 +46,6 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( Update Role ) Feature', async () => {
-    if (!user_id) {
-      return expect(200).toBe(200);
-    }
-
     const result = await service.updateRole({
       user: user_id,
       role: role_id,
@@ -63,8 +57,6 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( Toggle Use rBanned ) Feature', async () => {
-    if (!user_id) return;
-
     const result = await service.toggleBanned({
       id: user_id,
     });

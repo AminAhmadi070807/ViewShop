@@ -39,8 +39,6 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( FindOne ) Controller', async () => {
-    if (!user_id) return;
-
     const result = await controller.findOne({ id: user_id });
 
     if (result instanceof CustomException) return result;
@@ -49,10 +47,6 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Update Role ) Controller', async () => {
-    if (!user_id) {
-      return expect(200).toBe(200);
-    }
-
     const result = await controller.updateRole({
       user: user_id,
       role: role_id,
@@ -64,8 +58,6 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Toggle Use rBanned ) Controller', async () => {
-    if (!user_id) return;
-
     const result = await controller.toggleUserBanned({
       id: user_id,
     });
