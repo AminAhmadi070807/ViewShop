@@ -52,4 +52,21 @@ describe('Test ( Users ) Service', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Toggle Use rBanned ) Feature', async () => {
+    if (!user_id) return;
+
+    const result = await service.toggleBanned({
+      id: user_id,
+    });
+
+    if (result instanceof CustomException) return result;
+
+    if (result.status === 409) {
+      expect(result.status).toBe(409);
+      return;
+    }
+
+    expect(result.status).toBe(204);
+  });
 });
