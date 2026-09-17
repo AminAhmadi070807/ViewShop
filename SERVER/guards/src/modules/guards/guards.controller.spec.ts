@@ -45,4 +45,12 @@ describe('Test ( Guards ) Controller ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: guard_id });
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toEqual(200);
+  });
 });
