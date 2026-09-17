@@ -38,4 +38,12 @@ describe('Test ( Permission ) Controller ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: permission_id });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(200);
+  });
 });
