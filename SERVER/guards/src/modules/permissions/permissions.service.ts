@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreatePermissionDto } from './dto/permission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from './entities/permission.entity';
@@ -21,17 +21,13 @@ export class PermissionsService {
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const permission: Permission = this.permissionRepository.create({
+      const result = this.permissionRepository.create({
         title: data.title.toUpperCase().trim(),
       });
 
-      await this.permissionRepository.save(permission);
+      await this.permissionRepository.save(result);
 
-      return {
-        status: HttpStatus.CREATED,
-        message: statusMessages.fa['201'],
-        body: null,
-      };
+      return { status: 201, message: statusMessages.fa['201'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -39,17 +35,11 @@ export class PermissionsService {
 
   async findAll() {
     try {
-      const permissions: Permission[] = await this.permissionRepository.find({
-        order: {
-          createdAt: 'DESC',
-        },
+      const result = await this.permissionRepository.find({
+        order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: permissions,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -57,23 +47,19 @@ export class PermissionsService {
 
   async findById(id: string[]) {
     try {
-      const permissions: Permission[] = await this.permissionRepository.find({
-        where: {
-          id: In(id),
-        },
-        order: {
-          createdAt: 'DESC',
-        },
+      const result = await this.permissionRepository.find({
+        where: { id: In(id) },
+        order: { createdAt: 'DESC' },
       });
 
-      if (!permissions.length) {
+      if (!result.length) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
       return {
-        status: HttpStatus.OK,
+        status: 200,
         message: statusMessages.fa['200'],
-        body: permissions,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -82,22 +68,13 @@ export class PermissionsService {
 
   async findOne(id: string) {
     try {
-      const permission: Permission | null =
-        await this.permissionRepository.findOne({
-          where: {
-            id: id,
-          },
-        });
+      const result = await this.permissionRepository.findOne({ where: { id } });
 
-      if (!permission) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: permission,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -105,13 +82,13 @@ export class PermissionsService {
 
   async remove(id: string) {
     try {
-      await this.permissionRepository.delete(id);
+      const result = await this.permissionRepository.delete(id);
 
-      return {
-        status: HttpStatus.NO_CONTENT,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
