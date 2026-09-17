@@ -39,11 +39,19 @@ describe('Test ( Permission ) Service', () => {
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( FindOne ) Service', async () => {
+  it('Test ( FindOne ) Feature', async () => {
     const result = await service.findOne(permission_id);
 
     if (result instanceof CustomException) throw new Error(result.message);
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(permission_id);
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(204);
   });
 });
