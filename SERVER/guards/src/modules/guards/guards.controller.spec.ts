@@ -53,4 +53,12 @@ describe('Test ( Guards ) Controller ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: guard_id });
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toEqual(204);
+  });
 });

@@ -177,13 +177,13 @@ export class GuardsService {
 
   async remove(id: string) {
     try {
-      await this.guardsRepository.delete(id);
+      const result = await this.guardsRepository.delete(id);
 
-      return {
-        status: HttpStatus.NO_CONTENT,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
