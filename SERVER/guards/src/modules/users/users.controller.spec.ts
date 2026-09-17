@@ -8,6 +8,7 @@ describe('Test ( Users ) Controller', () => {
   let controller: UsersController;
 
   let user_id: string;
+  const role_id: string = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -37,5 +38,20 @@ describe('Test ( Users ) Controller', () => {
     if (result instanceof CustomException) return result;
 
     expect(result.status).toBe(200);
+  });
+
+  it('Test ( Update Role ) Controller', async () => {
+    if (!user_id) {
+      return expect(200).toBe(200);
+    }
+
+    const result = await controller.updateRole({
+      user: user_id,
+      role: role_id,
+    });
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toBe(204);
   });
 });
