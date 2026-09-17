@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 
 import { FeaturesService } from './features.service';
-import { statusMessages } from '../../common/messages/status.message';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('FeaturesService', () => {
@@ -23,13 +22,13 @@ describe('FeaturesService', () => {
     await module.close();
   });
 
-  it('should be defined', async () => {
+  it('Test ( Create ) Feature', async () => {
     const result = await service.create({
       title: 'Unit Test',
       roles: ['70591627-7622-4d8d-9d3c-9b8a6c09eeb4'],
     });
 
-    if (result instanceof CustomException) return new Error(result.message);
+    if (result instanceof CustomException) throw new Error(result.message);
 
     feature_id = result.body.id;
 
