@@ -29,9 +29,7 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( FindOne ) Controller', async () => {
-    if (!user_id) {
-      return expect(200).toBe(200);
-    }
+    if (!user_id) return;
 
     const result = await controller.findOne({ id: user_id });
 
