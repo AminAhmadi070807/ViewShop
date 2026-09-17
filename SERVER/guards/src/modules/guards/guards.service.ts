@@ -55,7 +55,7 @@ export class GuardsService {
       return {
         status: HttpStatus.CREATED,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: guard.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
