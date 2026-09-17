@@ -44,4 +44,16 @@ describe('Test ( Singular ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Toggle Access ) Controller', async () => {
+    const result = await controller.toggleAccess({
+      role: role_id,
+      id: singular_id,
+      permission: permission_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
