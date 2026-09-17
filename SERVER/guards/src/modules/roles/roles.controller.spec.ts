@@ -54,4 +54,12 @@ describe('Test ( Role ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: role_id });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(204);
+  });
 });
