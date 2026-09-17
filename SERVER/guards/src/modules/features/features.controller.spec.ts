@@ -33,4 +33,10 @@ describe('Test ( Feature ) Controller', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll();
+
+    expect(result.status).toEqual(200);
+  });
 });
