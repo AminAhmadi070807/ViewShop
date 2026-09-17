@@ -14,21 +14,14 @@ export class Singular {
   id: string;
 
   @OneToOne(() => Feature, (feature: Feature) => feature.singular, {
-    nullable: false,
+    nullable: true,
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({
-    name: 'singular_feature',
-  })
+  @JoinColumn({ name: 'singular_feature' })
   feature: Feature;
 
   @Column({ type: 'simple-json', nullable: false })
-  data: [
-    {
-      role: string;
-      permissions: string[];
-    },
-  ];
+  data: [{ role: string; permissions: string[] }];
 
   @CreateDateColumn()
   createdAt: Date;

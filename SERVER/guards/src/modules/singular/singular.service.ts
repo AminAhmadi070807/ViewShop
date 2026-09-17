@@ -166,7 +166,6 @@ export class SingularService {
   // validate user access to feature
   async validate(id: string, roleId: string) {
     try {
-      console.log(id, roleId);
       const singular = await this.singularRepository.findOne({ where: { id } });
 
       if (!singular) return new CustomException(statusMessages.fa['404'], 404);

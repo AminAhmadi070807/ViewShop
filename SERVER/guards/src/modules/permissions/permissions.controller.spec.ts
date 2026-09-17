@@ -26,7 +26,7 @@ describe('Test ( Permission ) Controller ', () => {
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({ title });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     permission_id = result.body.id;
 
@@ -42,7 +42,7 @@ describe('Test ( Permission ) Controller ', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = await controller.findOne({ id: permission_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(200);
   });
@@ -50,7 +50,7 @@ describe('Test ( Permission ) Controller ', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: permission_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(204);
   });

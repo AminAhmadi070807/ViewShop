@@ -26,7 +26,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( Create ) Feature', async () => {
     const result = await service.create({ title, description });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     role_id = result.body.id;
 
@@ -42,7 +42,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( FindOne ) Feature', async () => {
     const result = await service.findOne(role_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
   });
@@ -50,7 +50,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( FindById ) Feature', async () => {
     const result = await service.findByIds([role_id]);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
   });
@@ -58,7 +58,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({ title, description, id: role_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(204);
   });
@@ -66,7 +66,7 @@ describe('Test ( Roles ) Service', () => {
   it('Test ( Delete ) Feature', async () => {
     const result = await service.remove(role_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(204);
   });

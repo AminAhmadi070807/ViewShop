@@ -26,7 +26,7 @@ describe('Test ( Permission ) Service', () => {
   it('Test ( Create ) Feature', async () => {
     const result = await service.create({ title });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     permission_id = result.body.id;
 
@@ -42,7 +42,7 @@ describe('Test ( Permission ) Service', () => {
   it('Test ( FindOne ) Feature', async () => {
     const result = await service.findOne(permission_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(200);
   });
@@ -50,7 +50,7 @@ describe('Test ( Permission ) Service', () => {
   it('Test ( Delete ) Feature', async () => {
     const result = await service.remove(permission_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(204);
   });

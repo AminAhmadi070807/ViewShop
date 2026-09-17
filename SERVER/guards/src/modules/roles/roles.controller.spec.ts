@@ -26,7 +26,7 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({ title, description });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     role_id = result.body.id;
 
@@ -42,7 +42,7 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = await controller.findOne({ id: role_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
@@ -50,7 +50,7 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( Update ) Controller', async () => {
     const result = await controller.update({ id: role_id, title, description });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(204);
   });
@@ -58,7 +58,7 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: role_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(204);
   });

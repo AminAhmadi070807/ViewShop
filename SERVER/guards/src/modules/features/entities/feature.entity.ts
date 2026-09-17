@@ -18,7 +18,7 @@ export class Feature {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
   @OneToMany(() => Guard, (guard: Guard) => guard.feature, {
@@ -31,7 +31,7 @@ export class Feature {
   @JoinTable({ name: 'features_roles' })
   roles: Role[];
 
-  @OneToOne(() => Singular, (singular) => singular.feature)
+  @OneToOne(() => Singular, (singular) => singular.feature, { nullable: true })
   singular: Singular;
 
   @CreateDateColumn()

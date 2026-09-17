@@ -31,7 +31,7 @@ describe('Test ( Feature ) Service ', () => {
       roles: [role_id],
     });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     feature_id = result.body.id;
 
@@ -47,7 +47,7 @@ describe('Test ( Feature ) Service ', () => {
   it('Test ( FindOne ) Feature', async () => {
     const result = await service.findOne(feature_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(200);
   });
@@ -59,7 +59,7 @@ describe('Test ( Feature ) Service ', () => {
       roles: [role_id],
     });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(204);
   });
@@ -67,7 +67,7 @@ describe('Test ( Feature ) Service ', () => {
   it('Test ( Delete ) Feature', async () => {
     const result = await service.remove(feature_id);
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result
 
     expect(result.status).toEqual(204);
   });

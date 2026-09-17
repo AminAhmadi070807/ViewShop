@@ -27,7 +27,7 @@ describe('Test ( Feature ) Controller', () => {
   it('Test ( Create ) Controller ', async () => {
     const result = await controller.create({ title, roles: [role_id] });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     feature_id = result.body.id;
 
@@ -43,7 +43,7 @@ describe('Test ( Feature ) Controller', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = await controller.findOne({ id: feature_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
@@ -55,7 +55,7 @@ describe('Test ( Feature ) Controller', () => {
       roles: [role_id],
     });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(204);
   });
@@ -63,7 +63,7 @@ describe('Test ( Feature ) Controller', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: feature_id });
 
-    if (result instanceof CustomException) throw new Error(result.message);
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(204);
   });
