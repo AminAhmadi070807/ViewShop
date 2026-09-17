@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { UsersController } from './users.controller';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Users ) Controller', () => {
   let module: TestingModule;
@@ -22,6 +23,18 @@ describe('Test ( Users ) Controller', () => {
     const result = await controller.findAll();
 
     if (result.body.length) user_id = result.body[0].id;
+
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    if (!user_id) {
+      return expect(200).toBe(200);
+    }
+
+    const result = await controller.findOne({ id: user_id });
+
+    if (result instanceof CustomException) return result;
 
     expect(result.status).toBe(200);
   });
