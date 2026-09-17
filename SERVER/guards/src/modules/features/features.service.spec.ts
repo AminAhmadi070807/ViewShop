@@ -8,6 +8,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 describe('FeaturesService', () => {
   let service: FeaturesService;
   let module: TestingModule;
+  let feature_id: string;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
@@ -18,7 +19,7 @@ describe('FeaturesService', () => {
   });
 
   afterAll(async () => {
-    // await service.remove('70591627-7622-4d8d-9d3c-9b8a6c09eeb4');
+    await service.remove(feature_id);
     await module.close();
   });
 
@@ -28,8 +29,10 @@ describe('FeaturesService', () => {
       roles: ['70591627-7622-4d8d-9d3c-9b8a6c09eeb4'],
     });
 
-    if (result instanceof CustomException) return result;
+    if (result instanceof CustomException) return new Error(result.message);
 
-    expect(true).toEqual(true);
+    feature_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
