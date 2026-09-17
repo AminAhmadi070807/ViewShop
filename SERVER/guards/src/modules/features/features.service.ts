@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Feature } from './entities/feature.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/messages/status.message';
 import { FeatureDto, UpdateFeatureDto } from './dto/feature.dto';
@@ -79,16 +79,18 @@ export class FeaturesService {
     try {
       const role = await this.roleService.findByIds(data.roles);
 
-      if (role instanceof RpcException) return role;
+      if (role instanceof CustomException) return role;
 
-      const result = await this.featureRepository.update(data.id, {
-        title: data.title.trim().toUpperCase(),
-        roles: role.body,
-      });
+      const result = await this.findOne(data.id);
 
-      if (!result.affected) {
+      if (result instanceof CustomException) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
+
+      result.body.title = data.title.toUpperCase();
+      result.body.roles = role.body;
+
+      await this.featureRepository.save(result.body);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {

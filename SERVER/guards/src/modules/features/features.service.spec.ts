@@ -51,4 +51,16 @@ describe('FeaturesService', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: feature_id,
+      title: title,
+      roles: [role_id],
+    });
+
+    if (result instanceof CustomException) throw new Error(result.message);
+
+    expect(result.status).toEqual(204);
+  });
 });

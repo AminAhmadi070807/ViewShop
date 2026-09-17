@@ -61,21 +61,13 @@ export class RolesService {
 
   async findByIds(id: string[]) {
     try {
-      const roles: Role[] = await this.roleRepository.find({
-        where: {
-          id: In(id),
-        },
-      });
+      const roles = await this.roleRepository.find({ where: { id: In(id) } });
 
       if (!roles.length) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: HttpStatus.OK,
-        body: roles,
-        message: statusMessages.fa['200'],
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: roles };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
