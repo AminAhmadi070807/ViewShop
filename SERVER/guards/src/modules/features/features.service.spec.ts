@@ -4,7 +4,7 @@ import { AppModule } from '../../app.module';
 import { FeaturesService } from './features.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 
-describe('FeaturesService', () => {
+describe('Test ( Feature ) Service ', () => {
   let service: FeaturesService;
   let module: TestingModule;
 
