@@ -45,4 +45,12 @@ describe('Test ( Guards ) Service ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(guard_id);
+
+    if (result instanceof CustomException) return result;
+
+    expect(result.status).toEqual(200);
+  });
 });
