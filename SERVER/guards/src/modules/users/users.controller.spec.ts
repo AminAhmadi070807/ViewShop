@@ -20,6 +20,16 @@ describe('Test ( Users ) Controller', () => {
     await module.close();
   });
 
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ id: crypto.randomUUID() });
+
+    if (result instanceof CustomException) return result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
+
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
 
