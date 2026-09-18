@@ -26,4 +26,19 @@ describe('Test ( Comment ) Service', () => {
     await service.remove({ id: child_comment_id });
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      user,
+      score,
+      product,
+      description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    comment_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
 });
