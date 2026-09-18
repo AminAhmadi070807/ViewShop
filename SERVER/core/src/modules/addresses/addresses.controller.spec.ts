@@ -51,4 +51,10 @@ describe('Test ( Addresses ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findAll({ id: address_id, user: user_id });
+
+    expect(result.status).toEqual(200);
+  });
 });
