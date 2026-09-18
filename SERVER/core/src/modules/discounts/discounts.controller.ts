@@ -9,8 +9,8 @@ export class DiscountsController {
   constructor(private readonly discountsService: DiscountsService) {}
 
   @MessagePattern('DISCOUNT:CREATE')
-  create(@Payload() createDiscountDto: DiscountDto) {
-    return this.discountsService.create(createDiscountDto);
+  create(@Payload() data: DiscountDto) {
+    return this.discountsService.create(data);
   }
 
   @MessagePattern('DISCOUNT:FIND')
@@ -24,8 +24,8 @@ export class DiscountsController {
   }
 
   @MessagePattern('DISCOUNT:UPDATE')
-  update(@Payload() data: Validate) {
-    return this.discountsService.findOne(data.id);
+  update(@Payload() data: DiscountDto) {
+    return this.discountsService.update(data);
   }
 
   @MessagePattern('DISCOUNT:REMOVE')
