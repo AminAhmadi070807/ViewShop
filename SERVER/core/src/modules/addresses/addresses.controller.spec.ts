@@ -24,7 +24,7 @@ describe('Test ( Addresses ) Controller', () => {
   });
 
   afterAll(async () => {
-    await controller.remove({ id: address_id });
+    await controller.remove({ id: address_id, user: user_id });
     await module.close();
   });
 
@@ -44,5 +44,11 @@ describe('Test ( Addresses ) Controller', () => {
     address_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll({ id: user_id, user: user_id });
+
+    expect(result.status).toEqual(200);
   });
 });
