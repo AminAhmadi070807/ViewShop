@@ -57,7 +57,7 @@ describe('Test ( Brands ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( Update ) Controller', async () => {
+  it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: brand_id,
       logo,
@@ -66,6 +66,14 @@ describe('Test ( Brands ) Controller', () => {
       link,
       description,
     });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(brand_id);
 
     if (result instanceof CustomException) throw result;
 
