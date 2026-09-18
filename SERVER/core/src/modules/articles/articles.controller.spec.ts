@@ -96,4 +96,15 @@ describe('Test ( Addresses ) Controller', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.updateStatus({
+      id: article_id,
+      status: ArticleStatusEnum.PUBLISHED,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
