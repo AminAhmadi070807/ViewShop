@@ -88,6 +88,16 @@ describe('Test ( Comment ) Controller', () => {
     expect(result.status).toBe(204);
   });
 
+  it('Test ( Delete Child Comment ) Controller', async () => {
+    const result = await controller.remove({
+      id: child_comment_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
+
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: comment_id });
 
