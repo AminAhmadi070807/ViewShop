@@ -3,19 +3,11 @@ import { DiscountDto } from './dto/discount.dto';
 
 @Injectable()
 export class DiscountsService {
-  create(data: DiscountDto) {
-    return 'This action adds a new discount';
-  }
+  create(data: DiscountDto) {}
 
-  findAll() {
-    return `This action returns all discounts`;
-  }
+  findAll() {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} discount`;
-  }
+  findOne(id: string) {}
 
-  remove(id: number) {
-    return `This action removes a #${id} discount`;
-  }
+  remove(id: string) {}
 }
