@@ -47,4 +47,12 @@ describe('Test ( Sub Category ) Controller', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindOne )', async () => {
+    const result = await controller.findOne({ id: subCategory_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(201);
+  });
 });
