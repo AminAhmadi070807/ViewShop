@@ -34,7 +34,15 @@ describe('Test ( Colors ) Controller', () => {
   });
 
   it('Test ( FindAll ) Controller', async () => {
-    const result = await controller.findAll();
+    const result = await controller.findAll({});
+
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: color_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
   });
