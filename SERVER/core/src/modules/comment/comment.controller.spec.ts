@@ -23,6 +23,7 @@ describe('Test ( Comment ) Controller', () => {
 
   afterAll(async () => {
     await controller.remove({ id: comment_id });
+    await controller.remove({ id: child_comment_id });
     await module.close();
   });
 
