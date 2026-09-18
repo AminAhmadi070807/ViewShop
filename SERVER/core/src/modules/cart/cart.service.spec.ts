@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CartController } from './cart.controller';
 import { AppModule } from '../../app.module';
 import { CartService } from './cart.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Cart ) Controller', () => {
   let module: TestingModule;
@@ -21,5 +21,19 @@ describe('Test ( Cart ) Controller', () => {
 
   afterAll(async () => {
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      user: user_id,
+      quantity,
+      product,
+      product_detail_id,
+      color,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
   });
 });
