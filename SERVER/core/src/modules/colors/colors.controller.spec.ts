@@ -58,6 +58,6 @@ describe('Test ( Colors ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(200);
+    expect(result.status).toBe(204);
   });
 });
