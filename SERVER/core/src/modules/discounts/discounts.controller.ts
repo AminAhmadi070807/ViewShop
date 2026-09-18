@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { DiscountsService } from './discounts.service';
-import { DiscountDto } from './dto/discount.dto';
+import { DiscountDto, UpdateDiscountDto } from './dto/discount.dto';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
@@ -24,7 +24,7 @@ export class DiscountsController {
   }
 
   @MessagePattern('DISCOUNT:UPDATE')
-  update(@Payload() data: DiscountDto) {
+  update(@Payload() data: UpdateDiscountDto) {
     return this.discountsService.update(data);
   }
 
