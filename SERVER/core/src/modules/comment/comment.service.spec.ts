@@ -88,4 +88,15 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete Child Comment ) Feature', async () => {
+    const result = await service.remove({
+      id: child_comment_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
+
 });
