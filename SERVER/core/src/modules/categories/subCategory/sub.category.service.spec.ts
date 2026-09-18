@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SubCategoryController } from './sub.category.controller';
 import { AppModule } from '../../../app.module';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
+import { SubCategoryService } from './sub.category.service';
 
-describe('Test ( Sub Category ) Controller', () => {
+describe('Test ( Sub Category ) Service', () => {
   let module: TestingModule;
-  let controller: SubCategoryController;
+  let service: SubCategoryService;
 
   let subCategory_id: string;
 
@@ -18,11 +18,27 @@ describe('Test ( Sub Category ) Controller', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
-    controller = module.get<SubCategoryController>(SubCategoryController);
+    service = module.get<SubCategoryService>(SubCategoryService);
   });
 
   afterAll(async () => {
-    await controller.remove({ id: subCategory_id });
+    await service.remove(subCategory_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      user,
+      icon,
+      title,
+      alias,
+      category,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    subCategory_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
