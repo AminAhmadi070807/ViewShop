@@ -19,8 +19,8 @@ export class DiscountsService {
         code: data.code,
       });
 
-      if (!existing) {
-        return new CustomException(statusMessages.fa['404'], 404);
+      if (existing) {
+        return new CustomException(statusMessages.fa['409'], 409);
       }
 
       const result = this.discountRepository.create(data);
