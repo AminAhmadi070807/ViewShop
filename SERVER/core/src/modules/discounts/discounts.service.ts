@@ -37,8 +37,13 @@ export class DiscountsService {
     }
   }
 
-  findAll() {
+  async findAll() {
     try {
+      const result = await this.discountRepository.find({
+        order: { createdAt: 'DESC' },
+      });
+
+      return { status: 200, messages: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
