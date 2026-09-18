@@ -3,7 +3,7 @@ import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { AddressesService } from './addresses.service';
 
-describe('Test ( Addresses ) Controller', () => {
+describe('Test ( Addresses ) Service', () => {
   let service: AddressesService;
   let module: TestingModule;
 
@@ -28,7 +28,7 @@ describe('Test ( Addresses ) Controller', () => {
     await module.close();
   });
 
-  it('Test ( Create ) Controller', async () => {
+  it('Test ( Create ) Feature', async () => {
     const result = await service.create({
       address,
       user: user_id,
@@ -44,5 +44,11 @@ describe('Test ( Addresses ) Controller', () => {
     address_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll({ id: user_id, user: user_id });
+
+    expect(result.status).toEqual(200);
   });
 });
