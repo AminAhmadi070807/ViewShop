@@ -8,8 +8,8 @@ describe('Test ( Comment ) Controller', () => {
   let controller: CommentController;
 
   let comment_id: string;
+  let child_comment_id: string;
 
-  const parent_comment: string = '3dbfe9b0-37e6-49db-81e5-86e33b575758';
   const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
   const product: string = '3f5464f8-8d52-41df-8654-2da3fea81df0';
   const description: string = 'واقعا محصول خوبی بود';
@@ -41,22 +41,6 @@ describe('Test ( Comment ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
-  it('Test ( Create Parent Comment ) Controller', async () => {
-    const result = await controller.create({
-      user,
-      score,
-      product,
-      description,
-      parentComment: parent_comment,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    comment_id = result.body.id;
-
-    expect(result.status).toBe(201);
-  });
-
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({});
 
@@ -71,6 +55,33 @@ describe('Test ( Comment ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = await controller.update({ id: comment_id, status: true });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
+
+  it('Test ( Create Child Comment ) Controller', async () => {
+    const result = await controller.create({
+      user,
+      score,
+      product,
+      description,
+      parentComment: comment_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    child_comment_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
+
+  it('Test ( Update Child Comment ) Controller', async () => {
+    const result = await controller.update({
+      id: child_comment_id,
+      status: true,
+    });
 
     if (result instanceof CustomException) throw result;
 
