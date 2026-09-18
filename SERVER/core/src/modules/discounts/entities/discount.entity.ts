@@ -16,20 +16,20 @@ export class Discount {
   @Column({ type: 'varchar', nullable: false, unique: true })
   code: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  permitted: string;
+  @Column({ type: 'bigint', nullable: false })
+  permitted: number;
 
   @Column({ type: 'smallint', nullable: false })
-  percent: string;
+  percent: number;
 
   @Column({ type: 'bigint', nullable: false })
-  max_discount: string;
+  max_discount: number;
 
-  @Column({ type: 'bigint', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   user_phone: string;
 
   @Column({ type: 'timestamp', nullable: false })
-  expiration: string;
+  expiration: Date;
 
   @CreateDateColumn()
   createdAt: Date;

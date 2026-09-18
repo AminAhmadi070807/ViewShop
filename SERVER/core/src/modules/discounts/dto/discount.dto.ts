@@ -23,23 +23,23 @@ export class DiscountDto {
 
   @IsNumber({}, { message: 'سقف مجاز استفاده نامعتبر است' })
   @IsPositive({ message: 'سقف مجاز استفاده نامعتبر است' })
-  permitted: string;
+  permitted: number;
 
   @IsNumber({}, { message: 'درصد تخفیف نامعتبر است' })
   @Min(0, { message: 'درصد تخفیف نامعتبر است' })
   @Max(10, { message: 'درصد تخفیف نامعتبر است' })
-  percent: string;
+  percent: number;
 
   @IsNumber({}, { message: 'حدکثر مبلغ تخفیف نامعتبر است' })
   @Min(0, { message: 'حدکثر مبلغ تخفیف نامعتبر است' })
-  max_discount: string;
+  max_discount: number;
 
   @IsOptional()
   @IsPhoneNumber('IR', { message: 'شماره تلفن نامعتبر است' })
   user_phone?: string;
 
   @IsDate({ message: 'تاریخ انقضا نامعتبر است' })
-  expiration: string;
+  expiration: Date;
 }
 
 export class UpdateDiscountDto extends PartialType<DiscountDto>(DiscountDto) {
