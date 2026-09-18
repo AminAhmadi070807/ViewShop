@@ -43,6 +43,12 @@ describe('Test ( Comment ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({});
 
-    expect(result.status).toBe(201);
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findProductComments({ id: product });
+
+    expect(result.status).toBe(200);
   });
 });
