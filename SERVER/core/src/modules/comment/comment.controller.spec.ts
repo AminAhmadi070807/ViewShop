@@ -1,12 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CommentController } from './comment.controller';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Comment ) Controller', () => {
   let module: TestingModule;
   let controller: CommentController;
 
   let comment_id: string;
+
+  const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
+  const product: string = '3f5464f8-8d52-41df-8654-2da3fea81df0';
+  const description: string = 'واقعا محصول خوبی بود';
+  const score: number = 5;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -17,5 +23,20 @@ describe('Test ( Comment ) Controller', () => {
   afterAll(async () => {
     await controller.remove({ id: comment_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({
+      user,
+      score,
+      product,
+      description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    comment_id = result.body.id;
+
+    expect(result.status).toBe(201);
   });
 });

@@ -49,7 +49,11 @@ export class CommentService {
 
       await this.commentRepository.save(comment);
 
-      return { status: 201, message: statusMessages.fa['201'], body: null };
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: { id: comment.id },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

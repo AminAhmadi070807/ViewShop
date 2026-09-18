@@ -37,10 +37,10 @@ export class CommentDto {
   @IsUUID('4', { message: 'ایدی کاربر نامعتبر است' })
   user: string;
 
+  @IsOptional({ message: 'ایدی کامنت اختیاری است' })
   @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
-  @IsOptional({ message: 'ایدی کامنت اختیاری است' })
-  parentComment: string;
+  parentComment?: string;
 }
 
 export class UpdateCommentDto {
