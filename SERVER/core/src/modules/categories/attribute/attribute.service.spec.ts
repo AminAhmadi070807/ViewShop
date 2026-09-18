@@ -41,4 +41,10 @@ describe('Test ( Attribute ) Service', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await service.findAll();
+
+    expect(result.status).toEqual(200);
+  });
 });
