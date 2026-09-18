@@ -78,6 +78,14 @@ describe('Test ( Discount ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: discount_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
