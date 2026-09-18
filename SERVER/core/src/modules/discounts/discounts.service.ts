@@ -51,7 +51,7 @@ export class DiscountsService {
 
   async findOne(id: string) {
     try {
-      const result = await this.discountRepository.findOne({ where: { id } });
+      const result = await this.discountRepository.findOneBy({ id });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
