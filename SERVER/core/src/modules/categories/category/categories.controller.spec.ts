@@ -38,7 +38,7 @@ describe('Test ( Categories ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({});
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne ) Controller', async () => {
@@ -46,6 +46,19 @@ describe('Test ( Categories ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: category_id,
+      icon,
+      title,
+      alias,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
