@@ -48,11 +48,26 @@ describe('Test ( Sub Category ) Service', () => {
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( FindOne ) Controller', async () => {
+  it('Test ( FindOne ) Feature', async () => {
     const result = await service.findOne(subCategory_id);
 
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: subCategory_id,
+      icon,
+      title,
+      alias,
+      category,
+      user,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
