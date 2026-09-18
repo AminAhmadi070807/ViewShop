@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { BrandsService } from './brands.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Brands ) Controller', () => {
   let module: TestingModule;
@@ -22,7 +23,23 @@ describe('Test ( Brands ) Controller', () => {
   });
 
   afterAll(async () => {
-    await service.remove({ id: brand_id });
+    await service.remove(brand_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      logo,
+      title,
+      description,
+      alias,
+      link,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    brand_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
