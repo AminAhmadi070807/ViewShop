@@ -57,6 +57,14 @@ describe('Test ( Comment ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(200);
+    expect(result.status).toBe(204);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: comment_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
   });
 });
