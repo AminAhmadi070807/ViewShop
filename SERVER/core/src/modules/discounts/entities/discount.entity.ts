@@ -13,7 +13,7 @@ export class Discount {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false, unique: true })
   code: string;
 
   @Column({ type: 'varchar', nullable: false })
