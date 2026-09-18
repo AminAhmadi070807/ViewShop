@@ -52,4 +52,12 @@ describe('Test ( Colors ) Controller', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(color_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
