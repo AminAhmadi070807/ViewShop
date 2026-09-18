@@ -59,4 +59,12 @@ describe('Test ( Addresses ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove({ id: address_id, user: user_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
