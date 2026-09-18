@@ -46,8 +46,16 @@ describe('Test ( Comment ) Controller', () => {
     expect(result.status).toBe(200);
   });
 
-  it('Test ( FindAll ) Controller', async () => {
+  it('Test ( FindProductComments ) Controller', async () => {
     const result = await controller.findProductComments({ id: product });
+
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({ id: comment_id, status: true });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
   });
