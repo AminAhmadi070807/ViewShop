@@ -16,11 +16,15 @@ describe('Test ( Brands ) Controller', () => {
   const alias: string = 'unit-test';
   const link: string = 'https://sabzlearn.ir';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<BrandsController>(BrandsController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: brand_id });

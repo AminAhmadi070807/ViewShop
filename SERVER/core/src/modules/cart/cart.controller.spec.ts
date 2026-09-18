@@ -13,11 +13,15 @@ describe('Test ( Cart ) Controller', () => {
   const product_detail_id: string = '407bba8d-635c-4da1-a973-7231e8d584e3';
   const color: string = 'f28015ab-8038-4f39-a544-e4954ef0e5ac';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<CartController>(CartController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await module.close();

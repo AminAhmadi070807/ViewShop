@@ -17,11 +17,15 @@ describe('Test ( Addresses ) Controller', () => {
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<AddressesController>(AddressesController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: address_id, user: user_id });

@@ -15,11 +15,15 @@ describe('Test ( Comment ) Service', () => {
   const description: string = 'واقعا محصول خوبی بود';
   const score: number = 5;
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<CommentController>(CommentController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await service.remove({ id: comment_id });

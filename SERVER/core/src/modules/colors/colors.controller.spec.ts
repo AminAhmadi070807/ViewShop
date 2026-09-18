@@ -12,11 +12,15 @@ describe('Test ( Colors ) Controller', () => {
   const color: string = '#23f6f8';
   const title: string = 'شامپونزه ای';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<ColorsController>(ColorsController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: color_id });

@@ -14,11 +14,15 @@ describe('Test ( Categories ) Service', () => {
   const alias: string = 'unit-test';
   const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<CategoriesService>(CategoriesService);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await service.remove(category_id);

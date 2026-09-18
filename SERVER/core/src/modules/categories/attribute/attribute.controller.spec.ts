@@ -15,11 +15,15 @@ describe('Test ( Attribute ) Controller', () => {
   const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
   const subCategory: string = 'e11cf198-443d-48ba-93c9-25750fc80fb2';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<AttributeController>(AttributeController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: attribute_id });

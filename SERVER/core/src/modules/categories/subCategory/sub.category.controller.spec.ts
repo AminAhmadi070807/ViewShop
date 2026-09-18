@@ -15,11 +15,15 @@ describe('Test ( Sub Category ) Controller', () => {
   const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
   const category: string = 'bd015464-eb0e-46c1-b5fe-bfbb4a2ea674';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<SubCategoryController>(SubCategoryController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: subCategory_id });

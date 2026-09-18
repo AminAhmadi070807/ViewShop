@@ -14,11 +14,15 @@ describe('Test ( Categories ) Controller', () => {
   const alias: string = 'unit-test';
   const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: category_id });

@@ -12,11 +12,15 @@ describe('Test ( Colors ) Service', () => {
   const color: string = '#23f6f8';
   const title: string = 'شامپونزه ای';
 
+  beforeEach(() => jest.clearAllMocks());
+
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<ColorsService>(ColorsService);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await service.remove(color_id);
