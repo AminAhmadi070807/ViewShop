@@ -47,4 +47,10 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( FindProductComments ) Feature', async () => {
+    const result = await service.findProductComments({ id: product });
+
+    expect(result.status).toBe(200);
+  });
 });
