@@ -53,7 +53,17 @@ describe('Test ( Addresses ) Controller', () => {
   });
 
   it('Test ( FindOne ) Controller', async () => {
-    const result = await controller.findAll({ id: address_id, user: user_id });
+    const result = await controller.findOne({ id: address_id, user: user_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: address_id, user: user_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
