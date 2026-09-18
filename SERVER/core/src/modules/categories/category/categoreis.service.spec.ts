@@ -21,7 +21,17 @@ describe('Test ( Categories ) Controller', () => {
   });
 
   afterAll(async () => {
-    await service.remove({ id: category_id });
+    await service.remove(category_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ user, title, alias, icon });
+
+    if (result instanceof CustomException) throw result;
+
+    category_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
