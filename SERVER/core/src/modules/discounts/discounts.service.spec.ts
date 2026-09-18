@@ -31,4 +31,22 @@ describe('Test ( Discount ) Controller', () => {
     await service.remove(discount_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      expiration,
+      user_phone,
+      permitted,
+      percent,
+      code,
+      max_discount,
+      title,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    discount_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
