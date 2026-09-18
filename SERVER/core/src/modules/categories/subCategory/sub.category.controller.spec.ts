@@ -68,6 +68,14 @@ describe('Test ( Sub Category ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete )', async () => {
+    const result = await controller.remove({ id: subCategory_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
