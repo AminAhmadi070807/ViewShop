@@ -53,6 +53,14 @@ describe('Test ( Addresses ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({ page: 1 });
 
-    expect(result.status).toBe(201);
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: article_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(200);
   });
 });
