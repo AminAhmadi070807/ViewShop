@@ -26,7 +26,7 @@ describe('Test ( Sub Category ) Controller', () => {
     await module.close();
   });
 
-  it('Test ( Create )', async () => {
+  it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       user,
       icon,
@@ -42,13 +42,13 @@ describe('Test ( Sub Category ) Controller', () => {
     expect(result.status).toEqual(201);
   });
 
-  it('Test ( FindAll )', async () => {
+  it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({});
 
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( FindOne )', async () => {
+  it('Test ( FindOne ) Controller', async () => {
     const result = await controller.findOne({ id: subCategory_id });
 
     if (result instanceof CustomException) throw result;
@@ -56,7 +56,7 @@ describe('Test ( Sub Category ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( Update )', async () => {
+  it('Test ( Update ) Controller', async () => {
     const result = await controller.update({
       id: subCategory_id,
       icon,
@@ -71,7 +71,7 @@ describe('Test ( Sub Category ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
-  it('Test ( Delete )', async () => {
+  it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: subCategory_id });
 
     if (result instanceof CustomException) throw result;
