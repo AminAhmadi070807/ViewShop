@@ -8,7 +8,6 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
 import { UsersModule } from './modules/users/users.module';
 import { ClientsModule } from '@nestjs/microservices';
 import { ClientsModuleConfig } from './common/config/client.config';
-import { CoreModule } from './core/core.module';
 import { SingularModule } from './modules/singular/singular.module';
 import { FeaturesModule } from './modules/features/features.module';
 
@@ -23,7 +22,6 @@ import { FeaturesModule } from './modules/features/features.module';
     RolesModule,
     PermissionsModule,
     UsersModule,
-    CoreModule,
     SingularModule,
     FeaturesModule,
   ],
