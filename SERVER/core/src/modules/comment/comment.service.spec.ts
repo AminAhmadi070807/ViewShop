@@ -41,4 +41,10 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll({});
+
+    expect(result.status).toBe(200);
+  });
 });
