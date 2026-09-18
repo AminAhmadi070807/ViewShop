@@ -61,4 +61,20 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Create Child Comment ) Feature', async () => {
+    const result = await service.create({
+      user,
+      score,
+      product,
+      description,
+      parentComment: comment_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    child_comment_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
 });
