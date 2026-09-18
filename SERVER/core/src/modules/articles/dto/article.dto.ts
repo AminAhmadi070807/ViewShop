@@ -27,7 +27,7 @@ export class ArticleDto {
     each: true,
     message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
   })
-  slug: [string];
+  slug: string[];
 
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })
@@ -85,7 +85,7 @@ export class UpdateArticleDto {
     each: true,
     message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
   })
-  slug: [string];
+  slug: string[];
 
   @IsNotEmpty({ message: 'توضیحات نمیتواند خالی باشد' })
   @IsString({ message: 'توضیحات باید رشته باشد' })

@@ -53,7 +53,7 @@ export class ArticlesService {
 
       await this.articleRepository.save(article);
 
-      return { status: 201, message: statusMessages.fa['201'], body: null };
+      return { status: 201, message: statusMessages.fa['201'], body: { id: article.id } };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
