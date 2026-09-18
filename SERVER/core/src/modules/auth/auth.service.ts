@@ -105,7 +105,7 @@ export class AuthService {
         if (!route) return new CustomException(statusMessages.fa['500'], 500);
 
         return {
-          status: HttpStatus.OK,
+          status: 200,
           message: statusMessages.fa['409'],
           body: { route, ttl },
         };
@@ -132,7 +132,7 @@ export class AuthService {
       await this.redisService.set(data.phone, access_route, 180);
 
       return {
-        status: HttpStatus.OK,
+        status: 200,
         message: 'The otp was send successfully.',
         body: {
           route: access_route,
