@@ -48,4 +48,12 @@ describe('Test ( Brands ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(brand_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
