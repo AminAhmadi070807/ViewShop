@@ -39,7 +39,7 @@ export class AddressesService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: address.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
