@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { ArticlesService } from './articles.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { UpdateArticleStatusEnum } from '../../common/enums/articles/articles.status';
 
 describe('Test ( Addresses ) Controller', () => {
   let service: ArticlesService;
@@ -62,5 +63,23 @@ describe('Test ( Addresses ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
+  });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: article_id,
+      slug,
+      category: category_id,
+      cover,
+      author: author_id,
+      description,
+      title,
+      shortDescription,
+      status: UpdateArticleStatusEnum.CONPLETION,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
   });
 });
