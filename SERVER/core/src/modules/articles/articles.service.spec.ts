@@ -50,8 +50,16 @@ describe('Test ( Addresses ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
-  it('Test ( FindAll ) Controller', async () => {
+  it('Test ( FindAll ) Feature', async () => {
     const result = await service.findAll(1);
+
+    expect(result.status).toBe(200);
+  });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(article_id);
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(200);
   });
