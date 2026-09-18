@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { DiscountsService } from './discounts.service';
 import { DiscountDto } from './dto/discount.dto';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class DiscountsController {
@@ -18,12 +19,17 @@ export class DiscountsController {
   }
 
   @MessagePattern('DISCOUNT:ONE')
-  findOne(@Payload() id: number) {
-    return this.discountsService.findOne(id);
+  findOne(@Payload() data: Validate) {
+    return this.discountsService.findOne(data.id);
+  }
+
+  @MessagePattern('DISCOUNT:UPDATE')
+  update(@Payload() data: Validate) {
+    return this.discountsService.findOne(data.id);
   }
 
   @MessagePattern('DISCOUNT:REMOVE')
-  remove(@Payload() id: number) {
-    return this.discountsService.remove(id);
+  remove(@Payload() data: Validate) {
+    return this.discountsService.remove(data.id);
   }
 }
