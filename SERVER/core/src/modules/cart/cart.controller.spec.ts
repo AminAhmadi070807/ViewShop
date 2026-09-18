@@ -22,4 +22,19 @@ describe('Test ( Cart ) Controller', () => {
   afterAll(async () => {
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({
+      user: user_id,
+      quantity,
+      product,
+      product_detail_id,
+      color,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
 });
