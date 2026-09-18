@@ -45,7 +45,7 @@ describe('Test ( Sub Category ) Controller', () => {
   it('Test ( FindAll )', async () => {
     const result = await controller.findAll({});
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne )', async () => {
@@ -53,6 +53,21 @@ describe('Test ( Sub Category ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update )', async () => {
+    const result = await controller.update({
+      id: subCategory_id,
+      icon,
+      title,
+      alias,
+      category,
+      user,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
   });
 });
