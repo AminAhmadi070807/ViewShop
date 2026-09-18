@@ -63,4 +63,21 @@ describe('Test ( Discount ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: discount_id,
+      user_phone,
+      permitted,
+      percent,
+      code,
+      max_discount,
+      title,
+      expiration,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
