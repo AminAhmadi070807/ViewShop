@@ -56,4 +56,19 @@ describe('Test ( Brands ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: brand_id,
+      logo,
+      title,
+      alias,
+      link,
+      description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
