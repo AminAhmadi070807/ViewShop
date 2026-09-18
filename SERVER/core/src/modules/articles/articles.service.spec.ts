@@ -49,4 +49,10 @@ describe('Test ( Addresses ) Controller', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await service.findAll(1);
+
+    expect(result.status).toBe(200);
+  });
 });
