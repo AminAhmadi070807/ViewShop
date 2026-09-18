@@ -30,4 +30,23 @@ describe('Test ( Addresses ) Controller', () => {
     await service.remove(article_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      store,
+      title,
+      description,
+      author: author_id,
+      slug,
+      category: category_id,
+      cover,
+      shortDescription,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    article_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
 });
