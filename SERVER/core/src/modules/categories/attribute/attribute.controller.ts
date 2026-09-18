@@ -25,7 +25,7 @@ export class AttributeController {
   }
 
   @MessagePattern('CATEGORY:ATTRIBUTE:DELETE')
-  delete(@Payload() data: Validate) {
-    return this.attributeService.delete(data.id);
+  remove(@Payload() data: Validate) {
+    return this.attributeService.remove(data.id);
   }
 }

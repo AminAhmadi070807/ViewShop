@@ -152,7 +152,7 @@ export class AttributeService {
     }
   }
 
-  async delete(id: string) {
+  async remove(id: string) {
     try {
       const result: DeleteResult = await this.attributeRepository.delete(id);
 
