@@ -46,4 +46,10 @@ describe('Test ( Colors ) Controller', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( Search ) Controller', async () => {
+    const result = await controller.search({ title });
+
+    expect(result.status).toBe(200);
+  });
 });
