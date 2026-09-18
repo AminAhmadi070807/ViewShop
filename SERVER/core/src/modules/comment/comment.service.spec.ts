@@ -77,4 +77,15 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('Test ( Update Child Comment ) Feature', async () => {
+    const result = await service.update({
+      id: child_comment_id,
+      status: true,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
