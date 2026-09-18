@@ -65,6 +65,6 @@ describe('Test ( Addresses ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
   });
 });
