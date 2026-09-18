@@ -6,9 +6,11 @@ import {
   IsPhoneNumber,
   IsPositive,
   IsString,
+  IsUUID,
   Max,
   Min,
 } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class DiscountDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی بلاشد' })
@@ -38,4 +40,9 @@ export class DiscountDto {
 
   @IsDate({ message: 'تاریخ انقضا نامعتبر است' })
   expiration: string;
+}
+
+export class UpdateDiscountDto extends PartialType<DiscountDto>(DiscountDto) {
+  @IsUUID('4', { message: 'شناسه تخفیف نامعتبر است' })
+  id: string;
 }
