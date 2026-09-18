@@ -53,4 +53,12 @@ describe('Test ( Comment ) Service', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({ id: comment_id, status: true });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
