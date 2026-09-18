@@ -61,4 +61,12 @@ describe('Test ( Categories ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(category_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
