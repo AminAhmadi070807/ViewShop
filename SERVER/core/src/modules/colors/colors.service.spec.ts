@@ -3,7 +3,7 @@ import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { ColorsService } from './colors.service';
 
-describe('Test ( Colors ) Controller', () => {
+describe('Test ( Colors ) Service', () => {
   let module: TestingModule;
   let service: ColorsService;
 
