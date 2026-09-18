@@ -13,8 +13,25 @@ export class DiscountsService {
     private readonly discountRepository: Repository<Discount>,
   ) {}
 
-  create(data: DiscountDto) {
+  async create(data: DiscountDto) {
     try {
+      const existing = await this.discountRepository.findOneBy({
+        code: data.code,
+      });
+
+      if (!existing) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const result = this.discountRepository.create(data);
+
+      await this.discountRepository.save(result);
+
+      return {
+        status: 201,
+        message: statusMessages.fa['201'],
+        body: { id: result.id },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
