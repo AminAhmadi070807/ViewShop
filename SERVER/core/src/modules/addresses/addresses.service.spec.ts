@@ -27,4 +27,22 @@ describe('Test ( Addresses ) Controller', () => {
     await service.remove({ id: address_id, user: user_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await service.create({
+      address,
+      user: user_id,
+      alley,
+      city,
+      postal_code,
+      province,
+      street,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    address_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
