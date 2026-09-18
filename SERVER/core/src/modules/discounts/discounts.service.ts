@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DiscountDto } from './dto/discount.dto';
+import { DiscountDto, UpdateDiscountDto } from './dto/discount.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Discount } from './entities/discount.entity';
 import { Repository } from 'typeorm';
@@ -61,8 +61,15 @@ export class DiscountsService {
     }
   }
 
-  update(data: DiscountDto) {
+  async update(data: UpdateDiscountDto) {
     try {
+      const result = await this.discountRepository.update(data.id, data);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
