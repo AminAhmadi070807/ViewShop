@@ -51,4 +51,12 @@ describe('Test ( Report ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await service.findOne({ id: report_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
