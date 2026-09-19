@@ -31,7 +31,11 @@ export class PaymentSettingService {
 
       await this.paymentSettingRepository.save(result);
 
-      return { status: 200, message: statusMessages.fa['200'], body: null };
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: { id: result.id },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
