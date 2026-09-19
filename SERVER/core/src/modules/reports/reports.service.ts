@@ -25,10 +25,8 @@ export class ReportsService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const report: Report = this.reportsRepository.create({
-        user: {
-          id: data.user,
-        },
+      const report = this.reportsRepository.create({
+        user: { id: data.user },
         description: data.description,
         target: target.body,
         reason: data.title,
@@ -39,7 +37,7 @@ export class ReportsService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: report.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
