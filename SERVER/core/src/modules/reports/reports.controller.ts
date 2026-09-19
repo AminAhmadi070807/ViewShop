@@ -28,4 +28,9 @@ export class ReportsController {
   answer(@Payload() data: AnswerReportDto) {
     return this.reportsService.answer(data);
   }
+
+  @MessagePattern('REPORT:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.reportsService.remove(data.id);
+  }
 }
