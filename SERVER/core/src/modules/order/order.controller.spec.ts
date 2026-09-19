@@ -61,4 +61,12 @@ describe('Test ( NewsLetter ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Payment ) Controller', async () => {
+    const result = await controller.payment({ id: order_id, user });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
