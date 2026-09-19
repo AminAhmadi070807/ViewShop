@@ -35,12 +35,20 @@ describe('Test ( Menus ) Controller', () => {
 
     menu_id = result.body.id;
 
-    expect(result.message).toBeDefined();
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
 
-    expect(result.message).toBeDefined();
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: menu_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
   });
 });
