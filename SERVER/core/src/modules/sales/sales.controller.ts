@@ -18,6 +18,11 @@ export class SalesController {
     return this.salesService.findUserSale(data.id);
   }
 
+  @MessagePattern('SALES:ONE')
+  findOne(@Payload() data: Validate) {
+    return this.salesService.findOne(data.id);
+  }
+
   @MessagePattern('SALES:SALE')
   sale(@Payload() data: SaleDto) {
     return this.salesService.sale(data);
