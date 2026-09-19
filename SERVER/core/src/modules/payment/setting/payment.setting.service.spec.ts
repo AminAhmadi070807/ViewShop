@@ -31,4 +31,23 @@ describe('Test ( Payment Setting ) Feature', () => {
     await service.remove(payment_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      media,
+      api,
+      title,
+      alias,
+      call_back,
+      details,
+      max_price,
+      payment_key,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    payment_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
