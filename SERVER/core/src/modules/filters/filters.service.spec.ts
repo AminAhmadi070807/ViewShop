@@ -28,4 +28,14 @@ describe('Test ( Filters ) Service', () => {
     await service.remove(filter_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ title, type, details });
+
+    if (result instanceof CustomException) throw result;
+
+    filter_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
