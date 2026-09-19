@@ -62,4 +62,10 @@ describe('Test ( Sale ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Find User Sales ) Feature', async () => {
+    const result = await service.findUserSale(user);
+
+    expect(result.status).toEqual(200);
+  });
 });
