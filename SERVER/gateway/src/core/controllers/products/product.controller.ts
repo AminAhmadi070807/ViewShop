@@ -51,7 +51,7 @@ export class ProductController {
   create(@Body() data: ProductDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
 
-    return this.coreService.send('PRODUCT:CHILD:CREATE', {
+    return this.coreService.send('PRODUCT:CREATE', {
       ...data,
       userId: user.userId,
     });
@@ -74,7 +74,7 @@ export class ProductController {
     },
   ])
   findAll(@Query() data: ProductFilterDto) {
-    return this.coreService.send('PRODUCT:CHILD:FIND', data);
+    return this.coreService.send('PRODUCT:FIND', data);
   }
 
   @Get('/:id')
@@ -96,7 +96,7 @@ export class ProductController {
     },
   ])
   findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('PRODUCT:CHILD:ONE', data);
+    return this.coreService.send('PRODUCT:ONE', data);
   }
 
   @Patch()
@@ -120,7 +120,7 @@ export class ProductController {
     },
   ])
   update(@Body() data: UpdateProductDto) {
-    return this.coreService.send('PRODUCT:CHILD:UPDATE', data);
+    return this.coreService.send('PRODUCT:UPDATE', data);
   }
 
   @Patch('status')
@@ -144,6 +144,6 @@ export class ProductController {
     },
   ])
   updateStatus(@Body() data: UpdateStatusProductDto) {
-    return this.coreService.send('PRODUCT:CHILD:UPDATE:STATUS', data);
+    return this.coreService.send('PRODUCT:UPDATE:STATUS', data);
   }
 }

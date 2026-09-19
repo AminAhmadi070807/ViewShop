@@ -13,28 +13,33 @@ import { ProductFilterDto } from '../search/dto/search.dto';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @MessagePattern('PRODUCT:CHILD:CREATE')
+  @MessagePattern('PRODUCT:CREATE')
   create(@Payload() data: ProductDto) {
     return this.productService.create(data);
   }
 
-  @MessagePattern('PRODUCT:CHILD:FIND')
+  @MessagePattern('PRODUCT:FIND')
   findAll(@Payload() data: ProductFilterDto) {
     return this.productService.findAll(data);
   }
 
-  @MessagePattern('PRODUCT:CHILD:ONE')
+  @MessagePattern('PRODUCT:ONE')
   findOne(@Payload() data: Validate) {
     return this.productService.findOne(data.id);
   }
 
-  @MessagePattern('PRODUCT:CHILD:UPDATE')
+  @MessagePattern('PRODUCT:UPDATE')
   update(@Payload() data: UpdateProductDto) {
     return this.productService.update(data);
   }
 
-  @MessagePattern('PRODUCT:CHILD:UPDATE:STATUS')
+  @MessagePattern('PRODUCT:UPDATE:STATUS')
   updateStatus(@Payload() data: UpdateStatusProductDto) {
     return this.productService.updateStatus(data);
+  }
+
+  @MessagePattern('PRODUCT:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.productService.remove(data.id);
   }
 }
