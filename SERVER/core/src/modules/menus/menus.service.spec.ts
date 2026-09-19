@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { MenuSectionEnum } from '../../common/enums/sections/section.enum';
 import { MenusService } from './menus.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Menus ) Service', () => {
   let module: TestingModule;
@@ -25,5 +26,15 @@ describe('Test ( Menus ) Service', () => {
   afterAll(async () => {
     await service.remove(menu_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ title, alias, section });
+
+    if (result instanceof CustomException) throw result;
+
+    menu_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });

@@ -66,7 +66,7 @@ describe('Test ( Menus ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
-    const result = await controller.update({ id: menu_id });
+    const result = await controller.remove({ id: menu_id });
 
     if (result instanceof CustomException) throw result;
 
