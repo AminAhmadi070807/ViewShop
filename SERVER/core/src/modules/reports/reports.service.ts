@@ -104,5 +104,47 @@ export class ReportsService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
-  
+
+  async answer(data: AnswerReportDto) {
+    try {
+      const report = await this.reportsRepository.findOneBy({
+        id: data.id,
+      });
+
+      if (!report) return new CustomException(statusMessages.fa['404'], 404);
+      else if (report.isAnswer) {
+        return new CustomException(statusMessages.fa['409'], 409);
+      }
+
+      await this.reportsRepository.update(data.id, {
+        answer: data.answer,
+        admin: {
+          id: data.user,
+        },
+        isAnswer: true,
+      });
+
+      return {
+        status: 204,
+        message: statusMessages.fa['204'],
+        body: null,
+      };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      const result = await this.reportsRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
