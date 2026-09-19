@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { OrderService } from './order.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 
 describe('Test ( Order ) Service', () => {
   let module: TestingModule;
@@ -23,5 +25,15 @@ describe('Test ( Order ) Service', () => {
   afterAll(async () => {
     await service.remove(order_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ user, address });
+
+    if (result instanceof CustomException) throw result;
+
+    order_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
