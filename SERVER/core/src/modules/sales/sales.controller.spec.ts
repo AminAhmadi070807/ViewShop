@@ -45,13 +45,13 @@ describe('Test ( Sale ) Controller', () => {
 
     sale_id = result.body.id;
 
-    expect(result.status).not.toEqual(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
 
-    expect(result.status).not.toEqual(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne ) Controller', async () => {
@@ -59,18 +59,18 @@ describe('Test ( Sale ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).not.toEqual(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Find User Sales ) Controller', async () => {
     const result = await controller.findUserSale({ id: user, user: user });
 
-    expect(result.status).not.toEqual(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Find Store Sales ) Controller', async () => {
     const result = await controller.findUserSale({ id: store, user: user });
 
-    expect(result.status).not.toEqual(200);
+    expect(result.status).toEqual(200);
   });
 });
