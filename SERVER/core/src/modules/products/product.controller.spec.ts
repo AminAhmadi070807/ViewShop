@@ -18,7 +18,12 @@ describe('Test ( Product ) Controller', () => {
   const store = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
   const discount_percent = 0;
   const details = [
-    { id: crypto.randomUUID(), color: '', price: 100000000, stock: 1000 },
+    {
+      id: crypto.randomUUID(),
+      color: 'f48533d3-cc90-4d78-b9ec-b85bfb261e53',
+      price: 100000000,
+      stock: 1000,
+    },
   ];
   const medias = [
     'a84db0d5-611b-4873-9dfc-93e350ef8c85',
@@ -54,6 +59,7 @@ describe('Test ( Product ) Controller', () => {
       medias,
       alias,
     });
+    console.log(result);
 
     if (result instanceof CustomException) throw result;
 

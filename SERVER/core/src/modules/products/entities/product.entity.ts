@@ -78,7 +78,7 @@ export class Product {
   @JoinColumn({ name: 'Brand_Product' })
   brand: Brand;
 
-  @OneToOne(() => Specification, { nullable: false })
+  @ManyToOne(() => Specification, { nullable: false })
   @JoinColumn({ name: 'Product_Specification' })
   specification: Specification;
 
