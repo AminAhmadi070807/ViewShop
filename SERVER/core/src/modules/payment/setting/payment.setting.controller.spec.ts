@@ -50,6 +50,12 @@ describe('Test ( Payment Setting ) Controller', () => {
 
     payment_id = result.body.id;
 
-    expect(result.body.id).toEqual(201);
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll();
+
+    expect(result.status).toEqual(200);
   });
 });
