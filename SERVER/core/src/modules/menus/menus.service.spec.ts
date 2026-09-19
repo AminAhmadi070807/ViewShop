@@ -64,4 +64,12 @@ describe('Test ( Menus ) Service', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(menu_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
