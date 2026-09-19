@@ -29,4 +29,12 @@ describe('Test ( Media ) Service', () => {
     await service.remove(media_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ path, user, title, type });
+
+    media_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
 });
