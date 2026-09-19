@@ -123,4 +123,18 @@ export class SalesService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async remove(id: string) {
+    try {
+      const result = await this.saleRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 200, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }

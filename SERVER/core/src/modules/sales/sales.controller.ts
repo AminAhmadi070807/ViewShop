@@ -27,4 +27,9 @@ export class SalesController {
   findAll() {
     return this.salesService.findAll();
   }
+
+  @MessagePattern('SALES:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.salesService.remove(data.id);
+  }
 }
