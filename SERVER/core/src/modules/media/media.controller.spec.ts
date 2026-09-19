@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { MediaController } from './media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Like ) Controller', () => {
   let module: TestingModule;
@@ -44,6 +45,14 @@ describe('Test ( Like ) Controller', () => {
 
   it('Test ( Search ) Controller', async () => {
     const result = await controller.search({ title });
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: media_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
