@@ -60,4 +60,10 @@ describe('Test ( Sale ) Controller', () => {
 
     expect(result.status).not.toEqual(200);
   });
+
+  it('Test ( Find User Sales ) Controller', async () => {
+    const result = await controller.findUserSale({ id: user, user: user });
+
+    expect(result.status).not.toEqual(200);
+  });
 });
