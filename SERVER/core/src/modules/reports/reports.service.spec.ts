@@ -30,4 +30,19 @@ describe('Test ( Report ) Service', () => {
     await service.remove(report_id);
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await service.create({
+      title,
+      description,
+      target,
+      user,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    report_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
