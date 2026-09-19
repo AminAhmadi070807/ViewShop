@@ -110,6 +110,18 @@ describe('Test ( Product ) Service', () => {
     expect(result.status).toEqual(204);
   });
 
+  it('Test ( Update Stock ) Feature', async () => {
+    const result = await service.updateStock({
+      id: product_id,
+      stock: 10,
+      product_detail_id: details[0].id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
   it('Test ( Delete ) Feature', async () => {
     const result = await service.remove(product_id);
 
