@@ -4,6 +4,7 @@ import { MediaService } from './media.service';
 import { MediaDto } from './dto/media.dto';
 import { ValidateTitle } from '../../common/validations/title.dto';
 import { PageFilter } from '../../common/filters/page.filter';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class MediaController {
@@ -22,5 +23,10 @@ export class MediaController {
   @MessagePattern('MEDIA:SEARCH')
   search(@Payload() data: ValidateTitle) {
     return this.mediaService.search(data.title);
+  }
+
+  @MessagePattern('MEDIA:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.mediaService.remove(data.id);
   }
 }
