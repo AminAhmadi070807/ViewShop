@@ -15,25 +15,24 @@ export class MenusService {
 
   async create(data: MenuDto) {
     try {
-      const existing = await this.menuRepository.findOneBy({
+      const obj = {
         section: data.section,
         title: data.title,
         alias: data.alias,
-      });
+      };
+
+      const existing = await this.menuRepository.findOneBy(obj);
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
-      const menu = this.menuRepository.create({
-        title: data.title,
-        section: data.section,
-      });
+      const menu = this.menuRepository.create(obj);
 
       await this.menuRepository.save(menu);
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: null,
+        body: { id: menu.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -46,11 +45,7 @@ export class MenusService {
         order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -62,11 +57,7 @@ export class MenusService {
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -80,11 +71,7 @@ export class MenusService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -98,11 +85,7 @@ export class MenusService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

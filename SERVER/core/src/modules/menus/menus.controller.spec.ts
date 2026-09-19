@@ -1,12 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { MenusController } from './menus.controller';
+import { MenuSectionEnum } from '../../common/enums/sections/section.enum';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Menus ) Controller', () => {
   let module: TestingModule;
   let controller: MenusController;
 
-  let menus_id: string;
+  let menu_id: string;
+
+  const title: string = 'Unit Test';
+  const section: MenuSectionEnum = MenuSectionEnum.HEADER;
+  const alias: string = 'unit-test';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
@@ -18,7 +24,17 @@ describe('Test ( Menus ) Controller', () => {
   });
 
   afterAll(async () => {
-    await controller.remove({ id: menus_id });
+    await controller.remove({ id: menu_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ title, alias, section });
+
+    if (result instanceof CustomException) throw result;
+
+    menu_id = result.body.id;
+
+    expect(result.message).toBeDefined();
   });
 });
