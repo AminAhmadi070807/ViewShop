@@ -7,6 +7,8 @@ describe('Test ( NewsLetter ) Controller', () => {
   let module: TestingModule;
   let controller: OrderController;
 
+  let order_id: string;
+
   const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
   const address: string = '499b6fc9-2f5a-4a5d-899b-c7e5e32aab4d';
 
@@ -20,6 +22,7 @@ describe('Test ( NewsLetter ) Controller', () => {
   });
 
   afterAll(async () => {
+    await controller.remove({ id: order_id });
     await module.close();
   });
 
@@ -27,5 +30,9 @@ describe('Test ( NewsLetter ) Controller', () => {
     const result = await controller.create({ user, address });
 
     if (result instanceof CustomException) throw result;
+
+    order_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
