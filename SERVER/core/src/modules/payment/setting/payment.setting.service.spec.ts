@@ -56,4 +56,12 @@ describe('Test ( Payment Setting ) Feature', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Feature', async () => {
+    const result = await service.findOne(payment_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
