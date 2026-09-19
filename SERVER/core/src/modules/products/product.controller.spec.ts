@@ -80,4 +80,20 @@ describe('Test ( Product ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: product_id,
+      details,
+      medias,
+      title,
+      description,
+      specification,
+      discount_percent,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
