@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { OrderController } from './order.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 
 describe('Test ( NewsLetter ) Controller', () => {
   let module: TestingModule;
@@ -48,5 +49,16 @@ describe('Test ( NewsLetter ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      status: OrderStatusEnum.WAITING,
+      id: order_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
