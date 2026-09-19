@@ -31,4 +31,21 @@ describe('Test ( Sale ) Service', () => {
     await service.remove(sale_id);
     await module.close();
   });
+
+  it('Test ( Sale ) Feature', async () => {
+    const result = await service.sale({
+      user,
+      quantity,
+      product_price,
+      price,
+      product,
+      product_detail_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    sale_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
 });
