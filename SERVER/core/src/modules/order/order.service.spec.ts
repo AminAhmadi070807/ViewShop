@@ -61,4 +61,12 @@ describe('Test ( Order ) Service', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Payment ) Feature', async () => {
+    const result = await service.payment({ id: order_id, user });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
