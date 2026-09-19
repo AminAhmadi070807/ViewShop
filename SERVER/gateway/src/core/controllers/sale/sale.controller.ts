@@ -21,16 +21,17 @@ export class SaleController {
   constructor(private readonly coreService: CoreService) {}
 
   @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
     { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findAll() {
     return this.coreService.send('SALES:FIND');
   }
 
   @Get('store/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
@@ -41,7 +42,6 @@ export class SaleController {
       enum: ['READ:SECTION'],
     },
   ])
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findStoreSales(@Param() data: ValidateUUID, @Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
@@ -52,6 +52,7 @@ export class SaleController {
   }
 
   @Get('user')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
@@ -62,7 +63,6 @@ export class SaleController {
       enum: ['READ:SECTION'],
     },
   ])
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
   findUserSales(@Req() req: express.Request) {
     const user = req.user as JwtPayload;
 
@@ -70,6 +70,22 @@ export class SaleController {
       user: user.userId,
       id: user.userId,
     });
+  }
+
+  @Get('/:id')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
+  findOne(@Body() data: ValidateUUID) {
+    return this.coreService.send('SALES:ONE', data);
   }
 
   @Delete()
