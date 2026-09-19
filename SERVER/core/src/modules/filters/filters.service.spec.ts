@@ -52,4 +52,17 @@ describe('Test ( Filters ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: filter_id,
+      type,
+      details,
+      title,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
