@@ -234,7 +234,7 @@ export class OrderService {
       });
 
       if (!result) {
-        return new CustomException(statusMessages.fa['404'], 404);
+        return { status: 409, message: statusMessages.fa['409'], body: null };
       }
 
       await this.orderRepository.delete(id);

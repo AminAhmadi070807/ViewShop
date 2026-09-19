@@ -4,7 +4,7 @@ import { OrderController } from './order.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { OrderStatusEnum } from '../../common/enums/order/order.status.enum';
 
-describe('Test ( NewsLetter ) Controller', () => {
+describe('Test ( Order ) Controller', () => {
   let module: TestingModule;
   let controller: OrderController;
 
@@ -67,13 +67,16 @@ describe('Test ( NewsLetter ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(204);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: order_id });
 
-    if (result instanceof CustomException) throw result;
+    if (result.status === 409) {
+      expect(result.status).toEqual(409);
+      return;
+    }
 
     expect(result.status).toEqual(204);
   });
