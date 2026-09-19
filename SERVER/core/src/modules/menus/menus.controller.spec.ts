@@ -37,4 +37,10 @@ describe('Test ( Menus ) Controller', () => {
 
     expect(result.message).toBeDefined();
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll();
+
+    expect(result.message).toBeDefined();
+  });
 });
