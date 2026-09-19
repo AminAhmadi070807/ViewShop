@@ -1,0 +1,33 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { ReportsController } from './reports.controller';
+import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { ReportsService } from './reports.service';
+
+describe('Test ( Report ) Service', () => {
+  let module: TestingModule;
+  let service: ReportsService;
+
+  let report_id: string;
+
+  const title: string = 'Unit Test';
+  const description: string = 'unit test description';
+  const target: string = 'aa3d8798-06ef-445d-8781-2df58cba302b';
+  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
+
+  const answer = 'ok see you later';
+
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.restoreAllMocks());
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    service = module.get<ReportsService>(ReportsService);
+  });
+
+  afterAll(async () => {
+    await service.remove(report_id);
+    await module.close();
+  });
+});
