@@ -50,4 +50,10 @@ describe('Test ( Payment Setting ) Feature', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
+
+    expect(result.status).toEqual(200);
+  });
 });
