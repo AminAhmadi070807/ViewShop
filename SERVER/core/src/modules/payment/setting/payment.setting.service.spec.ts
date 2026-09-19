@@ -76,4 +76,12 @@ describe('Test ( Payment Setting ) Feature', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Update Status ) Feature', async () => {
+    const result = await service.updateStatus(payment_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
