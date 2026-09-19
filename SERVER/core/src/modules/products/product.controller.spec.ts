@@ -1,24 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { PaymentController } from './payment.controller';
+import { ProductController } from './product.controller';
 
-describe('Test ( Payment ) Controller', () => {
+describe('Test ( Product ) Controller', () => {
   let module: TestingModule;
-  let controller: PaymentController;
+  let controller: ProductController;
 
-  let payment_id: string;
-
-  beforeEach(() => jest.restoreAllMocks());
+  beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
-    controller = module.get<PaymentController>(PaymentController);
+    controller = module.get<ProductController>(ProductController);
   });
 
   afterAll(async () => {
-    // await service.remove(payment_id);
     await module.close();
   });
 });

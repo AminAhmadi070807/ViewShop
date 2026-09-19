@@ -28,9 +28,6 @@ export class PaymentService {
       const payment = await this.paymentSettingService.findOne(data.payment);
 
       if (payment instanceof CustomException) return payment;
-      else if (!payment.body.status) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
 
       return this.separator(payment.body.alias, data.user, data.amount);
     } catch {
