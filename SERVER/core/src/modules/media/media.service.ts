@@ -16,23 +16,19 @@ export class MediaService {
 
   async create(data: MediaDto) {
     try {
-      const media: Media = this.mediaRepository.create({
+      const result = this.mediaRepository.create({
         path: data.path,
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
         title: data.title,
         type: data.type,
       });
 
-      const save: Media = await this.mediaRepository.save(media);
+      await this.mediaRepository.save(result);
 
       return {
         status: 200,
         message: statusMessages.fa['201'],
-        body: {
-          id: save.id,
-        },
+        body: { id: result.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
