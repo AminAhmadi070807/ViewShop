@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NewsletterController } from './newsletter.controller';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { NewsletterService } from './newsletter.service';
 
 describe('Test ( NewsLetter ) Service', () => {
   let module: TestingModule;
-  let controller: NewsletterController;
+  let service: NewsletterService;
 
   let newsletter_id: string;
 
@@ -16,11 +17,21 @@ describe('Test ( NewsLetter ) Service', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
-    controller = module.get<NewsletterController>(NewsletterController);
+    service = module.get<NewsletterService>(NewsletterService);
   });
 
   afterAll(async () => {
-    await controller.remove({ id: newsletter_id });
+    await service.remove(newsletter_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ email });
+
+    if (result instanceof CustomException) throw result;
+
+    newsletter_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
