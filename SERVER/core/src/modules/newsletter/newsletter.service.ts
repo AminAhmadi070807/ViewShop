@@ -35,18 +35,12 @@ export class NewsletterService {
 
   async findAll(page: number = 1) {
     try {
-      const newsletters = await this.newsletterRepository.find({
+      const result = await this.newsletterRepository.find({
         take: (page ?? 1) * 15,
-        order: {
-          createdAt: 'DESC',
-        },
+        order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: newsletters,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -60,11 +54,7 @@ export class NewsletterService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
