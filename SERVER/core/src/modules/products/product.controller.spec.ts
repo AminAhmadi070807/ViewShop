@@ -82,6 +82,18 @@ describe('Test ( Product ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Update Stock ) Feature', async () => {
+    const result = await controller.updateStock({
+      id: product_id,
+      stock: 10,
+      product_detail_id: details[0].id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Update ) Controller', async () => {
     const result = await controller.update({
       id: product_id,
@@ -107,18 +119,6 @@ describe('Test ( Product ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Update Stock ) Feature', async () => {
-    const result = await service.updateStock({
-      id: product_id,
-      stock: 10,
-      product_detail_id: details[0].id,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(200);
   });
 
   it('Test ( Delete ) Controller', async () => {
