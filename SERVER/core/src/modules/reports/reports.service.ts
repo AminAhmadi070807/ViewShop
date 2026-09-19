@@ -116,17 +116,11 @@ export class ReportsService {
 
       await this.reportsRepository.update(data.id, {
         answer: data.answer,
-        admin: {
-          id: data.user,
-        },
+        admin: { id: data.user },
         isAnswer: true,
       });
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

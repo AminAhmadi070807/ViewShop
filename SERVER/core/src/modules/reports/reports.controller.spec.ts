@@ -14,6 +14,8 @@ describe('Test ( Report ) Controller', () => {
   const target: string = 'aa3d8798-06ef-445d-8781-2df58cba302b';
   const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
 
+  const answer = 'ok see you later';
+
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
 
@@ -55,5 +57,13 @@ describe('Test ( Report ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Answer ) Controller', async () => {
+    const result = await controller.answer({ id: report_id, answer, user });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
