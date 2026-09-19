@@ -27,4 +27,14 @@ describe('Test ( Filters ) Controller', () => {
     await controller.remove({ id: filter_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ title, type, details });
+
+    if (result instanceof CustomException) throw result;
+
+    filter_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
