@@ -5,6 +5,7 @@ import {
   ProductDto,
   UpdateProductDto,
   UpdateStatusProductDto,
+  UpdateStockProductDto,
 } from './dto/product.dto';
 import { Validate } from '../../common/validations/validate.dto';
 import { ProductFilterDto } from '../search/dto/search.dto';
@@ -36,6 +37,11 @@ export class ProductController {
   @MessagePattern('PRODUCT:UPDATE:STATUS')
   updateStatus(@Payload() data: UpdateStatusProductDto) {
     return this.productService.updateStatus(data);
+  }
+
+  @MessagePattern('PRODUCT:UPDATE:STATUS')
+  updateStock(@Payload() data: UpdateStockProductDto) {
+    return this.productService.updateStock(data);
   }
 
   @MessagePattern('PRODUCT:DELETE')
