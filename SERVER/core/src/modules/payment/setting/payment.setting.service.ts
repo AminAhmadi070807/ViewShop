@@ -18,9 +18,14 @@ export class PaymentSettingService {
 
   async create(data: PaymentSettingDto) {
     try {
-      const existing = await this.paymentSettingRepository.findOneBy({
-        title: data.title,
-      });
+      const existing = await this.paymentSettingRepository.findOneBy([
+        {
+          title: data.title,
+        },
+        {
+          alias: data.alias,
+        },
+      ]);
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
@@ -32,8 +37,8 @@ export class PaymentSettingService {
       await this.paymentSettingRepository.save(result);
 
       return {
-        status: 200,
-        message: statusMessages.fa['200'],
+        status: 201,
+        message: statusMessages.fa['201'],
         body: { id: result.id },
       };
     } catch {

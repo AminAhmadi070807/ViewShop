@@ -12,11 +12,11 @@ describe('Test ( Payment Setting ) Controller', () => {
   const payment_key = crypto.randomUUID();
   const max_price = 100000000000000000;
   const details = [{ title: 'مسیر برگشت', pattern: 'uuu', value: '' }];
-  const call_back = 'https://sabzlearn.ir';
-  const alias = 'zomad';
+  const call_back = 'https://sabzlearn.ir/call-back/api';
+  const alias = 'ZOMAD';
   const title = 'زوماد';
-  const api = 'https://sabzlearn.ir';
-  const media = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
+  const api = 'https://sabzlearn.ir/api/api';
+  const media = '7c0d1017-5f27-4d25-84e8-f64fea649afb';
 
   beforeEach(() => jest.restoreAllMocks());
   afterEach(() => jest.restoreAllMocks());
