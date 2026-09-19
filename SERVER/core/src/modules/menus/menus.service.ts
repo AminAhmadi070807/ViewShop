@@ -30,8 +30,8 @@ export class MenusService {
       await this.menuRepository.save(menu);
 
       return {
-        status: 200,
-        message: statusMessages.fa['200'],
+        status: 201,
+        message: statusMessages.fa['201'],
         body: { id: menu.id },
       };
     } catch {
@@ -71,7 +71,7 @@ export class MenusService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return { status: 200, message: statusMessages.fa['200'], body: result };
+      return { status: 204, message: statusMessages.fa['204'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -85,7 +85,7 @@ export class MenusService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return { status: 200, message: statusMessages.fa['200'], body: result };
+      return { status: 204, message: statusMessages.fa['204'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
