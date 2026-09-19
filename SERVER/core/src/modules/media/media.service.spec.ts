@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { MediaController } from './media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { MediaService } from './media.service';
@@ -34,6 +33,12 @@ describe('Test ( Media ) Service', () => {
     const result = await service.create({ path, user, title, type });
 
     media_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });
