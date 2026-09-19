@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { ProductController } from './product.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { ProductStatusEnum } from '../../common/enums/products/product/status.enum';
 
 describe('Test ( Product ) Controller', () => {
   let module: TestingModule;
@@ -90,6 +91,17 @@ describe('Test ( Product ) Controller', () => {
       description,
       specification,
       discount_percent,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Status ) Controller', async () => {
+    const result = await controller.updateStatus({
+      id: product_id,
+      status: ProductStatusEnum.ACTIVE,
     });
 
     if (result instanceof CustomException) throw result;
