@@ -1,12 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NewsletterController } from './newsletter.controller';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( NewsLetter ) Controller', () => {
   let module: TestingModule;
   let controller: NewsletterController;
 
   let newsletter_id: string;
+
+  const email: string = 'viewshop@gmail.com';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -20,5 +23,15 @@ describe('Test ( NewsLetter ) Controller', () => {
   afterAll(async () => {
     await controller.remove({ id: newsletter_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ email });
+
+    if (result instanceof CustomException) throw result;
+
+    newsletter_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
