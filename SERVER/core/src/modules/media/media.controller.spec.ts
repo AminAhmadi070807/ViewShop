@@ -4,7 +4,7 @@ import { MediaController } from './media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 
-describe('Test ( Like ) Controller', () => {
+describe('Test ( Media ) Controller', () => {
   let module: TestingModule;
   let controller: MediaController;
 
@@ -54,6 +54,6 @@ describe('Test ( Like ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
   });
 });
