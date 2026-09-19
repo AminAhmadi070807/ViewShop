@@ -59,4 +59,12 @@ describe('Test ( Report ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Answer ) Controller', async () => {
+    const result = await service.answer({ id: report_id, answer, user });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
