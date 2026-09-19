@@ -41,4 +41,10 @@ describe('Test ( Like ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Search ) Controller', async () => {
+    const result = await controller.search({ title });
+
+    expect(result.status).toEqual(200);
+  });
 });
