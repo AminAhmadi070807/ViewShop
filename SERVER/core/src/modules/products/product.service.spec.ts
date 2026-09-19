@@ -82,4 +82,20 @@ describe('Test ( Product ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: product_id,
+      details,
+      medias,
+      title,
+      description,
+      specification,
+      discount_percent,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
