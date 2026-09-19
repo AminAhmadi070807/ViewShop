@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FiltersController } from './filters.controller';
 import { AppModule } from '../../app.module';
 import { FilterTypeEnum } from '../../common/enums/filters/filter.enum';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
