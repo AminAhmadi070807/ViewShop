@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { LikeService } from './like.service';
 
-describe('Test ( Like ) Controller', () => {
+describe('Test ( Like ) Service', () => {
   let module: TestingModule;
   let service: LikeService;
 
@@ -21,5 +22,13 @@ describe('Test ( Like ) Controller', () => {
   afterAll(async () => {
     await service.toggle({ product, user });
     await module.close();
+  });
+
+  it('Test ( Toggle ) Feature', async () => {
+    const result = await service.toggle({ product, user });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
   });
 });
