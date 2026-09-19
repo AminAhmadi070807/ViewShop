@@ -228,11 +228,16 @@ export class OrderService {
 
   async remove(id: string) {
     try {
-      const result = await this.orderRepository.delete(id);
+      const result = await this.orderRepository.findOneBy({
+        id,
+        status: OrderStatusEnum.FAILED,
+      });
 
-      if (!result.affected) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
+
+      await this.orderRepository.delete(id);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
