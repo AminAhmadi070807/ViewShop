@@ -6,7 +6,7 @@ describe('Test ( Sale ) Controller', () => {
   let module: TestingModule;
   let controller: SalesController;
 
-  let report_id: string;
+  let sale_id: string;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
@@ -18,6 +18,7 @@ describe('Test ( Sale ) Controller', () => {
   });
 
   afterAll(async () => {
+    await controller.remove({ id: sale_id });
     await module.close();
   });
 });
