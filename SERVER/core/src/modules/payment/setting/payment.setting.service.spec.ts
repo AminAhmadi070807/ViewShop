@@ -84,4 +84,12 @@ describe('Test ( Payment Setting ) Feature', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(payment_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
