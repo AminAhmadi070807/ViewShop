@@ -83,6 +83,14 @@ describe('Test ( Product ) Service', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Find By Ids ) Feature', async () => {
+    const result = await service.findById([product_id]);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: product_id,
