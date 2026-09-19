@@ -191,3 +191,14 @@ export class UpdateStatusProductDto {
   @IsEnum(ProductStatusEnum, { message: 'وضیعت وحصول نامعتبر است' })
   status: ProductStatusEnum;
 }
+
+export class UpdateStockProductDto {
+  @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
+  id: string;
+
+  @IsUUID('4', { message: 'شناسه دیتا نامعتبر است' })
+  product_detail_id: string;
+
+  @IsNumber({}, { message: 'موجودی محصول باید نامبر باشد' })
+  stock: number;
+}

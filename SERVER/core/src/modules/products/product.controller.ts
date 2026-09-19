@@ -39,7 +39,7 @@ export class ProductController {
     return this.productService.updateStatus(data);
   }
 
-  @MessagePattern('PRODUCT:UPDATE:STATUS')
+  @MessagePattern('PRODUCT:UPDATE:STOCK')
   updateStock(@Payload() data: UpdateStockProductDto) {
     return this.productService.updateStock(data);
   }
