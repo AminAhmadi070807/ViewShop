@@ -35,4 +35,10 @@ describe('Test ( Like ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
+  });
 });
