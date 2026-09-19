@@ -67,7 +67,7 @@ export class ProductService {
         store: store.body,
         details: data.details.map((item) => {
           return {
-            id: crypto.randomUUID(),
+            id: item.id ?? crypto.randomUUID(),
             price: item.price,
             stock: item.stock,
             color: item.color,

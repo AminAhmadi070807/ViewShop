@@ -91,6 +91,18 @@ describe('Test ( Product ) Service', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Update Stock ) Feature', async () => {
+    const result = await service.updateStock({
+      id: product_id,
+      stock: 10,
+      product_detail_id: details[0].id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: product_id,
@@ -111,18 +123,6 @@ describe('Test ( Product ) Service', () => {
     const result = await service.updateStatus({
       id: product_id,
       status: ProductStatusEnum.ACTIVE,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Update Stock ) Feature', async () => {
-    const result = await service.updateStock({
-      id: product_id,
-      stock: 10,
-      product_detail_id: details[0].id,
     });
 
     if (result instanceof CustomException) throw result;
