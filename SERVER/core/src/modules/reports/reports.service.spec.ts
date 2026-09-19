@@ -67,4 +67,12 @@ describe('Test ( Report ) Service', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await service.remove(report_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
