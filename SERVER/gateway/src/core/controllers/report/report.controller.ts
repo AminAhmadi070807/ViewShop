@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { AnswerReportDto, ReportDto } from './report.dto';
 import express from 'express';
@@ -28,18 +37,8 @@ export class ReportController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'REPORT',
-      enum: ['REPORT'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'REPORT', enum: ['REPORT'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: ReportDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
@@ -55,18 +54,8 @@ export class ReportController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'REPORT',
-      enum: ['REPORT'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'REPORT', enum: ['REPORT'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('REPORT:FIND');
@@ -79,12 +68,7 @@ export class ReportController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'REPORT',
-      enum: ['REPORT'],
-    },
+    { name: 'feature', required: true, example: 'REPORT', enum: ['REPORT'] },
     {
       name: 'permission',
       required: true,
@@ -96,6 +80,20 @@ export class ReportController {
     return this.coreService.send('REPORT:ONE', data);
   }
 
+  @Delete()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'REPORT', enum: ['REPORT'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('REPORT:DELETE', data);
+  }
+
   @Patch()
   @ApiOkResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
@@ -104,18 +102,8 @@ export class ReportController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'REPORT',
-      enum: ['REPORT'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'REPORT', enum: ['REPORT'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   answer(@Body() data: AnswerReportDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
