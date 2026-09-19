@@ -42,4 +42,10 @@ describe('Test ( Media ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Search ) Feature', async () => {
+    const result = await service.search(title);
+
+    expect(result.status).toEqual(200);
+  });
 });
