@@ -15,6 +15,7 @@ describe('Test ( Sale ) Controller', () => {
   const price = 30000000;
   const product_price = 10000000;
   const product_detail_id = '407bba8d-635c-4da1-a973-7231e8d584e3';
+  const store = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
@@ -63,6 +64,12 @@ describe('Test ( Sale ) Controller', () => {
 
   it('Test ( Find User Sales ) Controller', async () => {
     const result = await controller.findUserSale({ id: user, user: user });
+
+    expect(result.status).not.toEqual(200);
+  });
+
+  it('Test ( Find Store Sales ) Controller', async () => {
+    const result = await controller.findUserSale({ id: store, user: user });
 
     expect(result.status).not.toEqual(200);
   });
