@@ -46,7 +46,7 @@ describe('Test ( Product ) Controller', () => {
     await module.close();
   });
 
-  it('Test ( Product ) Controller', async () => {
+  it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       title,
       description,
@@ -59,12 +59,17 @@ describe('Test ( Product ) Controller', () => {
       medias,
       alias,
     });
-    console.log(result);
 
     if (result instanceof CustomException) throw result;
 
     product_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
   });
 });
