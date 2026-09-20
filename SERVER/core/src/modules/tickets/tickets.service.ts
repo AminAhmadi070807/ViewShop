@@ -15,21 +15,19 @@ export class TicketsService {
 
   async create(data: TicketDto) {
     try {
-      const ticket: Ticket = this.ticketRepository.create({
+      const result: Ticket = this.ticketRepository.create({
         title: data.title,
         description: data.description,
         department: data.department,
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
       });
 
-      await this.ticketRepository.save(ticket);
+      await this.ticketRepository.save(result);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: result.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);

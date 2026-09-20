@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { TicketsService } from './tickets.service';
 import { TicketDto, UpdateTicketDto } from './dto/ticket.dto';
 import { PageFilter } from '../../common/filters/page.filter';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
 export class TicketsController {
@@ -19,8 +20,8 @@ export class TicketsController {
   }
 
   @MessagePattern('TICKETS:ONE')
-  findOne(@Payload() id: string) {
-    return this.ticketsService.findOne(id);
+  findOne(@Payload() data: Validate) {
+    return this.ticketsService.findOne(data.id);
   }
 
   @MessagePattern('TICKETS:UPDATE')
@@ -29,7 +30,7 @@ export class TicketsController {
   }
 
   @MessagePattern('TICKETS:DELETE')
-  remove(@Payload() id: string) {
-    return this.ticketsService.remove(id);
+  remove(@Payload() data: Validate) {
+    return this.ticketsService.remove(data.id);
   }
 }

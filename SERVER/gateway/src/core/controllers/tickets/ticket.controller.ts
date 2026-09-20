@@ -36,18 +36,8 @@ export class TicketController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'TICKET',
-      enum: ['TICKET'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'TICKET', enum: ['TICKET'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: TicketDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
