@@ -3,15 +3,16 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { GuardController } from './guard.controller';
+import { GuardEnum } from '../../../common/enums/guards/guards/guard.enum';
 
 describe('Test ( Guard ) Controller', () => {
   let module: TestingModule;
   let controller: GuardController;
 
-  let feature_id: string;
+  let guard_id: string;
 
-  const title = 'Unit Test';
-  const role_id = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
+  const permission: string = '1acf6d34-45a2-484e-8c0b-03ac544f660e';
+  const feature: string = '8e566a93-4cfb-473c-9ac1-68c8efa22824';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -23,7 +24,23 @@ describe('Test ( Guard ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: feature_id });
+    controller.remove({ id: guard_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({
+        permission,
+        feature,
+        service: GuardEnum.GUARDS,
+        method: GuardEnum.GUARDS,
+        public: true,
+      }),
+    )) as ResultInterface;
+
+    if (result.status === 201) guard_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });

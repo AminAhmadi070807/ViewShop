@@ -1,7 +1,6 @@
 export enum GuardEnum {
   CORE = 'CORE',
   GUARDS = 'GUARDS',
-  PAYMENT = 'PAYMENT',
 }
 
 export enum MethodEnum {
