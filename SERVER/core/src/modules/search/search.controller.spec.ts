@@ -1,6 +1,7 @@
 import { SearchController } from './search.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Search ) Controller', () => {
   let controller: SearchController;
@@ -32,6 +33,14 @@ describe('Test ( Search ) Controller', () => {
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: search_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
