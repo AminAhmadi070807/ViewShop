@@ -68,4 +68,12 @@ describe('Test ( Story ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.remove({ id: story_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
