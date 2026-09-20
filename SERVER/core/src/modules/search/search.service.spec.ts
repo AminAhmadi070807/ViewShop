@@ -36,4 +36,12 @@ describe('Test ( Search ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(search_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
