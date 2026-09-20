@@ -87,8 +87,8 @@ export class TicketsService {
       await this.ticketRepository.save(ticket);
 
       return {
-        status: 200,
-        message: statusMessages.fa['200'],
+        status: 204,
+        message: statusMessages.fa['204'],
         body: ticket,
       };
     } catch {
