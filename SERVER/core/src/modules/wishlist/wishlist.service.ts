@@ -25,21 +25,15 @@ export class WishlistService {
 
       const existing = await this.wishlistRepository.findOne({
         where: {
-          user: {
-            id: data.user,
-          },
-          product: {
-            id: data.product,
-          },
+          user: { id: data.user },
+          product: { id: data.product },
         },
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const wishlist = this.wishlistRepository.create({
-        user: {
-          id: data.user,
-        },
+        user: { id: data.user },
         product: product.body.product,
         title: data.title,
       });
@@ -49,7 +43,7 @@ export class WishlistService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: wishlist.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
