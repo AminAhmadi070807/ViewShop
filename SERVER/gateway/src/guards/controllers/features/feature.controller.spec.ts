@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FeatureController } from './feature.controller';
 import { AppModule } from '../../../app.module';
+import { firstValueFrom } from 'rxjs';
+import { ResultInterface } from '../../../common/interface/result.interface';
 
 describe('Test ( Create ) Controller', () => {
   let module: TestingModule;
   let controller: FeatureController;
 
   let feature_id: string;
+
+  const title = 'Unit Test';
+  const role_id = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -18,7 +23,17 @@ describe('Test ( Create ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: feature_id });
+    // controller.remove({ id: feature_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title, roles: [role_id] }),
+    )) as ResultInterface;
+
+    if (result.status === 201) feature_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
