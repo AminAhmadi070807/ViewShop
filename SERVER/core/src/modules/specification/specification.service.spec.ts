@@ -52,4 +52,12 @@ describe('Test ( Specification ) Service ', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(specification_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
