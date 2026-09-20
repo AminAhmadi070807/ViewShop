@@ -9,6 +9,7 @@ describe('Test ( User ) Controller', () => {
   let controller: UserController;
 
   const user_id = crypto.randomUUID();
+  const role: string = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -43,6 +44,14 @@ describe('Test ( User ) Controller', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findOne({ id: user_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update Role ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.updateRole({ user: user_id, role }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
