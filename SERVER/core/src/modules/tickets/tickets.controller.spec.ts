@@ -55,4 +55,16 @@ describe('Test ( Tickets ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await controller.update({
+      id: ticket_id,
+      user,
+      description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
