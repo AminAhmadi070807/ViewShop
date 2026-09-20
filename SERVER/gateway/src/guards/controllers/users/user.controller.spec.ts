@@ -8,7 +8,7 @@ describe('Test ( User ) Controller', () => {
   let module: TestingModule;
   let controller: UserController;
 
-  let user_id: string = crypto.randomUUID();
+  const user_id = crypto.randomUUID();
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -22,5 +22,13 @@ describe('Test ( User ) Controller', () => {
   afterAll(async () => {
     controller.remove({ id: user_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ id: user_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(201);
   });
 });
