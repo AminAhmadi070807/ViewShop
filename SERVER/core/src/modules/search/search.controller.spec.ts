@@ -24,7 +24,7 @@ describe('Test ( Search ) Controller', () => {
   });
 
   it('Test ( Search ) Controller', async () => {
-    const result = await controller.search({});
+    const result = await controller.search({ title: 'unit test' });
 
     search_id = result.body.id;
 
@@ -42,6 +42,6 @@ describe('Test ( Search ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
   });
 });
