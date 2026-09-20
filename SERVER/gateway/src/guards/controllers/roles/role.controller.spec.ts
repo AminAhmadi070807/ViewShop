@@ -8,7 +8,7 @@ describe('Test ( Role ) Controller', () => {
   let module: TestingModule;
   let controller: RoleController;
 
-  let permission_id: string;
+  let role_id: string;
 
   const title: string = 'Unit Test';
   const description: string = 'Unit Test description for roles';
@@ -23,7 +23,7 @@ describe('Test ( Role ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: permission_id });
+    controller.remove({ id: role_id });
     await module.close();
   });
 
@@ -32,7 +32,7 @@ describe('Test ( Role ) Controller', () => {
       controller.create({ title, description }),
     )) as ResultInterface;
 
-    if (result.status === 201) permission_id = result.body.id;
+    if (result.status === 201) role_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
@@ -40,6 +40,14 @@ describe('Test ( Role ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: role_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
