@@ -90,4 +90,10 @@ describe('Test ( Setting ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Empty ) Controller', async () => {
+    const result = await controller.empty();
+
+    expect(result.status).toEqual(204);
+  });
 });
