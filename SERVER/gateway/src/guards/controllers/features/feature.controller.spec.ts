@@ -4,7 +4,7 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 
-describe('Test ( Create ) Controller', () => {
+describe('Test ( Feature ) Controller', () => {
   let module: TestingModule;
   let controller: FeatureController;
 
@@ -55,7 +55,7 @@ describe('Test ( Create ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update({ id: feature_id, title }),
+      controller.update({ id: feature_id, title, roles: [role_id] }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
