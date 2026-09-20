@@ -26,7 +26,7 @@ export class SettingsService {
     }
   }
 
-  async find() {
+  async findAll() {
     try {
       const result = await this.settingRepository.find();
 

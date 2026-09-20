@@ -13,8 +13,8 @@ export class SettingsController {
   }
 
   @MessagePattern('SETTING:FIND')
-  find() {
-    return this.settingsService.find();
+  findAll() {
+    return this.settingsService.findAll();
   }
 
   @MessagePattern('SETTING:EMPTY')
