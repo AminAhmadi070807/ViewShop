@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UpdateWishlistDto, WishlistDto } from './dto/wishlist.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wishlist } from './entities/wishlist.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ProductService } from '../products/product.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
@@ -24,10 +24,7 @@ export class WishlistService {
       if (product instanceof RpcException) return product;
 
       const existing = await this.wishlistRepository.findOne({
-        where: {
-          user: { id: data.user },
-          product: { id: data.product },
-        },
+        where: { user: { id: data.user }, product: { id: data.product } },
       });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
@@ -52,16 +49,12 @@ export class WishlistService {
 
   async findAll(page: number = 1) {
     try {
-      const wishlist: Wishlist[] = await this.wishlistRepository.find({
+      const result = await this.wishlistRepository.find({
         take: (page ?? 1) * 15,
         order: { createdAt: 'DESC' },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: wishlist,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -70,10 +63,7 @@ export class WishlistService {
   async findOne(data: Validate) {
     try {
       const result = await this.wishlistRepository.findOne({
-        where: {
-          id: data.id,
-          user: { id: data.user },
-        },
+        where: { id: data.id, user: { id: data.user } },
         relations: ['product', 'user', 'product.store'],
         select: {
           product: {
@@ -92,11 +82,7 @@ export class WishlistService {
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: result,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -104,22 +90,15 @@ export class WishlistService {
 
   async update(data: UpdateWishlistDto) {
     try {
-      const result: UpdateResult = await this.wishlistRepository.update(
-        data.id,
-        {
-          title: data.title,
-        },
-      );
+      const result = await this.wishlistRepository.update(data.id, {
+        title: data.title,
+      });
 
       if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -127,16 +106,13 @@ export class WishlistService {
 
   async remove(data: Validate) {
     try {
-      await this.wishlistRepository.delete({
-        id: data.id,
-        user: { id: data.user },
-      });
+      const result = await this.wishlistRepository.delete(data.id);
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
