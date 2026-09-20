@@ -54,4 +54,16 @@ describe('Test ( Users ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: user_id,
+      fullName,
+      user: user_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
