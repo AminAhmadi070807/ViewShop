@@ -4,7 +4,7 @@ import { StoreController } from './store.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
-describe('Test ( Specification ) Controller', () => {
+describe('Test ( Store ) Controller', () => {
   let module: TestingModule;
   let controller: StoreController;
 
@@ -13,7 +13,7 @@ describe('Test ( Specification ) Controller', () => {
   const title: string = 'Unit Test';
   const description: string =
     'unit test store description about unit test category and products';
-  const logo: string = '4768afb7-031c-4d23-b11f-8781efb4ce11';
+  const logo: string = '45c10326-79e9-453f-9890-e725a95ef4f8';
   const cell_phone = '09999999999';
   const categories = ['bd015464-eb0e-46c1-b5fe-bfbb4a2ea674'];
 

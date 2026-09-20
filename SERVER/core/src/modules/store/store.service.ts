@@ -40,14 +40,12 @@ export class StoreService {
         categories: categories.body,
       });
 
-      const newStore: Store = await this.storeRepository.save(store);
+      await this.storeRepository.save(store);
 
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: {
-          id: newStore.id,
-        },
+        body: { id: store.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -56,7 +54,7 @@ export class StoreService {
 
   async findAll(page: number = 1) {
     try {
-      const stores: Store[] = await this.storeRepository.find({
+      const result: Store[] = await this.storeRepository.find({
         take: (page ?? 1) * 15,
         order: { createdAt: 'DESC' },
         relations: ['logo', 'categories'],
@@ -66,11 +64,7 @@ export class StoreService {
         },
       });
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: stores,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -89,11 +83,7 @@ export class StoreService {
 
       if (!store) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: store,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: store };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -103,9 +93,7 @@ export class StoreService {
     try {
       const media = await this.mediaService.findId([data.logo]);
 
-      if (media instanceof RpcException) {
-        return new CustomException(statusMessages.fa['404'], 404);
-      }
+      if (media instanceof RpcException) return media;
 
       const result = await this.storeRepository.update(
         { id: data.id },
@@ -120,11 +108,7 @@ export class StoreService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
