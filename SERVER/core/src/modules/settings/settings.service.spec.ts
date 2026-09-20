@@ -78,4 +78,10 @@ describe('Test ( Setting ) Service', () => {
     await controller.empty();
     await module.close();
   });
+
+  it('Test ( Set ) Controller', async () => {
+    const result = await controller.setting(data);
+
+    expect(result.status).toEqual(200);
+  });
 });
