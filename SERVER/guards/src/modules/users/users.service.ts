@@ -48,18 +48,12 @@ export class UsersService {
 
   async findAll() {
     try {
-      const users: User[] = await this.userRepository.find({
+      const users = await this.userRepository.find({
         relations: ['role'],
-        select: {
-          role: { id: true, title: true },
-        },
+        select: { role: { id: true, title: true } },
       });
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        body: users,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: users };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

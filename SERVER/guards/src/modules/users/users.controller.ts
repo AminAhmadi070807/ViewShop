@@ -23,7 +23,7 @@ export class UsersController {
     return this.usersService.findOne(data.id);
   }
 
-  @MessagePattern('USER:UPDATE:ROLE')
+  @MessagePattern('USER:TOGGLE:ROLE')
   updateRole(@Payload() data: UpdateUserDto) {
     return this.usersService.updateRole(data);
   }

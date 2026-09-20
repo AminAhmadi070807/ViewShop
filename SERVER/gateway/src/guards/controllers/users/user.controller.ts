@@ -41,7 +41,7 @@ export class UserController {
     { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
-    return this.guardsService.send('USER:DELETE');
+    return this.guardsService.send('USER:FIND');
   }
 
   @Get(':id')
