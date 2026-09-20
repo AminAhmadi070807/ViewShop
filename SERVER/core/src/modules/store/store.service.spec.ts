@@ -61,4 +61,17 @@ describe('Test ( Store ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: store_id,
+      logo,
+      title,
+      description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
