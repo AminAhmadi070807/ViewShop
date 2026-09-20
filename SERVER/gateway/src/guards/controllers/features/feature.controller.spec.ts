@@ -60,4 +60,12 @@ describe('Test ( Create ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: feature_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
