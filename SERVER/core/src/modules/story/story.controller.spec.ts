@@ -48,7 +48,15 @@ describe('Test ( Story ) Controller', () => {
   });
 
   it('Test ( FindAll ) Controller', async () => {
-    const result = await controller.findAll();
+    const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: story_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
