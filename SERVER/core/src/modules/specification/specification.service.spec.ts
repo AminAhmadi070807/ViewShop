@@ -1,0 +1,32 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../app.module';
+import { SpecificationService } from './specification.service';
+
+describe('Test ( Specification ) Service ', () => {
+  let module: TestingModule;
+  let service: SpecificationService;
+
+  let specification_id: string;
+
+  const title: string = 'Unit Test Specification';
+  const details = [
+    {
+      title: 'unit test 1',
+      details: [{ title: 'unit test', value: 'unit test' }],
+    },
+  ];
+
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    service = module.get<SpecificationService>(SpecificationService);
+  });
+
+  afterAll(async () => {
+    await service.remove(specification_id);
+    await module.close();
+  });
+});
