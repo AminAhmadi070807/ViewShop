@@ -29,4 +29,17 @@ describe('Test ( Tickets ) Service', () => {
     await service.remove(ticket_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      user,
+      title,
+      department,
+      description,
+    });
+
+    ticket_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
