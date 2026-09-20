@@ -49,7 +49,7 @@ describe('Test ( Store ) Service', () => {
   });
 
   it('Test ( FindAll ) Feature', async () => {
-    const result = await service.findAll({});
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });
@@ -87,7 +87,7 @@ describe('Test ( Store ) Service', () => {
   });
 
   it('Test ( Delete ) Feature', async () => {
-    const result = await service.remove({ id: store_id });
+    const result = await service.remove(store_id);
 
     if (result instanceof CustomException) throw result;
 
