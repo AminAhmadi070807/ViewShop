@@ -8,7 +8,7 @@ describe('Test ( Singular ) Controller', () => {
   let module: TestingModule;
   let controller: SingularController;
 
-  let role_id: string;
+  let singular_id: string;
 
   const permission: string = '1acf6d34-45a2-484e-8c0b-03ac544f660e';
   const feature: string = '8e566a93-4cfb-473c-9ac1-68c8efa22824';
@@ -24,7 +24,7 @@ describe('Test ( Singular ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: role_id });
+    controller.remove({ id: singular_id });
     await module.close();
   });
 
@@ -36,7 +36,7 @@ describe('Test ( Singular ) Controller', () => {
       }),
     )) as ResultInterface;
 
-    if (result.status === 201) role_id = result.body.id;
+    if (result.status === 201) singular_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
@@ -46,6 +46,14 @@ describe('Test ( Singular ) Controller', () => {
       controller.findAll(),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Toggle Access ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.toggleAccess({ role, permission, id: singular_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
   });
 });
