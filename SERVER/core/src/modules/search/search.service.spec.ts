@@ -23,10 +23,16 @@ describe('Test ( Search ) Service', () => {
     await module.close();
   });
 
-  it('Test ( Search ) Controller', async () => {
+  it('Test ( Search ) Feature', async () => {
     const result = await service.search({ title: 'unit test' });
 
     search_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });
