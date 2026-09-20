@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 describe('Test ( Users ) Service', () => {
