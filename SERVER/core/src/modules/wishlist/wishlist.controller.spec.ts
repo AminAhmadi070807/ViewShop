@@ -50,4 +50,12 @@ describe('Test ( Wishlist ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update )', async () => {
+    const result = await controller.update({ id: wishlist_id, title });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
