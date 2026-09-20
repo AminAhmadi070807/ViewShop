@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { WishlistService } from './wishlist.service';
 
 describe('Test ( Wishlist ) Service', () => {
@@ -24,5 +25,15 @@ describe('Test ( Wishlist ) Service', () => {
   afterAll(async () => {
     await service.remove({ id: wishlist_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ user, product, title });
+
+    if (result instanceof CustomException) throw result;
+
+    wishlist_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
