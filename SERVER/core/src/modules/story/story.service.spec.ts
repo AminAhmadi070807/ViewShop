@@ -29,4 +29,21 @@ describe('Test ( Story ) Service', () => {
     await service.remove(story_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      title,
+      user,
+      product,
+      banner,
+      video,
+      category,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    story_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
