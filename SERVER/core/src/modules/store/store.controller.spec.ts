@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { StoreController } from './store.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 describe('Test ( Specification ) Controller', () => {
   let module: TestingModule;
@@ -66,6 +67,17 @@ describe('Test ( Specification ) Controller', () => {
       logo,
       title,
       description,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Status ) Controller', async () => {
+    const result = await controller.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.DELETED,
     });
 
     if (result instanceof CustomException) throw result;
