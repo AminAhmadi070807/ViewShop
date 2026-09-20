@@ -56,4 +56,12 @@ describe('Test ( Singular ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: singular_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
