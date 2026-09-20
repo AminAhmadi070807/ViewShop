@@ -33,5 +33,13 @@ describe('Test ( Wishlist ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     wishlist_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll )', async () => {
+    const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
   });
 });
