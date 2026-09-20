@@ -23,7 +23,7 @@ describe('Test ( Create ) Controller', () => {
   });
 
   afterAll(async () => {
-    // controller.remove({ id: feature_id });
+    controller.remove({ id: feature_id });
     await module.close();
   });
 
@@ -35,5 +35,13 @@ describe('Test ( Create ) Controller', () => {
     if (result.status === 201) feature_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });
