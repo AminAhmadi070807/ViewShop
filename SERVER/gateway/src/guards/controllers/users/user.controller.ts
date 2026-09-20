@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
@@ -20,26 +20,28 @@ import { UserDto } from './user.dto';
 export class UserController {
   constructor(private readonly guardsService: GuardsService) {}
 
+  @Post()
+  @ApiOkResponse({ description: statusMessages.fa['201'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
+  ])
+  create(@Body() data: ValidateUUID) {
+    return this.guardsService.send('USER:CREATE', data);
+  }
+
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'USERS',
-      enum: ['USERS'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
-    return this.guardsService.send('USER:FIND');
+    return this.guardsService.send('USER:DELETE');
   }
 
   @Get(':id')
@@ -104,5 +106,16 @@ export class UserController {
   ])
   toggleBanned(@Body() data: ValidateUUID) {
     return this.guardsService.send('USER:TOGGLE:BANNED', data);
+  }
+
+  @Get()
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.guardsService.send('USER:DELETE', data);
   }
 }

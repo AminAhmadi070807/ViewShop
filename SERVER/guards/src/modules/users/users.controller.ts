@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UsersService } from './users.service';
-import { UpdateUserDto, UserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 import { ValidateUUID } from '../../common/validations/id.dto';
 
 @Controller()
@@ -9,7 +9,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @MessagePattern('USER:CREATE')
-  create(@Payload() data: UserDto) {
+  create(@Payload() data: ValidateUUID) {
     return this.usersService.create(data);
   }
 

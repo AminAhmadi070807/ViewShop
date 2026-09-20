@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { UserDto, UpdateUserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -17,7 +17,7 @@ export class UsersService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async create(data: UserDto) {
+  async create(data: ValidateUUID) {
     try {
       const existing = await this.userRepository.findOneBy({ id: data.id });
 
