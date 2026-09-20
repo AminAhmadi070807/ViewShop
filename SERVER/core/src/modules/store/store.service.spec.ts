@@ -31,4 +31,20 @@ describe('Test ( Store ) Service', () => {
     await service.remove(store_id);
     await module.close();
   });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      title,
+      description,
+      logo,
+      cell_phone,
+      categories,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    store_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
