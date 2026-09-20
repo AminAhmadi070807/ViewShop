@@ -10,8 +10,10 @@ describe('Test ( Guards ) Controller ', () => {
 
   let guard_id: string;
 
-  const permission_id: string = '1acf6d34-45a2-484e-8c0b-03ac544f660e';
-  const feature_id: string = '8e566a93-4cfb-473c-9ac1-68c8efa22824';
+  const permission: string = '1acf6d34-45a2-484e-8c0b-03ac544f660e';
+  const feature: string = '8e566a93-4cfb-473c-9ac1-68c8efa22824';
+  const method: MethodEnum = MethodEnum.POST;
+  const service: GuardEnum = GuardEnum.GUARDS;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -27,10 +29,10 @@ describe('Test ( Guards ) Controller ', () => {
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       public: false,
-      permission: permission_id,
-      feature: feature_id,
-      method: MethodEnum.POST,
-      service: GuardEnum.GUARDS,
+      permission,
+      feature,
+      method,
+      service,
     });
 
     if (result instanceof CustomException) return result;

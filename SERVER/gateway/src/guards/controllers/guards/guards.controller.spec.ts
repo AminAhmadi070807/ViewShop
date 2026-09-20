@@ -3,7 +3,10 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { GuardController } from './guard.controller';
-import { GuardEnum } from '../../../common/enums/guards/guards/guard.enum';
+import {
+  GuardEnum,
+  MethodEnum,
+} from '../../../common/enums/guards/guards/guard.enum';
 
 describe('Test ( Guard ) Controller', () => {
   let module: TestingModule;
@@ -13,6 +16,8 @@ describe('Test ( Guard ) Controller', () => {
 
   const permission: string = '1acf6d34-45a2-484e-8c0b-03ac544f660e';
   const feature: string = '8e566a93-4cfb-473c-9ac1-68c8efa22824';
+  const method: MethodEnum = MethodEnum.POST;
+  const service: GuardEnum = GuardEnum.GUARDS;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -33,9 +38,9 @@ describe('Test ( Guard ) Controller', () => {
       controller.create({
         permission,
         feature,
-        service: GuardEnum.GUARDS,
-        method: GuardEnum.GUARDS,
-        public: true,
+        service,
+        method,
+        public: false,
       }),
     )) as ResultInterface;
 
