@@ -22,4 +22,12 @@ describe('Test ( Search ) Service', () => {
     await service.remove(search_id);
     await module.close();
   });
+
+  it('Test ( Search ) Controller', async () => {
+    const result = await service.search({ title: 'unit test' });
+
+    search_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
 });
