@@ -18,4 +18,15 @@ describe('Test ( Users ) Controller', () => {
   afterAll(async () => {
     await module.close();
   });
+
+  it('Test ( Charge ) Controller', async () => {
+    const result = await controller.charge({
+      user: '70ffcfcf-baab-4937-8269-2d80574dab56',
+      amount: 100000,
+      key: 'none',
+      service: 'test',
+    });
+
+    expect(result.status).toEqual(200);
+  });
 });
