@@ -26,4 +26,18 @@ describe('Test ( Users ) Controller', () => {
     await controller.remove({ id: user_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({
+      phone,
+      password,
+      fullName,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
