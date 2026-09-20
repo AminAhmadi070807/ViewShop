@@ -28,7 +28,7 @@ export class TargetService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: null,
+        body: { id: target.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);

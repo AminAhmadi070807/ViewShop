@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { TargetController } from './target.controller';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Store ) Controller', () => {
   let module: TestingModule;
@@ -20,5 +21,15 @@ describe('Test ( Store ) Controller', () => {
   afterAll(async () => {
     await controller.remove({ id: target_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await controller.create({ title: 'Unit Test' });
+
+    if (result instanceof CustomException) throw result;
+
+    target_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
