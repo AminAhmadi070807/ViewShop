@@ -84,7 +84,7 @@ export class SettingsService {
         },
       );
 
-      return { status: 204, message: statusMessages.fa['200'], body: null };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
