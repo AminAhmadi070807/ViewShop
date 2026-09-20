@@ -13,7 +13,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class InformationDto {
+class Information {
   @IsNotEmpty({ message: 'عنوان کامل فروشگاه نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان کامل باید رشته باشد' })
   full_title: string;
@@ -39,7 +39,7 @@ class InformationDto {
   email: string;
 }
 
-class JournalDto {
+class Journal {
   @IsNotEmpty({ message: 'عنوان مجله نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان مجله باید رشته باشد' })
   title: string;
@@ -49,7 +49,7 @@ class JournalDto {
   description: string;
 }
 
-class LocationDto {
+class Location {
   @IsLatitude({ message: 'عرض جرغرافیای نامعتبر است' })
   Latitude: string;
 
@@ -57,7 +57,7 @@ class LocationDto {
   Longitude: string;
 }
 
-class AddressDto {
+class Address {
   @IsNotEmpty({ message: 'ادرس کامل نمیتواند خالی باشد' })
   @IsString({ message: 'ادرس کامل باید رشته باشد' })
   full_address: string;
@@ -79,8 +79,8 @@ class AddressDto {
 
   @IsNotEmpty({ message: 'لوکیشن نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => LocationDto)
-  location: LocationDto;
+  @Type(() => Location)
+  location: Location;
 }
 
 class Scripts {
@@ -103,7 +103,7 @@ class Scripts {
   union: string;
 }
 
-class SocialMediaDto {
+class SocialMedia {
   @IsNotEmpty({ message: 'شناسه انستاگرام نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه انستاگرام اختیاری است' })
   instagram?: string;
@@ -133,7 +133,7 @@ class SocialMediaDto {
   rubika?: string;
 }
 
-class LinksDto {
+class Links {
   @IsUrl(
     { require_protocol: true },
     { message: 'لینک مستقیم نمیتواند خالی باشد' },
@@ -162,7 +162,7 @@ class LinksDto {
   sibApp?: string;
 }
 
-class SupportDto {
+class Support {
   @IsNotEmpty({ message: 'وضیعت دکمه شناور پشتیبانی نمیتواند خالی باشد' })
   @IsBoolean({ message: 'وضیعت دکمه شناور پشتیبانی نامعتبر است' })
   status: boolean;
@@ -184,7 +184,7 @@ class SupportDto {
   telegram?: string;
 }
 
-class RepairDto {
+class Repair {
   @IsNotEmpty({ message: 'وضیعت حالت تعمیر نمیتواند خالی باشد' })
   @IsBoolean({ message: 'وضیعت حالت تعمیر نامعتبر است' })
   status: boolean;
@@ -194,7 +194,7 @@ class RepairDto {
   title: string;
 }
 
-class LogoDto {
+class Logo {
   @IsUUID('4', { message: 'شناسه لوگو نامعتبر است' })
   logo: string;
 
@@ -211,18 +211,18 @@ class LogoDto {
 export class SettingDto {
   @IsNotEmpty({ message: 'اطلاعات فروشگاه نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => InformationDto)
-  information: InformationDto;
+  @Type(() => Information)
+  information: Information;
 
   @IsNotEmpty({ message: 'مجله نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => JournalDto)
-  journalDto: JournalDto;
+  @Type(() => Journal)
+  journal: Journal;
 
   @IsNotEmpty({ message: 'ادرس نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => AddressDto)
-  addressDto: AddressDto;
+  @Type(() => Address)
+  address: Address;
 
   @IsNotEmpty({ message: 'اسکریپت نمیتواند خالی باشد' })
   @ValidateNested()
@@ -231,26 +231,26 @@ export class SettingDto {
 
   @IsNotEmpty({ message: 'شبکه اجتماعی نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => SocialMediaDto)
-  socialMediaDto: SocialMediaDto;
+  @Type(() => SocialMedia)
+  social_media: SocialMedia;
 
   @IsNotEmpty({ message: 'لینک برنامه نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => LinksDto)
-  link: LinksDto;
+  @Type(() => Links)
+  links: Links;
 
   @IsNotEmpty({ message: 'پشتیبانی نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => SupportDto)
-  supportDto: SupportDto;
+  @Type(() => Support)
+  support: Support;
 
   @IsNotEmpty({ message: 'حالت تعمیر نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => RepairDto)
-  repairDto: RepairDto;
+  @Type(() => Repair)
+  repair: Repair;
 
   @IsNotEmpty({ message: 'لوگو نمیتواند خالی باشد' })
   @ValidateNested()
-  @Type(() => LogoDto)
-  logo: LogoDto;
+  @Type(() => Logo)
+  logo: Logo;
 }
