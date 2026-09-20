@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { TargetController } from './target.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { TargetService } from './target.service';
 
-describe('Test ( Store ) Service', () => {
+describe('Test ( Target ) Service', () => {
   let module: TestingModule;
   let service: TargetService;
 

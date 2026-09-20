@@ -3,7 +3,7 @@ import { AppModule } from '../../app.module';
 import { TargetController } from './target.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 
-describe('Test ( Store ) Controller', () => {
+describe('Test ( Target ) Controller', () => {
   let module: TestingModule;
   let controller: TargetController;
 
