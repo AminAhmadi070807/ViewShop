@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { SpecificationService } from './specification.service';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Specification ) Service ', () => {
   let module: TestingModule;
@@ -28,5 +29,13 @@ describe('Test ( Specification ) Service ', () => {
   afterAll(async () => {
     await service.remove(specification_id);
     await module.close();
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({ title, details });
+
+    specification_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
