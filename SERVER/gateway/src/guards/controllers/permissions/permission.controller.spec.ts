@@ -51,4 +51,12 @@ describe('Test ( Permission ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: permission_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
