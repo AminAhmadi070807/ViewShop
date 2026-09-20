@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { StoreController } from './store.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 import { StoreService } from './store.service';
