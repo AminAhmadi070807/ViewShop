@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SettingsController } from './settings.controller';
 import { AppModule } from '../../app.module';
+import { SettingsService } from './settings.service';
 
 describe('Test ( Setting ) Service', () => {
   let module: TestingModule;
-  let controller: SettingsController;
+  let service: SettingsService;
 
   const data = {
     social_media: {
@@ -71,28 +71,28 @@ describe('Test ( Setting ) Service', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
-    controller = module.get<SettingsController>(SettingsController);
+    service = module.get<SettingsService>(SettingsService);
   });
 
   afterAll(async () => {
-    await controller.empty();
+    await service.empty();
     await module.close();
   });
 
-  it('Test ( Set ) Controller', async () => {
-    const result = await controller.setting(data);
+  it('Test ( Set ) Feature', async () => {
+    const result = await service.setting(data);
 
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( FindAll ) Controller', async () => {
-    const result = await controller.findAll();
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });
 
-  it('Test ( Empty ) Controller', async () => {
-    const result = await controller.empty();
+  it('Test ( Empty ) Feature', async () => {
+    const result = await service.empty();
 
     expect(result.status).toEqual(204);
   });
