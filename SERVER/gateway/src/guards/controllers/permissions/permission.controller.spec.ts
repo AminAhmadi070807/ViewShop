@@ -43,4 +43,12 @@ describe('Test ( Permission ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: permission_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
