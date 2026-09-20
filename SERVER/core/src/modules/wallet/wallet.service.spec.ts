@@ -9,6 +9,7 @@ describe('Test ( Wallet ) Service', () => {
 
   const user = '70ffcfcf-baab-4937-8269-2d80574dab56';
   const amount = 100000000000;
+  const key = crypto.randomUUID();
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -24,12 +25,7 @@ describe('Test ( Wallet ) Service', () => {
   });
 
   it('Test ( Charge ) Feature', async () => {
-    const result = await service.charge({
-      user,
-      amount,
-      key: 'none',
-      service: 'test',
-    });
+    const result = await service.charge({ user, amount, key, service: 'test' });
 
     expect(result.status).toEqual(200);
   });

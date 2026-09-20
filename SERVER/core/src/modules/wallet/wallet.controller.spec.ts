@@ -6,6 +6,10 @@ describe('Test ( Wallet ) Controller', () => {
   let module: TestingModule;
   let controller: WalletController;
 
+  const user = '70ffcfcf-baab-4937-8269-2d80574dab56';
+  const amount = 100000000000;
+  const key = crypto.randomUUID();
+
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -21,9 +25,9 @@ describe('Test ( Wallet ) Controller', () => {
 
   it('Test ( Charge ) Controller', async () => {
     const result = await controller.charge({
-      user: '70ffcfcf-baab-4937-8269-2d80574dab56',
-      amount: 100000,
-      key: 'none',
+      user,
+      amount,
+      key,
       service: 'test',
     });
 
