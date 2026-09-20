@@ -21,4 +21,12 @@ describe('Test ( Search ) Controller', () => {
     await controller.remove({ id: search_id });
     await module.close();
   });
+
+  it('Test ( Search ) Controller', async () => {
+    const result = await controller.search({});
+
+    search_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
 });

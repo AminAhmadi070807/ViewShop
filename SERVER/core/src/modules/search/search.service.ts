@@ -38,10 +38,14 @@ export class SearchService {
         search: data.title,
       });
 
+      let search_id: string;
+
       if (existing) {
         existing.numberOfSearch = +existing.numberOfSearch + 1;
 
         await this.searchRepository.save(existing);
+
+        search_id = existing.id;
       } else {
         const newSearch: Search = this.searchRepository.create({
           numberOfSearch: 1,
@@ -49,6 +53,8 @@ export class SearchService {
         });
 
         await this.searchRepository.save(newSearch);
+
+        search_id = newSearch.id;
       }
 
       const productResult = await this.productService.findAll(data);
@@ -56,7 +62,10 @@ export class SearchService {
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: productResult.body,
+        body: {
+          id: search_id,
+          products: productResult.body,
+        },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -71,11 +80,7 @@ export class SearchService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

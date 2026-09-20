@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Query,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import {
   ProductDto,
@@ -31,7 +22,6 @@ import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
-import { ProductFilterDto } from '../search/search.dto';
 
 @Controller('core/product')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -74,8 +64,8 @@ export class ProductController {
       enum: ['READ'],
     },
   ])
-  findAll(@Query() data: ProductFilterDto) {
-    return this.coreService.send('PRODUCT:FIND', data);
+  findAll() {
+    return this.coreService.send('PRODUCT:FIND');
   }
 
   @Get('/:id')
@@ -150,12 +140,7 @@ export class ProductController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'PRODUCT',
-      enum: ['PRODUCT'],
-    },
+    { name: 'feature', required: true, example: 'PRODUCT', enum: ['PRODUCT'] },
     {
       name: 'permission',
       required: true,
