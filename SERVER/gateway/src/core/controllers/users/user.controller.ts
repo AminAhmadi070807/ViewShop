@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { UserUpdateValidator, UserValidator } from './user.dto';
 import {
@@ -100,5 +109,19 @@ export class UsersController {
   ])
   update(@Body() data: UserUpdateValidator) {
     return this.coreService.send('USER:UPDATE', data);
+  }
+
+  @Delete()
+  @ApiOkResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('USER:DELETE', data);
   }
 }

@@ -65,7 +65,7 @@ describe('Test ( Tickets ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete ) Feature', async () => {

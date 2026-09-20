@@ -97,9 +97,12 @@ export class UsersService {
 
   async remove(data: Validate) {
     try {
+      await this.walletRepository.delete({ user: { id: data.id } });
       const user = await this.userRepository.delete(data.id);
 
-      if (!user.affected) return new CustomException(statusMessages.fa['404'], 404);
+      if (!user.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
 
       return { status: 204, message: statusMessages.fa['200'], body: null };
     } catch {
