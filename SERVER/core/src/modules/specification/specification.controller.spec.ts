@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SpecificationController } from './specification.controller';
 import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
 
 describe('Test ( Specification ) Controller', () => {
   let module: TestingModule;
@@ -40,6 +41,14 @@ describe('Test ( Specification ) Controller', () => {
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: specification_id });
+
+    if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
   });
