@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { SalesFeature } from './sales.Feature';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { SalesService } from './sales.service';
 
