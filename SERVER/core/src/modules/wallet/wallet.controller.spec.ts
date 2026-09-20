@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { WalletController } from './wallet.controller';
 
-describe('Test ( Users ) Controller', () => {
+describe('Test ( Wallet ) Controller', () => {
   let module: TestingModule;
   let controller: WalletController;
 
