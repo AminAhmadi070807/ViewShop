@@ -10,6 +10,8 @@ describe('Test ( Permission ) Controller', () => {
 
   let permission_id: string;
 
+  const title: string = 'Unit Test';
+
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -22,5 +24,15 @@ describe('Test ( Permission ) Controller', () => {
   afterAll(async () => {
     controller.remove({ id: permission_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title }),
+    )) as ResultInterface;
+
+    if (result.status === 201) permission_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
