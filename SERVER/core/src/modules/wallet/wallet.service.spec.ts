@@ -29,4 +29,10 @@ describe('Test ( Wallet ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindAll ) Feature', async () => {
+    const result = await service.findAll();
+
+    expect(result.status).toEqual(200);
+  });
 });
