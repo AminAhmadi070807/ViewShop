@@ -1,0 +1,29 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../app.module';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { UsersController } from './users.controller';
+
+describe('Test ( Users ) Controller', () => {
+  let module: TestingModule;
+  let controller: UsersController;
+
+  let user_id: string;
+
+  const phone = '09990009999';
+  const fullName = 'کاربر تستی';
+  const password = '000000000';
+
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    controller = module.get<UsersController>(UsersController);
+  });
+
+  afterAll(async () => {
+    await controller.remove({ id: user_id });
+    await module.close();
+  });
+});

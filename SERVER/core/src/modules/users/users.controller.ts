@@ -29,4 +29,9 @@ export class UsersController {
   update(@Payload() data: UpdateUserDto) {
     return this.usersService.update(data);
   }
+
+  @MessagePattern('USER:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.usersService.remove(data);
+  }
 }

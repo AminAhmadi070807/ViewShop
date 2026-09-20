@@ -94,4 +94,16 @@ export class UsersService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async remove(data: Validate) {
+    try {
+      const user = await this.userRepository.delete(data.id);
+
+      if (!user.affected) return new CustomException(statusMessages.fa['404'], 404);
+
+      return { status: 204, message: statusMessages.fa['200'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }

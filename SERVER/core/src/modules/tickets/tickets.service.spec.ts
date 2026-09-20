@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { TicketsController } from './tickets.controller';
 import { TicketsDepartmentEnum } from '../../common/enums/tickets/tickets.enum';
 import { TicketsService } from './tickets.service';
 
