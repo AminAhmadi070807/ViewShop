@@ -37,4 +37,9 @@ export class StoreController {
   updateStatus(@Payload() data: UpdateStoreStatusDto) {
     return this.storeService.updateStatus(data);
   }
+
+  @MessagePattern('STORE:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.storeService.remove(data.id);
+  }
 }

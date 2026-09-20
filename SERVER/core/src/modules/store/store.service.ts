@@ -13,6 +13,7 @@ import { MediaService } from '../media/media.service';
 import { RpcException } from '@nestjs/microservices';
 import { CategoriesService } from '../categories/category/categories.service';
 import { Validate } from '../../common/validations/validate.dto';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 @Injectable()
 export class StoreService {
@@ -145,19 +146,14 @@ export class StoreService {
     }
   }
 
-  async remove(id: string, input: string) {
+  async remove(id: string) {
     try {
-      if (input !== 'test') {
-        return new CustomException(
-          'قابلیت حذف فروشگاه در حالت تست وجود دارد',
-          404,
-        );
-      }
+      const result = await this.storeRepository.findOneBy({ id });
 
-      const result = await this.storeRepository.delete(id);
-
-      if (!result.affected) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
+      } else if (result.status !== StoreStatusEnum.DELETED) {
+        return new CustomException(statusMessages.fa['403'], 403);
       }
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
