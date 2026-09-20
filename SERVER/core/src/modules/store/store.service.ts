@@ -139,11 +139,28 @@ export class StoreService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async remove(id: string, input: string) {
+    try {
+      if (input !== 'test') {
+        return new CustomException(
+          'قابلیت حذف فروشگاه در حالت تست وجود دارد',
+          404,
+        );
+      }
+
+      const result = await this.storeRepository.delete(id);
+
+      if (!result.affected) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
