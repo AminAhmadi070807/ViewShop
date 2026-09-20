@@ -16,4 +16,9 @@ export class SettingsController {
   find() {
     return this.settingsService.find();
   }
+
+  @MessagePattern('SETTING:EMPTY')
+  empty() {
+    return this.settingsService.empty();
+  }
 }
