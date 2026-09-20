@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { StoreDto, UpdateStoreDto, UpdateStoreStatusDto } from './store.dto';
 import {
@@ -29,18 +38,8 @@ export class StoreController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'STORE',
-      enum: ['STORE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: StoreDto) {
     return this.coreService.send('STORE:CREATE', data);
@@ -51,18 +50,8 @@ export class StoreController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'STORE',
-      enum: ['STORE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('STORE:FIND');
@@ -73,12 +62,7 @@ export class StoreController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'STORE',
-      enum: ['STORE'],
-    },
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
     {
       name: 'permission',
       required: true,
@@ -98,18 +82,8 @@ export class StoreController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'STORE',
-      enum: ['STORE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateStoreDto) {
     return this.coreService.send('STORE:UPDATE', data);
@@ -122,12 +96,7 @@ export class StoreController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'STORE',
-      enum: ['STORE'],
-    },
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
     {
       name: 'permission',
       required: true,
@@ -137,5 +106,19 @@ export class StoreController {
   ])
   updateStatus(@Body() data: UpdateStoreStatusDto) {
     return this.coreService.send('STORE:STATUS', data);
+  }
+
+  @Delete()
+  @ApiNoContentResponse({ description: statusMessages.fa['204'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'STORE', enum: ['STORE'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('STORE:DELETE', data);
   }
 }

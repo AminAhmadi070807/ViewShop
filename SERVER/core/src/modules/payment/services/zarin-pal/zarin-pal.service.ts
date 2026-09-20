@@ -156,6 +156,7 @@ export class ZarinPalService implements OnModuleInit {
           amount: data.amount,
           callback_url: this.callback_url,
           merchant_id: this.key,
+          currency: 'IRT',
           description: 'شارژگردن کیف پول کاربر',
         }),
       });

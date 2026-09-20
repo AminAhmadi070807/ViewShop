@@ -38,7 +38,7 @@ describe('Test ( Wishlist ) Service', () => {
   });
 
   it('Test ( FindAll ) Feature', async () => {
-    const result = await service.findAll({});
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });

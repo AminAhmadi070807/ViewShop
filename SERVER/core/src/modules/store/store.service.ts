@@ -140,6 +140,8 @@ export class StoreService {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
+      await this.storeRepository.delete(id);
+
       return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);

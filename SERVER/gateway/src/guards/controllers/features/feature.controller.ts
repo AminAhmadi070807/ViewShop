@@ -34,18 +34,8 @@ export class FeatureController {
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FEATURE',
-      enum: ['FEATURE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'FEATURE', enum: ['FEATURE'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: FeatureDto) {
     return this.guardService.send('FEATURE:CREATE', data);
@@ -54,18 +44,8 @@ export class FeatureController {
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FEATURE',
-      enum: ['FEATURE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'FEATURE', enum: ['FEATURE'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.guardService.send('FEATURE:FIND');
@@ -75,12 +55,7 @@ export class FeatureController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FEATURE',
-      enum: ['FEATURE'],
-    },
+    { name: 'feature', required: true, example: 'FEATURE', enum: ['FEATURE'] },
     {
       name: 'permission',
       required: true,
@@ -96,18 +71,8 @@ export class FeatureController {
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FEATURE',
-      enum: ['UPDATE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'FEATURE', enum: ['UPDATE'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateFeatureDto) {
     return this.guardService.send('FEATURE:UPDATE', data);
@@ -116,20 +81,10 @@ export class FeatureController {
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FEATURE',
-      enum: ['FEATURE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
-    },
+    { name: 'feature', required: true, example: 'FEATURE', enum: ['FEATURE'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.guardService.send('FEATURE:DELETE', data);
   }
 }
