@@ -55,4 +55,17 @@ describe('Test ( Users ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Feature', async () => {
+    const result = await service.update({
+      id: user_id,
+      fullName,
+      user: user_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
 });
