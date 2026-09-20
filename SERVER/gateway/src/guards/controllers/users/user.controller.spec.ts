@@ -54,6 +54,14 @@ describe('Test ( User ) Controller', () => {
       controller.updateRole({ user: user_id, role }),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Toggle Banned ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.toggleBanned({ id: user_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
   });
 });
