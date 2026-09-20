@@ -60,4 +60,12 @@ describe('Test ( Story ) Service', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Like ) Feature', async () => {
+    const result = await service.findOne(story_id, true);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
 });
