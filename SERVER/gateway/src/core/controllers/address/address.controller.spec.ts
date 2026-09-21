@@ -16,11 +16,11 @@ describe('Test ( Address ) Controller', () => {
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
   const city: string = 'خوی';
-  const postal_code: string = '12345678910';
+  const postal_code: string = '0123456789';
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
-  const req = { user: { user_id } };
+  const req = { user: { userId: user_id, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -32,7 +32,7 @@ describe('Test ( Address ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: user_id }, req);
+    controller.remove({ id: address_id }, req);
     await module.close();
   });
 
@@ -47,5 +47,13 @@ describe('Test ( Address ) Controller', () => {
     if (result.status === 201) address_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });

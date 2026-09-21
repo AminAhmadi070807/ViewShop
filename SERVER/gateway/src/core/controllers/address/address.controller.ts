@@ -90,7 +90,7 @@ export class AddressController {
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   remove(@Body() data: ValidateUUID, @Req() req: express.Request) {
-    const user: JwtPayload = req.user as JwtPayload;
+    const user = req.user as JwtPayload;
 
     return this.coreService.send('ADDRESS:DELETE', {
       id: data.id,

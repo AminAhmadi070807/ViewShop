@@ -92,7 +92,7 @@ export class AddressDto {
     example: '0123456789',
     description: 'postal code value',
   })
-  @IsNotEmpty({ message: 'کد پستی نمیتواند خالی باشد' })
-  @Matches(/^[0-9]{10}$/, { message: 'لطفا یه کد پستی درست وارد کنید' })
+  @IsNotEmpty({ message: 'کد پستی نامعتبر است' })
+  @Matches(/^[0-9]{10}$/, { message: 'کد پستی نامعتبر است' })
   postal_code: string;
 }
