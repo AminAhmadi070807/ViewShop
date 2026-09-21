@@ -25,4 +25,14 @@ describe('Test ( NewsLetter ) Controller', () => {
     controller.remove({ id: newsletter_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ email }),
+    )) as ResultInterface;
+
+    if (result.status === 201) newsletter_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
