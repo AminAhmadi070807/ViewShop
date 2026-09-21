@@ -107,8 +107,14 @@ export class UsersController {
     { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
     { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
-  update(@Body() data: UserUpdateValidator) {
-    return this.coreService.send('USER:UPDATE', data);
+  update(@Body() data: UserUpdateValidator, @Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('USER:UPDATE', {
+      id: user.userId,
+      user: user.userId,
+      ...data,
+    });
   }
 
   @Delete()

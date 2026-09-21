@@ -53,16 +53,6 @@ export class UserValidator {
 
 export class UserUpdateValidator {
   @ApiProperty({
-    type: String,
-    nullable: false,
-    required: true,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'شناسه کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
-  id: string;
-
-  @ApiProperty({
     type: 'string',
     minLength: 8,
     maxLength: 50,

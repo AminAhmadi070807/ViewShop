@@ -2,11 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
-import { TicketsDepartmentEnum } from '../../../common/enums/core/tickets/tickets.enum';
-import { UserController } from '../../../guards/controllers/users/user.controller';
 import { UsersController } from './user.controller';
 
-describe('Test ( User ) Controller', () => {
+describe('Test ( Users ) Controller', () => {
   let module: TestingModule;
   let controller: UsersController;
 
@@ -61,7 +59,10 @@ describe('Test ( User ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update({ id: user_id, fullName }),
+      controller.update(
+        { fullName },
+        { user: { userId: user_id, role: 'ADMIN' } },
+      ),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
