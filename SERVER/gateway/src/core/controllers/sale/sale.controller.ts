@@ -114,12 +114,7 @@ export class SaleController {
     { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  remove(@Body() data: ValidateUUID, @Req() req: express.Request) {
-    const user = req.user as JwtPayload;
-
-    return this.coreService.send('SALES:DELETE', {
-      ...data,
-      user: user.userId,
-    });
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('SALES:DELETE', data);
   }
 }

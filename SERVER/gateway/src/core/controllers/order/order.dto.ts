@@ -27,7 +27,7 @@ export class UpdateOrderDto {
 
   @ApiProperty({
     type: String,
-    example: OrderStatusEnum.PENDING,
+    example: OrderStatusEnum.WAITING,
     nullable: false,
     required: true,
     enum: OrderStatusEnum,
