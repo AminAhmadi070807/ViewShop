@@ -89,4 +89,12 @@ describe('Test ( Addresses ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersController.remove({ id: address_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
