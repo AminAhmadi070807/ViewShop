@@ -57,4 +57,12 @@ describe('Test ( Attribute ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: subCategory_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
