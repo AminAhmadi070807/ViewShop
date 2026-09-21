@@ -42,7 +42,7 @@ describe('Test ( Cart ) Controller', () => {
       stock: 1000,
     },
   ];
-  const medias = [];
+  const medias: string[] = [];
   const alias: string = 'unit-controller-test-product';
 
   const quantity: number = 1;
@@ -111,8 +111,24 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
+  it('Test ( Create Brand ) Controller', async () => {
+    const result = await brandController.create({
+      logo: medias[0],
+      title,
+      description,
+      alias,
+      link: 'https://sabzlearn.ir',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    brand_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create Product ) Controller', async () => {
-    const result = await controller.create({
+    const result = await productController.create({
       title,
       description,
       brand: brand_id,
