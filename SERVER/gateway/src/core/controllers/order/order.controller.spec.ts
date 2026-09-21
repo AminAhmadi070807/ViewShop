@@ -1,0 +1,31 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../../app.module';
+import { firstValueFrom } from 'rxjs';
+import { ResultInterface } from '../../../common/interface/result.interface';
+import { OrderController } from './order.controller';
+
+describe('Test ( Order ) Controller', () => {
+  let module: TestingModule;
+  let controller: OrderController;
+
+  let order_id: string;
+
+  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
+  const address: string = '499b6fc9-2f5a-4a5d-899b-c7e5e32aab4d';
+
+  const req = { user: { userId: user, role: 'ADMIN' } };
+
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    controller = module.get<OrderController>(OrderController);
+  });
+
+  afterAll(async () => {
+    controller.remove({ id: order_id });
+    await module.close();
+  });
+});
