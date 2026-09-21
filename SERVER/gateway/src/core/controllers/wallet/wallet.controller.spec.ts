@@ -10,6 +10,8 @@ describe('Test ( Wallet ) Controller', () => {
 
   const user = '1c4b85ac-f889-4396-a98c-803e531037af';
 
+  const req = { user: { userId: user, role: 'ADMIN' } };
+
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -26,6 +28,14 @@ describe('Test ( Wallet ) Controller', () => {
       controller.findAll(),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne(req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });
