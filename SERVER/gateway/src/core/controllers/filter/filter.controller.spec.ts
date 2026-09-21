@@ -46,4 +46,12 @@ describe('Test ( Comment ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: filter_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
