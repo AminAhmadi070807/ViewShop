@@ -111,6 +111,27 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
+  it('Test ( Create Product ) Controller', async () => {
+    const result = await controller.create({
+      title,
+      description,
+      brand: brand_id,
+      userId: user_id,
+      store: store_id,
+      specification: specification_id,
+      discount_percent,
+      details,
+      medias,
+      alias,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    product_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       user: user_id,
