@@ -3,6 +3,7 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { StoreController } from './store.controller';
+import { StoreStatusEnum } from '../../../common/enums/store/store.status';
 
 describe('Test ( Store ) Controller', () => {
   let module: TestingModule;
@@ -60,6 +61,17 @@ describe('Test ( Store ) Controller', () => {
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.update({ id: store_id, logo, title }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Status ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.updateStatus({
+        id: store_id,
+        status: StoreStatusEnum.DELETED,
+      }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
