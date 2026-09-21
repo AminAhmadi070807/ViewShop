@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { OrderDto, UpdateOrderDto } from './order.dto';
 import express from 'express';
@@ -28,18 +37,8 @@ export class OrderController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ORDER',
-      enum: ['ORDER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: OrderDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
@@ -55,18 +54,8 @@ export class OrderController {
   @ApiForbiddenResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ORDER',
-      enum: ['ORDER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('ORDER:FIND');
@@ -79,12 +68,7 @@ export class OrderController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ORDER',
-      enum: ['ORDER'],
-    },
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
     {
       name: 'permission',
       required: true,
@@ -103,18 +87,8 @@ export class OrderController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ORDER',
-      enum: ['ORDER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateOrderDto) {
     return this.coreService.send('ORDER:UPDATE', data);
@@ -127,12 +101,7 @@ export class OrderController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ORDER',
-      enum: ['ORDER'],
-    },
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
     {
       name: 'permission',
       required: true,
@@ -142,5 +111,19 @@ export class OrderController {
   ])
   payment(@Body() data: ValidateUUID) {
     return this.coreService.send('ORDER:PAYMENT', data);
+  }
+
+  @Delete('payment')
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'ORDER', enum: ['ORDER'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('ORDER:DELETE', data);
   }
 }
