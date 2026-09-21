@@ -247,4 +247,15 @@ describe('Test ( Cart ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.DELETED,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
