@@ -80,4 +80,24 @@ describe('Test ( Product ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: product_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update Stock ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.updateStock({
+        id: product_id,
+        stock: 10,
+        product_detail_id: details[0].id,
+      }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
