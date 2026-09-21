@@ -3,6 +3,7 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { ProductController } from './product.controller';
+import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 
 describe('Test ( Product ) Controller', () => {
   let module: TestingModule;
@@ -111,6 +112,17 @@ describe('Test ( Product ) Controller', () => {
         medias,
         details,
         description,
+      }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Status ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.updateStatus({
+        id: product_id,
+        status: ProductStatusEnum.ACTIVE,
       }),
     )) as ResultInterface;
 
