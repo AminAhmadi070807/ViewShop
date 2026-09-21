@@ -1,0 +1,53 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../../app.module';
+import { firstValueFrom } from 'rxjs';
+import { ResultInterface } from '../../../common/interface/result.interface';
+import { ProductController } from './product.controller';
+
+describe('Test ( Product ) Controller', () => {
+  let module: TestingModule;
+  let controller: ProductController;
+
+  let order_id: string;
+
+  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
+
+  const title = 'unit test product';
+  const description =
+    'unit test product description this description for was unit test';
+  const brand = 'c8d1ea72-ee70-4f1e-a224-30ec3005db2e';
+  const userId = '70ffcfcf-baab-4937-8269-2d80574dab56';
+  const specification = 'ab7352d1-1925-42a8-8d7f-84cb300e1fec';
+  const store = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
+  const discount_percent = 0;
+  const details = [
+    {
+      id: crypto.randomUUID(),
+      color: 'f48533d3-cc90-4d78-b9ec-b85bfb261e53',
+      price: 100000000,
+      stock: 1000,
+    },
+  ];
+  const medias = [
+    'a84db0d5-611b-4873-9dfc-93e350ef8c85',
+    '1d60805f-2cd9-4dbb-be6f-8ce320d44229',
+    '6f9b7b2f-c60a-4dfe-909e-9107e9ccf9fd',
+  ];
+  const alias = 'unit-test-product';
+
+  const req = { user: { userId: user, role: 'ADMIN' } };
+
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    controller = module.get<ProductController>(ProductController);
+  });
+
+  afterAll(async () => {
+    controller.remove({ id: order_id });
+    await module.close();
+  });
+});

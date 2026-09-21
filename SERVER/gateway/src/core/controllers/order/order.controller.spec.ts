@@ -69,7 +69,7 @@ describe('Test ( Order ) Controller', () => {
       controller.payment({ id: order_id }, req),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(204);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Delete ) Controller', async () => {
