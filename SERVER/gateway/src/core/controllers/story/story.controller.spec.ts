@@ -59,4 +59,12 @@ describe('Test ( Story ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Like ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.like({ id: story_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
