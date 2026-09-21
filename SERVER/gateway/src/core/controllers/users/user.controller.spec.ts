@@ -58,4 +58,12 @@ describe('Test ( User ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update({ id: user_id, fullName }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
