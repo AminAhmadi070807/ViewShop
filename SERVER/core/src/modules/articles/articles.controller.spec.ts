@@ -204,4 +204,14 @@ describe('Test ( Article ) Controller', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete Category ) Controller', async () => {
+    const result = await categoryController.remove({
+      id: category_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
