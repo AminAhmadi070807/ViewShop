@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { UserController } from './user.controller';
 
-describe('Test ( User ) Controller', () => {
+describe('Test ( User => Guard ) Controller', () => {
   let module: TestingModule;
   let controller: UserController;
 
