@@ -8,7 +8,7 @@ describe('Test ( Sale ) Controller', () => {
   let module: TestingModule;
   let controller: SaleController;
 
-  let report_id: string;
+  let sale_id: string;
 
   const user = '1c4b85ac-f889-4396-a98c-803e531037af';
   const product = '3f5464f8-8d52-41df-8654-2da3fea81df0';
@@ -28,7 +28,7 @@ describe('Test ( Sale ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: report_id });
+    controller.remove({ id: sale_id });
     await module.close();
   });
 
@@ -44,7 +44,7 @@ describe('Test ( Sale ) Controller', () => {
       }),
     )) as ResultInterface;
 
-    if (result.status === 200) report_id = result.body.id;
+    if (result.status === 200) sale_id = result.body.id;
 
     expect(result.status).toEqual(200);
   });
@@ -52,6 +52,14 @@ describe('Test ( Sale ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: sale_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
