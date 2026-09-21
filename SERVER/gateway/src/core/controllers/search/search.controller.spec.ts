@@ -32,12 +32,20 @@ describe('Test ( Search ) Controller', () => {
     await module.close();
   });
 
-  it('Test ( Create ) Controller', async () => {
+  it('Test ( Search ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.search({ title }),
     )) as ResultInterface;
 
     if (result.status === 200) search_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
 
     expect(result.status).toEqual(200);
   });
