@@ -10,12 +10,15 @@ describe('Test ( Story ) Controller', () => {
 
   let story_id: string;
 
-  const title: string = 'Unit Test';
-  const description: string =
-    'unit test store description about unit test category and products';
-  const logo: string = '45c10326-79e9-453f-9890-e725a95ef4f8';
-  const cell_phone = '09999999999';
-  const categories = ['bd015464-eb0e-46c1-b5fe-bfbb4a2ea674'];
+  const user = '1c4b85ac-f889-4396-a98c-803e531037af';
+
+  const title = 'unit test';
+  const product = '3f5464f8-8d52-41df-8654-2da3fea81df0';
+  const banner = '8c97defa-1de2-4b30-b716-d63feeac003a';
+  const video = '5372b37e-7d4b-4b40-b16a-b53b4836bb00';
+  const category = 'bd015464-eb0e-46c1-b5fe-bfbb4a2ea674';
+
+  const req = { user: { userId: user, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -29,5 +32,15 @@ describe('Test ( Story ) Controller', () => {
   afterAll(async () => {
     controller.remove({ id: story_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title, category, video, banner, product }, req),
+    )) as ResultInterface;
+
+    if (result.status === 201) story_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
