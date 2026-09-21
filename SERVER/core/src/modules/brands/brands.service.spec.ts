@@ -102,9 +102,7 @@ describe('Test ( Brands ) Controller', () => {
   });
 
   it('Test ( Delete Media ) Controller', async () => {
-    const result = await mediaController.remove({
-      id: logo_id,
-    });
+    const result = await mediaService.remove(logo_id);
 
     if (result instanceof CustomException) throw result;
 
