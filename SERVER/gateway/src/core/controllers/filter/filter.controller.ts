@@ -36,18 +36,8 @@ export class FilterController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FILTER',
-      enum: ['FILTER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'FILTER', enum: ['FILTER'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: FilterDto) {
     return this.coreService.send('FILTER:CREATE', data);
@@ -58,18 +48,8 @@ export class FilterController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FILTER',
-      enum: ['FILTER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'FILTER', enum: ['FILTER'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('FILTER:FIND');
@@ -82,12 +62,7 @@ export class FilterController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FILTER',
-      enum: ['FILTER'],
-    },
+    { name: 'feature', required: true, example: 'FILTER', enum: ['FILTER'] },
     {
       name: 'permission',
       required: true,
@@ -106,18 +81,8 @@ export class FilterController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FILTER',
-      enum: ['FILTER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'FILTER', enum: ['FILTER'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateFilterDto) {
     return this.coreService.send('FILTER:UPDATE', data);
@@ -130,20 +95,10 @@ export class FilterController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'FILTER',
-      enum: ['FILTER'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
-    },
+    { name: 'feature', required: true, example: 'FILTER', enum: ['FILTER'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('FILTER:DELETE', data);
   }
 }

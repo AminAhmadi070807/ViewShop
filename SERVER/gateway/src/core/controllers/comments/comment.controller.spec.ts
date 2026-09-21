@@ -61,7 +61,7 @@ describe('Test ( Comment ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update({ id: product, status: true }),
+      controller.update({ id: comment_id, status: true }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
@@ -82,17 +82,7 @@ describe('Test ( Comment ) Controller', () => {
 
   it('Test ( Update Child Comment ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update(
-        {
-          product,
-          score,
-          description,
-          parentComment: comment_id,
-          status: true,
-          id: child_comment_id,
-        },
-        req,
-      ),
+      controller.update({ id: child_comment_id, status: true }, req),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
