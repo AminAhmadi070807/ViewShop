@@ -2,16 +2,21 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CartController } from './cart.controller';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { UsersController } from '../users/users.controller';
+import { ColorsController } from '../colors/colors.controller';
 
 describe('Test ( Cart ) Controller', () => {
   let module: TestingModule;
   let controller: CartController;
+  let usersController: UsersController;
+  let colorController: ColorsController;
 
-  const user_id: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
+  let user_id: string;
+  let product_id: string;
+  let product_detail_id: string;
+  let color_id: string;
+
   const quantity: number = 1;
-  const product: string = '3f5464f8-8d52-41df-8654-2da3fea81df0';
-  const product_detail_id: string = '407bba8d-635c-4da1-a973-7231e8d584e3';
-  const color: string = 'f28015ab-8038-4f39-a544-e4954ef0e5ac';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -19,6 +24,8 @@ describe('Test ( Cart ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<CartController>(CartController);
+    usersController = module.get<UsersController>(UsersController);
+    colorController = module.get<ColorsController>(ColorsController);
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -27,13 +34,27 @@ describe('Test ( Cart ) Controller', () => {
     await module.close();
   });
 
+  it('Test ( Create User ) Controller', async () => {
+    const result = await usersController.create({
+      phone: '09141234567',
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       user: user_id,
       quantity,
-      product,
+      product: product_id,
       product_detail_id,
-      color,
+      color: color_id,
     });
 
     if (result instanceof CustomException) throw result;
