@@ -57,4 +57,20 @@ describe('Test ( Category ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update({ id: category_id, icon, title, alias }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: category_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
