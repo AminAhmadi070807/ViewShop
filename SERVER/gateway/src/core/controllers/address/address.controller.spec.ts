@@ -56,4 +56,12 @@ describe('Test ( Address ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: address_id }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });

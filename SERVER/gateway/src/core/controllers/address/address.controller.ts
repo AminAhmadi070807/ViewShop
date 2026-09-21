@@ -77,8 +77,13 @@ export class AddressController {
       enum: ['READ:ONE'],
     },
   ])
-  findOne(@Param() data: ValidateUUID) {
-    return this.coreService.send('ADDRESS:ONE', data);
+  findOne(@Param() data: ValidateUUID, @Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('ADDRESS:ONE', {
+      user: user.userId,
+      ...data,
+    });
   }
 
   @Delete()
