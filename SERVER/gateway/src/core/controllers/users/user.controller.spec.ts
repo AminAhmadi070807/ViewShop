@@ -66,4 +66,12 @@ describe('Test ( User ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Profile ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.profile(req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
