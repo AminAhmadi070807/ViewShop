@@ -40,6 +40,7 @@ import { PaymentSettingController } from './controllers/payment/setting/payment.
 import { PaymentController } from './controllers/payment/payment.controller';
 import { SpecificationController } from './controllers/specification/specification.controller';
 import { SmsSettingController } from './controllers/sms-setting/sms.setting.controller';
+import { MenusController } from './controllers/menu/menu.controller';
 
 @Module({
   providers: [CoreService, JwtRefreshTokenStrategy, JwtAccessTokenStrategy],
@@ -68,6 +69,7 @@ import { SmsSettingController } from './controllers/sms-setting/sms.setting.cont
     SubCategoryController,
     AttributeController,
     CommentController,
+    MenusController,
     ArticleController,
     CartController,
     OrderController,
