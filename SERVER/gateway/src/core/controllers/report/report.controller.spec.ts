@@ -3,7 +3,8 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { ReportController } from './report.controller';
-describe('Test ( Product ) Controller', () => {
+
+describe('Test ( Report ) Controller', () => {
   let module: TestingModule;
   let controller: ReportController;
 
