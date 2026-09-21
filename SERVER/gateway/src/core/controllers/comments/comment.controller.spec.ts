@@ -35,10 +35,7 @@ describe('Test ( Comment ) Controller', () => {
 
   it('Test ( Create ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.create(
-        { product, score, description, parentComment: comment_id },
-        req,
-      ),
+      controller.create({ product, score, description }, req),
     )) as ResultInterface;
 
     if (result.status === 201) comment_id = result.body.id;
@@ -68,5 +65,18 @@ describe('Test ( Comment ) Controller', () => {
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Create Child Comment ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create(
+        { product, score, description, parentComment: comment_id },
+        req,
+      ),
+    )) as ResultInterface;
+
+    if (result.status === 201) child_comment_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
