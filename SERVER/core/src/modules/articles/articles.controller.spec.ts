@@ -69,6 +69,19 @@ describe('Test ( Addresses ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
+  it('Test ( Create Media ) Controller', async () => {
+    const result = await mediaController.create({
+      user: author_id,
+      title,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    cover_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       store: store_id,
