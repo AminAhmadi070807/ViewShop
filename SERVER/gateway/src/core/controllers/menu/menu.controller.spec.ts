@@ -25,7 +25,7 @@ describe('Test ( Menu ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.delete({ id: menu_id });
+    controller.remove({ id: menu_id });
     await module.close();
   });
 
@@ -58,6 +58,14 @@ describe('Test ( Menu ) Controller', () => {
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.update({ id: menu_id, section, alias, title }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: menu_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);

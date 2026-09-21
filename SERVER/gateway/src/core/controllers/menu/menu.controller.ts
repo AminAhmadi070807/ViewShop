@@ -70,7 +70,7 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('MENU:UPDATE', data);
   }
 }
