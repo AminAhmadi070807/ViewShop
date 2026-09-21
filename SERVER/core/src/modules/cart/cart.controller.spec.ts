@@ -98,6 +98,18 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Create Color ) Controller', async () => {
+    const result = await colorController.create({
+      color: '#2456ae',
+      title: 'شنانپونزه ای تیره',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    color_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
 
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
