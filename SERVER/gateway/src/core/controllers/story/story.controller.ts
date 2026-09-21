@@ -103,7 +103,7 @@ export class StoryController {
     { name: 'feature', required: true, example: 'STORY', enum: ['STORY'] },
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('STORY:DELETE', data);
   }
 }
