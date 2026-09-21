@@ -1,53 +1,138 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
-import { ArticlesService } from './articles.service';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import {
   ArticleStatusEnum,
   UpdateArticleStatusEnum,
 } from '../../common/enums/articles/articles.status';
+import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
+import { ArticlesService } from './articles.service';
+import { UsersService } from '../users/users.service';
+import { CategoriesService } from '../categories/category/categories.service';
+import { StoreService } from '../store/store.service';
+import { MediaService } from '../media/media.service';
 
-describe('Test ( Article ) Controller', () => {
-  let service: ArticlesService;
+describe('Test ( Article ) Service', () => {
   let module: TestingModule;
+  let service: ArticlesService;
+  let usersService: UsersService;
+  let categoryService: CategoriesService;
+  let storeService: StoreService;
+  let mediaService: MediaService;
 
   let article_id: string;
+  let store_id: string;
+  let author_id: string;
+  let category_id: string;
+  let cover_id: string;
 
-  const title: string = 'Unit Test Article';
-  const store: string = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
+  const title: string = 'Unit Service Test Article';
   const description: string =
     'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.';
-  const author_id: string = '1c4b85ac-f889-4396-a98c-803e531037af';
   const slug = ['test', 'unit test', 'test for unit'];
-  const category_id: string = 'bd015464-eb0e-46c1-b5fe-bfbb4a2ea674';
-  const cover: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
   const shortDescription: string =
     ' راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد';
 
   beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<ArticlesService>(ArticlesService);
+    storeService = module.get<StoreService>(StoreService);
+    usersService = module.get<UsersService>(UsersService);
+    categoryService = module.get<CategoriesService>(CategoriesService);
+    mediaService = module.get<MediaService>(MediaService);
   });
-
-  afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await service.remove(article_id);
+    await storeService.remove(store_id);
+    await categoryService.remove(category_id);
+    await mediaService.remove(cover_id);
+    await usersService.remove({ id: author_id });
     await module.close();
+  });
+
+  it('Test ( Create User ) Controller', async () => {
+    const result = await usersService.create({
+      phone: '09141234567',
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    author_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Media ) Feature', async () => {
+    const result = await mediaService.create({
+      title,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    cover_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Create Category ) Feature', async () => {
+    const result = await categoryService.create({
+      title,
+      user: author_id,
+      icon: cover_id,
+      alias: crypto.randomUUID(),
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    category_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Store ) Feature', async () => {
+    const result = await storeService.create({
+      categories: [category_id],
+      title,
+      description,
+      logo: cover_id,
+      cell_phone: '09141236520',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    store_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Update Store Status ) Feature', async () => {
+    const result = await storeService.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.PENDING,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Create ) Feature', async () => {
     const result = await service.create({
-      store,
+      store: store_id,
       title,
       description,
       author: author_id,
       slug,
       category: category_id,
-      cover,
+      cover: cover_id,
       shortDescription,
     });
 
@@ -55,13 +140,13 @@ describe('Test ( Article ) Controller', () => {
 
     article_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( FindAll ) Feature', async () => {
-    const result = await service.findAll(1);
+    const result = await service.findAll();
 
-    expect(result.status).toBe(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne ) Feature', async () => {
@@ -69,7 +154,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Update ) Feature', async () => {
@@ -77,7 +162,7 @@ describe('Test ( Article ) Controller', () => {
       id: article_id,
       slug,
       category: category_id,
-      cover,
+      cover: cover_id,
       author: author_id,
       description,
       title,
@@ -87,10 +172,10 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
-  it('Test ( UpdateStatus ) Controller', async () => {
+  it('Test ( UpdateStatus ) Feature', async () => {
     const result = await service.updateStatus({
       id: article_id,
       status: ArticleStatusEnum.PUBLISHED,
@@ -98,17 +183,59 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
-  it('Test ( Delete ) Controller', async () => {
-    const result = await service.updateStatus({
-      id: article_id,
-      status: ArticleStatusEnum.PUBLISHED,
+  it('Test ( Delete ) Feature', async () => {
+    const result = await service.remove(article_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Store Status ) Feature', async () => {
+    const result = await storeService.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.DELETED,
     });
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Store ) Feature', async () => {
+    const result = await storeService.remove(store_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Category ) Feature', async () => {
+    const result = await categoryService.remove(category_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Feature', async () => {
+    const result = await mediaService.remove(cover_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Feature', async () => {
+    const result = await usersService.remove({
+      id: author_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });

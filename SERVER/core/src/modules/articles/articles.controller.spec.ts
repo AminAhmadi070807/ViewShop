@@ -85,6 +85,7 @@ describe('Test ( Article ) Controller', () => {
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoryController.create({
       title,
+      user: author_id,
       icon: cover_id,
       alias: crypto.randomUUID(),
     });
