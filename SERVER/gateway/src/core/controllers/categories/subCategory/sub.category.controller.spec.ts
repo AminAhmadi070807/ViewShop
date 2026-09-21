@@ -57,4 +57,15 @@ describe('Test ( SubCategory ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update(
+        { id: subCategory_id, alias, icon, title, category },
+        req,
+      ),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
