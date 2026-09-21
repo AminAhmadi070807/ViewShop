@@ -51,15 +51,8 @@ export class CategoriesService {
         take: (page ?? 1) * 15,
         relations: ['user', 'icon'],
         select: {
-          icon: {
-            id: true,
-            title: true,
-            path: true,
-          },
-          user: {
-            id: true,
-            fullName: true,
-          },
+          icon: { id: true, title: true, path: true },
+          user: { id: true, fullName: true },
         },
       });
 
@@ -97,17 +90,10 @@ export class CategoriesService {
     try {
       const category = await this.categoryRepository.findOne({
         where: { id },
-        relations: ['user'],
+        relations: ['user', 'icon'],
         select: {
-          icon: {
-            id: true,
-            title: true,
-            path: true,
-          },
-          user: {
-            id: true,
-            fullName: true,
-          },
+          icon: { id: true, title: true, path: true },
+          user: { id: true, fullName: true },
         },
       });
 
@@ -155,11 +141,7 @@ export class CategoriesService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

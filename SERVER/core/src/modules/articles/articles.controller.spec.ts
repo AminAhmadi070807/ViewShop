@@ -52,7 +52,7 @@ describe('Test ( Article ) Controller', () => {
     await storeController.remove({ id: store_id });
     await categoryController.remove({ id: category_id });
     await mediaController.remove({ id: cover_id });
-    await usersController.remove({ id: article_id });
+    await usersController.remove({ id: author_id });
     await module.close();
   });
 
@@ -84,7 +84,6 @@ describe('Test ( Article ) Controller', () => {
 
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoryController.create({
-      user: author_id,
       title,
       icon: cover_id,
       alias: crypto.randomUUID(),
@@ -187,39 +186,8 @@ describe('Test ( Article ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
-    const result = await controller.updateStatus({
+    const result = await controller.remove({
       id: article_id,
-      status: ArticleStatusEnum.PUBLISHED,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Delete User ) Controller', async () => {
-    const result = await usersController.remove({
-      id: author_id,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Delete Media ) Controller', async () => {
-    const result = await mediaController.remove({
-      id: cover_id,
-    });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Delete Category ) Controller', async () => {
-    const result = await categoryController.remove({
-      id: category_id,
     });
 
     if (result instanceof CustomException) throw result;
@@ -241,6 +209,36 @@ describe('Test ( Article ) Controller', () => {
   it('Test ( Delete Store ) Controller', async () => {
     const result = await storeController.remove({
       id: store_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Category ) Controller', async () => {
+    const result = await categoryController.remove({
+      id: category_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaController.remove({
+      id: cover_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersController.remove({
+      id: author_id,
     });
 
     if (result instanceof CustomException) throw result;

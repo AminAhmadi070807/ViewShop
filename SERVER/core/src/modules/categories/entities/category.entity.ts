@@ -25,7 +25,7 @@ export class Category {
   @JoinColumn({ name: 'Media_Category' })
   icon: Media;
 
-  @ManyToOne(() => User, { nullable: false, onUpdate: 'CASCADE' })
+  @ManyToOne(() => User, { nullable: true, onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'User_Category' })
   user: User;
 

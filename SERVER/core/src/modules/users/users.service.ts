@@ -105,8 +105,7 @@ export class UsersService {
       }
 
       return { status: 204, message: statusMessages.fa['200'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
