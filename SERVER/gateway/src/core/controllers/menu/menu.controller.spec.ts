@@ -44,6 +44,22 @@ describe('Test ( Menu ) Controller', () => {
       controller.findAll(),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: menu_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update({ id: menu_id, section, alias, title }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
   });
 });
