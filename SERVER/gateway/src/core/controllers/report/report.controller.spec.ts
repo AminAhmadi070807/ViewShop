@@ -11,12 +11,12 @@ describe('Test ( Report ) Controller', () => {
   let targetController: TargetController;
 
   let report_id: string;
+  let target: string;
 
   const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
   const title: string = 'Unit Test';
   const description: string = 'unit test description';
-  let target: string;
 
   const answer = 'ok see you later';
 
