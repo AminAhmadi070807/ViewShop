@@ -10,6 +10,7 @@ import { SpecificationController } from '../specification/specification.controll
 import { MediaController } from '../media/media.controller';
 import { StoreController } from '../store/store.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { CategoriesController } from '../categories/category/categories.controller';
 
 describe('Test ( Cart ) Controller', () => {
   let module: TestingModule;
@@ -21,6 +22,7 @@ describe('Test ( Cart ) Controller', () => {
   let specificationController: SpecificationController;
   let mediaController: MediaController;
   let storeController: StoreController;
+  let categoryController: CategoriesController;
 
   let user_id: string;
   let product_id: string;
@@ -29,6 +31,7 @@ describe('Test ( Cart ) Controller', () => {
   let brand_id: string;
   let specification_id: string;
   let store_id: string;
+  let category_id: string;
 
   const title = 'unit test product';
   const description =
@@ -63,6 +66,7 @@ describe('Test ( Cart ) Controller', () => {
     );
     mediaController = module.get<MediaController>(MediaController);
     storeController = module.get<StoreController>(StoreController);
+    categoryController = module.get<CategoriesController>(CategoriesController);
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -98,6 +102,37 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Create Category ) Controller', async () => {
+    const result = await categoryController.create({
+      title,
+      user: user_id,
+      icon: medias[0],
+      alias: crypto.randomUUID(),
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    category_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Store ) Controller', async () => {
+    const result = await storeController.create({
+      categories: [category_id],
+      title,
+      description,
+      logo: medias[0],
+      cell_phone: '09141236520',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    store_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create Color ) Controller', async () => {
     const result = await colorController.create({
       color: '#2456ae',
@@ -123,6 +158,22 @@ describe('Test ( Cart ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     brand_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = await specificationController.create({
+      title,
+      details: [
+        {
+          title: 'unit test 1',
+          details: [{ title: 'unit test', value: 'unit test' }],
+        },
+      ],
+    });
+
+    specification_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
