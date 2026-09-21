@@ -84,81 +84,60 @@ class Address {
 }
 
 class Scripts {
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک اینماد نمیتواند خالی باشد' },
-  )
+  @IsUrl({}, { message: 'لینک اینماد نمیتواند خالی باشد' })
   enamad: string;
 
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک ساماندهی نمیتواند خالی باشد' },
-  )
+  @IsUrl({}, { message: 'لینک ساماندهی نمیتواند خالی باشد' })
   organization: string;
 
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک اتحادیه نمیتواند خالی باشد' },
-  )
+  @IsUrl({}, { message: 'لینک اتحادیه نمیتواند خالی باشد' })
   union: string;
 }
 
 class SocialMedia {
-  @IsNotEmpty({ message: 'شناسه انستاگرام نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه انستاگرام اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه انستاگرام نمیتواند خالی باشد' })
   instagram?: string;
 
-  @IsNotEmpty({ message: 'شناسه تلگرام نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه تلگرام اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه تلگرام نمیتواند خالی باشد' })
   telegram?: string;
 
-  @IsNotEmpty({ message: 'شناسه تویتر نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه تویتر اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه تویتر نمیتواند خالی باشد' })
   twitter?: string;
 
-  @IsNotEmpty({ message: 'شناسه فیسبوک نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه فیسبوک اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه فیسبوک نمیتواند خالی باشد' })
   facebook?: string;
 
-  @IsNotEmpty({ message: 'شناسه واتساپ نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه واتساپ اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه واتساپ نمیتواند خالی باشد' })
   whatsApp?: string;
 
-  @IsNotEmpty({ message: 'شناسه ایتا نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه ایتا اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه ایتا نمیتواند خالی باشد' })
   eitaa?: string;
 
-  @IsNotEmpty({ message: 'شناسه روبیکا نمیتواند خالی باشد' })
   @IsOptional({ message: 'شناسه روبیکا اختیاری است' })
+  @IsNotEmpty({ message: 'شناسه روبیکا نمیتواند خالی باشد' })
   rubika?: string;
 }
 
 class Links {
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک مستقیم نمیتواند خالی باشد' },
-  )
+  @IsUrl({}, { message: 'لینک مستقیم نمیتواند خالی باشد' })
   direct: string;
 
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک کافه بازار نمیتواند خالی باشد' },
-  )
+  @IsUrl({}, { message: 'لینک کافه بازار نمیتواند خالی باشد' })
   @IsOptional({ message: 'لینک کافه بازار اختیاری است' })
   bazaar?: string;
 
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک مایکت نمیتواند خالی باشد' },
-  )
   @IsOptional({ message: 'لینک مایکت اختیاری است' })
+  @IsUrl({}, { message: 'لینک مایکت نمیتواند خالی باشد' })
   myket?: string;
 
-  @IsUrl(
-    { require_protocol: true },
-    { message: 'لینک سیب اپ نمیتواند خالی باشد' },
-  )
   @IsOptional({ message: 'لینک سیب اپ اختیاری است' })
+  @IsUrl({}, { message: 'لینک سیب اپ نمیتواند خالی باشد' })
   sibApp?: string;
 }
 

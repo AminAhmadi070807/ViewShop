@@ -357,7 +357,7 @@ export class Setting {
   @IsNotEmpty({ message: 'لینک برنامه نمیتواند خالی باشد' })
   @ValidateNested()
   @Type(() => Links)
-  link: Links;
+  links: Links;
 
   @ApiProperty({
     type: () => Support,

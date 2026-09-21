@@ -45,7 +45,7 @@ describe('Test ( Setting ) Controller', () => {
       twitter: 'https://www.facebook.com',
       whatsApp: 'https://www.facebook.com',
     },
-    link: {
+    links: {
       bazaar: 'https://viewshop.com',
       direct: 'https://viewshop.com',
       myket: 'https://viewshop.com',
