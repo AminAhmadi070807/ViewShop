@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { SearchController } from './search.controller';
 
-describe('Test ( Report ) Controller', () => {
+describe('Test ( Search ) Controller', () => {
   let module: TestingModule;
   let controller: SearchController;
 
@@ -13,6 +13,8 @@ describe('Test ( Report ) Controller', () => {
   const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
   const title: string = 'Unit Test';
+
+  const answer = 'ok see you later';
 
   const req = { user: { userId: user, role: 'ADMIN' } };
 
@@ -28,5 +30,15 @@ describe('Test ( Report ) Controller', () => {
   afterAll(async () => {
     controller.remove({ id: search_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.search({ title }),
+    )) as ResultInterface;
+
+    if (result.status === 200) search_id = result.body.id;
+
+    expect(result.status).toEqual(200);
   });
 });
