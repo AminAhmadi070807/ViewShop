@@ -58,12 +58,7 @@ export class ArticleController {
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ARTICLE',
-      enum: ['ARTICLE'],
-    },
+    { name: 'feature', required: true, example: 'ARTICLE', enum: ['ARTICLE'] },
     {
       name: 'permission',
       required: true,
@@ -103,21 +98,16 @@ export class ArticleController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ARTICLE',
-      enum: ['ARTICLE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'ARTICLE', enum: ['ARTICLE'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
-  update(@Body() data: UpdateArticleDto) {
-    return this.coreService.send('ARTICLE:UPDATE', data);
+  update(@Body() data: UpdateArticleDto, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('ARTICLE:UPDATE', {
+      author: user.userId,
+      ...data,
+    });
   }
 
   @Patch('status')
@@ -126,12 +116,7 @@ export class ArticleController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ARTICLE',
-      enum: ['ARTICLE'],
-    },
+    { name: 'feature', required: true, example: 'ARTICLE', enum: ['ARTICLE'] },
     {
       name: 'permission',
       required: true,
@@ -149,18 +134,8 @@ export class ArticleController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'ARTICLE',
-      enum: ['ARTICLE'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
-    },
+    { name: 'feature', required: true, example: 'ARTICLE', enum: ['ARTICLE'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('ARTICLE:DELETE', data);

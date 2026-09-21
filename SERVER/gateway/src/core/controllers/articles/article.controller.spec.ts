@@ -65,16 +65,19 @@ describe('Test ( Article ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update({
-        id: article_id,
-        slug,
-        description,
-        title,
-        shortDescription,
-        cover,
-        category,
-        status: UpdateArticleStatusEnum.CONPLETION,
-      }),
+      controller.update(
+        {
+          id: article_id,
+          slug,
+          description,
+          title,
+          shortDescription,
+          cover,
+          category,
+          status: UpdateArticleStatusEnum.CONPLETION,
+        },
+        req,
+      ),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
