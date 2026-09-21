@@ -194,4 +194,14 @@ describe('Test ( Article ) Controller', () => {
 
     expect(result.status).toBe(204);
   });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaController.remove({
+      id: cover_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
 });
