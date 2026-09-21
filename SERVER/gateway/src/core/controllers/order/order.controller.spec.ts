@@ -28,4 +28,14 @@ describe('Test ( Order ) Controller', () => {
     controller.remove({ id: order_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ address }, req),
+    )) as ResultInterface;
+
+    if (result.status === 201) order_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
