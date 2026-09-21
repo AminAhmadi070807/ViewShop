@@ -43,6 +43,14 @@ describe('Test ( Comment ) Controller', () => {
 
     if (result.status === 201) comment_id = result.body.id;
 
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
     expect(result.status).toEqual(200);
   });
 });
