@@ -82,4 +82,12 @@ describe('Test ( Sale ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: sale_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
