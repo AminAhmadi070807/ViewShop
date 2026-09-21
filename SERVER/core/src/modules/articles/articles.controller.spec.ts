@@ -97,6 +97,22 @@ describe('Test ( Addresses ) Controller', () => {
     expect(result.status).toBe(201);
   });
 
+  it('Test ( Create Store ) Controller', async () => {
+    const result = await storeController.create({
+      categories: [category_id],
+      title,
+      description,
+      logo: cover_id,
+      cell_phone: '09141236520',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    store_id = result.body.id;
+
+    expect(result.status).toBe(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       store: store_id,
