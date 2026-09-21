@@ -42,21 +42,11 @@ export class StoreDto {
   @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
   description: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsPhoneNumber('IR', { message: 'شماره تلفن مالک نامعتبر است' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsPhoneNumber('IR', { message: 'شماره تلفن نامعتبر است' })
   cell_phone: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
@@ -76,12 +66,7 @@ export class StoreDto {
 }
 
 export class UpdateStoreDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی نامعتبر هست' })
   id: string;
@@ -104,9 +89,17 @@ export class UpdateStoreDto {
     type: String,
     required: true,
     nullable: false,
+    minLength: 5,
+    maxLength: 255,
     example: '',
   })
-  @IsNotEmpty({ message: 'لوگوی فروشگاه نمیتواند خالی باشد' })
+  @IsNotEmpty({ message: 'توضیحات فروشگاه نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیحات فروشگاه باید رشته باشد' })
+  @MinLength(5, { message: 'توضیحات حدثل باید 5 کارکتر داشته باشد' })
+  @MaxLength(255, { message: 'توضیحات حدکثر میتواند 255 کارکتر داشته باشد' })
+  description: string;
+
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'لوگوی فروشگاه نامعتبر هست' })
   logo: string;
 }

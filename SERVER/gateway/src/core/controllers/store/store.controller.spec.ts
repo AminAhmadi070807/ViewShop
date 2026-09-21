@@ -60,7 +60,7 @@ describe('Test ( Store ) Controller', () => {
 
   it('Test ( Update ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.update({ id: store_id, logo, title }),
+      controller.update({ id: store_id, logo, title, description }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
