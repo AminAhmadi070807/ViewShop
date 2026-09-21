@@ -54,4 +54,12 @@ describe('Test ( Color ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Search ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.search({ title }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
