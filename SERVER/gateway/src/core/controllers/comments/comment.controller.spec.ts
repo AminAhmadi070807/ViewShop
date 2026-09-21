@@ -53,4 +53,12 @@ describe('Test ( Comment ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Find Product Comment ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findProductComments({ id: product }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
