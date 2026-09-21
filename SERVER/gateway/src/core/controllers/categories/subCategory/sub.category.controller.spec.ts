@@ -31,4 +31,14 @@ describe('Test ( SubCategory ) Controller', () => {
     controller.remove({ id: subCategory_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ icon, title, alias, category }, req),
+    )) as ResultInterface;
+
+    if (result.status === 201) subCategory_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
