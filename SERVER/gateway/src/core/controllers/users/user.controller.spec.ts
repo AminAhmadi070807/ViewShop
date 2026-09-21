@@ -42,4 +42,12 @@ describe('Test ( User ) Controller', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
