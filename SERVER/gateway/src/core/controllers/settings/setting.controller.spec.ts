@@ -88,4 +88,10 @@ describe('Test ( Setting ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Find ) Controller', async () => {
+    const result = (await firstValueFrom(controller.find())) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
