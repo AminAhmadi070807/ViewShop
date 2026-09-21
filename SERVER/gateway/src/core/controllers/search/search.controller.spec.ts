@@ -10,13 +10,7 @@ describe('Test ( Search ) Controller', () => {
 
   let search_id: string;
 
-  const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
-
   const title: string = 'Unit Test';
-
-  const answer = 'ok see you later';
-
-  const req = { user: { userId: user, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -45,6 +39,14 @@ describe('Test ( Search ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: search_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
