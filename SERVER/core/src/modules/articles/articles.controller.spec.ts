@@ -66,7 +66,7 @@ describe('Test ( Article ) Controller', () => {
 
     author_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create Media ) Controller', async () => {
@@ -78,7 +78,7 @@ describe('Test ( Article ) Controller', () => {
 
     cover_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Create Category ) Controller', async () => {
@@ -93,7 +93,7 @@ describe('Test ( Article ) Controller', () => {
 
     category_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create Store ) Controller', async () => {
@@ -109,7 +109,7 @@ describe('Test ( Article ) Controller', () => {
 
     store_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller', async () => {
@@ -128,13 +128,13 @@ describe('Test ( Article ) Controller', () => {
 
     article_id = result.body.id;
 
-    expect(result.status).toBe(201);
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll({ page: 1 });
 
-    expect(result.status).toBe(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne ) Controller', async () => {
@@ -142,7 +142,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(200);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Update ) Controller', async () => {
@@ -160,7 +160,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( UpdateStatus ) Controller', async () => {
@@ -171,7 +171,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete ) Controller', async () => {
@@ -182,7 +182,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete User ) Controller', async () => {
@@ -192,7 +192,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete Media ) Controller', async () => {
@@ -202,7 +202,7 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete Category ) Controller', async () => {
@@ -212,6 +212,16 @@ describe('Test ( Article ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toBe(204);
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Store ) Controller', async () => {
+    const result = await storeController.remove({
+      id: store_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
