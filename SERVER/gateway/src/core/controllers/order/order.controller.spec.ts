@@ -63,4 +63,12 @@ describe('Test ( Order ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Payment ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.payment({ id: order_id }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });

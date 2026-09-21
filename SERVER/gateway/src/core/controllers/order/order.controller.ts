@@ -109,8 +109,13 @@ export class OrderController {
       enum: ['PAYMENT'],
     },
   ])
-  payment(@Body() data: ValidateUUID) {
-    return this.coreService.send('ORDER:PAYMENT', data);
+  payment(@Body() data: ValidateUUID, @Req() req: express.Request) {
+    const user: JwtPayload = req.user as JwtPayload;
+
+    return this.coreService.send('ORDER:PAYMENT', {
+      user: user.userId,
+      ...data,
+    });
   }
 
   @Delete('payment')
