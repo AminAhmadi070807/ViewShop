@@ -8,7 +8,7 @@ describe('Test ( Permission ) Controller ', () => {
   let module: TestingModule;
 
   let permission_id: string;
-  const title: string = 'unit test';
+  const title: string = 'unit controller test';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({

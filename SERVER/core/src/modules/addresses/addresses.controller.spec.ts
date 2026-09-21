@@ -2,14 +2,16 @@ import { AddressesController } from './addresses.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { UsersController } from '../users/users.controller';
 
 describe('Test ( Addresses ) Controller', () => {
-  let controller: AddressesController;
   let module: TestingModule;
+  let controller: AddressesController;
+  let usersController: UsersController;
 
   let address_id: string;
+  let user_id: string;
 
-  const user_id: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
   const city: string = 'خوی';
@@ -23,13 +25,29 @@ describe('Test ( Addresses ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<AddressesController>(AddressesController);
+    usersController = module.get<UsersController>(UsersController);
   });
 
   afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: address_id, user: user_id });
+    await usersController.remove({ id: address_id, user: user_id });
     await module.close();
+  });
+
+  it('Test ( Create User ) Controller', async () => {
+    const result = await usersController.create({
+      fullName: 'تست نام کاربری',
+      password: '123456789',
+      phone: '091412345698',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller', async () => {
