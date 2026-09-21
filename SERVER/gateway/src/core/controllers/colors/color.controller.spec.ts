@@ -10,8 +10,6 @@ describe('Test ( Color ) Controller', () => {
 
   let color_id: string;
 
-  const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
-
   const color: string = '#23f6f8';
   const title: string = 'شامپونزه ای';
 
@@ -61,5 +59,13 @@ describe('Test ( Color ) Controller', () => {
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: color_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
   });
 });
