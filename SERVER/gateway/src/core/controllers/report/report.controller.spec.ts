@@ -7,7 +7,7 @@ describe('Test ( Product ) Controller', () => {
   let module: TestingModule;
   let controller: ReportController;
 
-  let product_id: string;
+  let report_id: string;
 
   const user: string = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
@@ -27,7 +27,17 @@ describe('Test ( Product ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: product_id });
+    controller.remove({ id: report_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ description, target, title }, req),
+    )) as ResultInterface;
+
+    if (result.status === 201) report_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
