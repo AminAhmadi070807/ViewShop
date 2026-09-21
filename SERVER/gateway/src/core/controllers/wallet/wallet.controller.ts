@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { WalletDto } from './wallet.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -18,24 +17,6 @@ import { JwtPayload } from '../../../common/validation/jwt.dto';
 export class WalletController {
   constructor(private readonly coreService: CoreService) {}
 
-  @Post('charge')
-  @ApiOkResponse({ description: statusMessages.fa['200'] })
-  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
-  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
-  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
-  @ApiHeaders([
-    { name: 'feature', required: true, example: 'WALLET', enum: ['WALLET'] },
-    { name: 'permission', required: true, example: 'CHARGE', enum: ['CHARGE'] },
-  ])
-  charge(@Body() data: WalletDto, @Req() req: express.Request) {
-    const user = req.user as JwtPayload;
-
-    return this.coreService.send('WALLET:CHARGE', {
-      amount: data.amount,
-      user: user.userId,
-    });
-  }
-
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
@@ -47,5 +28,23 @@ export class WalletController {
   ])
   findAll() {
     return this.coreService.send('WALLET:FIND');
+  }
+
+  @Get()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'WALLET', enum: ['WALLET'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
+  findOne(@Req() req: express.Request) {
+    const user = req.user as JwtPayload;
+
+    return this.coreService.send('WALLET:ONE', {
+      id: user.userId,
+      user: user.userId,
+    });
   }
 }
