@@ -19,8 +19,6 @@ describe('Test ( Brand ) Controller', () => {
 
   const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
-  const req = { user: { userId: user_id, role: 'ADMIN' } };
-
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
