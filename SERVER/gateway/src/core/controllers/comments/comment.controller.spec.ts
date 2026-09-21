@@ -97,4 +97,12 @@ describe('Test ( Comment ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete Child Comment ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: child_comment_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
