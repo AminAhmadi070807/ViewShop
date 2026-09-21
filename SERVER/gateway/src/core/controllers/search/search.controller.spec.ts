@@ -49,6 +49,6 @@ describe('Test ( Search ) Controller', () => {
       controller.remove({ id: search_id }),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(200);
+    expect(result.status).toEqual(204);
   });
 });

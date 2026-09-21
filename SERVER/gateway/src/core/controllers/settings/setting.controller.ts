@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { CoreService } from '../../core.service';
-import { SettingDto } from './setting.dto';
+import { Setting } from './setting.dto';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -22,20 +22,10 @@ export class SettingController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SETTING',
-      enum: ['SETTING'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'feature', required: true, example: 'SETTING', enum: ['SETTING'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
-  setting(@Body() data: SettingDto) {
+  setting(@Body() data: Setting) {
     return this.coreService.send('SETTING:UPDATE', data);
   }
 
@@ -44,20 +34,22 @@ export class SettingController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SETTING',
-      enum: ['SETTING'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'SETTING', enum: ['SETTING'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   find() {
     return this.coreService.send('SETTING:FIND');
+  }
+
+  @Delete()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
+  @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SETTING', enum: ['SETTING'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
+  empty() {
+    return this.coreService.send('SETTING:EMPTY');
   }
 }

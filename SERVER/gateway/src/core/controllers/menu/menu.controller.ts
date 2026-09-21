@@ -71,6 +71,6 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   remove(@Body() data: ValidateUUID) {
-    return this.coreService.send('MENU:UPDATE', data);
+    return this.coreService.send('MENU:DELETE', data);
   }
 }
