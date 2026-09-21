@@ -64,4 +64,12 @@ describe('Test ( Address ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: address_id }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
