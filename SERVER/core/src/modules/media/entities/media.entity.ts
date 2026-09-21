@@ -19,7 +19,7 @@ export class Media {
   @Column({ type: 'varchar', nullable: false, unique: true })
   path: string;
 
-  @ManyToOne((): typeof User => User)
+  @ManyToOne((): typeof User => User, { nullable: true })
   @JoinColumn({ name: 'User_Media' })
   user: User;
 

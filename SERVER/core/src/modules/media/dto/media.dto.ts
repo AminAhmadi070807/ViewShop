@@ -1,9 +1,16 @@
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 export class MediaDto {
+  @IsOptional()
   @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
-  user: string;
+  user?: string;
 
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
