@@ -32,4 +32,17 @@ describe('Test ( Comment ) Controller', () => {
     controller.remove({ id: child_comment_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create(
+        { product, score, description, parentComment: comment_id },
+        req,
+      ),
+    )) as ResultInterface;
+
+    if (result.status === 201) comment_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
 });
