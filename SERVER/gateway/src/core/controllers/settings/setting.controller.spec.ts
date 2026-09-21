@@ -80,4 +80,12 @@ describe('Test ( Setting ) Controller', () => {
     controller.empty();
     await module.close();
   });
+
+  it('Test ( SETTING ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.setting(data),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
