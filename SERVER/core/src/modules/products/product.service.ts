@@ -59,6 +59,8 @@ export class ProductService {
       if (brand instanceof CustomException) return brand;
       if (specification instanceof CustomException) return specification;
 
+      const productDetailsId: string[] = [];
+
       const product = this.productRepository.create({
         user: { id: data.userId },
         specification: { id: data.specification },
@@ -66,8 +68,10 @@ export class ProductService {
         alias: data.alias,
         store: store.body,
         details: data.details.map((item) => {
+          const id = item.id ?? crypto.randomUUID();
+          productDetailsId.push(id);
           return {
-            id: item.id ?? crypto.randomUUID(),
+            id,
             price: item.price,
             stock: item.stock,
             color: item.color,
@@ -84,7 +88,7 @@ export class ProductService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: { id: product.id },
+        body: { id: product.id, productDetailsId },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
