@@ -12,7 +12,7 @@ describe('Test ( Product ) Controller', () => {
 
   const title = 'unit test product';
   const description =
-    'unit test product description this description for was unit test';
+    'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const brand = 'c8d1ea72-ee70-4f1e-a224-30ec3005db2e';
   const userId = '70ffcfcf-baab-4937-8269-2d80574dab56';
   const specification = 'ab7352d1-1925-42a8-8d7f-84cb300e1fec';

@@ -50,9 +50,9 @@ export class ProductDto {
   @MinLength(8, { message: 'عنوان نمیتواند کمتر از 8 کارکتر باشد' })
   title: string;
 
-  @IsNotEmpty({ message: 'توضیحات محصول نمیتواند خالی باشد' })
-  @IsString({ message: 'توضیحات محصول باید رشته باشد' })
-  @MinLength(255, { message: 'توضیحات نمیتواند کمتر از 255 کارکتر باشد' })
+  @IsNotEmpty({ message: 'توضیح محصول نمیتواند خالی باشد' })
+  @IsString({ message: 'توضیح محصول نامعتبر است' })
+  @MinLength(255, { message: 'توضیح محصول حدقل باید 255 کارکتر داشته باشد' })
   description: string;
 
   @IsUUID('4', { message: 'شناسه برند نامعتبر است' })
