@@ -94,4 +94,12 @@ describe('Test ( Setting ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Empty ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.empty(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
