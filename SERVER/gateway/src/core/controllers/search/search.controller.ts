@@ -24,18 +24,8 @@ export class SearchController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SEARCH',
-      enum: ['SEARCH'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'feature', required: true, example: 'SEARCH', enum: ['SEARCH'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('SEARCH:FIND');
@@ -44,18 +34,8 @@ export class SearchController {
   @Get('/search')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SEARCH',
-      enum: ['SEARCH'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'feature', required: true, example: 'SEARCH', enum: ['SEARCH'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   search(@Query() data: ProductFilterDto) {
     return this.coreService.send('SEARCH:SEARCH', data);
@@ -67,20 +47,10 @@ export class SearchController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    {
-      name: 'feature',
-      required: true,
-      example: 'SEARCH',
-      enum: ['SEARCH'],
-    },
-    {
-      name: 'permission',
-      required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
-    },
+    { name: 'feature', required: true, example: 'SEARCH', enum: ['SEARCH'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('SEARCH:DELETE', data);
   }
 }
