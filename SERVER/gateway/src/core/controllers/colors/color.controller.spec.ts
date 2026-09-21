@@ -42,7 +42,7 @@ describe('Test ( Color ) Controller', () => {
       controller.findAll(),
     )) as ResultInterface;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( FindOne ) Controller', async () => {
