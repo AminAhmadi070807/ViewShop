@@ -75,4 +75,12 @@ describe('Test ( Brand ) Controller', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: brand_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
