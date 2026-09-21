@@ -67,4 +67,12 @@ describe('Test ( Story ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: story_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
