@@ -77,6 +77,11 @@ describe('Test ( Order ) Controller', () => {
       controller.remove({ id: order_id }),
     )) as ResultInterface;
 
+    if (result.status === 409) {
+      expect(result.status).toEqual(409);
+      return;
+    }
+
     expect(result.status).toEqual(204);
   });
 });

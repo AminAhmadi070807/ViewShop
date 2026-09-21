@@ -34,7 +34,7 @@ export class OrderController {
     return this.orderService.payment(data);
   }
 
-  @MessagePattern('ORDER:PAYMENT')
+  @MessagePattern('ORDER:DELETE')
   remove(@Payload() data: Validate) {
     return this.orderService.remove(data.id);
   }
