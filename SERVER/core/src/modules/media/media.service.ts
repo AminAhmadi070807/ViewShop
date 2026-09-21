@@ -17,6 +17,7 @@ export class MediaService {
   async create(data: MediaDto) {
     try {
       const result = this.mediaRepository.create({
+        user: { id: data.user },
         path: data.path,
         title: data.title,
         type: data.type,

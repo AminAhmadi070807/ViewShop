@@ -73,6 +73,7 @@ describe('Test ( Article ) Service', () => {
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
       title,
+      user: author_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
     });
