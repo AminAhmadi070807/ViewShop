@@ -43,4 +43,12 @@ describe('Test ( NewsLetter ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: newsletter_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
 });
