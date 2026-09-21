@@ -12,7 +12,7 @@ import { CategoriesController } from '../categories/category/categories.controll
 import { MediaController } from '../media/media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 
-describe('Test ( Addresses ) Controller', () => {
+describe('Test ( Article ) Controller', () => {
   let module: TestingModule;
   let controller: ArticlesController;
   let usersController: UsersController;
@@ -71,7 +71,6 @@ describe('Test ( Addresses ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      user: author_id,
       title,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -179,6 +178,16 @@ describe('Test ( Addresses ) Controller', () => {
     const result = await controller.updateStatus({
       id: article_id,
       status: ArticleStatusEnum.PUBLISHED,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersController.remove({
+      id: author_id,
     });
 
     if (result instanceof CustomException) throw result;

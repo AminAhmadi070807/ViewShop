@@ -31,7 +31,7 @@ describe('Test ( Addresses ) Service', () => {
 
   afterAll(async () => {
     await service.remove({ id: address_id, user: user_id });
-    await usersService.remove({ id: address_id });
+    await usersService.remove({ id: user_id });
     await module.close();
   });
 
@@ -59,8 +59,6 @@ describe('Test ( Addresses ) Service', () => {
       province,
       street,
     });
-
-    if (result instanceof CustomException) throw result;
 
     address_id = result.body.id;
 
@@ -90,7 +88,7 @@ describe('Test ( Addresses ) Service', () => {
   });
 
   it('Test ( Delete User ) Feature', async () => {
-    const result = await usersService.remove({ id: address_id });
+    const result = await usersService.remove({ id: user_id });
 
     if (result instanceof CustomException) throw result;
 

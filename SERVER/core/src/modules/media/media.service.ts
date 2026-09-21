@@ -18,7 +18,6 @@ export class MediaService {
     try {
       const result = this.mediaRepository.create({
         path: data.path,
-        user: { id: data.user },
         title: data.title,
         type: data.type,
       });

@@ -32,7 +32,7 @@ describe('Test ( Addresses ) Controller', () => {
 
   afterAll(async () => {
     await controller.remove({ id: address_id, user: user_id });
-    await usersController.remove({ id: address_id, user: user_id });
+    await usersController.remove({ id: user_id, user: user_id });
     await module.close();
   });
 
@@ -60,8 +60,6 @@ describe('Test ( Addresses ) Controller', () => {
       province,
       street,
     });
-
-    if (result instanceof CustomException) throw result;
 
     address_id = result.body.id;
 
@@ -91,7 +89,7 @@ describe('Test ( Addresses ) Controller', () => {
   });
 
   it('Test ( Delete User ) Controller', async () => {
-    const result = await usersController.remove({ id: address_id });
+    const result = await usersController.remove({ id: user_id });
 
     if (result instanceof CustomException) throw result;
 

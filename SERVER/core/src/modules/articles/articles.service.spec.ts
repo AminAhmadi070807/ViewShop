@@ -7,7 +7,7 @@ import {
   UpdateArticleStatusEnum,
 } from '../../common/enums/articles/articles.status';
 
-describe('Test ( Addresses ) Controller', () => {
+describe('Test ( Article ) Controller', () => {
   let service: ArticlesService;
   let module: TestingModule;
 
