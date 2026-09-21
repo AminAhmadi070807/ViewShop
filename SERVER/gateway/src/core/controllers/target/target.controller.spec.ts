@@ -25,4 +25,14 @@ describe('Test ( Target ) Controller', () => {
     controller.remove({ id: target_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title }),
+    )) as ResultInterface;
+
+    if (result.status === 201) target_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
