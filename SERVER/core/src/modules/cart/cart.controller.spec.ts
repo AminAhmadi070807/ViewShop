@@ -279,4 +279,13 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaController.remove({
+      id: medias[0],
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
