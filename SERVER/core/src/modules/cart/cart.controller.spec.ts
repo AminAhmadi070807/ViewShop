@@ -289,6 +289,14 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
+  it('Test ( Delete Brand ) Controller', async () => {
+    const result = await brandController.remove({ id: brand_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
   it('Test ( Delete Specification ) Controller', async () => {
     const result = await specificationController.remove({
       id: specification_id,
