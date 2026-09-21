@@ -8,7 +8,15 @@ describe('Test ( Specification ) Controller', () => {
   let module: TestingModule;
   let controller: SpecificationController;
 
-  const specification_id: string;
+  let specification_id: string;
+
+  const title: string = 'Unit Test Specification';
+  const details = [
+    {
+      title: 'unit test 1',
+      details: [{ title: 'unit test', value: 'unit test' }],
+    },
+  ];
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -22,5 +30,15 @@ describe('Test ( Specification ) Controller', () => {
   afterAll(async () => {
     controller.remove({ id: specification_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title, details }),
+    )) as ResultInterface;
+
+    if (result.status === 201) specification_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
