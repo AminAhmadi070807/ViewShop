@@ -26,4 +26,12 @@ describe('Test ( Like ) Controller', () => {
     controller.toggle({ product }, req);
     await module.close();
   });
+
+  it('Test ( Toggle ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.toggle({ product }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
