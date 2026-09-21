@@ -15,6 +15,8 @@ describe('Test ( Product ) Controller', () => {
   const description: string = 'unit test description';
   const target: string = 'aa3d8798-06ef-445d-8781-2df58cba302b';
 
+  const answer = 'ok see you later';
+
   const req = { user: { userId: user, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
@@ -55,5 +57,13 @@ describe('Test ( Product ) Controller', () => {
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Answer ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.answer({ id: report_id, answer }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
   });
 });
