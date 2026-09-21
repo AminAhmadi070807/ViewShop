@@ -1,4 +1,5 @@
 import {
+  ArrayNotEmpty,
   IsArray,
   IsEnum,
   IsNotEmpty,
@@ -37,7 +38,7 @@ export class ArticleDto {
     maxLength: 12,
     example: [''],
   })
-  @IsNotEmpty({ message: 'تگ ها نمیتواند خالی باشد' })
+  @ArrayNotEmpty({ message: 'تگ ها نمیتواند خالی باشد' })
   @IsArray({ message: 'تگ هاباید رشته در ارایه باشد' })
   @IsString({ each: true, message: 'تگ ها باید رشته باشد' })
   @MinLength(2, { each: true, message: 'حدثل یک تگ باید 2 کارکتر داشته باشد' })
@@ -79,45 +80,21 @@ export class ArticleDto {
   })
   shortDescription: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی کاور نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی کاور نامعتبر هست' })
   cover: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی فروشگاه نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی فروشگاه نامعتبر هست' })
   store: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
 }
 
 export class UpdateArticleDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
@@ -183,13 +160,7 @@ export class UpdateArticleDto {
   })
   shortDescription: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی کاور نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی کاور نامعتبر هست' })
   cover: string;
 
@@ -200,31 +171,16 @@ export class UpdateArticleDto {
     example: UpdateArticleStatusEnum.DRAFT,
     enum: UpdateArticleStatusEnum,
   })
-  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(UpdateArticleStatusEnum, {
-    message: 'وضیعت باید یکی از این ها باشد (COMPLETION, DRAFT)',
-  })
+  @IsEnum(UpdateArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: UpdateArticleStatusEnum;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
 }
 
 export class UpdateArticleStatusDto {
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی مقاله نمیتواند خالی باشد' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'ایدی مقاله نامعتبر هست' })
   id: string;
 
@@ -235,10 +191,6 @@ export class UpdateArticleStatusDto {
     example: ArticleStatusEnum.PUBLISHED,
     enum: ArticleStatusEnum,
   })
-  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(ArticleStatusEnum, {
-    message:
-      'وضیعت باید یکی از این ها باشد (COMPLETION, DELETED, PUBLISHED, DRAFT)',
-  })
+  @IsEnum(ArticleStatusEnum, { message: 'وضیعت نامعتبر است' })
   status: ArticleStatusEnum;
 }
