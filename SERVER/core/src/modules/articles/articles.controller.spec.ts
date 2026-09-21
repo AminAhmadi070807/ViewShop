@@ -227,6 +227,17 @@ describe('Test ( Article ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.DELETED,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
   it('Test ( Delete Store ) Controller', async () => {
     const result = await storeController.remove({
       id: store_id,
