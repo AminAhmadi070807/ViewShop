@@ -119,7 +119,7 @@ export class AttributeController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:ATTRIBUTE:DELETE', data);
   }
 }
