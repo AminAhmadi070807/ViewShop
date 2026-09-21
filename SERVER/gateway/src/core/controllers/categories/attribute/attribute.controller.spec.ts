@@ -8,7 +8,7 @@ describe('Test ( Attribute ) Controller', () => {
   let module: TestingModule;
   let controller: AttributeController;
 
-  let subCategory_id: string;
+  let attribute_id: string;
 
   const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
   const req = { user: { userId: user_id, role: 'ADMIN' } };
@@ -28,7 +28,7 @@ describe('Test ( Attribute ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: subCategory_id });
+    controller.remove({ id: attribute_id });
     await module.close();
   });
 
@@ -37,7 +37,7 @@ describe('Test ( Attribute ) Controller', () => {
       controller.create({ icon, title, alias, subCategory }, req),
     )) as ResultInterface;
 
-    if (result.status === 201) subCategory_id = result.body.id;
+    if (result.status === 201) attribute_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
@@ -52,7 +52,7 @@ describe('Test ( Attribute ) Controller', () => {
 
   it('Test ( FindOne ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.findOne({ id: subCategory_id }),
+      controller.findOne({ id: attribute_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
@@ -60,7 +60,7 @@ describe('Test ( Attribute ) Controller', () => {
 
   it('Test ( Delete ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.remove({ id: subCategory_id }),
+      controller.remove({ id: attribute_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);

@@ -148,7 +148,7 @@ export class SubCategoryController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:SUB:DELETE', data);
   }
 }
