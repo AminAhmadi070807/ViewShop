@@ -45,7 +45,7 @@ export class ArticleDto {
     each: true,
     message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
   })
-  slug: [string];
+  slug: string[];
 
   @ApiProperty({
     type: String,
@@ -152,7 +152,7 @@ export class UpdateArticleDto {
     each: true,
     message: 'حدکثر یک تگ میتواند 12 کارمتر داشته باشد',
   })
-  slug: [string];
+  slug: string[];
 
   @ApiProperty({
     type: String,

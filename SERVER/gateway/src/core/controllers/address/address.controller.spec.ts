@@ -11,7 +11,6 @@ describe('Test ( Address ) Controller', () => {
   let address_id: string;
 
   const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
-  const role: string = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
 
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
