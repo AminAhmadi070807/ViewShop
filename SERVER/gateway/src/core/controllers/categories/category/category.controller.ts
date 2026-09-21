@@ -45,12 +45,7 @@ export class CategoryController {
       example: 'CATEGORY',
       enum: ['CATEGORY'],
     },
-    {
-      name: 'permission',
-      required: true,
-      example: 'CREATE',
-      enum: ['CREATE'],
-    },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: CategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
@@ -72,12 +67,7 @@ export class CategoryController {
       example: 'CATEGORY',
       enum: ['CATEGORY'],
     },
-    {
-      name: 'permission',
-      required: true,
-      example: 'READ',
-      enum: ['READ'],
-    },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
     return this.coreService.send('CATEGORY:FIND');
@@ -117,12 +107,7 @@ export class CategoryController {
       example: 'CATEGORY',
       enum: ['CATEGORY'],
     },
-    {
-      name: 'permission',
-      required: true,
-      example: 'UPDATE',
-      enum: ['UPDATE'],
-    },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateCategoryDto, @Req() req: express.Request) {
     const user: JwtPayload = req.user as JwtPayload;
@@ -149,14 +134,9 @@ export class CategoryController {
       example: 'CATEGORY',
       enum: ['CATEGORY'],
     },
-    {
-      name: 'permission',
-      required: true,
-      example: 'DELETE',
-      enum: ['DELETE'],
-    },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('CATEGORY:DELETE', data);
   }
 }

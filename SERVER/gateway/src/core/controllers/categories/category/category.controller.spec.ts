@@ -27,7 +27,10 @@ describe('Test ( Category ) Controller', () => {
     controller = module.get<CategoryController>(CategoryController);
   });
 
-  afterAll(async () => await module.close());
+  afterAll(async () => {
+    controller.remove({ id: category_id });
+    await module.close();
+  });
 
   it('Test ( Create ) Controller', async () => {
     const result = (await firstValueFrom(
@@ -37,5 +40,13 @@ describe('Test ( Category ) Controller', () => {
     if (result.status === 201) category_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });
