@@ -10,7 +10,7 @@ describe('Test ( User ) Controller', () => {
   let module: TestingModule;
   let controller: UsersController;
 
-  let ticket_id: string;
+  let user_id: string;
   const user = '1c4b85ac-f889-4396-a98c-803e531037af';
 
   const phone = '09990009999';
@@ -29,7 +29,7 @@ describe('Test ( User ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: ticket_id });
+    controller.remove({ id: user_id });
     await module.close();
   });
 
@@ -38,7 +38,7 @@ describe('Test ( User ) Controller', () => {
       controller.create({ fullName, password, phone }),
     )) as ResultInterface;
 
-    if (result.status === 201) ticket_id = result.body.id;
+    if (result.status === 201) user_id = result.body.id;
 
     expect(result.status).toEqual(201);
   });
@@ -46,6 +46,14 @@ describe('Test ( User ) Controller', () => {
   it('Test ( FindAll ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: user_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
