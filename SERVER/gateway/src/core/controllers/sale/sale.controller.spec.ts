@@ -18,6 +18,8 @@ describe('Test ( Sale ) Controller', () => {
   const product_detail_id = '407bba8d-635c-4da1-a973-7231e8d584e3';
   const store = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
 
+  const req = { user: { userId: user, role: 'ADMIN' } };
+
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -60,6 +62,14 @@ describe('Test ( Sale ) Controller', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findOne({ id: sale_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Find Store Sale ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findStoreSales({ id: store }, req),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
