@@ -50,4 +50,14 @@ describe('Test ( Article ) Controller', () => {
 
     expect(result.status).toEqual(201);
   });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
+    if (result.status === 201) article_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
