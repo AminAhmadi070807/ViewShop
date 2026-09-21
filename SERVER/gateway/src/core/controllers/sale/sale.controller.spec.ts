@@ -31,4 +31,21 @@ describe('Test ( Sale ) Controller', () => {
     controller.remove({ id: report_id });
     await module.close();
   });
+
+  it('Test ( Sale ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.sale({
+        user,
+        product_detail_id,
+        product,
+        product_price,
+        price,
+        quantity,
+      }),
+    )) as ResultInterface;
+
+    if (result.status === 201) report_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
