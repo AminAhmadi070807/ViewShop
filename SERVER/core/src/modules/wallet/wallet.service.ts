@@ -5,6 +5,7 @@ import { Wallet } from './entities/wallet.entity';
 import { Repository } from 'typeorm';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { statusMessages } from '../../common/message/message.status';
+import { Validate } from '../../common/validations/validate.dto';
 
 @Injectable()
 export class WalletService {
@@ -85,6 +86,22 @@ export class WalletService {
         message: statusMessages.fa['200'],
         body: wallets,
       };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async findOne(data: Validate) {
+    try {
+      const result = await this.walletRepository.findOne({
+        where: { user: { id: data.user } },
+        relations: ['user'],
+        select: {
+          user: { id: true, fullName: true, role: true, phone: true },
+        },
+      });
+
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
