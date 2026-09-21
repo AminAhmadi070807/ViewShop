@@ -56,8 +56,14 @@ describe('Test ( Article ) Controller', () => {
       controller.findAll(),
     )) as ResultInterface;
 
-    if (result.status === 201) article_id = result.body.id;
+    expect(result.status).toEqual(200);
+  });
 
-    expect(result.status).toEqual(201);
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: article_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });
