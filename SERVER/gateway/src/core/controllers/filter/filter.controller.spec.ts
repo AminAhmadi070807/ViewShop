@@ -5,7 +5,7 @@ import { ResultInterface } from '../../../common/interface/result.interface';
 import { FilterController } from './filter.controller';
 import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
 
-describe('Test ( Comment ) Controller', () => {
+describe('Test ( Filter ) Controller', () => {
   let module: TestingModule;
   let controller: FilterController;
 
