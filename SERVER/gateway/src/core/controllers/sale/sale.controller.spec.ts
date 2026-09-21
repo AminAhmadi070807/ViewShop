@@ -44,8 +44,16 @@ describe('Test ( Sale ) Controller', () => {
       }),
     )) as ResultInterface;
 
-    if (result.status === 201) report_id = result.body.id;
+    if (result.status === 200) report_id = result.body.id;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findAll(),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
   });
 });
