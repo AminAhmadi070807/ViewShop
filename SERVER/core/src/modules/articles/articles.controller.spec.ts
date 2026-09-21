@@ -11,6 +11,7 @@ import { UsersController } from '../users/users.controller';
 import { CategoriesController } from '../categories/category/categories.controller';
 import { MediaController } from '../media/media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 describe('Test ( Article ) Controller', () => {
   let module: TestingModule;
@@ -110,6 +111,17 @@ describe('Test ( Article ) Controller', () => {
     store_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.PENDING,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Create ) Controller', async () => {
