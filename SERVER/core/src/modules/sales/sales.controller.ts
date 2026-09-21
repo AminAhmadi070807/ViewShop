@@ -8,6 +8,11 @@ import { Validate } from '../../common/validations/validate.dto';
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
+  @MessagePattern('SALES:SALE')
+  sale(@Payload() data: SaleDto) {
+    return this.salesService.sale(data);
+  }
+
   @MessagePattern('SALES:FIND:STORE')
   findStoreSale(@Payload() data: Validate) {
     return this.salesService.findStoreSale(data.id);
@@ -21,11 +26,6 @@ export class SalesController {
   @MessagePattern('SALES:ONE')
   findOne(@Payload() data: Validate) {
     return this.salesService.findOne(data.id);
-  }
-
-  @MessagePattern('SALES:SALE')
-  sale(@Payload() data: SaleDto) {
-    return this.salesService.sale(data);
   }
 
   @MessagePattern('SALES:FIND')

@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import {
   ApiBadRequestResponse,
@@ -12,6 +20,7 @@ import { statusMessages } from '../../../common/messages/status.message';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { SaleDto } from './sale.dto';
 
 @Controller('core/sales')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -19,6 +28,16 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 @ApiBadRequestResponse({ description: statusMessages.fa['500'] })
 export class SaleController {
   constructor(private readonly coreService: CoreService) {}
+
+  @Post()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'SALE', enum: ['SALE'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
+  sale(@Body() data: SaleDto) {
+    return this.coreService.send('SALES:SALE', data);
+  }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
