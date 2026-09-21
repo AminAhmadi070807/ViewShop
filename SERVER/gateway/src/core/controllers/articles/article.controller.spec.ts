@@ -3,6 +3,7 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { ArticleController } from './article.controller';
+import { UpdateArticleStatusEnum } from '../../../common/enums/articles/articles.enum';
 
 describe('Test ( Article ) Controller', () => {
   let module: TestingModule;
@@ -62,6 +63,23 @@ describe('Test ( Article ) Controller', () => {
   it('Test ( FindOne ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.findOne({ id: article_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update({
+        id: article_id,
+        slug,
+        description,
+        title,
+        shortDescription,
+        cover,
+        category,
+        status: UpdateArticleStatusEnum.CONPLETION,
+      }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(200);
