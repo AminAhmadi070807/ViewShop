@@ -28,4 +28,14 @@ describe('Test ( Menu ) Controller', () => {
     controller.delete({ id: menu_id });
     await module.close();
   });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title, section, alias }),
+    )) as ResultInterface;
+
+    if (result.status === 201) menu_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
 });
