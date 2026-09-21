@@ -11,6 +11,7 @@ import { MediaController } from '../media/media.controller';
 import { StoreController } from '../store/store.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { CategoriesController } from '../categories/category/categories.controller';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 describe('Test ( Cart ) Controller', () => {
   let module: TestingModule;
@@ -72,6 +73,14 @@ describe('Test ( Cart ) Controller', () => {
   afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
+    await storeController.remove({ id: store_id });
+    await categoryController.remove({ id: category_id });
+    await mediaController.remove({ id: medias[0] });
+    await usersController.remove({ id: user_id });
+    await colorController.remove({ id: color_id });
+    await brandController.remove({ id: brand_id });
+    await productController.remove({ id: product_id });
+    await specificationController.remove({ id: specification_id });
     await module.close();
   });
 
@@ -131,6 +140,17 @@ describe('Test ( Cart ) Controller', () => {
     store_id = result.body.id;
 
     expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.PENDING,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Create Color ) Controller', async () => {
