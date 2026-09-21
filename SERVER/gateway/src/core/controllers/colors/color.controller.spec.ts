@@ -8,7 +8,7 @@ describe('Test ( Color ) Controller', () => {
   let module: TestingModule;
   let controller: ColorController;
 
-  let subCategory_id: string;
+  let color_id: string;
 
   const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
@@ -25,7 +25,17 @@ describe('Test ( Color ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: subCategory_id });
+    controller.remove({ id: color_id });
     await module.close();
+  });
+
+  it('Test ( Create ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.create({ title, color }),
+    )) as ResultInterface;
+
+    if (result.status === 201) color_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 });
