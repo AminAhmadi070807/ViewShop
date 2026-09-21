@@ -49,4 +49,12 @@ describe('Test ( Specification ) Controller', () => {
 
     expect(result.status).toEqual(200);
   });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.findOne({ id: specification_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
 });
