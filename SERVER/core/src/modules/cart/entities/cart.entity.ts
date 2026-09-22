@@ -13,15 +13,13 @@ export class Cart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false, type: 'simple-json', onUpdate: 'CASCADE' })
-  metadata: [
-    {
-      product: string;
-      product_detail_id: string;
-      quantity: number;
-      price: number;
-    },
-  ];
+  @Column({ nullable: false, type: 'jsonb', onUpdate: 'CASCADE' })
+  metadata: {
+    product: string;
+    product_detail_id: string;
+    quantity: number;
+    price: number;
+  }[];
 
   @Column({ nullable: false, type: 'bigint', default: 0 })
   price: number;

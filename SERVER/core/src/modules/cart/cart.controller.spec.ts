@@ -34,7 +34,7 @@ describe('Test ( Cart ) Controller', () => {
   let store_id: string;
   let category_id: string;
 
-  const title = 'unit test product';
+  const title = `unit ${crypto.randomUUID()} product`;
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const discount_percent = 0;
@@ -47,7 +47,7 @@ describe('Test ( Cart ) Controller', () => {
     },
   ];
   const medias: string[] = [];
-  const alias: string = 'unit-controller-test-product';
+  const alias: string = `unit-controller-${crypto.randomUUID()}-test-product`;
 
   const quantity: number = 1;
 
@@ -75,7 +75,6 @@ describe('Test ( Cart ) Controller', () => {
   afterAll(async () => {
     await storeController.remove({ id: store_id });
     await categoryController.remove({ id: category_id });
-    await productController.remove({ id: product_id });
     await mediaController.remove({ id: medias[0] });
     await colorController.remove({ id: color_id });
     await brandController.remove({ id: brand_id });

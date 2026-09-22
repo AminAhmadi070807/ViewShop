@@ -182,4 +182,23 @@ export class CartService {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
+
+  async empty(user: string) {
+    try {
+      const result = await this.cartRepository.findOne({
+        where: { user: { id: user } },
+      });
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      result.metadata = [];
+      result.price = 0;
+
+      await this.cartRepository.save(result);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
 }
