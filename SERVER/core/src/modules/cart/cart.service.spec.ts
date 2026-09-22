@@ -56,10 +56,10 @@ describe('Test ( Order ) Service', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
+    service = module.get<CartService>(CartService);
     usersService = module.get<UsersService>(UsersService);
     colorService = module.get<ColorsService>(ColorsService);
     productService = module.get<ProductService>(ProductService);
-    service = module.get<CartService>(CartService);
     brandService = module.get<BrandsService>(BrandsService);
     specificationService =
       module.get<SpecificationService>(SpecificationService);
