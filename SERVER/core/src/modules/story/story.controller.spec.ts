@@ -13,7 +13,7 @@ import { CategoriesController } from '../categories/category/categories.controll
 import { randomInt } from 'node:crypto';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
-import { ResultInterface } from '../../common/interfaces/result.interface';
+import { StoryStatusEnum } from '../../common/enums/story/status.enum';
 
 describe('Test ( Story ) Controller', () => {
   let module: TestingModule;
@@ -254,20 +254,6 @@ describe('Test ( Story ) Controller', () => {
     expect(result.status).toEqual(201);
   });
 
-  it('Test ( FindAll ) Controller', async () => {
-    const result = await controller.findAll({});
-
-    expect(result.status).toEqual(200);
-  });
-
-  it('Test ( FindOne ) Controller', async () => {
-    const result = await controller.findOne({ id: story_id });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(200);
-  });
-
   it('Test ( Payment ) Controller', async () => {
     const result = await controller.payment({
       id: story_id,
@@ -282,6 +268,36 @@ describe('Test ( Story ) Controller', () => {
     }
 
     expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Status ) Controller', async () => {
+    const result = await controller.updateStatus({
+      id: story_id,
+      status: StoryStatusEnum.ACTIVE
+    });
+
+    if (result instanceof CustomException) {
+      const error = result.getError() as { status: number; message: string };
+
+      expect(error.status).toEqual(404);
+      return;
+    }
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( FindAll ) Controller', async () => {
+    const result = await controller.findAll({});
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( FindOne ) Controller', async () => {
+    const result = await controller.findOne({ id: story_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Like ) Controller', async () => {
