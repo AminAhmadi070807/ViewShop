@@ -37,7 +37,7 @@ describe('Test ( Comment ) Service', () => {
   let comment_id: string;
   let child_comment_id: string;
 
-  const description: string = 'واقعا محصول خوبی بود';
+  const description: string = `واقعا ${crypto.randomUUID()} محصول خوبی بود`;
   const score: number = 5;
 
   const title = `unit ${crypto.randomUUID()} product`;
@@ -102,7 +102,7 @@ describe('Test ( Comment ) Service', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -115,7 +115,7 @@ describe('Test ( Comment ) Service', () => {
 
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoryService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       icon: medias[0],
       alias: crypto.randomUUID(),
@@ -131,10 +131,10 @@ describe('Test ( Comment ) Service', () => {
   it('Test ( Create Store ) Controller', async () => {
     const result = await storeService.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: medias[0],
-      cell_phone: '09141236520',
+      cell_phone: `0914${randomInt(1_000_000, 9_999_999)}`,
     });
 
     if (result instanceof CustomException) throw result;
@@ -157,8 +157,8 @@ describe('Test ( Comment ) Service', () => {
 
   it('Test ( Create Color ) Controller', async () => {
     const result = await colorService.create({
-      color: '#2456ae',
-      title: 'شنانپونزه ای تیره',
+      color: `#245${randomInt(100, 999)}`,
+      title: ` ${randomInt(100, 999)}شنانپونزه ای تیره`,
     });
 
     if (result instanceof CustomException) throw result;
@@ -178,9 +178,9 @@ describe('Test ( Comment ) Service', () => {
   it('Test ( Create Brand ) Controller', async () => {
     const result = await brandService.create({
       logo: medias[0],
-      title,
+      title: crypto.randomUUID(),
       description,
-      alias,
+      alias: crypto.randomUUID(),
       link: 'https://sabzlearn.ir',
     });
 
@@ -193,11 +193,11 @@ describe('Test ( Comment ) Service', () => {
 
   it('Test ( Create Specification ) Controller', async () => {
     const result = await specificationService.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: 'unit test 1',
-          details: [{ title: 'unit test', value: 'unit test' }],
+          title: crypto.randomUUID(),
+          details: [{ title: crypto.randomUUID(), value: 'unit test' }],
         },
       ],
     });
@@ -268,7 +268,7 @@ describe('Test ( Comment ) Service', () => {
       user: user_id,
       score,
       product: product_id,
-      description,
+      description: crypto.randomUUID(),
       parentComment: comment_id,
     });
 
