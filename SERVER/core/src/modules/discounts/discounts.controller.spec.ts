@@ -3,6 +3,7 @@ import { DiscountsController } from './discounts.controller';
 import { AppModule } from '../../app.module';
 import crypto from 'crypto';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Discount ) Controller', () => {
   let module: TestingModule;
@@ -10,8 +11,8 @@ describe('Test ( Discount ) Controller', () => {
 
   let discount_id: string;
 
-  const user_phone: string = '09144676519';
-  const title: string = 'Unit Test';
+  const user_phone: string = `0914${randomInt(1_000_000, 9_999_999)}`;
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
   const expiration: Date = new Date();
   const permitted: number = 10;
   const percent: number = 10;
