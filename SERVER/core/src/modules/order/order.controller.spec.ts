@@ -194,8 +194,8 @@ describe('Test ( Order ) Controller', () => {
 
   it('Test ( Create Color ) Controller', async () => {
     const result = await colorController.create({
-      color: '#2456ae',
-      title: 'شنانپونزه ای تیره',
+      color: `#245${randomInt(100, 999)}`,
+      title: `شنانپونزه ای تیره ${randomInt(100, 999)}`,
     });
 
     if (result instanceof CustomException) throw result;
