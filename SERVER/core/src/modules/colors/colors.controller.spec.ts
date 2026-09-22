@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { ColorsController } from './colors.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { randomInt } from 'crypto';
 
 describe('Test ( Colors ) Controller', () => {
   let module: TestingModule;
@@ -9,8 +10,8 @@ describe('Test ( Colors ) Controller', () => {
 
   let color_id: string;
 
-  const color: string = '#23f6f8';
-  const title: string = 'شامپونزه ای';
+  const color: string = `#23f${randomInt(100, 999)}`;
+  const title: string = `شامپونزه ای ${randomInt(100, 999)}`;
 
   beforeEach(() => jest.clearAllMocks());
 

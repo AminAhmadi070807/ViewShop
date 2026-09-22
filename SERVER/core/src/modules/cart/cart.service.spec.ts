@@ -39,14 +39,12 @@ describe('Test ( Cart ) Service', () => {
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const discount_percent = 0;
-  const details = [
-    {
-      id: crypto.randomUUID(),
-      color: 'f48533d3-cc90-4d78-b9ec-b85bfb261e53',
-      price: 100000000,
-      stock: 1000,
-    },
-  ];
+  const details: {
+    id: string;
+    color: string;
+    price: number;
+    stock: number;
+  }[] = [];
   const medias: string[] = [];
   const alias: string = `unit-controller-${crypto.randomUUID()}-test-product`;
 
@@ -159,6 +157,13 @@ describe('Test ( Cart ) Service', () => {
     if (result instanceof CustomException) throw result;
 
     color_id = result.body.id;
+
+    details.push({
+      id: crypto.randomUUID(),
+      color: color_id,
+      price: 100000000,
+      stock: 1000,
+    });
 
     expect(result.status).toBe(201);
   });
