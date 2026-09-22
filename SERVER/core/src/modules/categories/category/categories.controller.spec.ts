@@ -16,8 +16,8 @@ describe('Test ( Categories ) Controller', () => {
   let user_id: string;
   let icon_id: string;
 
-  const title: string = 'Unit Test';
-  const alias: string = 'unit-test';
+  const title: string = 'Unit Controller Test';
+  const alias: string = 'unit-Controller-test';
 
   beforeEach(() => jest.clearAllMocks());
 

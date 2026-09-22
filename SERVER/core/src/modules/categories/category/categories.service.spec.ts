@@ -16,8 +16,8 @@ describe('Test ( Categories ) Service', () => {
   let user_id: string;
   let icon_id: string;
 
-  const title: string = 'Unit Test';
-  const alias: string = 'unit-test';
+  const title: string = 'Unit Service Test';
+  const alias: string = 'unit-service-test';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -107,14 +107,6 @@ describe('Test ( Categories ) Service', () => {
   });
 
   it('Test ( Delete ) Feature', async () => {
-    const result = await service.remove(category_id);
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
-  });
-
-  it('Test ( Delete ) Controller', async () => {
     const result = await service.remove(category_id);
 
     if (result instanceof CustomException) throw result;
