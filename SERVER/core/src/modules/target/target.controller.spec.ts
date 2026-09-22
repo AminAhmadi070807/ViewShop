@@ -24,7 +24,9 @@ describe('Test ( Target ) Controller', () => {
   });
 
   it('Test ( Create ) Controller', async () => {
-    const result = await controller.create({ title: 'Unit Test' });
+    const result = await controller.create({
+      title: `Unit ${crypto.randomUUID()} Test`,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -50,7 +52,7 @@ describe('Test ( Target ) Controller', () => {
   it('Test ( Update ) Controller', async () => {
     const result = await controller.update({
       id: target_id,
-      title: 'New Test',
+      title: `New ${crypto.randomUUID()} Test`,
     });
 
     if (result instanceof CustomException) throw result;
