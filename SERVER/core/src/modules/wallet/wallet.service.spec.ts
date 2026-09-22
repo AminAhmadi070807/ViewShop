@@ -60,7 +60,7 @@ describe('Test ( Wallet ) Service', () => {
   });
 
   it('Test ( FindAll ) Controller', async () => {
-    const result = await service.findAll({});
+    const result = await service.findAll();
 
     expect(result.status).toEqual(200);
   });
