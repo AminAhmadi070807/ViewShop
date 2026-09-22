@@ -34,6 +34,11 @@ export class StoryController {
     return this.storyService.payment(data.id, data.user as string);
   }
 
+  @MessagePattern('STORY:UPDATE:STATUS')
+  updateStatus(@Payload() data: Validate) {
+    return this.storyService.payment(data.id, data.user as string);
+  }
+
   @MessagePattern('STORY:DELETE')
   remove(@Payload() data: Validate) {
     return this.storyService.remove(data.id);

@@ -115,6 +115,24 @@ export class StoryService {
     }
   }
 
+  async updateStatus(id: string) {
+    try {
+      const result = await this.storyRepository.findOneBy({ id });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      result.status = StoryStatusEnum.PENDING;
+
+      await this.storyRepository.save(result);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
   async remove(id: string) {
     try {
       const result = await this.storyRepository.delete(id);
