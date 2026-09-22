@@ -30,7 +30,6 @@ describe('Test ( Comment ) Controller', () => {
   let child_comment_id: string;
   let user_id: string;
   let product_id: string;
-  let product_detail_id: string;
   let color_id: string;
   let brand_id: string;
   let specification_id: string;
@@ -225,7 +224,6 @@ describe('Test ( Comment ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     product_id = result.body.id;
-    product_detail_id = result.body.productDetailsId[0];
 
     expect(result.status).toEqual(201);
   });

@@ -70,6 +70,7 @@ describe('Test ( Cart ) Service', () => {
   afterAll(async () => {
     await service.remove({ id: user_id, user: user_id });
     await storeService.remove(store_id);
+    await productService.remove(product_id);
     await categoryService.remove(category_id);
     await mediaService.remove(medias[0]);
     await colorService.remove(color_id);
