@@ -5,6 +5,7 @@ import { CustomException } from '../../../common/exceptions/custom.exception.err
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 import { UsersController } from '../../users/users.controller';
 import { MediaController } from '../../media/media.controller';
+import { randomInt } from 'crypto';
 
 describe('Test ( Categories ) Controller', () => {
   let module: TestingModule;
@@ -16,8 +17,8 @@ describe('Test ( Categories ) Controller', () => {
   let user_id: string;
   let icon_id: string;
 
-  const title: string = 'Unit Controller Test';
-  const alias: string = 'unit-Controller-test';
+  const title: string = `Unit Controller ${randomInt(100, 10000)} Test`;
+  const alias: string = `unit-Controller-${randomInt(100, 10000)}-test`;
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -40,7 +41,7 @@ describe('Test ( Categories ) Controller', () => {
 
   it('Test ( Create User ) Controller', async () => {
     const result = await usersController.create({
-      phone: '09141234567',
+      phone: `0914${randomInt(1000000, 9999999)}`,
       password: '123456789',
       fullName: 'تست نام کاربری',
     });

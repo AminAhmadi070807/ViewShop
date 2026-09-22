@@ -12,6 +12,7 @@ import { StoreController } from '../store/store.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { CategoriesController } from '../categories/category/categories.controller';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Cart ) Controller', () => {
   let module: TestingModule;
@@ -86,7 +87,7 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create User ) Controller', async () => {
     const result = await usersController.create({
-      phone: '09141234567',
+      phone: `0914${randomInt(1000000, 9999999)}`,
       password: '123456789',
       fullName: 'تست نام کاربری',
     });

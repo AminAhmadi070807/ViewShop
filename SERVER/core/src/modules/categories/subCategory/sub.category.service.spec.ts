@@ -6,6 +6,7 @@ import { UsersService } from '../../users/users.service';
 import { MediaService } from '../../media/media.service';
 import { CategoriesService } from '../category/categories.service';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
+import { randomInt } from 'crypto';
 
 describe('Test ( Sub Category ) Service', () => {
   let module: TestingModule;
@@ -19,8 +20,8 @@ describe('Test ( Sub Category ) Service', () => {
   let icon_id: string;
   let category_id: string;
 
-  const title: string = 'Unit Service Test';
-  const alias: string = 'unit-service-test';
+  const title: string = `Unit Service ${randomInt(100, 10000)} Test`;
+  const alias: string = `unit-service-${randomInt(100, 10000)}-test`;
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -45,7 +46,7 @@ describe('Test ( Sub Category ) Service', () => {
 
   it('Test ( Create User ) Feature', async () => {
     const result = await usersService.create({
-      phone: '09141234567',
+      phone: `0914${randomInt(1000000, 9999999)}`,
       password: '123456789',
       fullName: 'تست نام کاربری',
     });

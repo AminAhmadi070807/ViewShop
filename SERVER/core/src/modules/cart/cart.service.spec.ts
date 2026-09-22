@@ -12,6 +12,7 @@ import { SpecificationService } from '../specification/specification.service';
 import { MediaService } from '../media/media.service';
 import { StoreService } from '../store/store.service';
 import { CategoriesService } from '../categories/category/categories.service';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Cart ) Service', () => {
   let module: TestingModule;
@@ -82,7 +83,7 @@ describe('Test ( Cart ) Service', () => {
 
   it('Test ( Create User ) Controller', async () => {
     const result = await usersService.create({
-      phone: '09141234567',
+      phone: `0914${randomInt(1000000, 9999999)}`,
       password: '123456789',
       fullName: 'تست نام کاربری',
     });

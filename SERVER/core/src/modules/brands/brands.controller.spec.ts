@@ -4,6 +4,7 @@ import { BrandsController } from './brands.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { MediaController } from '../media/media.controller';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { randomInt } from 'crypto';
 
 describe('Test ( Brands ) Controller', () => {
   let module: TestingModule;
@@ -13,10 +14,10 @@ describe('Test ( Brands ) Controller', () => {
   let brand_id: string;
   let logo_id: string;
 
-  const title: string = 'Unit Controller Testing';
+  const title: string = `Unit Controller ${randomInt(100, 10000)} Testing`;
   const description: string =
     'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.';
-  const alias: string = 'unit-controller-test';
+  const alias: string = `unit-controller-${randomInt(100, 10000)}-test`;
   const link: string = 'https://sabzlearn.ir';
 
   beforeEach(() => jest.clearAllMocks());

@@ -6,6 +6,7 @@ import { UsersController } from '../../users/users.controller';
 import { MediaController } from '../../media/media.controller';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 import { CategoriesController } from '../category/categories.controller';
+import { randomInt } from 'crypto';
 
 describe('Test ( Sub Category ) Controller', () => {
   let module: TestingModule;
@@ -19,8 +20,8 @@ describe('Test ( Sub Category ) Controller', () => {
   let icon_id: string;
   let category_id: string;
 
-  const title: string = 'Unit Controller Test';
-  const alias: string = 'unit-controller-test';
+  const title: string = `Unit Controller ${randomInt(100, 10000)} Test`;
+  const alias: string = `unit-controller-${randomInt(100, 10000)}-test`;
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -46,7 +47,7 @@ describe('Test ( Sub Category ) Controller', () => {
 
   it('Test ( Create User ) Controller', async () => {
     const result = await usersController.create({
-      phone: '09141234567',
+      phone: `0914${randomInt(1000000, 9999999)}`,
       password: '123456789',
       fullName: 'تست نام کاربری',
     });
