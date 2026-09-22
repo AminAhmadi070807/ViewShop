@@ -248,7 +248,7 @@ describe('Test ( Cart ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
-    const result = await controller.empty({
+    const result = await controller.remove({
       id: user_id,
       user: user_id,
     });
