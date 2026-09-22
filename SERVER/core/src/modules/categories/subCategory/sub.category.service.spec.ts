@@ -37,6 +37,9 @@ describe('Test ( Sub Category ) Service', () => {
 
   afterAll(async () => {
     await service.remove(subCategory_id);
+    await categoriesService.remove(category_id);
+    await mediaService.remove(icon_id);
+    await usersService.remove({ id: user_id });
     await module.close();
   });
 
@@ -128,6 +131,30 @@ describe('Test ( Sub Category ) Service', () => {
 
   it('Test ( Delete ) Feature', async () => {
     const result = await service.remove(subCategory_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Category ) Controller', async () => {
+    const result = await categoriesService.remove(category_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaService.remove(icon_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersService.remove({ id: user_id });
 
     if (result instanceof CustomException) throw result;
 

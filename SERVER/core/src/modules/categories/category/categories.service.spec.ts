@@ -113,4 +113,30 @@ describe('Test ( Categories ) Service', () => {
 
     expect(result.status).toEqual(204);
   });
+
+  it('Test ( Delete ) Controller', async () => {
+    const result = await service.remove(category_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaService.remove(icon_id);
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersService.remove({
+      id: user_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
 });
