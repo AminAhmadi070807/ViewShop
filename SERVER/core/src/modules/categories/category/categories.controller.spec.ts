@@ -52,6 +52,19 @@ describe('Test ( Categories ) Controller', () => {
     expect(result.status).toEqual(201);
   });
 
+  it('Test ( Create Media ) Controller', async () => {
+    const result = await mediaController.create({
+      title,
+      user: user_id,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    icon_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       user: user_id,
