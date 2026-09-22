@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { StoryDto } from './dto/story.dto';
+import { StoryDto, UpdateStoryDto } from './dto/story.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
 import { Repository } from 'typeorm';
@@ -115,9 +115,9 @@ export class StoryService {
     }
   }
 
-  async updateStatus(id: string) {
+  async updateStatus(data: UpdateStoryDto) {
     try {
-      const result = await this.storyRepository.findOneBy({ id });
+      const result = await this.storyRepository.findOneBy({ id: data.id });
 
       if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);

@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { StoryService } from './story.service';
-import { StoryDto } from './dto/story.dto';
+import { StoryDto, UpdateStoryDto } from './dto/story.dto';
 import { Validate } from '../../common/validations/validate.dto';
 import { PageFilter } from '../../common/filters/page.filter';
 
@@ -35,8 +35,8 @@ export class StoryController {
   }
 
   @MessagePattern('STORY:UPDATE:STATUS')
-  updateStatus(@Payload() data: Validate) {
-    return this.storyService.payment(data.id, data.user as string);
+  updateStatus(@Payload() data: UpdateStoryDto) {
+    return this.storyService.updateStatus(data);
   }
 
   @MessagePattern('STORY:DELETE')

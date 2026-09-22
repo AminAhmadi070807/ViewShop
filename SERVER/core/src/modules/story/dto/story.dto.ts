@@ -1,10 +1,12 @@
 import {
+  IsEnum,
   IsNotEmpty,
   IsString,
   IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { StoryStatusEnum } from '../../../common/enums/story/status.enum';
 
 export class StoryDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
@@ -27,4 +29,12 @@ export class StoryDto {
 
   @IsUUID('4', { message: 'ایدی دسته بندی نامعتبر هست' })
   category: string;
+}
+
+export class UpdateStoryDto {
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  id: string;
+
+  @IsEnum(StoryStatusEnum, { message: 'وضیعت نامعتبر است' })
+  status: StoryStatusEnum;
 }
