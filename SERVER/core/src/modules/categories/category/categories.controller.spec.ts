@@ -2,17 +2,22 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
 import { AppModule } from '../../../app.module';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
+import { UsersController } from '../../users/users.controller';
+import { MediaController } from '../../media/media.controller';
 
 describe('Test ( Categories ) Controller', () => {
   let module: TestingModule;
   let controller: CategoriesController;
+  let usersController: UsersController;
+  let mediaController: MediaController;
 
   let category_id: string;
+  let user_id: string;
+  let icon_id: string;
 
-  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
   const title: string = 'Unit Test';
   const alias: string = 'unit-test';
-  const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -20,17 +25,40 @@ describe('Test ( Categories ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
+    usersController = module.get<UsersController>(UsersController);
+    mediaController = module.get<MediaController>(MediaController);
   });
 
   afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await controller.remove({ id: category_id });
+    await mediaController.remove({ id: icon_id });
+    await usersController.remove({ id: user_id });
     await module.close();
   });
 
+  it('Test ( Create User ) Controller', async () => {
+    const result = await usersController.create({
+      phone: '09141234567',
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
-    const result = await controller.create({ user, title, alias, icon });
+    const result = await controller.create({
+      user: user_id,
+      title,
+      alias,
+      icon: icon_id,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -56,7 +84,7 @@ describe('Test ( Categories ) Controller', () => {
   it('Test ( Update ) Controller', async () => {
     const result = await controller.update({
       id: category_id,
-      icon,
+      icon: icon_id,
       title,
       alias,
     });

@@ -73,6 +73,7 @@ describe('Test ( Cart ) Controller', () => {
   afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
+    await controller.remove({ id: user_id, user: user_id });
     await storeController.remove({ id: store_id });
     await categoryController.remove({ id: category_id });
     await mediaController.remove({ id: medias[0] });
