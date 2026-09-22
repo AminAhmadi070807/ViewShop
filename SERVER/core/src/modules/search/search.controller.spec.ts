@@ -2,6 +2,7 @@ import { SearchController } from './search.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { randomInt } from 'crypto';
 
 describe('Test ( Search ) Controller', () => {
   let controller: SearchController;
@@ -24,7 +25,9 @@ describe('Test ( Search ) Controller', () => {
   });
 
   it('Test ( Search ) Controller', async () => {
-    const result = await controller.search({ title: 'unit test' });
+    const result = await controller.search({
+      title: `unit ${randomInt(1000, 100000)} test`,
+    });
 
     search_id = result.body.id;
 

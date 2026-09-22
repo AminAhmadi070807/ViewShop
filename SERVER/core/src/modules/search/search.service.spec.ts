@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { SearchService } from './search.service';
+import { randomInt } from 'crypto';
 
 describe('Test ( Search ) Service', () => {
   let service: SearchService;
@@ -24,7 +25,9 @@ describe('Test ( Search ) Service', () => {
   });
 
   it('Test ( Search ) Feature', async () => {
-    const result = await service.search({ title: 'unit test' });
+    const result = await service.search({
+      title: `unit ${randomInt(10000, 100000)} test`,
+    });
 
     search_id = result.body.id;
 
