@@ -10,9 +10,9 @@ describe('Test ( Menus ) Service', () => {
 
   let menu_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
   const section: MenuSectionEnum = MenuSectionEnum.HEADER;
-  const alias: string = 'unit-test';
+  const alias: string = `unit-${crypto.randomUUID()}-test`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
