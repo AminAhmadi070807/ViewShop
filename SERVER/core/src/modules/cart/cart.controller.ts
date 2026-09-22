@@ -28,4 +28,9 @@ export class CartController {
   empty(@Payload() data: Validate) {
     return this.cartService.empty(data);
   }
+
+  @MessagePattern('CART:DELETE')
+  remove(@Payload() data: Validate) {
+    return this.cartService.remove(data);
+  }
 }
