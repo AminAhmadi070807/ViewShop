@@ -269,7 +269,7 @@ describe('Test ( Order ) Controller', () => {
   it('Test ( Create Cart ) Controller', async () => {
     const result = await cartController.create({
       user: user_id,
-      quantity: 1,
+      quantity,
       product: product_id,
       product_detail_id,
       color: color_id,
