@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { NewsletterService } from './newsletter.service';
+import { randomInt } from 'crypto';
 
 describe('Test ( NewsLetter ) Service', () => {
   let module: TestingModule;
@@ -9,7 +10,7 @@ describe('Test ( NewsLetter ) Service', () => {
 
   let newsletter_id: string;
 
-  const email: string = 'viewshop@gmail.com';
+  const email: string = `viewshop${randomInt(10000, 1000000)}@gmail.com`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
