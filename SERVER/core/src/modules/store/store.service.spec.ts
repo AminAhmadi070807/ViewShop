@@ -152,7 +152,7 @@ describe('Test ( Store ) Service', () => {
   });
 
   it('Test ( Delete Category ) Feature', async () => {
-    const result = await service.remove(category_id);
+    const result = await categoriesService.remove(category_id);
 
     if (result instanceof CustomException) throw result;
 
