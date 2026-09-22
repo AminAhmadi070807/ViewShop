@@ -2,17 +2,22 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../app.module';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { CategoriesService } from './categories.service';
+import { MediaService } from '../../media/media.service';
+import { UsersService } from '../../users/users.service';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 describe('Test ( Categories ) Service', () => {
   let module: TestingModule;
   let service: CategoriesService;
+  let usersService: UsersService;
+  let mediaService: MediaService;
 
   let category_id: string;
+  let user_id: string;
+  let icon_id: string;
 
-  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
   const title: string = 'Unit Test';
   const alias: string = 'unit-test';
-  const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -20,17 +25,52 @@ describe('Test ( Categories ) Service', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<CategoriesService>(CategoriesService);
+    usersService = module.get<UsersService>(UsersService);
+    mediaService = module.get<MediaService>(MediaService);
   });
 
   afterEach(() => jest.clearAllMocks());
 
   afterAll(async () => {
     await service.remove(category_id);
+    await mediaService.remove(icon_id);
+    await usersService.remove({ id: user_id });
     await module.close();
   });
 
+  it('Test ( Create User ) Feature', async () => {
+    const result = await usersService.create({
+      phone: '09141234567',
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Media ) Feature', async () => {
+    const result = await mediaService.create({
+      title,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    icon_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Create ) Feature', async () => {
-    const result = await service.create({ user, title, alias, icon });
+    const result = await service.create({
+      user: user_id,
+      title,
+      alias,
+      icon: icon_id,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -56,7 +96,7 @@ describe('Test ( Categories ) Service', () => {
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: category_id,
-      icon,
+      icon: icon_id,
       title,
       alias,
     });
