@@ -9,6 +9,7 @@ import { CategoriesService } from '../categories/category/categories.service';
 import { MediaService } from '../media/media.service';
 import { ProductService } from '../products/product.service';
 import { WalletService } from '../wallet/wallet.service';
+import { StoryStatusEnum } from '../../common/enums/story/status.enum';
 
 @Injectable()
 export class StoryService {
@@ -84,6 +85,31 @@ export class StoryService {
       await this.storyRepository.save(story);
 
       return { status: 200, message: statusMessages.fa['200'], body: story };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async payment(id: string, user: string) {
+    try {
+      const result = await this.storyRepository.findOneBy({ id });
+
+      if (!result) {
+        return new CustomException(statusMessages.fa['404'], 404);
+      }
+
+      const payment = await this.walletService.payment({
+        user,
+        amount: 1_000_00,
+      });
+
+      if (payment instanceof CustomException) return payment;
+
+      result.status = StoryStatusEnum.PENDING;
+
+      await this.storyRepository.save(result);
+
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

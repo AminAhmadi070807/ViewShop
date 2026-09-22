@@ -13,6 +13,7 @@ import { CategoriesController } from '../categories/category/categories.controll
 import { randomInt } from 'node:crypto';
 import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 import { StoreStatusEnum } from '../../common/enums/store/store.enum';
+import { ResultInterface } from '../../common/interfaces/result.interface';
 
 describe('Test ( Story ) Controller', () => {
   let module: TestingModule;
@@ -238,7 +239,15 @@ describe('Test ( Story ) Controller', () => {
       category: category_id,
     });
 
-    if (result instanceof CustomException) throw result;
+    if (result instanceof CustomException) {
+      const error: { message: string; status: number } = result.getError() as {
+        message: string;
+        status: number;
+      };
+
+      expect(error.status).toEqual(409);
+      return;
+    }
 
     story_id = result.body.id;
 
@@ -257,6 +266,22 @@ describe('Test ( Story ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Payment ) Controller', async () => {
+    const result = await controller.payment({
+      id: story_id,
+      user: user_id,
+    });
+
+    if (result instanceof CustomException) {
+      const error = result.getError() as { status: number; message: string };
+
+      expect(error.status).toEqual(404);
+      return;
+    }
+
+    expect(result.status).toEqual(204);
   });
 
   it('Test ( Like ) Controller', async () => {

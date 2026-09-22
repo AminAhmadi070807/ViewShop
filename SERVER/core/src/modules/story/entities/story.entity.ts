@@ -25,7 +25,7 @@ export class Story {
   @Column({
     type: 'enum',
     enum: StoryStatusEnum,
-    default: StoryStatusEnum.PENDING,
+    default: StoryStatusEnum.WAITING,
   })
   status: StoryStatusEnum;
 

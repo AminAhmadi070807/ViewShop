@@ -29,6 +29,11 @@ export class StoryController {
     return this.storyService.findOne(data.id, true);
   }
 
+  @MessagePattern('STORY:PAYMENT')
+  payment(@Payload() data: Validate) {
+    return this.storyService.payment(data.id, data.user as string);
+  }
+
   @MessagePattern('STORY:DELETE')
   remove(@Payload() data: Validate) {
     return this.storyService.remove(data.id);
