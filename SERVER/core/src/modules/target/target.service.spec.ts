@@ -24,7 +24,9 @@ describe('Test ( Target ) Service', () => {
   });
 
   it('Test ( Create ) Feature', async () => {
-    const result = await service.create({ title: 'Unit Test' });
+    const result = await service.create({
+      title: `Unit ${crypto.randomUUID()} Test`,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -50,7 +52,7 @@ describe('Test ( Target ) Service', () => {
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: target_id,
-      title: 'New Test',
+      title: `New ${crypto.randomUUID()} Test`,
     });
 
     if (result instanceof CustomException) throw result;
