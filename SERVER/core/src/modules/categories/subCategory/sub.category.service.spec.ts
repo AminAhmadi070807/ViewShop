@@ -2,18 +2,25 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../app.module';
 import { CustomException } from '../../../common/exceptions/custom.exception.error';
 import { SubCategoryService } from './sub.category.service';
+import { UsersService } from '../../users/users.service';
+import { MediaService } from '../../media/media.service';
+import { CategoriesService } from '../category/categories.service';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 
 describe('Test ( Sub Category ) Service', () => {
   let module: TestingModule;
   let service: SubCategoryService;
+  let usersService: UsersService;
+  let mediaService: MediaService;
+  let categoriesService: CategoriesService;
 
   let subCategory_id: string;
+  let user_id: string;
+  let icon_id: string;
+  let category_id: string;
 
-  const user: string = '1c4b85ac-f889-4396-a98c-803e531037af';
-  const title: string = 'Unit Test';
-  const alias: string = 'unit-test';
-  const icon: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
-  const category: string = 'bd015464-eb0e-46c1-b5fe-bfbb4a2ea674';
+  const title: string = 'Unit Service Test';
+  const alias: string = 'unit-service-test';
 
   beforeEach(() => jest.clearAllMocks());
 
@@ -21,6 +28,9 @@ describe('Test ( Sub Category ) Service', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     service = module.get<SubCategoryService>(SubCategoryService);
+    usersService = module.get<UsersService>(UsersService);
+    mediaService = module.get<MediaService>(MediaService);
+    categoriesService = module.get<CategoriesService>(CategoriesService);
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -30,13 +40,54 @@ describe('Test ( Sub Category ) Service', () => {
     await module.close();
   });
 
-  it('Test ( Create ) Feature', async () => {
-    const result = await service.create({
-      user,
-      icon,
+  it('Test ( Create User ) Feature', async () => {
+    const result = await usersService.create({
+      phone: '09141234567',
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Media ) Feature', async () => {
+    const result = await mediaService.create({
+      title,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    icon_id = result.body.id;
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Create Category ) Feature', async () => {
+    const result = await categoriesService.create({
+      user: user_id,
       title,
       alias,
-      category,
+      icon: icon_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    category_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create ) Feature', async () => {
+    const result = await service.create({
+      user: user_id,
+      icon: icon_id,
+      title,
+      alias,
+      category: category_id,
     });
 
     if (result instanceof CustomException) throw result;
@@ -63,11 +114,11 @@ describe('Test ( Sub Category ) Service', () => {
   it('Test ( Update ) Feature', async () => {
     const result = await service.update({
       id: subCategory_id,
-      icon,
+      icon: icon_id,
       title,
       alias,
-      category,
-      user,
+      category: category_id,
+      user: user_id,
     });
 
     if (result instanceof CustomException) throw result;

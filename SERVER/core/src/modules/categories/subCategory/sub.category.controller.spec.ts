@@ -38,6 +38,7 @@ describe('Test ( Sub Category ) Controller', () => {
 
   afterAll(async () => {
     await controller.remove({ id: subCategory_id });
+    await categoriesController.remove({ id: category_id });
     await mediaController.remove({ id: icon_id });
     await usersController.remove({ id: user_id });
     await module.close();
