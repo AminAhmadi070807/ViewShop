@@ -207,8 +207,10 @@ export class OrderService {
       order.status = OrderStatusEnum.SUCCESS;
       order.status_box = OrderStatusBoxEnum.PENDING;
 
+      const sales: string[] = [];
+
       for (const item of order.cart) {
-        await this.salesService.sale({
+        const result = await this.salesService.sale({
           user: order.user.id,
           product: item.product,
           product_detail_id: item.product_detail_id,
@@ -216,11 +218,19 @@ export class OrderService {
           product_price: +item.price / +item.quantity,
           quantity: item.quantity,
         });
+
+        if (result instanceof CustomException) return result;
+
+        sales.push(result.body.id);
       }
 
       await this.orderRepository.save(order);
 
-      return { status: 200, message: statusMessages.fa['200'], body: null };
+      return {
+        status: 200,
+        message: statusMessages.fa['200'],
+        body: { sales },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

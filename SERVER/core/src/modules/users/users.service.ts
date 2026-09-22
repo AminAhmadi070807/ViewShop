@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt';
 import { statusMessages } from '../../common/message/message.status';
 import { Validate } from '../../common/validations/validate.dto';
 import { Wallet } from '../wallet/entities/wallet.entity';
+import { Cart } from '../cart/entities/cart.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,6 +18,8 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Wallet)
     private readonly walletRepository: Repository<Wallet>,
+    @InjectRepository(Cart)
+    private readonly cartRepository: Repository<Cart>,
   ) {}
 
   async create(data: CreateUserDto) {
@@ -42,6 +45,10 @@ export class UsersService {
       });
 
       await this.walletRepository.save(wallet);
+
+      const cart = this.cartRepository.create({ user, price: 0, metadata: [] });
+
+      await this.cartRepository.save(cart);
 
       return { status: 201, message: statusMessages.fa['201'], body: user };
     } catch {
@@ -98,6 +105,7 @@ export class UsersService {
   async remove(data: Validate) {
     try {
       await this.walletRepository.delete({ user: { id: data.id } });
+      await this.cartRepository.delete({ user: { id: data.id } });
       const user = await this.userRepository.delete(data.id);
 
       if (!user.affected) {

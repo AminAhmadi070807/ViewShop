@@ -145,7 +145,8 @@ export class StoreService {
       await this.storeRepository.delete(id);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
