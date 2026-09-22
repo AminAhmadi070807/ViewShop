@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { UsersService } from './users.service';
+import { randomInt } from 'crypto';
 
 describe('Test ( Users ) Service', () => {
   let module: TestingModule;
@@ -9,9 +10,9 @@ describe('Test ( Users ) Service', () => {
 
   let user_id: string;
 
-  const phone = '09990009999';
+  const phone = `0914${randomInt(1_000_000, 9_999_999)}`;
   const fullName = 'کاربر تستی';
-  const password = '000000000';
+  const password = `${randomInt(1_000_000_000, 999_999_999_999)}`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
