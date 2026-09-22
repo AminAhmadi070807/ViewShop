@@ -1,12 +1,5 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
-import { User } from '../../users/entities/user.entity';
 
 @Entity('Media')
 export class Media {
@@ -18,10 +11,6 @@ export class Media {
 
   @Column({ type: 'varchar', nullable: false, unique: true })
   path: string;
-
-  @ManyToOne((): typeof User => User, { nullable: true })
-  @JoinColumn({ name: 'User_Media' })
-  user: User;
 
   @Column({ type: 'enum', enum: MediaTypeEnum, default: MediaTypeEnum.PUBLIC })
   type: MediaTypeEnum;

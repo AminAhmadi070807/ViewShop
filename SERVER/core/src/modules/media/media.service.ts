@@ -20,9 +20,6 @@ export class MediaService {
         title: data.title,
         type: data.type,
         path: data.path,
-        ...(data.user && {
-          user: { id: data.user },
-        }),
       });
 
       await this.mediaRepository.save(result);
@@ -103,7 +100,8 @@ export class MediaService {
       }
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

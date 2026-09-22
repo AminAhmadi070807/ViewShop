@@ -183,10 +183,10 @@ export class CartService {
     }
   }
 
-  async empty(user: string) {
+  async empty(data: Validate) {
     try {
       const result = await this.cartRepository.findOne({
-        where: { user: { id: user } },
+        where: { user: { id: data.user } },
       });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);

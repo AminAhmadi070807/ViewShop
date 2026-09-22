@@ -247,6 +247,25 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Delete ) Controller', async () => {
+    const result = await controller.empty({
+      id: user_id,
+      user: user_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Product ) Controller', async () => {
+    const result = await productController.remove({ id: product_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
   it('Test ( Update Store Status ) Controller', async () => {
     const result = await storeController.updateStatus({
       id: store_id,
@@ -278,6 +297,14 @@ describe('Test ( Cart ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
+  it('Test ( Delete Brand ) Controller', async () => {
+    const result = await brandController.remove({ id: brand_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
   it('Test ( Delete Media ) Controller', async () => {
     const result = await mediaController.remove({
       id: medias[0],
@@ -294,14 +321,6 @@ describe('Test ( Cart ) Controller', () => {
     if (result instanceof CustomException) throw result;
 
     expect(result.status).toBe(204);
-  });
-
-  it('Test ( Delete Brand ) Controller', async () => {
-    const result = await brandController.remove({ id: brand_id });
-
-    if (result instanceof CustomException) throw result;
-
-    expect(result.status).toEqual(204);
   });
 
   it('Test ( Delete Specification ) Controller', async () => {

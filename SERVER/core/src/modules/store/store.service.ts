@@ -47,7 +47,8 @@ export class StoreService {
         message: statusMessages.fa['201'],
         body: { id: store.id },
       };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -125,7 +126,8 @@ export class StoreService {
       }
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

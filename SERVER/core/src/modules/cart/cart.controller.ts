@@ -23,4 +23,9 @@ export class CartController {
   findOne(@Payload() data: Validate) {
     return this.cartService.findOne(data);
   }
+
+  @MessagePattern('CART:EMPTY')
+  empty(@Payload() data: Validate) {
+    return this.cartService.empty(data);
+  }
 }

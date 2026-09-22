@@ -24,7 +24,10 @@ export class Cart {
   @Column({ nullable: false, type: 'bigint', default: 0 })
   price: number;
 
-  @OneToOne(() => User, (user: User) => user.cart, { nullable: false })
+  @OneToOne(() => User, (user: User) => user.cart, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'User_Cart' })
   user: User;
 
