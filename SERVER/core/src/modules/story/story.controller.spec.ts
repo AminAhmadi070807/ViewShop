@@ -263,7 +263,7 @@ describe('Test ( Story ) Controller', () => {
     if (result instanceof CustomException) {
       const error = result.getError() as { status: number; message: string };
 
-      expect(error.status).toEqual(404);
+      expect(error.status).toEqual(409);
       return;
     }
 
@@ -273,7 +273,7 @@ describe('Test ( Story ) Controller', () => {
   it('Test ( Update Status ) Controller', async () => {
     const result = await controller.updateStatus({
       id: story_id,
-      status: StoryStatusEnum.ACTIVE
+      status: StoryStatusEnum.ACTIVE,
     });
 
     if (result instanceof CustomException) {

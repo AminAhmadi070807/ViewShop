@@ -32,13 +32,6 @@ export class StoryService {
       if (media instanceof CustomException) return media;
       if (product instanceof CustomException) return product;
 
-      const payment = await this.walletService.payment({
-        user: data.user,
-        amount: 1_000_000,
-      });
-
-      if (payment instanceof CustomException) return payment;
-
       const story = this.storyRepository.create({
         user: { id: data.user },
         category: category.body[0],
