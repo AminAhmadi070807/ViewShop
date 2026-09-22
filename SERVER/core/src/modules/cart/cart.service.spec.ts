@@ -128,7 +128,7 @@ describe('Test ( Cart ) Service', () => {
       title,
       description,
       logo: medias[0],
-      cell_phone: '09141236520',
+      cell_phone: `0914${randomInt(1000000, 9999999)}`,
     });
 
     if (result instanceof CustomException) throw result;
