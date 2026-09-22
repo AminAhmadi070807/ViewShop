@@ -3,35 +3,49 @@ import { AppModule } from '../../app.module';
 import { ProductController } from './product.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import { ProductStatusEnum } from '../../common/enums/products/product/status.enum';
+import { UsersController } from '../users/users.controller';
+import { ColorsController } from '../colors/colors.controller';
+import { BrandsController } from '../brands/brands.controller';
+import { SpecificationController } from '../specification/specification.controller';
+import { MediaController } from '../media/media.controller';
+import { StoreController } from '../store/store.controller';
+import { CategoriesController } from '../categories/category/categories.controller';
+import { randomInt } from 'node:crypto';
+import { MediaTypeEnum } from '../../common/enums/media/media.enum';
+import { StoreStatusEnum } from '../../common/enums/store/store.enum';
 
 describe('Test ( Product ) Controller', () => {
   let module: TestingModule;
   let controller: ProductController;
+  let usersController: UsersController;
+  let colorController: ColorsController;
+  let brandController: BrandsController;
+  let specificationController: SpecificationController;
+  let mediaController: MediaController;
+  let storeController: StoreController;
+  let categoryController: CategoriesController;
 
+  let user_id: string;
   let product_id: string;
+  let product_detail_id: string;
+  let color_id: string;
+  let brand_id: string;
+  let specification_id: string;
+  let store_id: string;
+  let category_id: string;
 
-  const title = 'unit controller test product';
+  const title = `unit ${crypto.randomUUID()} product`;
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
-  const brand = 'c8d1ea72-ee70-4f1e-a224-30ec3005db2e';
-  const userId = '70ffcfcf-baab-4937-8269-2d80574dab56';
-  const specification = 'ab7352d1-1925-42a8-8d7f-84cb300e1fec';
-  const store = 'b5a11a85-f5d8-430b-be0f-c8892656dbba';
   const discount_percent = 0;
-  const details = [
-    {
-      id: crypto.randomUUID(),
-      color: 'f48533d3-cc90-4d78-b9ec-b85bfb261e53',
-      price: 100000000,
-      stock: 1000,
-    },
-  ];
-  const medias = [
-    'a84db0d5-611b-4873-9dfc-93e350ef8c85',
-    '1d60805f-2cd9-4dbb-be6f-8ce320d44229',
-    '6f9b7b2f-c60a-4dfe-909e-9107e9ccf9fd',
-  ];
-  const alias = 'unit-test-product';
+  const details: {
+    id: string;
+    color: string;
+    price: number;
+    stock: number;
+  }[] = [];
+  const medias: string[] = [];
+  const alias: string = `unit-controller-${crypto.randomUUID()}-test-product`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
@@ -40,21 +54,158 @@ describe('Test ( Product ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<ProductController>(ProductController);
+    usersController = module.get<UsersController>(UsersController);
+    colorController = module.get<ColorsController>(ColorsController);
+    brandController = module.get<BrandsController>(BrandsController);
+    specificationController = module.get<SpecificationController>(
+      SpecificationController,
+    );
+    mediaController = module.get<MediaController>(MediaController);
+    storeController = module.get<StoreController>(StoreController);
+    categoryController = module.get<CategoriesController>(CategoriesController);
   });
 
   afterAll(async () => {
     await controller.remove({ id: product_id });
+    await storeController.remove({ id: store_id });
+    await categoryController.remove({ id: category_id });
+    await mediaController.remove({ id: medias[0] });
+    await colorController.remove({ id: color_id });
+    await brandController.remove({ id: brand_id });
+    await specificationController.remove({ id: specification_id });
+    await usersController.remove({ id: user_id });
     await module.close();
+  });
+
+  it('Test ( Create User ) Controller', async () => {
+    const result = await usersController.create({
+      phone: `0914${randomInt(1000000, 9999999)}`,
+      password: '123456789',
+      fullName: 'تست نام کاربری',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Media ) Controller', async () => {
+    const result = await mediaController.create({
+      title,
+      user: user_id,
+      type: MediaTypeEnum.PUBLIC,
+      path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
+    });
+
+    medias.push(result.body.id);
+
+    expect(result.status).toEqual(200);
+  });
+
+  it('Test ( Create Category ) Controller', async () => {
+    const result = await categoryController.create({
+      title,
+      user: user_id,
+      icon: medias[0],
+      alias: crypto.randomUUID(),
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    category_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Store ) Controller', async () => {
+    const result = await storeController.create({
+      categories: [category_id],
+      title,
+      description,
+      logo: medias[0],
+      cell_phone: `0914${randomInt(1000000, 9999999)}`,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    store_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.PENDING,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Create Color ) Controller', async () => {
+    const result = await colorController.create({
+      color: '#2456ae',
+      title: 'شنانپونزه ای تیره',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    color_id = result.body.id;
+
+    details.push({
+      id: crypto.randomUUID(),
+      color: color_id,
+      price: 100000000,
+      stock: 1000,
+    });
+
+    expect(result.status).toBe(201);
+  });
+
+  it('Test ( Create Brand ) Controller', async () => {
+    const result = await brandController.create({
+      logo: medias[0],
+      title,
+      description,
+      alias,
+      link: 'https://sabzlearn.ir',
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    brand_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Specification ) Controller', async () => {
+    const result = await specificationController.create({
+      title,
+      details: [
+        {
+          title: 'unit test 1',
+          details: [{ title: 'unit test', value: 'unit test' }],
+        },
+      ],
+    });
+
+    specification_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
       title,
       description,
-      brand,
-      userId,
-      store,
-      specification,
+      brand: brand_id,
+      userId: user_id,
+      store: store_id,
+      specification: specification_id,
       discount_percent,
       details,
       medias,
@@ -101,7 +252,7 @@ describe('Test ( Product ) Controller', () => {
       medias,
       title,
       description,
-      specification,
+      specification: specification_id,
       discount_percent,
     });
 
@@ -123,6 +274,83 @@ describe('Test ( Product ) Controller', () => {
 
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: product_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Update Store Status ) Controller', async () => {
+    const result = await storeController.updateStatus({
+      id: store_id,
+      status: StoreStatusEnum.DELETED,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Store ) Controller', async () => {
+    const result = await storeController.remove({
+      id: store_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Category ) Controller', async () => {
+    const result = await categoryController.remove({
+      id: category_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Brand ) Controller', async () => {
+    const result = await brandController.remove({ id: brand_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = await mediaController.remove({
+      id: medias[0],
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Color ) Controller', async () => {
+    const result = await colorController.remove({ id: color_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toBe(204);
+  });
+
+  it('Test ( Delete Specification ) Controller', async () => {
+    const result = await specificationController.remove({
+      id: specification_id,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = await usersController.remove({
+      id: user_id,
+    });
 
     if (result instanceof CustomException) throw result;
 
