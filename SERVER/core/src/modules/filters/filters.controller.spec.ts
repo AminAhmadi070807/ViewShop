@@ -3,6 +3,8 @@ import { FiltersController } from './filters.controller';
 import { AppModule } from '../../app.module';
 import { FilterTypeEnum } from '../../common/enums/filters/filter.enum';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { randomInt } from 'node:crypto';
+import crypto from 'crypto';
 
 describe('Test ( Filters ) Controller', () => {
   let module: TestingModule;
@@ -10,9 +12,13 @@ describe('Test ( Filters ) Controller', () => {
 
   let filter_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
   const type: FilterTypeEnum = FilterTypeEnum.SWITCH;
-  const details = [{ title: 'ابی' }, { title: 'قرمز' }, { title: 'نارنجی' }];
+  const details = [
+    { title: `ابی ${randomInt(100, 999)}` },
+    { title: `قرمز ${randomInt(100, 999)}` },
+    { title: `نارنجی ${randomInt(100, 999)}` },
+  ];
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.restoreAllMocks());
