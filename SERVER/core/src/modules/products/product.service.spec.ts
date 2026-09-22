@@ -5,7 +5,6 @@ import { ProductStatusEnum } from '../../common/enums/products/product/status.en
 import { ProductService } from './product.service';
 import { UsersService } from '../users/users.service';
 import { ColorsService } from '../colors/colors.service';
-import { CartService } from '../cart/cart.service';
 import { BrandsService } from '../brands/brands.service';
 import { SpecificationService } from '../specification/specification.service';
 import { MediaService } from '../media/media.service';
@@ -28,7 +27,6 @@ describe('Test ( Product ) Service', () => {
 
   let user_id: string;
   let product_id: string;
-  let product_detail_id: string;
   let color_id: string;
   let brand_id: string;
   let specification_id: string;
