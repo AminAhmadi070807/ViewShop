@@ -45,7 +45,7 @@ describe('Test ( Attribute ) Controller', () => {
   afterAll(async () => {
     await controller.remove({ id: attribute_id });
     await subCategoryController.remove({ id: sub_category_id });
-    await subCategoryController.remove({ id: category_id });
+    await categoriesController.remove({ id: category_id });
     await mediaController.remove({ id: icon_id });
     await usersController.remove({ id: user_id });
     await module.close();
@@ -147,8 +147,8 @@ describe('Test ( Attribute ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
-  it('Test ( Delete ) Controller', async () => {
-    const result = await controller.remove({ id: sub_category_id });
+  it('Test ( Delete Sub Category ) Controller', async () => {
+    const result = await subCategoryController.remove({ id: sub_category_id });
 
     if (result instanceof CustomException) throw result;
 
