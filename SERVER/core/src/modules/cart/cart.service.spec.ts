@@ -60,7 +60,6 @@ describe('Test ( Order ) Service', () => {
     colorService = module.get<ColorsService>(ColorsService);
     productService = module.get<ProductService>(ProductService);
     service = module.get<CartService>(CartService);
-
     brandService = module.get<BrandsService>(BrandsService);
     specificationService =
       module.get<SpecificationService>(SpecificationService);

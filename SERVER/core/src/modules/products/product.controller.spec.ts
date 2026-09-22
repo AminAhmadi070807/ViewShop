@@ -27,7 +27,6 @@ describe('Test ( Product ) Controller', () => {
 
   let user_id: string;
   let product_id: string;
-  let product_detail_id: string;
   let color_id: string;
   let brand_id: string;
   let specification_id: string;
@@ -148,8 +147,8 @@ describe('Test ( Product ) Controller', () => {
 
   it('Test ( Create Color ) Controller', async () => {
     const result = await colorController.create({
-      color: '#2456ae',
-      title: 'شنانپونزه ای تیره',
+      color: `#245${randomInt(100, 999)}`,
+      title: `شنانپونزه ای تیره ${randomInt(100, 999)}`,
     });
 
     if (result instanceof CustomException) throw result;
