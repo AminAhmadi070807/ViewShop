@@ -3,14 +3,16 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { AddressController } from './address.controller';
+import { UsersController } from '../users/user.controller';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Address ) Controller', () => {
   let module: TestingModule;
   let controller: AddressController;
+  let usersController: UsersController;
 
   let address_id: string;
-
-  const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
+  let user_id: string;
 
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
@@ -19,7 +21,9 @@ describe('Test ( Address ) Controller', () => {
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
-  const req = { user: { userId: user_id, role: 'ADMIN' } };
+  const phone = `0914${randomInt(1_000_000, 9_999_999)}`;
+  const fullName = 'کاربر تستی';
+  const password = '000000000';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -28,14 +32,30 @@ describe('Test ( Address ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<AddressController>(AddressController);
+    usersController = module.get<UsersController>(UsersController);
   });
 
   afterAll(async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     controller.remove({ id: address_id }, req);
+    usersController.remove({ id: user_id });
     await module.close();
   });
 
+  it('Test ( Create User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.create({ fullName, password, phone }),
+    )) as ResultInterface;
+
+    if (result.status === 201) user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.create(
         { street, province, city, postal_code, alley, address },
@@ -49,6 +69,8 @@ describe('Test ( Address ) Controller', () => {
   });
 
   it('Test ( FindAll ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.findAll(req),
     )) as ResultInterface;
@@ -57,6 +79,8 @@ describe('Test ( Address ) Controller', () => {
   });
 
   it('Test ( FindOne ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.findOne({ id: address_id }, req),
     )) as ResultInterface;
@@ -65,8 +89,18 @@ describe('Test ( Address ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.remove({ id: address_id }, req),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.remove({ id: user_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
