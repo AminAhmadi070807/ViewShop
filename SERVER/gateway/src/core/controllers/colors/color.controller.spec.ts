@@ -3,6 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { ColorController } from './color.controller';
 import { AppModule } from '../../../app.module';
 import { ResultInterface } from '../../../common/interface/result.interface';
+import { randomInt } from 'crypto';
 
 describe('Test ( Color ) Controller', () => {
   let module: TestingModule;
@@ -10,8 +11,7 @@ describe('Test ( Color ) Controller', () => {
 
   let color_id: string;
 
-  const color: string = '#23f6f8';
-  const title: string = 'شامپونزه ای';
+  const title: string = `شناپونزه ای ${randomInt(1000, 10000)}`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -29,7 +29,10 @@ describe('Test ( Color ) Controller', () => {
 
   it('Test ( Create ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.create({ title, color }),
+      controller.create({
+        color: `#23f${randomInt(100, 999)}`,
+        title,
+      }),
     )) as ResultInterface;
 
     if (result.status === 201) color_id = result.body.id;

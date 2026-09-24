@@ -100,13 +100,13 @@ describe('Test ( Cart ) Controller', () => {
 
     const file: Express.Multer.File = {
       fieldname: 'file',
-      originalname: 'test.jpg',
+      originalname: `${crypto.randomUUID()}.jpg`,
       encoding: '7bit',
       mimetype: 'image/jpeg',
       size: 1024,
       destination: '/tmp',
-      filename: 'test.jpg',
-      path: '/tmp/test.jpg',
+      filename: `${crypto.randomUUID()}.jpg`,
+      path: `/tmp/${crypto.randomUUID()}.jpg`,
       buffer: Buffer.from('fake image content'),
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       stream: null as any,
