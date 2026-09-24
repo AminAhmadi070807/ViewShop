@@ -38,8 +38,7 @@ describe('Test ( Cart ) Controller', () => {
   let category_id: string;
 
   const title = `unit ${crypto.randomUUID()} product`;
-  const description =
-    'unit test product unit testunit test product description this description for was unit test';
+  const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labus sit amet est placer in egestas erat. Nisi vitae suscipit tellus mauris a diam maecenas sed. Placerat duis ultricies lacus sed turpis tincidunt id aliquet.'`;
   const discount_percent = 0;
   const details: {
     id: string;
@@ -200,9 +199,9 @@ describe('Test ( Cart ) Controller', () => {
     const result = (await firstValueFrom(
       brandController.create({
         description,
-        title,
+        title: `${randomInt(1000, 100000)}`,
         link: 'https://sabzlearn.ir',
-        alias,
+        alias: `${randomInt(1000, 100000)}`,
         logo: medias[0],
       }),
     )) as ResultInterface;
@@ -235,15 +234,15 @@ describe('Test ( Cart ) Controller', () => {
     const result = (await firstValueFrom(
       productController.create(
         {
-          title: crypto.randomUUID(),
-          description,
+          title,
+          description: description + crypto.randomUUID(),
           brand: brand_id,
           store: store_id,
           specification: specification_id,
           discount_percent,
           details,
           medias,
-          alias: crypto.randomUUID(),
+          alias,
         },
         req,
       ),
