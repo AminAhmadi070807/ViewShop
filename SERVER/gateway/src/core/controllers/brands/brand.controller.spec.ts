@@ -3,21 +3,26 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { BrandController } from './brand.controller';
+import { MediaController } from '../uploads/media.controller';
+import { randomInt } from 'crypto';
+import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
+import { UsersController } from '../users/user.controller';
 
 describe('Test ( Brand ) Controller', () => {
   let module: TestingModule;
   let controller: BrandController;
+  let mediaController: MediaController;
+  let usersController: UsersController;
 
   let brand_id: string;
+  let user_id: string;
+  let logo_id: string;
 
-  const logo: string = 'e6186e53-0325-47d5-ad9d-73296a9a25bf';
-  const title: string = 'Unit Testing';
+  const title: string = `Unit ${randomInt(1000, 10000)} Testing`;
   const description: string =
-    'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.';
-  const alias: string = 'unit-test';
+    'لبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.';
+  const alias: string = `unit-${randomInt(100, 10000)}-test`;
   const link: string = 'https://sabzlearn.ir';
-
-  const user_id = '70ffcfcf-baab-4937-8269-2d80574dab56';
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -26,16 +31,68 @@ describe('Test ( Brand ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<BrandController>(BrandController);
+    mediaController = module.get<MediaController>(MediaController);
+    usersController = module.get<UsersController>(UsersController);
   });
 
   afterAll(async () => {
     controller.remove({ id: brand_id });
+    mediaController.remove({ id: logo_id });
+    usersController.remove({ id: user_id });
     await module.close();
+  });
+
+  it('Test ( Create User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.create({
+        fullName: 'کاربر تستی',
+        password: '00000000',
+        phone: `0914${randomInt(1_000_000, 9_999_999)}`,
+      }),
+    )) as ResultInterface;
+
+    if (result.status === 201) user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
+  it('Test ( Create Media ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
+    const file: Express.Multer.File = {
+      fieldname: 'file',
+      originalname: 'test.jpg',
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      size: 1024,
+      destination: '/tmp',
+      filename: 'test.jpg',
+      path: '/tmp/test.jpg',
+      buffer: Buffer.from('fake image content'),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      stream: null as any,
+    };
+
+    const result = (await firstValueFrom(
+      mediaController.upload(
+        file,
+        {
+          title: crypto.randomUUID(),
+          type: MediaTypeEnum.PUBLIC,
+          media: crypto.randomUUID(),
+        },
+        req,
+      ),
+    )) as ResultInterface;
+
+    if (result.status === 200) logo_id = result.body.id;
+
+    expect(result.status).toEqual(200);
   });
 
   it('Test ( Create ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.create({ description, title, link, alias, logo }),
+      controller.create({ description, title, link, alias, logo: logo_id }),
     )) as ResultInterface;
 
     if (result.status === 201) brand_id = result.body.id;
@@ -64,7 +121,7 @@ describe('Test ( Brand ) Controller', () => {
       controller.update({
         id: brand_id,
         alias,
-        logo,
+        logo: logo_id,
         link,
         title,
         description,
@@ -77,6 +134,22 @@ describe('Test ( Brand ) Controller', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.remove({ id: brand_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Media ) Controller', async () => {
+    const result = (await firstValueFrom(
+      mediaController.remove({ id: logo_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.remove({ id: user_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
