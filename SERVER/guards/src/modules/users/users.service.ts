@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -33,14 +33,18 @@ export class UsersService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const newUser = this.userRepository.create({
+      const result = this.userRepository.create({
         id: data.id,
         role: role,
       });
 
-      const user = await this.userRepository.save(newUser);
+      await this.userRepository.save(result);
 
-      return { status: 201, message: statusMessages.fa['200'], body: user };
+      return {
+        status: 201,
+        message: statusMessages.fa['200'],
+        body: { id: result.id },
+      };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -48,12 +52,12 @@ export class UsersService {
 
   async findAll() {
     try {
-      const users = await this.userRepository.find({
+      const result = await this.userRepository.find({
         relations: ['role'],
         select: { role: { id: true, title: true } },
       });
 
-      return { status: 200, message: statusMessages.fa['200'], body: users };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -61,26 +65,15 @@ export class UsersService {
 
   async findOne(id: string) {
     try {
-      const user: User | null = await this.userRepository.findOne({
-        where: {
-          id,
-        },
+      const result = await this.userRepository.findOne({
+        where: { id },
         relations: ['role'],
-        select: {
-          role: {
-            id: true,
-            title: true,
-          },
-        },
+        select: { role: { id: true, title: true } },
       });
 
-      if (!user) return new CustomException(statusMessages.fa['404'], 404);
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: HttpStatus.OK,
-        message: statusMessages.fa['200'],
-        data: user,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -90,14 +83,9 @@ export class UsersService {
     try {
       // find one user from database
       const user: User | null = await this.userRepository.findOne({
-        where: {
-          id: data.user,
-        },
+        where: { id: data.user },
         relations: ['role'],
-        select: {
-          id: true,
-          banned: true,
-        },
+        select: { id: true, banned: true },
       });
 
       // check user
@@ -108,11 +96,7 @@ export class UsersService {
       // sava data in user & role
       await this.userRepository.save(user);
 
-      return {
-        status: HttpStatus.NO_CONTENT,
-        message: statusMessages.fa['204'],
-        data: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], data: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -137,11 +121,7 @@ export class UsersService {
 
       await this.userRepository.save(user);
 
-      return {
-        status: HttpStatus.NO_CONTENT,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], data: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -151,10 +131,11 @@ export class UsersService {
     try {
       const result = await this.userRepository.delete(id);
 
-      if (!result.affected)
+      if (!result.affected) {
         return new CustomException(statusMessages.fa['404'], 404);
+      }
 
-      return { status: 204, message: statusMessages.fa['204'], data: null };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

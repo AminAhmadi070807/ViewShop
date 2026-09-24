@@ -2,23 +2,42 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { UsersController } from './users.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { RolesController } from '../roles/roles.controller';
 
 describe('Test ( Users ) Controller', () => {
   let module: TestingModule;
   let controller: UsersController;
+  let roleController: RolesController;
 
   let user_id: string;
-  const role_id: string = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
+  let role_id: string;
+
+  const title: string = crypto.randomUUID();
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<UsersController>(UsersController);
+    roleController = module.get<RolesController>(RolesController);
   });
 
   afterAll(async () => {
     await controller.remove({ id: user_id });
+    await roleController.remove({ id: role_id });
     await module.close();
+  });
+
+  it('Test ( Create Role ) Controller', async () => {
+    const result = await roleController.create({
+      title: `ADMIN`,
+      description: title,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    role_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller', async () => {
@@ -58,7 +77,7 @@ describe('Test ( Users ) Controller', () => {
     expect(result.status).toBe(204);
   });
 
-  it('Test ( Toggle Use rBanned ) Controller', async () => {
+  it('Test ( Toggle User Banned ) Controller', async () => {
     const result = await controller.toggleUserBanned({
       id: user_id,
     });
@@ -86,5 +105,13 @@ describe('Test ( Users ) Controller', () => {
     }
 
     expect(result.status).toBe(204);
+  });
+
+  it('Test ( Delete Role ) Controller', async () => {
+    const result = await roleController.remove({ id: role_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
   });
 });
