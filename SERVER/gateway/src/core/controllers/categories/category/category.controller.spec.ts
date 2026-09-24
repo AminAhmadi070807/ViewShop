@@ -19,9 +19,6 @@ describe('Test ( Category ) Controller', () => {
   let user_id: string;
   let icon_id: string;
 
-  const title: string = `Unit ${randomInt(100, 100_000)} Test`;
-  const alias: string = `unit-${randomInt(100, 100_000)}-test`;
-
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -59,13 +56,13 @@ describe('Test ( Category ) Controller', () => {
 
     const file: Express.Multer.File = {
       fieldname: 'file',
-      originalname: 'test.jpg',
+      originalname: `${crypto.randomUUID()}.jpg`,
       encoding: '7bit',
       mimetype: 'image/jpeg',
       size: 1024,
       destination: '/tmp',
-      filename: 'test.jpg',
-      path: '/tmp/test.jpg',
+      filename: `${crypto.randomUUID()}.jpg`,
+      path: `/tmp/${crypto.randomUUID()}.jpg`,
       buffer: Buffer.from('fake image content'),
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       stream: null as any,
@@ -92,7 +89,14 @@ describe('Test ( Category ) Controller', () => {
     const req = { user: { userId: user_id, role: 'ADMIN' } };
 
     const result = (await firstValueFrom(
-      controller.create({ icon: icon_id, title, alias }, req),
+      controller.create(
+        {
+          icon: icon_id,
+          title: crypto.randomUUID(),
+          alias: crypto.randomUUID(),
+        },
+        req,
+      ),
     )) as ResultInterface;
 
     if (result.status === 201) category_id = result.body.id;
@@ -120,7 +124,15 @@ describe('Test ( Category ) Controller', () => {
     const req = { user: { userId: user_id, role: 'ADMIN' } };
 
     const result = (await firstValueFrom(
-      controller.update({ id: category_id, icon: icon_id, title, alias }, req),
+      controller.update(
+        {
+          id: category_id,
+          icon: icon_id,
+          title: crypto.randomUUID(),
+          alias: crypto.randomUUID(),
+        },
+        req,
+      ),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
