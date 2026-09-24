@@ -25,7 +25,7 @@ export class AttributeService {
       const subCategory = await this.subCategoryRepository.findOneBy({
         id: data.subCategory,
       });
-      const media: Media | null = await this.mediaRepository.findOneBy({
+      const media = await this.mediaRepository.findOneBy({
         id: data.icon,
       });
 
@@ -47,12 +47,8 @@ export class AttributeService {
 
       const attribute: Attribute = this.attributeRepository.create({
         alias: data.alias,
-        user: {
-          id: data.user,
-        },
-        subCategory: {
-          id: data.subCategory,
-        },
+        user: { id: data.user },
+        subCategory: { id: data.subCategory },
         title: data.title,
         icon: media,
       });
@@ -62,9 +58,7 @@ export class AttributeService {
       return {
         status: 201,
         message: statusMessages.fa['201'],
-        body: {
-          id: newAttribute.id,
-        },
+        body: { id: newAttribute.id },
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -77,11 +71,7 @@ export class AttributeService {
         take: (page ?? 1) * 15,
         relations: ['icon'],
         select: {
-          icon: {
-            id: true,
-            path: true,
-            title: true,
-          },
+          icon: { id: true, path: true, title: true },
         },
       });
 
@@ -97,28 +87,22 @@ export class AttributeService {
 
   async findId(id: string[]) {
     try {
-      const attributes: Attribute[] = await this.attributeRepository.find({
-        where: {
-          id: In(id),
-        },
+      const result = await this.attributeRepository.find({
+        where: { id: In(id) },
         relations: ['icon'],
         select: {
-          icon: {
-            id: true,
-            path: true,
-            title: true,
-          },
+          icon: { id: true, path: true, title: true },
         },
       });
 
-      if (!attributes.length) {
+      if (!result.length) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
       return {
         status: 200,
         message: statusMessages.fa['200'],
-        body: attributes,
+        body: result,
       };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
@@ -127,26 +111,16 @@ export class AttributeService {
 
   async findOne(id: string) {
     try {
-      const attribute = await this.attributeRepository.findOne({
-        where: {
-          id,
-        },
+      const result = await this.attributeRepository.findOne({
+        where: { id },
         select: {
-          icon: {
-            id: true,
-            path: true,
-            title: true,
-          },
+          icon: { id: true, path: true, title: true },
         },
       });
 
-      if (!attribute) return new CustomException(statusMessages.fa['404'], 404);
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
 
-      return {
-        status: 200,
-        message: statusMessages.fa['200'],
-        body: attribute,
-      };
+      return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
@@ -160,11 +134,7 @@ export class AttributeService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return {
-        status: 204,
-        message: statusMessages.fa['204'],
-        body: null,
-      };
+      return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

@@ -127,7 +127,13 @@ describe('Test ( Attribute ) Controller', () => {
 
     const result = (await firstValueFrom(
       controller.create(
-        { icon: icon_id, title, alias, subCategory: subCategory_id },
+        {
+          icon: icon_id,
+          title,
+          alias,
+          subCategory: subCategory_id,
+          user: user_id,
+        },
         req,
       ),
     )) as ResultInterface;
@@ -161,7 +167,7 @@ describe('Test ( Attribute ) Controller', () => {
     expect(result.status).toEqual(204);
   });
 
-  it('Test ( Delete ) Controller', async () => {
+  it('Test ( Delete SubCategory ) Controller', async () => {
     const result = (await firstValueFrom(
       subCategoryController.remove({ id: subCategory_id }),
     )) as ResultInterface;
