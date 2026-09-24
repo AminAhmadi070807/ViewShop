@@ -87,7 +87,7 @@ describe('Test ( Feature ) Controller', () => {
   });
 
   it('Test ( Delete Role ) Controller', async () => {
-    const result = await controller.remove({ id: role_id });
+    const result = await roleController.remove({ id: role_id });
 
     if (result instanceof CustomException) throw result;
 
