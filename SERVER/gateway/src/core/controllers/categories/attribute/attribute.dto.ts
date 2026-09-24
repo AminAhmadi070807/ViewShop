@@ -19,8 +19,7 @@ export class AttributeCategoryDto {
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
-  @MinLength(3, { message: 'عنوان حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'عنوان حدکثر میتواند 36 کارکتر داشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_ ]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({
@@ -33,32 +32,14 @@ export class AttributeCategoryDto {
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @MinLength(3, { message: 'نام مستعار حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'نام مستعار حدکثر میتواند 36 کارکتر داشته باشد' })
-  @Matches(/^([a-zA-Z-_]{3,36})$/, {
-    message:
-      'نام مستعار باید انگلیسی باشد و حدقل 3 کارتر و حدکثر میتواند 36 کارکتر داشته باشد',
-  })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
-  @IsString({ message: 'ایدی ایکون باید رشته باشد' })
-  @IsUUID('4', { message: 'ایدی ایکون نادرست قابل قبول نیست' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsUUID('4', { message: 'شناسه ایکون نامعتبر است' })
   icon: string;
 
-  @ApiProperty({
-    type: String,
-    required: true,
-    nullable: false,
-    example: '',
-  })
-  @IsNotEmpty({ message: 'ایدی زیر دسته بندی نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی زیر دسته بندی غیر معتبر هست' })
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   subCategory: string;
 }

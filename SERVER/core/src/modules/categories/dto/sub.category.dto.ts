@@ -42,6 +42,6 @@ export class UpdateSubCategoryDto extends PartialType(SubCategoryDto) {
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z0-9-_ ]{3,36})$/, { message: 'نامک نامعتبر است' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 }
