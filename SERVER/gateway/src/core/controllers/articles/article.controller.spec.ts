@@ -180,7 +180,6 @@ describe('Test ( Article ) Controller', () => {
     const result = (await firstValueFrom(
       controller.findAll(),
     )) as ResultInterface;
-    console.log(result);
 
     expect(result.status).toEqual(200);
   });
@@ -203,7 +202,6 @@ describe('Test ( Article ) Controller', () => {
         req,
       ),
     )) as ResultInterface;
-    console.log(result);
 
     expect(result.status).toEqual(204);
   });
@@ -215,7 +213,6 @@ describe('Test ( Article ) Controller', () => {
         status: ArticleStatusEnum.PUBLISHED,
       }),
     )) as ResultInterface;
-    console.log(result);
 
     expect(result.status).toEqual(204);
   });
@@ -224,7 +221,6 @@ describe('Test ( Article ) Controller', () => {
     const result = (await firstValueFrom(
       controller.findOne({ id: article_id }),
     )) as ResultInterface;
-    console.log(result);
 
     expect(result.status).toEqual(200);
   });
@@ -233,7 +229,6 @@ describe('Test ( Article ) Controller', () => {
     const result = (await firstValueFrom(
       controller.remove({ id: article_id }),
     )) as ResultInterface;
-    console.log(result);
 
     expect(result.status).toEqual(204);
   });
