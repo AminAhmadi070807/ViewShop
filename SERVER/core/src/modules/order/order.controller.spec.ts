@@ -44,7 +44,6 @@ describe('Test ( Order ) Controller', () => {
   let address_id: string;
   let sale_id: string;
 
-  const title = `unit ${crypto.randomUUID()} product`;
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const discount_percent = 0;
@@ -55,7 +54,6 @@ describe('Test ( Order ) Controller', () => {
     stock: number;
   }[] = [];
   const medias: string[] = [];
-  const alias: string = `unit-controller-${crypto.randomUUID()}-test-product`;
 
   const quantity: number = 1;
 
@@ -64,7 +62,7 @@ describe('Test ( Order ) Controller', () => {
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
   const city: string = 'خوی';
-  const postal_code: string = '12345678910';
+  const postal_code: string = `${randomInt(10_000_000_000, 99_999_999_999)}`;
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
@@ -139,7 +137,7 @@ describe('Test ( Order ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -152,7 +150,7 @@ describe('Test ( Order ) Controller', () => {
 
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoryController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       icon: medias[0],
       alias: crypto.randomUUID(),
@@ -168,7 +166,7 @@ describe('Test ( Order ) Controller', () => {
   it('Test ( Create Store ) Controller', async () => {
     const result = await storeController.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: medias[0],
       cell_phone: `0914${randomInt(1000000, 9999999)}`,
@@ -215,9 +213,9 @@ describe('Test ( Order ) Controller', () => {
   it('Test ( Create Brand ) Controller', async () => {
     const result = await brandController.create({
       logo: medias[0],
-      title,
+      title: crypto.randomUUID(),
       description,
-      alias,
+      alias: crypto.randomUUID(),
       link: 'https://sabzlearn.ir',
     });
 
@@ -230,11 +228,11 @@ describe('Test ( Order ) Controller', () => {
 
   it('Test ( Create Specification ) Controller', async () => {
     const result = await specificationController.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: 'unit test 1',
-          details: [{ title: 'unit test', value: 'unit test' }],
+          title: crypto.randomUUID(),
+          details: [{ title: crypto.randomUUID(), value: crypto.randomUUID() }],
         },
       ],
     });
@@ -246,7 +244,7 @@ describe('Test ( Order ) Controller', () => {
 
   it('Test ( Create Product ) Controller', async () => {
     const result = await productController.create({
-      title,
+      title: crypto.randomUUID(),
       description,
       brand: brand_id,
       userId: user_id,
@@ -255,7 +253,7 @@ describe('Test ( Order ) Controller', () => {
       discount_percent,
       details,
       medias,
-      alias,
+      alias: crypto.randomUUID(),
     });
 
     if (result instanceof CustomException) throw result;

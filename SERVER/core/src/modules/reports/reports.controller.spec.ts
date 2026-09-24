@@ -53,7 +53,9 @@ describe('Test ( Report ) Controller', () => {
   });
 
   it('Test ( Create Target ) Controller', async () => {
-    const result = await targetController.create({ title });
+    const result = await targetController.create({
+      title: crypto.randomUUID(),
+    });
 
     if (result instanceof CustomException) throw result;
 

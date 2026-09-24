@@ -55,7 +55,7 @@ describe('Test ( Categories ) Service', () => {
 
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
     });

@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
 import { ValidateUUID } from '../../../common/validation/uuid.dto';
+import { Public } from '../../../common/decorators/public.decorator';
 
 @Controller('core/setting/sms')
 @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -26,6 +27,7 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 export class SmsSettingController {
   constructor(private readonly coreService: CoreService) {}
 
+  @Public()
   @Post()
   @ApiHeaders([
     { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },

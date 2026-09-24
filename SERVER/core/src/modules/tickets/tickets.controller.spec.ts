@@ -52,7 +52,7 @@ describe('Test ( Tickets ) Controller', () => {
   it('Test ( Create ) Feature', async () => {
     const result = await controller.create({
       user: user_id,
-      title,
+      title: crypto.randomUUID(),
       department,
       description,
     });

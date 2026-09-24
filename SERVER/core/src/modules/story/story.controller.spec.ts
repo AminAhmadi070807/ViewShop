@@ -194,11 +194,11 @@ describe('Test ( Story ) Controller', () => {
 
   it('Test ( Create Specification ) Controller', async () => {
     const result = await specificationController.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: 'unit test 1',
-          details: [{ title: 'unit test', value: 'unit test' }],
+          title: crypto.randomUUID(),
+          details: [{ title: crypto.randomUUID(), value: crypto.randomUUID() }],
         },
       ],
     });
@@ -210,7 +210,7 @@ describe('Test ( Story ) Controller', () => {
 
   it('Test ( Create Product ) Controller', async () => {
     const result = await productController.create({
-      title,
+      title: crypto.randomUUID(),
       description,
       brand: brand_id,
       userId: user_id,

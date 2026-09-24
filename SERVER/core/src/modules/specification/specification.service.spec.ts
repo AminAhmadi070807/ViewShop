@@ -12,11 +12,11 @@ describe('Test ( Specification ) Service ', () => {
   const title: string = `Unit Test ${crypto.randomUUID()} Specification`;
   const details = [
     {
-      title: `unit test ${crypto.randomUUID()}`,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: `unit test ${crypto.randomUUID()}`,
-          value: `unit ${crypto.randomUUID()} test`,
+          title: crypto.randomUUID(),
+          value: crypto.randomUUID(),
         },
       ],
     },

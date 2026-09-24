@@ -188,11 +188,11 @@ describe('Test ( Like ) Controller', () => {
 
   it('Test ( Create Specification ) Controller', async () => {
     const result = await specificationController.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
           title: crypto.randomUUID(),
-          details: [{ title: crypto.randomUUID(), value: 'unit test' }],
+          details: [{ title: crypto.randomUUID(), value: crypto.randomUUID() }],
         },
       ],
     });

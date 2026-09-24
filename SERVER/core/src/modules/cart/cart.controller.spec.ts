@@ -100,7 +100,7 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -113,7 +113,7 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoryController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       icon: medias[0],
       alias: crypto.randomUUID(),
@@ -129,7 +129,7 @@ describe('Test ( Cart ) Controller', () => {
   it('Test ( Create Store ) Controller', async () => {
     const result = await storeController.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: medias[0],
       cell_phone: `0914${randomInt(1000000, 9999999)}`,
@@ -155,8 +155,8 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create Color ) Controller', async () => {
     const result = await colorController.create({
-      color: '#2456ae',
-      title: 'شنانپونزه ای تیره',
+      color: `#245${randomInt(100, 999)}`,
+      title: `شنانپونزه ای تیره ${randomInt(100, 999)}`,
     });
 
     if (result instanceof CustomException) throw result;
@@ -176,9 +176,9 @@ describe('Test ( Cart ) Controller', () => {
   it('Test ( Create Brand ) Controller', async () => {
     const result = await brandController.create({
       logo: medias[0],
-      title,
+      title: crypto.randomUUID(),
       description,
-      alias,
+      alias: crypto.randomUUID(),
       link: 'https://sabzlearn.ir',
     });
 
@@ -191,11 +191,11 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create Specification ) Controller', async () => {
     const result = await specificationController.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: 'unit test 1',
-          details: [{ title: 'unit test', value: 'unit test' }],
+          title: crypto.randomUUID(),
+          details: [{ title: crypto.randomUUID(), value: crypto.randomUUID() }],
         },
       ],
     });
@@ -207,7 +207,7 @@ describe('Test ( Cart ) Controller', () => {
 
   it('Test ( Create Product ) Controller', async () => {
     const result = await productController.create({
-      title,
+      title: crypto.randomUUID(),
       description,
       brand: brand_id,
       userId: user_id,
@@ -216,7 +216,7 @@ describe('Test ( Cart ) Controller', () => {
       discount_percent,
       details,
       medias,
-      alias,
+      alias: crypto.randomUUID(),
     });
 
     if (result instanceof CustomException) throw result;

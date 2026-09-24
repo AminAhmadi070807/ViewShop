@@ -55,7 +55,7 @@ describe('Test ( Categories ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,

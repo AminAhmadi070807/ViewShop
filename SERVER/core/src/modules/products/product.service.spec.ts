@@ -91,7 +91,7 @@ describe('Test ( Product ) Service', () => {
 
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -104,7 +104,7 @@ describe('Test ( Product ) Service', () => {
 
   it('Test ( Create Category ) Feature', async () => {
     const result = await categoryService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       icon: medias[0],
       alias: crypto.randomUUID(),
@@ -120,7 +120,7 @@ describe('Test ( Product ) Service', () => {
   it('Test ( Create Store ) Feature', async () => {
     const result = await storeService.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: medias[0],
       cell_phone: `0914${randomInt(1000000, 9999999)}`,
@@ -167,9 +167,9 @@ describe('Test ( Product ) Service', () => {
   it('Test ( Create Brand ) Feature', async () => {
     const result = await brandService.create({
       logo: medias[0],
-      title,
+      title: crypto.randomUUID(),
       description,
-      alias,
+      alias: crypto.randomUUID(),
       link: 'https://sabzlearn.ir',
     });
 
@@ -182,11 +182,11 @@ describe('Test ( Product ) Service', () => {
 
   it('Test ( Create Specification ) Feature', async () => {
     const result = await specificationService.create({
-      title,
+      title: crypto.randomUUID(),
       details: [
         {
-          title: 'unit test 1',
-          details: [{ title: 'unit test', value: 'unit test' }],
+          title: crypto.randomUUID(),
+          details: [{ title: crypto.randomUUID(), value: crypto.randomUUID() }],
         },
       ],
     });

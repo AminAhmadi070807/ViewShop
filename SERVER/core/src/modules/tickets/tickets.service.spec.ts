@@ -51,7 +51,7 @@ describe('Test ( Tickets ) Service', () => {
   it('Test ( Create ) Feature', async () => {
     const result = await service.create({
       user: user_id,
-      title,
+      title: crypto.randomUUID(),
       department,
       description,
     });

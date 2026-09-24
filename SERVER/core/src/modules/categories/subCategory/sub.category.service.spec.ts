@@ -60,7 +60,7 @@ describe('Test ( Sub Category ) Service', () => {
 
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
     });
@@ -73,8 +73,8 @@ describe('Test ( Sub Category ) Service', () => {
   it('Test ( Create Category ) Feature', async () => {
     const result = await categoriesService.create({
       user: user_id,
-      title,
-      alias,
+      title: crypto.randomUUID(),
+      alias: crypto.randomUUID(),
       icon: icon_id,
     });
 

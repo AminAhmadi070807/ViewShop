@@ -34,11 +34,7 @@ describe('Test ( Like ) Service', () => {
   let store_id: string;
   let category_id: string;
 
-  let comment_id: string;
-  let child_comment_id: string;
-
-  const description: string = `واقعا ${crypto.randomUUID()} محصول خوبی بود`;
-  const score: number = 5;
+  const description: string = `unit test ${crypto.randomUUID()}`;
 
   const title = `unit ${crypto.randomUUID()} product`;
   const description_product =

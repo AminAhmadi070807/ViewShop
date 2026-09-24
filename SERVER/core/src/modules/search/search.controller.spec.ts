@@ -25,9 +25,7 @@ describe('Test ( Search ) Controller', () => {
   });
 
   it('Test ( Search ) Controller', async () => {
-    const result = await controller.search({
-      title: `unit ${randomInt(1000, 100000)} test`,
-    });
+    const result = await controller.search({ title: crypto.randomUUID() });
 
     search_id = result.body.id;
 

@@ -73,7 +73,7 @@ describe('Test ( Article ) Service', () => {
 
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       user: author_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -86,7 +86,7 @@ describe('Test ( Article ) Service', () => {
 
   it('Test ( Create Category ) Feature', async () => {
     const result = await categoryService.create({
-      title,
+      title: crypto.randomUUID(),
       user: author_id,
       icon: cover_id,
       alias: crypto.randomUUID(),
@@ -102,7 +102,7 @@ describe('Test ( Article ) Service', () => {
   it('Test ( Create Store ) Feature', async () => {
     const result = await storeService.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: cover_id,
       cell_phone: '09141236520',

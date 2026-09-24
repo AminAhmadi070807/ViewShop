@@ -64,7 +64,7 @@ describe('Test ( Order ) Service', () => {
   const address: string = 'خوی 45 متری سیستانی زاده کوچه پردیس پردیس 2';
   const alley: string = 'پردیس 2';
   const city: string = 'خوی';
-  const postal_code: string = '12345678910';
+  const postal_code: string = `${randomInt(10_000_000_000, 99_999_999_999)}`;
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
@@ -138,7 +138,7 @@ describe('Test ( Order ) Service', () => {
 
   it('Test ( Create Media ) Feature', async () => {
     const result = await mediaService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -151,7 +151,7 @@ describe('Test ( Order ) Service', () => {
 
   it('Test ( Create Category ) Feature', async () => {
     const result = await categoryService.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       icon: medias[0],
       alias: crypto.randomUUID(),
@@ -167,7 +167,7 @@ describe('Test ( Order ) Service', () => {
   it('Test ( Create Store ) Feature', async () => {
     const result = await storeService.create({
       categories: [category_id],
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: medias[0],
       cell_phone: `0914${randomInt(1000000, 9999999)}`,

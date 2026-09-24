@@ -17,7 +17,6 @@ export class SmsSettingService {
     try {
       const existing = await this.smsSettingRepository.findOneBy({
         section: data.section,
-        active: true,
         service: data.service,
       });
 
@@ -130,7 +129,7 @@ export class SmsSettingService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      return { status: 200, message: statusMessages.fa['200'], body: result };
+      return { status: 200, message: statusMessages.fa['200'], body: null };
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }

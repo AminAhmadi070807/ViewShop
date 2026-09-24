@@ -63,7 +63,7 @@ describe('Test ( Store ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -91,7 +91,7 @@ describe('Test ( Store ) Controller', () => {
 
   it('Test ( Create ) Controller', async () => {
     const result = await controller.create({
-      title,
+      title: crypto.randomUUID(),
       description,
       logo: logo_id,
       cell_phone,

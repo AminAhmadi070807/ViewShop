@@ -52,7 +52,7 @@ describe('Test ( Report ) Service', () => {
   });
 
   it('Test ( Create Target ) Feature', async () => {
-    const result = await targetService.create({ title });
+    const result = await targetService.create({ title: crypto.randomUUID() });
 
     if (result instanceof CustomException) throw result;
 

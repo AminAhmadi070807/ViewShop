@@ -61,7 +61,7 @@ describe('Test ( Sub Category ) Controller', () => {
 
   it('Test ( Create Media ) Controller', async () => {
     const result = await mediaController.create({
-      title,
+      title: crypto.randomUUID(),
       user: user_id,
       type: MediaTypeEnum.PUBLIC,
       path: `https://viewshop.ir/${crypto.randomUUID()}.png`,
@@ -75,8 +75,8 @@ describe('Test ( Sub Category ) Controller', () => {
   it('Test ( Create Category ) Controller', async () => {
     const result = await categoriesController.create({
       user: user_id,
-      title,
-      alias,
+      title: crypto.randomUUID(),
+      alias: crypto.randomUUID(),
       icon: icon_id,
     });
 
