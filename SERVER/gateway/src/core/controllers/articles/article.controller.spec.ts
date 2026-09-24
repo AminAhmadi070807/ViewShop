@@ -20,10 +20,10 @@ describe('Test ( Article ) Controller', () => {
 
   let article_id: string;
 
-  const user_id: string;
-  const category: string;
-  const store: string;
-  const cover: string;
+  let user_id: string;
+  let category_id: string;
+  let store_id: string;
+  let cover_id: string;
 
   const title: string = `Unit ${crypto.randomUUID()} Article`;
   const description: string =
@@ -31,8 +31,6 @@ describe('Test ( Article ) Controller', () => {
   const slug = ['test', 'unit test', 'test unit'];
   const shortDescription: string =
     ' راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد';
-
-  const req = { user: { userId: user_id, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -47,14 +45,26 @@ describe('Test ( Article ) Controller', () => {
   });
 
   afterAll(async () => {
-    controller.remove({ id: article_id }, req);
-    usersController.remove({ id: article_id }, req);
-    storeController.remove({ id: article_id }, req);
-    mediaController.remove({ id: article_id }, req);
+    controller.remove({ id: article_id });
+    usersController.remove({ id: article_id });
+    storeController.remove({ id: article_id });
+    mediaController.remove({ id: article_id });
     await module.close();
   });
 
+  it('Test ( Create User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.create({ fullName, password, phone }),
+    )) as ResultInterface;
+
+    if (result.status === 201) user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.create(
         { shortDescription, cover, description, title, store, category, slug },
@@ -76,6 +86,8 @@ describe('Test ( Article ) Controller', () => {
   });
 
   it('Test ( Update ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.update(
         {

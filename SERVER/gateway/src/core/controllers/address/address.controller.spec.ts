@@ -21,10 +21,6 @@ describe('Test ( Address ) Controller', () => {
   const province: string = 'آذربیجان غربی';
   const street: string = '45 متری سیستانی زاده';
 
-  const phone = `0914${randomInt(1_000_000, 9_999_999)}`;
-  const fullName = 'کاربر تستی';
-  const password = '000000000';
-
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
 
@@ -45,7 +41,11 @@ describe('Test ( Address ) Controller', () => {
 
   it('Test ( Create User ) Controller', async () => {
     const result = (await firstValueFrom(
-      usersController.create({ fullName, password, phone }),
+      usersController.create({
+        fullName: 'کاربر تستی',
+        password: '00000000',
+        phone: `0914${randomInt(1_000_000, 9_999_999)}`,
+      }),
     )) as ResultInterface;
 
     if (result.status === 201) user_id = result.body.id;
