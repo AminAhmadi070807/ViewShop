@@ -12,7 +12,7 @@ describe('Test ( Users ) Service', () => {
   let user_id: string;
   let role_id: string;
 
-  const title: string = crypto.randomUUID() + '-' + 'TEST';
+  const title: string = crypto.randomUUID();
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -28,7 +28,10 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( Create Role ) Feature', async () => {
-    const result = await rolesService.create({ title, description: title });
+    const result = await rolesService.create({
+      title: `ADMIN-${title}`,
+      description: title,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -38,7 +41,7 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( Create ) Feature', async () => {
-    const result = await service.create({ id: crypto.randomUUID() });
+    const result = await service.create({ id: title }, true);
 
     if (result instanceof CustomException) return result;
 

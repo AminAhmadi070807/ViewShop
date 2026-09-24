@@ -9,8 +9,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @MessagePattern('USER:CREATE')
-  create(@Payload() data: ValidateUUID) {
-    return this.usersService.create(data);
+  create(@Payload() data: ValidateUUID, is_test: boolean = false) {
+    return this.usersService.create(data, is_test);
   }
 
   @MessagePattern('USER:FIND')

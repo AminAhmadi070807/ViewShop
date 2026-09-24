@@ -12,7 +12,7 @@ describe('Test ( Users ) Controller', () => {
   let user_id: string;
   let role_id: string;
 
-  const title: string = crypto.randomUUID() + '-' + 'TEST';
+  const title: string = crypto.randomUUID();
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -41,7 +41,7 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Create ) Controller', async () => {
-    const result = await controller.create({ id: crypto.randomUUID() });
+    const result = await controller.create({ id: title }, true);
 
     if (result instanceof CustomException) return result;
 

@@ -146,7 +146,7 @@ export class GuardsService {
         const result = await this.userService.create({ id: data.userId });
 
         if (result instanceof CustomException) return result;
-      } else if (existing.data.banned) {
+      } else if (existing.body.banned) {
         return new CustomException(statusMessages.fa['403'], 403);
       }
 
@@ -156,7 +156,7 @@ export class GuardsService {
 
       const result = (await this.featureService.validate(
         guard.feature.id,
-        user.data.role.id,
+        user.body.role.id,
       )) as CustomException | { body: string[] };
 
       if (result instanceof CustomException) return result;

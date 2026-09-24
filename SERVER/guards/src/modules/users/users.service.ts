@@ -17,7 +17,7 @@ export class UsersService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async create(data: ValidateUUID) {
+  async create(data: ValidateUUID, is_test: boolean = false) {
     try {
       const existing = await this.userRepository.findOneBy({ id: data.id });
 
@@ -25,16 +25,16 @@ export class UsersService {
 
       const numberOfUsers: number = await this.userRepository.count({});
 
-      const split = data.id.split('-');
+      const title = numberOfUsers
+        ? is_test
+          ? `USER-${data.id}`
+          : 'USER'
+        : is_test
+          ? `ADMIN-${data.id}`
+          : 'USER';
 
       const role = await this.roleRepository.findOneBy({
-        title: numberOfUsers
-          ? split[split.length - 1] === 'TEST'
-            ? `USER-${crypto.randomUUID()}`
-            : 'USER'
-          : split[split.length - 1] === 'TEST'
-            ? `ADMIN-${crypto.randomUUID()}`
-            : 'USER',
+        title: title.toUpperCase(),
       });
 
       if (!role) {
