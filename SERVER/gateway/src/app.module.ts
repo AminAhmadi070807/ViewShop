@@ -13,22 +13,10 @@ import { GuardsModule } from './guards/guards.module';
   imports: [ConfigModule.forRoot({ isGlobal: true }), CoreModule, GuardsModule],
   controllers: [AppController],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpGlobalExceptionFilter,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: JwtRefreshTokenGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: JwtAccessTokenAuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: MainGuard,
-    },
+    { provide: APP_FILTER, useClass: HttpGlobalExceptionFilter },
+    { provide: APP_GUARD, useClass: JwtRefreshTokenGuard },
+    { provide: APP_GUARD, useClass: JwtAccessTokenAuthGuard },
+    { provide: APP_GUARD, useClass: MainGuard },
   ],
 })
 export class AppModule {}

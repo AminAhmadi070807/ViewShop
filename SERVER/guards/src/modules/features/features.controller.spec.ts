@@ -2,14 +2,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { FeaturesController } from './features.controller';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { RolesController } from '../roles/roles.controller';
 
 describe('Test ( Feature ) Controller', () => {
-  let controller: FeaturesController;
   let module: TestingModule;
+  let controller: FeaturesController;
+  let roleController: RolesController;
 
   let feature_id: string;
-  const title = 'Unit Controller Test';
-  const role_id = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
+  let role_id: string;
+
+  const title = `Unit ${crypto.randomUUID()} Test`;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
@@ -17,11 +20,26 @@ describe('Test ( Feature ) Controller', () => {
     }).compile();
 
     controller = module.get<FeaturesController>(FeaturesController);
+    roleController = module.get<RolesController>(RolesController);
   });
 
   afterAll(async () => {
     await controller.remove({ id: feature_id });
+    await roleController.remove({ id: role_id });
     await module.close();
+  });
+
+  it('Test ( Create Role ) Controller', async () => {
+    const result = await roleController.create({
+      title,
+      description: title,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    role_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller ', async () => {
@@ -62,6 +80,14 @@ describe('Test ( Feature ) Controller', () => {
 
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: feature_id });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Role ) Controller', async () => {
+    const result = await controller.remove({ id: role_id });
 
     if (result instanceof CustomException) throw result;
 
