@@ -9,8 +9,8 @@ describe('Test ( Role ) Controller', () => {
 
   let role_id: string;
 
-  const title: string = 'Unit Controller Test';
-  const description: string = 'Test description';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
+  const description: string = `Test ${crypto.randomUUID()} description`;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();

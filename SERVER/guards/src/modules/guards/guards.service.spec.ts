@@ -126,7 +126,7 @@ describe('Test ( Guards ) Service ', () => {
     expect(result.status).toBe(204);
   });
 
-  it('Test ( Delete ) Feature', async () => {
+  it('Test ( Delete Permission ) Feature', async () => {
     const result = await permissionsService.remove(permission_id);
 
     if (result instanceof CustomException) throw result;

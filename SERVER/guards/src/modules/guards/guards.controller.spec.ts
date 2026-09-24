@@ -129,7 +129,7 @@ describe('Test ( Guards ) Controller ', () => {
     expect(result.status).toEqual(204);
   });
 
-  it('Test ( Delete ) Controller', async () => {
+  it('Test ( Delete Permission ) Controller', async () => {
     const result = await permissionsController.remove({ id: permission_id });
 
     if (result instanceof CustomException) throw result;
