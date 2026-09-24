@@ -1,12 +1,5 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsUUID,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CategoryDto {
   @ApiProperty({
@@ -19,8 +12,7 @@ export class CategoryDto {
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
-  @MinLength(3, { message: 'عنوان حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'عنوان حدکثر میتواند 36 کارکتر داشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({
@@ -33,32 +25,18 @@ export class CategoryDto {
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
   @IsString({ message: 'نامک باید رشته باشد' })
-  @MinLength(3, { message: 'نام مستعار حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'نام مستعار حدکثر میتواند 36 کارکتر داشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
-  @ApiPropertyOptional({
-    type: String,
-    required: true,
-    nullable: true,
-    example: '',
-  })
+  @ApiProperty({ type: String, required: true, nullable: true, example: '' })
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
 }
 
 export class UpdateCategoryDto {
-  @ApiPropertyOptional({
-    type: String,
-    required: true,
-    nullable: true,
-    example: '',
-    description: 'category id',
-  })
-  @IsNotEmpty({ message: 'ایدی دسته بندی نمیتواند خالی باشد' })
-  @IsString({ message: 'ایدی دسته بندی باید رشته باشد' })
-  @IsUUID('4', { message: 'شما امکان ایجاد دسته بندی ندارید' })
+  @ApiProperty({ type: String, required: true, nullable: true, example: '' })
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
   id: string;
 
   @ApiProperty({
@@ -71,9 +49,8 @@ export class UpdateCategoryDto {
     maxLength: 24,
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
-  @IsString({ message: 'عنواب باید رشته باشد' })
-  @MinLength(3, { message: 'عنوان حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'عنوان حدکثر میتواند 36 کارکتر داشته باشد' })
+  @IsString({ message: 'عنوان نامعتبر است' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({
@@ -86,18 +63,17 @@ export class UpdateCategoryDto {
     maxLength: 36,
   })
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
-  @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z-_]{3,36})$/)
+  @IsString({ message: 'نامک نامعتبر است' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     type: String,
     required: true,
     nullable: true,
     example: '',
     description: 'icon id',
   })
-  @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی ایکون غیر معتبر است' })
   icon: string;
 }

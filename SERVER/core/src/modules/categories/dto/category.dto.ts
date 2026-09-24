@@ -15,9 +15,8 @@ export class CategoryDto {
   title: string;
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
-  @IsString({ message: 'نامک باید رشته باشد' })
-  @MinLength(3, { message: 'نام مستعار حدقل باید 3 کارتر داشته باشد' })
-  @MaxLength(36, { message: 'نام مستعار حدکثر میتواند 36 کارکتر داشته باشد' })
+  @IsString({ message: 'نامک نامعتبر است' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
   @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
@@ -43,8 +42,8 @@ export class UpdateCategoryDto {
   title: string;
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
-  @IsString({ message: 'نامک باید رشته باشد' })
-  @Matches(/^([a-zA-Z-_]{3,36})$/)
+  @IsString({ message: 'نامک نامعتبر است' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
   @IsNotEmpty({ message: 'ایدی ایکون نمیتواند خالی باشد' })
