@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { CoreService } from '../../core.service';
 import { CartDto } from './cart.dto';
 import express from 'express';
@@ -11,6 +19,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { statusMessages } from '../../../common/messages/status.message';
+import { ValidateUUID } from '../../../common/validation/uuid.dto';
 
 @Controller('core/cart')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -59,5 +68,25 @@ export class CartController {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('CART:ONE', { id: user.userId });
+  }
+
+  @Patch()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
+    { name: 'permission', required: true, example: 'EMPTY', enum: ['EMPTY'] },
+  ])
+  empty(@Body() data: ValidateUUID) {
+    return this.coreService.send('CART:EMPTY', data);
+  }
+
+  @Delete()
+  @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
+    { name: 'permission', required: true, example: 'EMPTY', enum: ['EMPTY'] },
+  ])
+  remove(@Body() data: ValidateUUID) {
+    return this.coreService.send('CART:DELETE', data);
   }
 }
