@@ -12,7 +12,7 @@ describe('Test ( Users ) Controller', () => {
   let user_id: string;
   let role_id: string;
 
-  const title: string = crypto.randomUUID();
+  const title: string = crypto.randomUUID() + '-' + 'TEST';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
@@ -29,7 +29,7 @@ describe('Test ( Users ) Controller', () => {
 
   it('Test ( Create Role ) Controller', async () => {
     const result = await roleController.create({
-      title: `ADMIN`,
+      title: `ADMIN-${title}`,
       description: title,
     });
 

@@ -25,8 +25,16 @@ export class UsersService {
 
       const numberOfUsers: number = await this.userRepository.count({});
 
+      const split = data.id.split('-');
+
       const role = await this.roleRepository.findOneBy({
-        title: numberOfUsers ? 'USER' : 'ADMIN',
+        title: numberOfUsers
+          ? split[split.length - 1] === 'TEST'
+            ? `USER-${crypto.randomUUID()}`
+            : 'USER'
+          : split[split.length - 1] === 'TEST'
+            ? `ADMIN-${crypto.randomUUID()}`
+            : 'USER',
       });
 
       if (!role) {
