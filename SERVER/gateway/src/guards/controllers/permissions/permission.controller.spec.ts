@@ -10,7 +10,7 @@ describe('Test ( Permission ) Controller', () => {
 
   let permission_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
