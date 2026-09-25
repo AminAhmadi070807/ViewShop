@@ -37,7 +37,7 @@ describe('Test ( Users ) Controller', () => {
 
     role_id = result.body.id;
 
-    expect(result.status).toEqual(201);
+    expect(result.status).toBe(201);
   });
 
   it('Test ( Create ) Controller', async () => {
@@ -52,8 +52,6 @@ describe('Test ( Users ) Controller', () => {
 
   it('Test ( FindAll ) Controller', async () => {
     const result = await controller.findAll();
-
-    if (result.body.length) user_id = result.body[0].id;
 
     expect(result.status).toBe(200);
   });
@@ -93,9 +91,7 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Delete ) Controller', async () => {
-    const result = await controller.remove({
-      id: user_id,
-    });
+    const result = await controller.remove({ id: user_id });
 
     if (result instanceof CustomException) return result;
 
@@ -107,6 +103,6 @@ describe('Test ( Users ) Controller', () => {
 
     if (result instanceof CustomException) throw result;
 
-    expect(result.status).toEqual(204);
+    expect(result.status).toBe(204);
   });
 });

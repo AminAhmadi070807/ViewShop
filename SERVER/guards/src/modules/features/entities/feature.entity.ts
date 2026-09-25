@@ -27,7 +27,7 @@ export class Feature {
   })
   guards: Guard[];
 
-  @ManyToMany(() => Role, (role: Role) => role.features, { nullable: false })
+  @ManyToMany(() => Role, { nullable: false })
   @JoinTable({ name: 'features_roles' })
   roles: Role[];
 
