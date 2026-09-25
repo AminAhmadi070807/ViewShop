@@ -3,6 +3,7 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { NewsletterController } from './newsletter.controller';
+import { randomInt } from 'crypto';
 
 describe('Test ( NewsLetter ) Controller', () => {
   let module: TestingModule;
@@ -10,7 +11,7 @@ describe('Test ( NewsLetter ) Controller', () => {
 
   let newsletter_id: string;
 
-  const email: string = 'viewshop@gmail.com';
+  const email: string = `viewshop_${randomInt(1000, 1_000_000)}@gmail.com`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());

@@ -68,14 +68,16 @@ export class AddressesService {
 
   async remove(data: Validate) {
     try {
-      const result = await this.addressRepository.delete({
+      const result = await this.addressRepository.findOneBy({
         id: data.id,
         user: { id: data.user },
       });
 
-      if (!result.affected) {
+      if (!result) {
         return new CustomException(statusMessages.fa['404'], 404);
       }
+
+      await this.addressRepository.delete(result.id);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
     } catch {
