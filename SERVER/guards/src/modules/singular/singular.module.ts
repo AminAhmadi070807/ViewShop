@@ -15,6 +15,6 @@ import { Feature } from '../features/entities/feature.entity';
     PermissionsModule,
     forwardRef(() => RolesModule),
   ],
-  exports: [SingularService],
+  exports: [SingularService, TypeOrmModule],
 })
 export class SingularModule {}

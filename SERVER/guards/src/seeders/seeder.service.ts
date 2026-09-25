@@ -19,5 +19,10 @@ export class SeederService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     await this.seedersFeaturesService.seeder();
+    await this.seedersGuardsService.seeder();
+    await this.seedersRolesService.seeder();
+    await this.seedersSingularsService.seeder();
+    await this.seedersPermissionsService.seeder();
+    await this.seedersUsersService.seeder();
   }
 }
