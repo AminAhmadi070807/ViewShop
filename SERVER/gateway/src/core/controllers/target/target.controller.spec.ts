@@ -10,7 +10,7 @@ describe('Test ( Target ) Controller', () => {
 
   let target_id: string;
 
-  const title = 'unit test';
+  const title = `unit ${crypto.randomUUID()} test`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());

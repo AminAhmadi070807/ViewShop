@@ -4,19 +4,20 @@ import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { TicketController } from './ticket.controller';
 import { TicketsDepartmentEnum } from '../../../common/enums/core/tickets/tickets.enum';
+import { UsersController } from '../users/user.controller';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Ticket ) Controller', () => {
   let module: TestingModule;
   let controller: TicketController;
+  let usersController: UsersController;
 
   let ticket_id: string;
-  const user = '1c4b85ac-f889-4396-a98c-803e531037af';
+  let user_id: string;
 
-  const title = 'unit test';
-  const description = 'test description';
+  const title = `unit ${crypto.randomUUID()} test`;
+  const description = `test ${crypto.randomUUID()} description`;
   const department = TicketsDepartmentEnum.SUPPORT;
-
-  const req = { user: { userId: user, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -25,14 +26,32 @@ describe('Test ( Ticket ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<TicketController>(TicketController);
+    usersController = module.get<UsersController>(UsersController);
   });
 
   afterAll(async () => {
     controller.remove({ id: ticket_id });
+    usersController.remove({ id: user_id });
     await module.close();
   });
 
+  it('Test ( Create User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.create({
+        fullName: 'کاربر تستی',
+        password: '00000000',
+        phone: `0914${randomInt(1_000_000, 9_999_999)}`,
+      }),
+    )) as ResultInterface;
+
+    if (result.status === 201) user_id = result.body.id;
+
+    expect(result.status).toEqual(201);
+  });
+
   it('Test ( Create ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.create({ title, description, department }, req),
     )) as ResultInterface;
@@ -59,6 +78,8 @@ describe('Test ( Ticket ) Controller', () => {
   });
 
   it('Test ( Update ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.update({ id: ticket_id, description }, req),
     )) as ResultInterface;
@@ -69,6 +90,14 @@ describe('Test ( Ticket ) Controller', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.remove({ id: ticket_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete User ) Controller', async () => {
+    const result = (await firstValueFrom(
+      usersController.remove({ id: user_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
