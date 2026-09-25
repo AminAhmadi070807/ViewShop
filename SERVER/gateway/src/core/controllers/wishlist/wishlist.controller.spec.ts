@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
-import { ProductStatusEnum } from '../../../common/enums/products/status.enum';
 import { randomInt } from 'node:crypto';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 import { StoreStatusEnum } from '../../../common/enums/store/store.status';

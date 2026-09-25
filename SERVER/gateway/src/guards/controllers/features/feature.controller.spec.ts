@@ -3,15 +3,18 @@ import { FeatureController } from './feature.controller';
 import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
+import { RoleController } from '../roles/role.controller';
 
 describe('Test ( Feature ) Controller', () => {
   let module: TestingModule;
   let controller: FeatureController;
+  let roleController: RoleController;
 
   let feature_id: string;
+  let role_id: string;
 
-  const title = 'Unit Test';
-  const role_id = '70591627-7622-4d8d-9d3c-9b8a6c09eeb4';
+  const title = `Unit ${crypto.randomUUID()} Test`;
+  const description: string = `Unit Test ${crypto.randomUUID()} description for roles`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -20,11 +23,23 @@ describe('Test ( Feature ) Controller', () => {
     module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 
     controller = module.get<FeatureController>(FeatureController);
+    roleController = module.get<RoleController>(RoleController);
   });
 
   afterAll(async () => {
     controller.remove({ id: feature_id });
+    roleController.remove({ id: role_id });
     await module.close();
+  });
+
+  it('Test ( Create Role ) Controller', async () => {
+    const result = (await firstValueFrom(
+      roleController.create({ title, description }),
+    )) as ResultInterface;
+
+    if (result.status === 201) role_id = result.body.id;
+
+    expect(result.status).toEqual(201);
   });
 
   it('Test ( Create ) Controller', async () => {
@@ -64,6 +79,14 @@ describe('Test ( Feature ) Controller', () => {
   it('Test ( Delete ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.remove({ id: feature_id }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(204);
+  });
+
+  it('Test ( Delete Role ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.remove({ id: role_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);

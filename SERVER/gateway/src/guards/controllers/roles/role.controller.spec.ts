@@ -10,8 +10,8 @@ describe('Test ( Role ) Controller', () => {
 
   let role_id: string;
 
-  const title: string = 'Unit Test';
-  const description: string = 'Unit Test description for roles';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
+  const description: string = `Unit Test ${crypto.randomUUID()} description for roles`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
