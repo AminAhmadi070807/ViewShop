@@ -3,7 +3,6 @@ import {
   IsArray,
   IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsPhoneNumber,
   IsString,
   IsUUID,
@@ -61,13 +60,11 @@ export class StoreDto {
   @ArrayNotEmpty({ message: 'ارایه نمیتواند خالی باشد' })
   @IsArray({ message: 'لطفا براساس ارایه ارسال کنید' })
   @IsUUID('4', { message: 'شناسه دسته بندی ها نامعتبر هست', each: true })
-  @IsOptional({ message: 'شنباسه دسته بندی اختیاری هست' })
   categories: string[];
 }
 
 export class UpdateStoreDto {
   @ApiProperty({ type: String, required: true, nullable: false, example: '' })
-  @IsNotEmpty({ message: 'ایدی نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی نامعتبر هست' })
   id: string;
 

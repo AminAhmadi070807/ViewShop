@@ -10,7 +10,7 @@ describe('Test ( Search ) Controller', () => {
 
   let search_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
