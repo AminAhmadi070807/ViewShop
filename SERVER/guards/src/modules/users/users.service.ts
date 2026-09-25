@@ -17,9 +17,9 @@ export class UsersService {
     private readonly roleRepository: Repository<Role>,
   ) {}
 
-  async create(data: ValidateUUID, is_test: boolean = false) {
+  async create(id: string, is_test: boolean = false) {
     try {
-      const existing = await this.userRepository.findOneBy({ id: data.id });
+      const existing = await this.userRepository.findOneBy({ id });
 
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
@@ -27,11 +27,11 @@ export class UsersService {
 
       const title = numberOfUsers
         ? is_test
-          ? `USER-${data.id}`
-          : 'USER'
+          ? `ADMIN-${id}`
+          : `USER`
         : is_test
-          ? `ADMIN-${data.id}`
-          : 'USER';
+          ? `ADMIN-${id}`
+          : `USER`;
 
       const role = await this.roleRepository.findOneBy({
         title: title.toUpperCase(),
@@ -41,10 +41,7 @@ export class UsersService {
         return new CustomException(statusMessages.fa['404'], 404);
       }
 
-      const result = this.userRepository.create({
-        id: data.id,
-        role: role,
-      });
+      const result = this.userRepository.create({ id, role: role });
 
       await this.userRepository.save(result);
 
@@ -90,7 +87,7 @@ export class UsersService {
   async updateRole(data: UpdateUserDto) {
     try {
       // find one user from database
-      const user: User | null = await this.userRepository.findOne({
+      const user = await this.userRepository.findOne({
         where: { id: data.user },
         relations: ['role'],
         select: { id: true, banned: true },

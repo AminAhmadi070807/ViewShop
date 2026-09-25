@@ -41,7 +41,7 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Create ) Controller', async () => {
-    const result = await controller.create({ id: title }, true);
+    const result = await controller.create({ id: title, is_test: true });
 
     if (result instanceof CustomException) return result;
 
@@ -98,11 +98,6 @@ describe('Test ( Users ) Controller', () => {
     });
 
     if (result instanceof CustomException) return result;
-
-    if (result.status === 409) {
-      expect(result.status).toBe(409);
-      return;
-    }
 
     expect(result.status).toBe(204);
   });

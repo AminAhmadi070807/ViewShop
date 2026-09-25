@@ -28,8 +28,8 @@ export class UserController {
     { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
-  create(@Body() data: ValidateUUID) {
-    return this.guardsService.send('USER:CREATE', data);
+  create(@Body() data: ValidateUUID, is_test: boolean = false) {
+    return this.guardsService.send('USER:CREATE', { is_test, ...data });
   }
 
   @Get()

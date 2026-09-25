@@ -41,7 +41,7 @@ describe('Test ( Users ) Service', () => {
   });
 
   it('Test ( Create ) Feature', async () => {
-    const result = await service.create({ id: title }, true);
+    const result = await service.create(title, true);
 
     if (result instanceof CustomException) return result;
 

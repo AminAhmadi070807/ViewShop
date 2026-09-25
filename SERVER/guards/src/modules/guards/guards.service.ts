@@ -143,7 +143,7 @@ export class GuardsService {
 
       // check user & user banned
       if (existing instanceof CustomException) {
-        const result = await this.userService.create({ id: data.userId });
+        const result = await this.userService.create(data.userId);
 
         if (result instanceof CustomException) return result;
       } else if (existing.body.banned) {
