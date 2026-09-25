@@ -4,6 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { FilterController } from './filter.controller';
 import { FilterTypeEnum } from '../../../common/enums/filters/filter.enum';
+import crypto from 'crypto';
+import { randomInt } from 'node:crypto';
 
 describe('Test ( Filter ) Controller', () => {
   let module: TestingModule;
@@ -11,9 +13,13 @@ describe('Test ( Filter ) Controller', () => {
 
   let filter_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
   const type: FilterTypeEnum = FilterTypeEnum.SWITCH;
-  const details = [{ title: 'ابی' }, { title: 'قرمز' }, { title: 'نارنجی' }];
+  const details = [
+    { title: `ابی ${randomInt(100, 999)}` },
+    { title: `قرمز ${randomInt(100, 999)}` },
+    { title: `نارنجی ${randomInt(100, 999)}` },
+  ];
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
