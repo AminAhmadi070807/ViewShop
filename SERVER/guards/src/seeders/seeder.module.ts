@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppModule } from '../app.module';
 
 @Module({
-  imports: [AppModule],
+  imports: [forwardRef(() => AppModule)],
 })
 export class SeederModule {}
