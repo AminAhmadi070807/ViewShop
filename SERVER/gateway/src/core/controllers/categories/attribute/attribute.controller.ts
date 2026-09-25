@@ -54,8 +54,8 @@ export class AttributeController {
     const user: JwtPayload = req.user as JwtPayload;
 
     return this.coreService.send('CATEGORY:ATTRIBUTE:CREATE', {
-      user: user.userId,
       ...data,
+      user: user.userId,
     });
   }
 
