@@ -151,7 +151,7 @@ export class WishlistController {
       enum: ['DELETE'],
     },
   ])
-  delete(@Body() data: ValidateUUID) {
+  remove(@Body() data: ValidateUUID) {
     return this.coreService.send('WISHLIST:DELETE', data);
   }
 }
