@@ -3,7 +3,6 @@ import { IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator';
 export class CategoryDto {
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
-  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })
@@ -24,7 +23,6 @@ export class UpdateCategoryDto {
 
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
-  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @IsNotEmpty({ message: 'نامک نمیتواند خالی باشد' })

@@ -11,9 +11,9 @@ describe('Test ( Menu ) Controller', () => {
 
   let menu_id: string;
 
-  const title: string = 'Unit Test';
+  const title: string = `Unit ${crypto.randomUUID()} Test`;
   const section: MenuSectionEnum = MenuSectionEnum.HEADER;
-  const alias: string = 'unit-test';
+  const alias: string = crypto.randomUUID();
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());

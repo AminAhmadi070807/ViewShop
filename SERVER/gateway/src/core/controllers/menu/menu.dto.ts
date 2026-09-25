@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator';
 
 export enum MenuSectionEnum {
   HEADER = 'HEADER',
@@ -14,6 +14,7 @@ export class MenuDto {
 
   @IsNotEmpty({ message: 'نام متسعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
   @IsNotEmpty({ message: 'بخش نمیتواند خالی باشد' })
@@ -31,6 +32,7 @@ export class UpdateMenuDto {
 
   @IsNotEmpty({ message: 'نام متسعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
   @IsNotEmpty({ message: 'بخش نمیتواند خالی باشد' })

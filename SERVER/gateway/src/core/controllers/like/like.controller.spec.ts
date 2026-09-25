@@ -6,7 +6,6 @@ import { LikeController } from './like.controller';
 import { randomInt } from 'node:crypto';
 import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
 import { StoreStatusEnum } from '../../../common/enums/store/store.status';
-import { CommentController } from '../comments/comment.controller';
 import { UsersController } from '../users/user.controller';
 import { ColorController } from '../colors/color.controller';
 import { ProductController } from '../products/product.controller';

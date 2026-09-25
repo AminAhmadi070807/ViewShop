@@ -1,5 +1,5 @@
 import { MenuSectionEnum } from '../../../common/enums/sections/section.enum';
-import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class MenuDto {
@@ -9,6 +9,7 @@ export class MenuDto {
 
   @IsNotEmpty({ message: 'نام متسعار نمیتواند خالی باشد' })
   @IsString({ message: 'نام مستعار باید رشته باشد' })
+  @Matches(/^([a-zA-Z0-9-_]{3,36})$/, { message: 'نامک نامعتبر است' })
   alias: string;
 
   @IsNotEmpty({ message: 'بخش نمیتواند خالی باشد' })

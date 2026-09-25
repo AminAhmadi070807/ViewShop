@@ -5,7 +5,6 @@ export class CategoryDto {
   @ApiProperty({ type: String, required: true, nullable: true, example: '' })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنواب باید رشته باشد' })
-  @Matches(/^([a-zA-Z0-9-_ ]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({ type: String, required: true, nullable: true, example: '' })
@@ -34,7 +33,6 @@ export class UpdateCategoryDto {
   })
   @IsNotEmpty({ message: 'عنوان نباید خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
-  @Matches(/^([a-zA-Z0-9-_ ]{3,36})$/, { message: 'عنوان نامعتبر است' })
   title: string;
 
   @ApiProperty({
