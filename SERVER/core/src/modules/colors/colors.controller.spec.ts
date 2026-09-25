@@ -10,9 +10,6 @@ describe('Test ( Colors ) Controller', () => {
 
   let color_id: string;
 
-  const color: string = `#23f${randomInt(100, 999)}`;
-  const title: string = `شامپونزه ای ${randomInt(100, 999)}`;
-
   beforeEach(() => jest.clearAllMocks());
 
   beforeAll(async () => {
@@ -29,7 +26,10 @@ describe('Test ( Colors ) Controller', () => {
   });
 
   it('Test ( Create ) Controller', async () => {
-    const result = await controller.create({ color, title });
+    const result = await controller.create({
+      color: `#23f${randomInt(100, 999)}`,
+      title: `شامپونزه ای ${randomInt(100, 999)}`,
+    });
 
     if (result instanceof CustomException) throw result;
 
@@ -53,7 +53,9 @@ describe('Test ( Colors ) Controller', () => {
   });
 
   it('Test ( Search ) Controller', async () => {
-    const result = await controller.search({ title });
+    const result = await controller.search({
+      title: `شامپونزه ای ${randomInt(100, 999)}`,
+    });
 
     expect(result.status).toBe(200);
   });
