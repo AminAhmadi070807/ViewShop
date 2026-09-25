@@ -12,7 +12,7 @@ export class StoryDto {
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان باید رشته باشد' })
   @MinLength(3, { message: 'عنوان حدثل باید 3 کارکتر داشته باشد' })
-  @MaxLength(24, { message: 'عنوان نمیتواند بیشتر از 24 کارکتر داشته باشد' })
+  @MaxLength(36, { message: 'عنوان نمیتواند بیشتر از 36 کارکتر داشته باشد' })
   title: string;
 
   @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })

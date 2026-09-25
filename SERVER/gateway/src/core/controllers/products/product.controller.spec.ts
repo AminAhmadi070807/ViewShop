@@ -20,7 +20,6 @@ describe('Test ( Product ) Controller', () => {
   let controller: ProductController;
   let usersController: UsersController;
   let colorController: ColorController;
-  let productController: ProductController;
   let brandController: BrandController;
   let specificationController: SpecificationController;
   let mediaController: MediaController;
@@ -56,7 +55,6 @@ describe('Test ( Product ) Controller', () => {
     controller = module.get<ProductController>(ProductController);
     usersController = module.get<UsersController>(UsersController);
     colorController = module.get<ColorController>(ColorController);
-    productController = module.get<ProductController>(ProductController);
     brandController = module.get<BrandController>(BrandController);
     specificationController = module.get<SpecificationController>(
       SpecificationController,
@@ -68,7 +66,6 @@ describe('Test ( Product ) Controller', () => {
 
   afterAll(async () => {
     controller.remove({ id: product_id });
-    productController.remove({ id: product_id });
     storeController.remove({ id: store_id });
     categoryController.remove({ id: category_id });
     mediaController.remove({ id: medias[0] });
