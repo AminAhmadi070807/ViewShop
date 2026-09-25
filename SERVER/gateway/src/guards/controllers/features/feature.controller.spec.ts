@@ -86,7 +86,7 @@ describe('Test ( Feature ) Controller', () => {
 
   it('Test ( Delete Role ) Controller', async () => {
     const result = (await firstValueFrom(
-      controller.remove({ id: role_id }),
+      roleController.remove({ id: role_id }),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
