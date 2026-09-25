@@ -3,19 +3,17 @@ import { AppModule } from '../../../app.module';
 import { firstValueFrom } from 'rxjs';
 import { ResultInterface } from '../../../common/interface/result.interface';
 import { UsersController } from './user.controller';
+import { randomInt } from 'crypto';
 
 describe('Test ( Users ) Controller', () => {
   let module: TestingModule;
   let controller: UsersController;
 
   let user_id: string;
-  const user = '1c4b85ac-f889-4396-a98c-803e531037af';
 
-  const phone = '09990009999';
+  const phone = `0914${randomInt(1_000_000, 9_999_999)}`;
   const fullName = 'کاربر تستی';
   const password = '000000000';
-
-  const req = { user: { userId: user, role: 'ADMIN' } };
 
   beforeEach(() => jest.clearAllMocks());
   afterEach(() => jest.clearAllMocks());
@@ -58,17 +56,18 @@ describe('Test ( Users ) Controller', () => {
   });
 
   it('Test ( Update ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
-      controller.update(
-        { fullName },
-        { user: { userId: user_id, role: 'ADMIN' } },
-      ),
+      controller.update({ fullName }, req),
     )) as ResultInterface;
 
     expect(result.status).toEqual(204);
   });
 
   it('Test ( Profile ) Controller', async () => {
+    const req = { user: { userId: user_id, role: 'ADMIN' } };
+
     const result = (await firstValueFrom(
       controller.profile(req),
     )) as ResultInterface;
