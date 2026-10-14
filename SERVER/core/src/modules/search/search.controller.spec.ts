@@ -2,7 +2,6 @@ import { SearchController } from './search.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../app.module';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
-import { randomInt } from 'crypto';
 
 describe('Test ( Search ) Controller', () => {
   let controller: SearchController;

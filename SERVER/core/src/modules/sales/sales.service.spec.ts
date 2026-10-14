@@ -36,7 +36,6 @@ describe('Test ( Sale ) Service', () => {
   let category_id: string;
   let sale_id: string;
 
-  const title = `unit ${crypto.randomUUID()} product`;
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const discount_percent = 0;
@@ -47,7 +46,6 @@ describe('Test ( Sale ) Service', () => {
     stock: number;
   }[] = [];
   const medias: string[] = [];
-  const alias: string = `unit-controller-${crypto.randomUUID()}-test-product`;
 
   const quantity: number = 1;
   const product_price = 300000;

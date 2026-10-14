@@ -14,7 +14,6 @@ describe('Test ( Tickets ) Service', () => {
   let ticket_id: string;
   let user_id: string;
 
-  const title = `unit ${crypto.randomUUID()} test`;
   const description = 'test description';
   const department = TicketsDepartmentEnum.SUPPORT;
 

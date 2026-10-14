@@ -34,7 +34,6 @@ describe('Test ( Story ) Feature', () => {
   let specification_id: string;
   let store_id: string;
 
-  const title = `unit ${crypto.randomUUID()} test`;
   const description =
     'unit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit testunit test product description this description for was unit test';
   const discount_percent = 0;
