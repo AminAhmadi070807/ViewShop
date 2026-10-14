@@ -1,7 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SpecificationService } from './specification.service';
-import { SpecificationDto } from './dto/specification.dto';
+import {
+  SpecificationDto,
+  UpdateSpecificationDto,
+} from './dto/specification.dto';
 import { Validate } from '../../common/validations/validate.dto';
 
 @Controller()
@@ -21,6 +24,11 @@ export class SpecificationController {
   @MessagePattern('SPECIFICATION:ONE')
   findOne(@Payload() data: Validate) {
     return this.specificationService.findOne(data.id);
+  }
+
+  @MessagePattern('SPECIFICATION:ONE')
+  update(@Payload() data: UpdateSpecificationDto) {
+    return this.specificationService.update(data);
   }
 
   @MessagePattern('SPECIFICATION:DELETE')
