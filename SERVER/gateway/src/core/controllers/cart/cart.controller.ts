@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Req,
@@ -70,7 +71,7 @@ export class CartController {
     return this.coreService.send('CART:ONE', { id: user.userId });
   }
 
-  @Patch()
+  @Patch('empty')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'CART', enum: ['CART'] },
