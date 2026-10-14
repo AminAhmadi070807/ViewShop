@@ -1,0 +1,11 @@
+export default [
+  { title: 'CREATE', id: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90' },
+  { title: 'READ', id: '5e368af2-d334-4139-81e1-e76fc97a8bcb' },
+  { title: 'READ:ONE', id: '496c5edb-8f59-4030-9b45-91e1f7a926d4' },
+  { title: 'UPDATE', id: '8bf28016-1499-416f-a51e-3e8155fc43fe' },
+  { title: 'DELETE', id: '3b2c739e-3d88-4141-8888-f1f5cf67488d' },
+  { title: 'TOGGLE:ACCESS', id: 'ee459dba-f0d7-425e-9b20-c1aaeb9ccea4' },
+  { title: 'TOGGLE:ROLE', id: '632b05ec-30dd-4478-aa0c-69e3c695311a' },
+  { title: 'TOGGLE:BAN', id: '30e51695-b3c4-4f34-9df2-e09d642d41cb' },
+  { title: 'VALIDATE', id: 'e227dfb3-2e26-4337-935e-2e361c1d720c' },
+];

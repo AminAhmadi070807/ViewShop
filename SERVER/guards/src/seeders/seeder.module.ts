@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { SeedersFeaturesService } from './features/features.service';
-import { SeedersGuardsService } from './guards/guards.service';
-import { SeedersPermissionsService } from './permissions/permissions.service';
-import { SeedersRolesService } from './roles/roles.service';
+import { FeaturesSeeder } from './features/features.service';
+import { GuardsSeeder } from './guards/guards.service';
+import { PermissionSeeder } from './permissions/permissions.service';
+import { RoleSeeder } from './roles/roles.service';
 import { SeedersSingularsService } from './singulars/singulards.service';
-import { SeedersUsersService } from './users/users.service';
+import { UserSeeder } from './users/users.service';
 import { SeederService } from './seeder.service';
 import { FeaturesModule } from '../modules/features/features.module';
 import { GuardsModule } from '../modules/guards/guards.module';
@@ -24,12 +24,12 @@ import { UsersModule } from '../modules/users/users.module';
   ],
   providers: [
     SeederService,
-    SeedersFeaturesService,
-    SeedersGuardsService,
-    SeedersRolesService,
-    SeedersPermissionsService,
     SeedersSingularsService,
-    SeedersUsersService,
+    RoleSeeder,
+    GuardsSeeder,
+    PermissionSeeder,
+    FeaturesSeeder,
+    UserSeeder,
   ],
 })
 export class SeederModule {}
