@@ -26,7 +26,7 @@ export class SpecificationController {
     return this.specificationService.findOne(data.id);
   }
 
-  @MessagePattern('SPECIFICATION:ONE')
+  @MessagePattern('SPECIFICATION:UPDATE')
   update(@Payload() data: UpdateSpecificationDto) {
     return this.specificationService.update(data);
   }
