@@ -6,6 +6,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -24,6 +25,15 @@ export class SpecificationController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SPECIFICATION',
+      enum: ['SPECIFICATION'],
+    },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
+  ])
   create(@Body() data: SpecificationDto) {
     return this.coreService.send('SPECIFICATION:CREATE', data);
   }
