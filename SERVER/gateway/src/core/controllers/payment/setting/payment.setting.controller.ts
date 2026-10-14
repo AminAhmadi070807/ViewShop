@@ -19,6 +19,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -38,12 +39,35 @@ export class PaymentSettingController {
   @ApiCreatedResponse({ description: statusMessages.fa['201'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
+  ])
   create(@Body() data: PaymentSettingDto) {
     return this.coreService.send('SETTING:PAYMENT:CREATE', data);
   }
 
   @Get()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ',
+      enum: ['READ'],
+    },
+  ])
   findAll() {
     return this.coreService.send('SETTING:PAYMENT:FIND');
   }
@@ -51,6 +75,20 @@ export class PaymentSettingController {
   @Get(':id')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('SETTING:PAYMENT:ONE', data);
   }
@@ -58,6 +96,15 @@ export class PaymentSettingController {
   @Patch()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
+  ])
   update(@Body() data: UpdatePaymentSettingDto) {
     return this.coreService.send('SETTING:PAYMENT:UPDATE', data);
   }
@@ -65,6 +112,20 @@ export class PaymentSettingController {
   @Put()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE:STATUS',
+      enum: ['UPDATE:STATUS'],
+    },
+  ])
   updateStatus(@Body() data: ValidateUUID) {
     return this.coreService.send('SETTING:PAYMENT:UPDATE:STATUS', data);
   }
@@ -72,6 +133,15 @@ export class PaymentSettingController {
   @Delete()
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'PAYMENT:SETTING',
+      enum: ['PAYMENT:SETTING'],
+    },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('SETTING:PAYMENT:DELETE', data);
   }
