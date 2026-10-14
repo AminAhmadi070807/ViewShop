@@ -193,12 +193,15 @@ export class UpdateStatusProductDto {
 }
 
 export class UpdateStockProductDto {
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   id: string;
 
+  @ApiProperty({ type: String, required: true, nullable: false, example: '' })
   @IsUUID('4', { message: 'شناسه دیتا نامعتبر است' })
   product_detail_id: string;
 
+  @ApiProperty({ type: Number, required: true, nullable: false, example: '' })
   @IsNumber({}, { message: 'موجودی محصول باید نامبر باشد' })
   stock: number;
 }
