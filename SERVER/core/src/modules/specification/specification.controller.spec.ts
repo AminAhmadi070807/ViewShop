@@ -58,6 +58,18 @@ describe('Test ( Specification ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Update ) Controller', async () => {
+    const result = await controller.update({
+      id: specification_id,
+      title,
+      details,
+    });
+
+    if (result instanceof CustomException) throw result;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Delete ) Controller', async () => {
     const result = await controller.remove({ id: specification_id });
 
