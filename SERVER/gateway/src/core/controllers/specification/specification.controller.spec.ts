@@ -58,6 +58,14 @@ describe('Test ( Specification ) Controller', () => {
     expect(result.status).toEqual(200);
   });
 
+  it('Test ( Update ) Controller', async () => {
+    const result = (await firstValueFrom(
+      controller.update({ id: specification_id, details, title }),
+    )) as ResultInterface;
+
+    expect(result.status).toEqual(200);
+  });
+
   it('Test ( Delete ) Controller', async () => {
     const result = (await firstValueFrom(
       controller.remove({ id: specification_id }),
