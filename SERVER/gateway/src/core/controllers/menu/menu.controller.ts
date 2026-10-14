@@ -13,6 +13,7 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiHeaders,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -34,6 +35,10 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'MENU', enum: ['MENU'] },
+    { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
+  ])
   create(@Body() data: MenuDto) {
     return this.coreService.send('MENU:CREATE', data);
   }
@@ -41,6 +46,10 @@ export class MenusController {
   @Get()
   @Public()
   @ApiOkResponse({ description: statusMessages.fa['200'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'MENU', enum: ['MENU'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
   findAll() {
     return this.coreService.send('MENU:FIND');
   }
@@ -50,6 +59,10 @@ export class MenusController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'MENU', enum: ['MENU'] },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('MENU:ONE', data);
   }
@@ -60,6 +73,10 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'MENU', enum: ['MENU'] },
+    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
+  ])
   update(@Body() data: UpdateMenuDto) {
     return this.coreService.send('MENU:UPDATE', data);
   }
@@ -70,6 +87,10 @@ export class MenusController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    { name: 'feature', required: true, example: 'MENU', enum: ['MENU'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('MENU:DELETE', data);
   }
