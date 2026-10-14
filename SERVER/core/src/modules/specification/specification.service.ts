@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { SpecificationDto } from './dto/specification.dto';
+import {
+  SpecificationDto,
+  UpdateSpecificationDto,
+} from './dto/specification.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Specification } from './entities/specification.entity';
 import { Repository } from 'typeorm';
@@ -61,6 +64,37 @@ export class SpecificationService {
       const result = await this.specificationRepository.findOneBy({ id });
 
       if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      return { status: 200, message: statusMessages.fa['200'], body: result };
+    } catch {
+      throw new CustomException(statusMessages.fa['500'], 500);
+    }
+  }
+
+  async update(data: UpdateSpecificationDto) {
+    try {
+      const result = await this.specificationRepository.findOneBy({
+        id: data.id,
+      });
+
+      if (!result) return new CustomException(statusMessages.fa['404'], 404);
+
+      result.title = data.title;
+      result.details = data.details.map((item) => {
+        return {
+          id: crypto.randomUUID(),
+          title: item.title,
+          details: item.details.map((detail) => {
+            return {
+              id: crypto.randomUUID(),
+              title: detail.title,
+              value: detail.value,
+            };
+          }),
+        };
+      });
+
+      await this.specificationRepository.save(result);
 
       return { status: 200, message: statusMessages.fa['200'], body: result };
     } catch {

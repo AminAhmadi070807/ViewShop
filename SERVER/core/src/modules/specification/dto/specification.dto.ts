@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -30,6 +31,21 @@ class SpecificationDetailsDto {
 }
 
 export class SpecificationDto {
+  @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
+  @IsString({ message: 'عنوان نامعتبر است' })
+  title: string;
+
+  @ArrayNotEmpty({ message: 'دیتا های ارسالی نمیتواند خالی باشد' })
+  @IsArray({ message: 'دیتا های ارسالی نامعتبر است' })
+  @ValidateNested({ each: true })
+  @Type(() => SpecificationDetailsDto)
+  details: SpecificationDetailsDto[];
+}
+
+export class UpdateSpecificationDto {
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  id: string;
+
   @IsNotEmpty({ message: 'عنوان نمیتواند خالی باشد' })
   @IsString({ message: 'عنوان نامعتبر است' })
   title: string;
