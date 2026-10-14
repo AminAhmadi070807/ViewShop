@@ -15,6 +15,7 @@ export class PermissionSeeder {
 
   async seeder() {
     try {
+      console.log('AMIN');
       const result = await this.repository.find();
 
       for (const permission of result) {
@@ -31,8 +32,7 @@ export class PermissionSeeder {
       }
 
       return { status: 200, message: statusMessages.fa[200], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CustomException } from 'src/common/exceptions/custom.exception.error';
 import { statusMessages } from 'src/common/messages/status.message';
 import { User } from 'src/modules/users/entities/user.entity';
-import data from './object.data'
+import data from './object.data';
 
 @Injectable()
 export class UserSeeder {

@@ -30,7 +30,12 @@ export class SmsSettingController {
   @Public()
   @Post()
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   sms_setting(@Body() data: SmsSettingDto) {
@@ -39,7 +44,12 @@ export class SmsSettingController {
 
   @Get()
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
@@ -48,7 +58,12 @@ export class SmsSettingController {
 
   @Get(':id')
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'READ', enum: ['READ:ONE'] },
   ])
   findOne(@Param() data: ValidateUUID) {
@@ -57,7 +72,12 @@ export class SmsSettingController {
 
   @Patch()
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'READ', enum: ['UPDATE'] },
   ])
   update(@Body() data: UpdateSmsSettingDto) {
@@ -66,7 +86,12 @@ export class SmsSettingController {
 
   @Put()
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'READ', enum: ['UPDATE'] },
   ])
   updateActivate(@Body() data: ValidateUUID) {
@@ -75,7 +100,12 @@ export class SmsSettingController {
 
   @Delete()
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'SMS', enum: ['SMS'] },
+    {
+      name: 'feature',
+      required: true,
+      example: 'SMS:SETTING',
+      enum: ['SMS:SETTING'],
+    },
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   delete(@Body() data: ValidateUUID) {

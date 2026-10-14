@@ -16,9 +16,9 @@ export class RoleSeeder {
     try {
       const result = await this.repository.find();
 
-      for (const role of result) {
-        await this.repository.delete(role.id);
-      }
+      if (result.length) return;
+
+      for (const role of result) await this.repository.delete(role.id);
 
       for (const detail of data) {
         const result = this.repository.create({
@@ -31,8 +31,7 @@ export class RoleSeeder {
       }
 
       return { status: 200, message: statusMessages.fa[200], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
