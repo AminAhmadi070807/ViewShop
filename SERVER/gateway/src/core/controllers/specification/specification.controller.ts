@@ -42,6 +42,15 @@ export class SpecificationController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SPECIFICATION',
+      enum: ['SPECIFICATION'],
+    },
+    { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
+  ])
   findAll() {
     return this.coreService.send('SPECIFICATION:FIND');
   }
@@ -52,6 +61,20 @@ export class SpecificationController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SPECIFICATION',
+      enum: ['SPECIFICATION'],
+    },
+    {
+      name: 'permission',
+      required: true,
+      example: 'READ:ONE',
+      enum: ['READ:ONE'],
+    },
+  ])
   findOne(@Param() data: ValidateUUID) {
     return this.coreService.send('SPECIFICATION:ONE', data);
   }
@@ -62,6 +85,15 @@ export class SpecificationController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
+  @ApiHeaders([
+    {
+      name: 'feature',
+      required: true,
+      example: 'SPECIFICATION',
+      enum: ['SPECIFICATION'],
+    },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
+  ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('SPECIFICATION:DELETE', data);
   }
