@@ -17,9 +17,7 @@ export class GuardsSeeder {
     try {
       const result = await this.repository.find();
 
-      for (const detail of result) {
-        await this.repository.delete(detail.id);
-      }
+      if (result.length) return;
 
       for (const detail of data) {
         const result = this.repository.create({
@@ -33,7 +31,8 @@ export class GuardsSeeder {
 
         await this.repository.save(result);
       }
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

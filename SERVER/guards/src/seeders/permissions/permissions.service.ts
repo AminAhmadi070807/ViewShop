@@ -17,9 +17,7 @@ export class PermissionSeeder {
     try {
       const result = await this.repository.find();
 
-      for (const permission of result) {
-        await this.repository.delete(permission.id);
-      }
+      if (result.length) return;
 
       for (const detail of data) {
         const result = this.repository.create({

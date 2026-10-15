@@ -18,8 +18,6 @@ export class RoleSeeder {
 
       if (result.length) return;
 
-      for (const role of result) await this.repository.delete(role.id);
-
       for (const detail of data) {
         const result = this.repository.create({
           title: detail.title,

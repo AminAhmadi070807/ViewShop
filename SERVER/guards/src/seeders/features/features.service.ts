@@ -16,7 +16,7 @@ export class FeaturesSeeder {
     try {
       const result = await this.repository.find();
 
-      for (const detail of result) await this.repository.delete(detail.id);
+      if (result.length) return;
 
       for (const detail of data) {
         const result = this.repository.create({

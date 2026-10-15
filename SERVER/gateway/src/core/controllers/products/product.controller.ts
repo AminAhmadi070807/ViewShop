@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Req,
 } from '@nestjs/common';
 import { CoreService } from '../../core.service';
@@ -142,7 +143,7 @@ export class ProductController {
     return this.coreService.send('PRODUCT:UPDATE:STOCK', data);
   }
 
-  @Patch('status')
+  @Put('status')
   @ApiNoContentResponse({ description: statusMessages.fa['204'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
