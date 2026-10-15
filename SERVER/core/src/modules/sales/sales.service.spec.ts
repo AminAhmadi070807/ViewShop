@@ -152,7 +152,7 @@ describe('Test ( Sale ) Service', () => {
 
   it('Test ( Create Color ) Feature', async () => {
     const result = await colorService.create({
-      color: `#245${randomInt(100, 999)}`,
+      color: `#${randomInt(100000, 999999)}`,
       title: `شنانپونزه ای تیره ${randomInt(100, 999)}`,
     });
 
