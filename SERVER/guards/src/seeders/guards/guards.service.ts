@@ -16,13 +16,13 @@ export class GuardsSeeder {
     try {
       const result = await this.repository.find();
 
-      for (const permission of result) {
-        await this.repository.delete(permission.id);
+      for (const detail of result) {
+        await this.repository.delete(detail.id);
       }
 
-      for (const detail of data) {
-        const result = this.repository.create({});
-      }
+      // for (const detail of data) {
+      //   const result = this.repository.create({});
+      // }
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
