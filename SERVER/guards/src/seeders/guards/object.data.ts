@@ -1,3 +1,5 @@
+import { MethodEnum } from '../../common/enums/guards/guard.enum';
+
 const data = [
   // GUARD
   {

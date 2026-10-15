@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CustomException } from 'src/common/exceptions/custom.exception.error';
 import { statusMessages } from 'src/common/messages/status.message';
 import { Guard } from 'src/modules/guards/entities/guard.entity';
+import { GuardEnum, MethodEnum } from '../../common/enums/guards/guard.enum';
 
 @Injectable()
 export class GuardsSeeder {
@@ -20,9 +21,18 @@ export class GuardsSeeder {
         await this.repository.delete(detail.id);
       }
 
-      // for (const detail of data) {
-      //   const result = this.repository.create({});
-      // }
+      for (const detail of data) {
+        const result = this.repository.create({
+          id: detail.id,
+          permission: { id: detail.permission },
+          method: detail.method as MethodEnum,
+          public: detail.public,
+          service: detail.service as GuardEnum,
+          feature: { id: detail.feature },
+        });
+
+        await this.repository.save(result);
+      }
     } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
