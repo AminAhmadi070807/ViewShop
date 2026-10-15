@@ -1,7 +1,7 @@
 const data = [
   // GUARD
   {
-    id: '',
+    id: 'a1b2c3d4-e5f6-4a78-8b90-c1d2e3f4a501',
     method: 'CREATE',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -9,7 +9,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'b2c3d4e5-f607-4b89-9c01-d2e3f4a5b612',
     method: 'READ',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -17,7 +17,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'c3d4e5f6-0718-4c90-8d12-e3f4a5b6c723',
     method: 'DELETE',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -25,7 +25,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'd4e5f607-1829-4da1-9e23-f4a5b6c7d834',
     method: 'VALIDATE',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: 'e227dfb3-2e26-4337-935e-2e361c1d720c',
@@ -33,7 +33,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'e5f60718-293a-4eb2-8f34-a5b6c7d8e945',
     method: 'READ:ONE',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -43,7 +43,7 @@ const data = [
 
   // FEATURE
   {
-    id: '',
+    id: 'f6071829-3a4b-4fc3-9045-b6c7d8e9fa56',
     method: 'CREATE',
     feature: '5148df49-8494-4fcc-9edd-1836cc6db30f',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -51,7 +51,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '0718293a-4b5c-40d4-8156-c7d8e9fa0b67',
     method: 'READ',
     feature: '5148df49-8494-4fcc-9edd-1836cc6db30f',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -59,7 +59,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '18293a4b-5c6d-41e5-9267-d8e9fa0b1c78',
     method: 'UPDATE',
     feature: '5148df49-8494-4fcc-9edd-1836cc6db30f',
     permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
@@ -67,7 +67,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '293a4b5c-6d7e-42f6-8378-e9fa0b1c2d89',
     method: 'DELETE',
     feature: '5148df49-8494-4fcc-9edd-1836cc6db30f',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -75,7 +75,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '3a4b5c6d-7e8f-4307-9489-fa0b1c2d3e90',
     method: 'READ:ONE',
     feature: '5148df49-8494-4fcc-9edd-1836cc6db30f',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -85,7 +85,7 @@ const data = [
 
   // PERMISSION
   {
-    id: '',
+    id: '4b5c6d7e-8f90-4418-859a-0b1c2d3e4f01',
     method: 'CREATE',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -93,7 +93,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '5c6d7e8f-901a-4529-96ab-1c2d3e4f5a12',
     method: 'READ',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -101,7 +101,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '6d7e8f90-1a2b-463a-87bc-2d3e4f5a6b23',
     method: 'DELETE',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -109,7 +109,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '7e8f901a-2b3c-474b-98cd-3e4f5a6b7c34',
     method: 'READ:ONE',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -117,7 +117,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '8f901a2b-3c4d-485c-a9de-4f5a6b7c8d45',
     method: 'TOGGLE:ROLE',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '632b05ec-30dd-4478-aa0c-69e3c695311a',
@@ -125,7 +125,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '901a2b3c-4d5e-496d-b0ef-5a6b7c8d9e56',
     method: 'TOGGLE:BAN',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '30e51695-b3c4-4f34-9df2-e09d642d41cb',
@@ -135,7 +135,7 @@ const data = [
 
   // ROLE
   {
-    id: '',
+    id: '1a2b3c4d-5e6f-4071-8234-5b6c7d8e9f60',
     method: 'CREATE',
     feature: 'c90ed865-7d6a-4237-9525-79620dab9157',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -143,7 +143,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '2b3c4d5e-6f70-4182-9345-6c7d8e9f0a71',
     method: 'READ',
     feature: 'c90ed865-7d6a-4237-9525-79620dab9157',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -151,7 +151,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '3c4d5e6f-7081-4293-a456-7d8e9f0a1b82',
     method: 'UPDATE',
     feature: 'c90ed865-7d6a-4237-9525-79620dab9157',
     permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
@@ -159,7 +159,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '4d5e6f70-8192-43a4-b567-8e9f0a1b2c93',
     method: 'DELETE',
     feature: 'c90ed865-7d6a-4237-9525-79620dab9157',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -167,7 +167,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '5e6f7081-92a3-44b5-8678-9f0a1b2c3da4',
     method: 'READ:ONE',
     feature: 'c90ed865-7d6a-4237-9525-79620dab9157',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -177,7 +177,7 @@ const data = [
 
   // SINGULAR
   {
-    id: '',
+    id: '6f708192-a3b4-45c6-9789-0a1b2c3d4eb5',
     method: 'CREATE',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -185,7 +185,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '708192a3-b4c5-46d7-889a-1b2c3d4e5fc6',
     method: 'READ',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -193,7 +193,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '8192a3b4-c5d6-47e8-99ab-2c3d4e5f60d7',
     method: 'TOGGLE:ACCESS',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: 'ee459dba-f0d7-425e-9b20-c1aaeb9ccea4',
@@ -201,7 +201,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: '92a3b4c5-d6e7-4809-aabc-3d4e5f6071e8',
     method: 'DELETE',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -209,7 +209,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'a3b4c5d6-e7f8-491a-bbcd-4e5f607182f9',
     method: 'READ:ONE',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -219,7 +219,7 @@ const data = [
 
   // USER
   {
-    id: '',
+    id: 'b4c5d6e7-f809-4a2b-8cde-5f607182930a',
     method: 'CREATE',
     feature: 'd52a6cce-84b7-4755-8f32-888bdaccc0ec',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -227,7 +227,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'c5d6e7f8-091a-4b3c-9def-607182930a1b',
     method: 'READ',
     feature: 'd52a6cce-84b7-4755-8f32-888bdaccc0ec',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -235,7 +235,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'd6e7f809-1a2b-4c4d-8e0f-7182930a1b2c',
     method: 'DELETE',
     feature: 'd52a6cce-84b7-4755-8f32-888bdaccc0ec',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -243,7 +243,7 @@ const data = [
     service: 'GUARD',
   },
   {
-    id: '',
+    id: 'e7f8091a-2b3c-4d5e-9f10-82930a1b2c3d',
     method: 'READ:ONE',
     feature: 'd52a6cce-84b7-4755-8f32-888bdaccc0ec',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -253,7 +253,7 @@ const data = [
 
   // USERS
   {
-    id: '',
+    id: 'c1a7e932-6d84-4f51-9b20-3e8a5d7c2f64',
     method: 'CREATE',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -261,7 +261,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '8d2f6a41-b7c3-4e95-a160-5f9b2c7d3e84',
     method: 'READ',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -269,7 +269,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '3e9b5c72-1a64-4d8f-8b30-6c2f7a9e5d41',
     method: 'READ:ONE',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -277,7 +277,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'a6f3d821-9c57-4b20-ae64-2d8f1c5b7e93',
     method: 'READ:PROFILE',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: 'c896fdcd-f6c5-46cc-aaa5-2ab754e3097c',
@@ -285,7 +285,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '5b2e8f14-c7a9-4d63-9f50-1a6c3e8b7d24',
     method: 'UPDATE',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
@@ -293,7 +293,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'f4c8a215-3d69-4e72-8b41-9a6f2c5d7e03',
     method: 'DELETE',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -303,7 +303,7 @@ const data = [
 
   // AUTH
   {
-    id: '',
+    id: '2a7d9c41-5e83-4b60-a2f7-1c6d8e9b3045',
     method: 'REGISTER',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '55995abe-005b-4e1f-a5b0-2453414b54e2',
@@ -311,7 +311,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '7c4e1a93-2d85-4f60-b731-9e5a6c2d8f04',
     method: 'LOGIN',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '4936abd6-f25d-4ef7-9859-2253abe2910a',
@@ -319,7 +319,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'd3a6f821-7b49-4c50-8e12-5f9d2a6c3b74',
     method: 'VERIFY:OTP',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '87cc6766-73ba-488e-b32b-1b48c846b304',
@@ -327,7 +327,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '9e1c5b72-4a63-4d80-bf25-7c8a3e6d1f94',
     method: 'VERIFY:TOKEN',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: 'aa3f2d66-b2f6-4e06-ab91-9d14b2b793d2',
@@ -335,7 +335,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '4f8b2d61-9c35-4a70-8e24-6d1f7a9b3c52',
     method: 'LOGOUT',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '8197d26e-ec30-479a-a044-6ea56dd1ea0a',
@@ -345,7 +345,7 @@ const data = [
 
   // ADDRESS
   {
-    id: '',
+    id: 'b5d2e8a1-7c43-4f96-9a10-3e6d8c2b5f74',
     method: 'CREATE',
     feature: '7a5e1c3b-8d62-4f49-b730-3c9a6d4e1f58',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -353,7 +353,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '6a3f9c21-8d57-4b40-ae16-2c5f7a9d3e84',
     method: 'READ',
     feature: '7a5e1c3b-8d62-4f49-b730-3c9a6d4e1f58',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -361,7 +361,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'e2c7a514-9b63-4d80-8f21-6a5c3e9b7d42',
     method: 'READ:ONE',
     feature: '7a5e1c3b-8d62-4f49-b730-3c9a6d4e1f58',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -369,7 +369,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '1d8b5e73-a4c2-4f60-9b31-7e6d2a8c5f94',
     method: 'DELETE',
     feature: '7a5e1c3b-8d62-4f49-b730-3c9a6d4e1f58',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -379,7 +379,7 @@ const data = [
 
   // MEDIA
   {
-    id: '',
+    id: 'c7e4a219-6b83-4d50-9f12-3a8c5e7d1b64',
     method: 'CREATE',
     feature: 'c9a1e5b7-3d82-4f64-a710-2e6b8c4d9f53',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -387,7 +387,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '5e9a2c71-3d84-4f60-b125-7a6c8e9d2f43',
     method: 'READ',
     feature: 'c9a1e5b7-3d82-4f64-a710-2e6b8c4d9f53',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -395,7 +395,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'a1d6f823-4c59-4b70-8e32-9f5a6c1d7b84',
     method: 'DELETE',
     feature: 'c9a1e5b7-3d82-4f64-a710-2e6b8c4d9f53',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -403,7 +403,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '8b3f1d64-7a92-4c50-ae28-5d6f9b2c3e71',
     method: 'SEARCH',
     feature: 'c9a1e5b7-3d82-4f64-a710-2e6b8c4d9f53',
     permission: 'e489d97b-e900-4978-98d8-68f4c0e08806',
@@ -413,7 +413,7 @@ const data = [
 
   // STORY
   {
-    id: '',
+    id: '3c8e5a21-7d49-4f60-9b12-6a2d8c5e7f34',
     method: 'CREATE',
     feature: '6f4d9b2a-7c51-4e38-a620-2b8f5c3d9e47',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -421,7 +421,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'f2a7c914-5e63-4b80-9d21-3c6e8a5f7b42',
     method: 'READ',
     feature: '6f4d9b2a-7c51-4e38-a620-2b8f5c3d9e47',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -429,7 +429,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '7a1e4d83-9c52-4f60-b317-6d8a2c5e9f41',
     method: 'DELETE',
     feature: '6f4d9b2a-7c51-4e38-a620-2b8f5c3d9e47',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -437,7 +437,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'd9b2f615-4a73-4c80-8e31-5f6a7c2d9b04',
     method: 'READ:ONE',
     feature: '6f4d9b2a-7c51-4e38-a620-2b8f5c3d9e47',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -447,7 +447,7 @@ const data = [
 
   // ARTICLE
   {
-    id: '',
+    id: '4b7e2a91-6c53-4f80-9d14-3e5a8c2f7b64',
     method: 'CREATE',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -455,7 +455,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '9f3c6d82-1a54-4b70-8e21-5c7a2d9f4b63',
     method: 'READ',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -463,7 +463,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '2e8a5c17-9d43-4f60-b281-6a7c3e9d5f14',
     method: 'UPDATE',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
@@ -471,7 +471,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '6d1f8b43-2c95-4a70-9e16-5f7a3c8d2b64',
     method: 'DELETE',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -479,7 +479,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'a8c5e2d1-7b94-4f63-9d20-6a3e8c5f1b72',
     method: 'READ:ONE',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -487,7 +487,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '1f6a9c32-8d47-4b50-ae21-5c7e3a9d6b84',
     method: 'UPDATE:STATUS',
     feature: 'e5b3d8f1-6c49-4a27-8e00-1d7b4f2a5c36',
     permission: 'a07ca38e-dbf2-45a4-a8f2-303b15546201',
@@ -497,7 +497,7 @@ const data = [
 
   // COMMENT
   {
-    id: '',
+    id: 'e6b3a1c8-5d72-4f90-8b24-7c1e6a5d3f42',
     method: 'CREATE',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -505,7 +505,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '7d2a5f81-3c64-4b90-ae17-6f8c2d9b5e43',
     method: 'READ',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -513,7 +513,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'b4c9e271-6a53-4f80-9d12-3e7a5c8f1b64',
     method: 'UPDATE:STATUS',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: 'a07ca38e-dbf2-45a4-a8f2-303b15546201',
@@ -521,7 +521,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '5a8d2f61-9c37-4e50-b124-7d6a3c8e5f91',
     method: 'DELETE',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -529,17 +529,16 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'c2f7a4d9-1e63-4b80-9a25-6d8c3e7f1b54',
     method: 'READ:CONNECTION',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: 'a5e0e211-277b-449d-aca0-68d9d2d991b1',
     public: true,
     service: 'CORE',
   },
-
   // MENU
   {
-    id: '',
+    id: 'b7e2a419-6c53-4f80-9d14-3a5e8c2f7b61',
     method: 'CREATE',
     feature: 'd4a2c7e9-5b38-4f16-9d90-9c6a3e1f4b25',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -547,7 +546,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '3d8f1a62-9c47-4b50-ae21-7f6c2d5b8e94',
     method: 'READ',
     feature: 'd4a2c7e9-5b38-4f16-9d90-9c6a3e1f4b25',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -555,7 +554,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'e5a2c7b1-4d83-4f60-8b29-1c6e9a3d7f54',
     method: 'UPDATE',
     feature: 'd4a2c7e9-5b38-4f16-9d90-9c6a3e1f4b25',
     permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
@@ -563,7 +562,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '6c1f9b42-8d57-4e30-a614-2f7a5c9d3b81',
     method: 'DELETE',
     feature: 'd4a2c7e9-5b38-4f16-9d90-9c6a3e1f4b25',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
@@ -571,7 +570,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '9a4d2e71-5c83-4f60-b127-6d8e3a5c9f42',
     method: 'READ:ONE',
     feature: 'd4a2c7e9-5b38-4f16-9d90-9c6a3e1f4b25',
     permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
@@ -581,7 +580,7 @@ const data = [
 
   // NEWSLETTER
   {
-    id: '',
+    id: '2f6b8c14-9d37-4a50-8e21-5c7a3d9f6b42',
     method: 'CREATE',
     feature: 'b15d3f8a-9c72-4e40-8a60-4d1b7c5e8f59',
     permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
@@ -589,7 +588,7 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: 'c8a3e517-6d24-4f90-b138-7e5a2c9d4f61',
     method: 'READ',
     feature: 'b15d3f8a-9c72-4e40-8a60-4d1b7c5e8f59',
     permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
@@ -597,9 +596,879 @@ const data = [
     service: 'CORE',
   },
   {
-    id: '',
+    id: '4e1d7a93-5b62-4f80-9c24-6a8e3d1f7b50',
     method: 'DELETE',
     feature: 'b15d3f8a-9c72-4e40-8a60-4d1b7c5e8f59',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SETTING
+  {
+    id: '7b5e2a16-3c94-4f80-a127-9d6e5c2b8f43',
+    method: 'UPDATE',
+    feature: 'd4b7f2a9-6e13-4c85-9d20-1a8f5b3e7c64',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'a2c9e614-7d35-4f80-b126-5e8a3c7d9f41',
+    method: 'READ',
+    feature: 'd4b7f2a9-6e13-4c85-9d20-1a8f5b3e7c64',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '5d8f3a21-9c64-4b70-a512-7e6d2c8f1b43',
+    method: 'DELETE',
+    feature: 'd4b7f2a9-6e13-4c85-9d20-1a8f5b3e7c64',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SMS:SETTING
+  {
+    id: 'd1a6c8e3-5b72-4f90-8c24-7e3a5d9b1f64',
+    method: 'CREATE',
+    feature: 'e1c6a3d8-9f24-4b57-8a10-5d7e2c9b6f43',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '8c4f2a71-6d93-4b50-ae16-3f7c9d2a5b84',
+    method: 'READ',
+    feature: 'e1c6a3d8-9f24-4b57-8a10-5d7e2c9b6f43',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '1e7b5d92-4c63-4f80-9a21-6d3e8c5f7b40',
+    method: 'UPDATE',
+    feature: 'e1c6a3d8-9f24-4b57-8a10-5d7e2c9b6f43',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'f3a8c2d5-7e14-4b60-9c21-5d6a3e8f7b42',
+    method: 'DELETE',
+    feature: 'e1c6a3d8-9f24-4b57-8a10-5d7e2c9b6f43',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '6a2d9e41-8c57-4f30-b124-5d7a3c9e6f82',
+    method: 'READ:ONE',
+    feature: 'e1c6a3d8-9f24-4b57-8a10-5d7e2c9b6f43',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // PAYMENT:SETTING
+  {
+    id: '9c3e7a51-2d84-4f60-b129-6e5a8c3d7f42',
+    method: 'CREATE',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '3a7d1c95-8e42-4f60-a216-5b9c3d7e8f41',
+    method: 'READ',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'e4b8c2d7-1f63-4a90-8d25-6c3e7a9f1b54',
+    method: 'UPDATE',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '7f2a5d83-9c41-4e60-b218-6d3a7c9e5f14',
+    method: 'UPDATE:STATUS',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: 'a07ca38e-dbf2-45a4-a8f2-303b15546201',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'b6d1e9a4-3c72-4f80-9a25-7e6d2c8f1b43',
+    method: 'DELETE',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '5c9e2a71-8d43-4f60-b127-6a3e8c5d9f42',
+    method: 'READ:ONE',
+    feature: 'f5d2b8e4-7a31-4c96-b820-3e6f1a9d5c74',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SMS
+  {
+    id: '2d8a5c71-9e34-4f60-b127-6a3e8c5d9f42',
+    method: 'CREATE',
+    feature: '1a8e4c6b-2d95-4f73-9b10-6c3e7a5d8f42',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'f6b1c8d3-4a72-4e90-8b25-1d7a3c9e5f64',
+    method: 'READ',
+    feature: '1a8e4c6b-2d95-4f73-9b10-6c3e7a5d8f42',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+
+  // STORE
+  {
+    id: '4a9e2c71-6d53-4f80-b124-8c5a3e7d9f62',
+    method: 'CREATE',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'c5d2a8e1-7f64-4b90-9a23-6d8c1e5f7b42',
+    method: 'READ',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '1b7e4c93-5d82-4f60-a216-8c3e7a9d5f41',
+    method: 'UPDATE',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '8e3a6d21-4c95-4f70-b128-5a7c9e2d3f64',
+    method: 'UPDATE:STATUS',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: 'a07ca38e-dbf2-45a4-a8f2-303b15546201',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd7c2a5e9-1b64-4f80-9a31-6e8c3d5f7b42',
+    method: 'DELETE',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '6f1a9c42-8d35-4b70-a216-5e7c3d9f1b84',
+    method: 'READ:ONE',
+    feature: '3c1a6e8d-4f27-4b95-a310-8e5d2c7f9b64',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+
+  // PRODUCT
+  {
+    id: 'a8f2c6d1-7e43-4b90-9c25-6d1e8a3f5b72',
+    method: 'CREATE',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'c3d7e1a5-9b62-4f80-a214-7e5c8d3f6b91',
+    method: 'READ',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'e6b1a4d9-2c75-4f30-8a16-5d9e3b7c1f42',
+    method: 'READ:ONE',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '7d4a9c2e-1f63-4b80-b517-6e3d8a5c9f21',
+    method: 'UPDATE',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'b5e8c2a7-3d91-4f60-9a24-1c7e6d3f8b52',
+    method: 'DELETE',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '4f9c1a6d-8e32-4b70-a516-2d7e3c9f1b84',
+    method: 'UPDATE:STATUS',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: 'a07ca38e-dbf2-45a4-a8f2-303b15546201',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd2a7e5c1-6b94-4f30-8c16-9e3d7a5b2f41',
+    method: 'UPDATE:STOCK',
+    feature: '5e3c8a1f-6b49-4d27-9c50-1a7f4e2b8d36',
+    permission: '7f4e5594-d6e2-4ee9-a40c-9792f8796d9c',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SPECIFICATION
+  {
+    id: '9b3e7d2a-5c81-4f60-a214-6e8d1c5f7b43',
+    method: 'CREATE',
+    feature: '4d2b7f9e-5a38-4c16-8b40-9f6e3d1a7c25',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '2c6f8a1d-4e93-4b70-9d25-7a3e5c8f1b64',
+    method: 'READ',
+    feature: '4d2b7f9e-5a38-4c16-8b40-9f6e3d1a7c25',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'f1a5c8d3-7b26-4e90-8c14-5d9e2a6f3b71',
+    method: 'DELETE',
+    feature: '4d2b7f9e-5a38-4c16-8b40-9f6e3d1a7c25',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '6e2a9d4c-1f75-4b80-a316-8c5e7d2f9b41',
+    method: 'UPDATE',
+    feature: '4d2b7f9e-5a38-4c16-8b40-9f6e3d1a7c25',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '8a4d1c7e-3f62-4b90-9d15-2e6c5a8f7b34',
+    method: 'READ:ONE',
+    feature: '4d2b7f9e-5a38-4c16-8b40-9f6e3d1a7c25',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+
+  // CATEGORY
+  {
+    id: '3e7a1c5d-9b42-4f80-a216-6d8c5e3f7b94',
+    method: 'CREATE',
+    feature: '9c7a3e5d-1f84-4b62-9d50-5e2c8f6a3b71',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'c1f6a9d2-5e83-4b70-8a14-7d3c6e9f2b51',
+    method: 'READ',
+    feature: '9c7a3e5d-1f84-4b62-9d50-5e2c8f6a3b71',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '5a8d2e7c-1f49-4b60-9c35-6e7a3d8f2b14',
+    method: 'READ:ONE',
+    feature: '9c7a3e5d-1f84-4b62-9d50-5e2c8f6a3b71',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'd8c3a6f1-2b75-4e90-8a14-5f7d9c2e6b31',
+    method: 'UPDATE',
+    feature: '9c7a3e5d-1f84-4b62-9d50-5e2c8f6a3b71',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '7f1b5d9e-3c62-4a80-b214-6e8d2a5c9f43',
+    method: 'DELETE',
+    feature: '9c7a3e5d-1f84-4b62-9d50-5e2c8f6a3b71',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // CATEGORY:SUB
+  {
+    id: 'a4c7e2d9-6b13-4f80-9a25-3d8e1c6f7b42',
+    method: 'CREATE',
+    feature: 'a1d8f4b6-2e95-4c73-8a60-6f3d9b7e1c82',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '1d9e5b3a-7c64-4f80-a216-8e3d5c7b9f42',
+    method: 'READ',
+    feature: 'a1d8f4b6-2e95-4c73-8a60-6f3d9b7e1c82',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'e7b2c5d8-4a91-4f60-8c23-6d1e9a5f7b34',
+    method: 'UPDATE',
+    feature: 'a1d8f4b6-2e95-4c73-8a60-6f3d9b7e1c82',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '4b6d1e8a-9c32-4f70-a514-7e3d5c9f2b61',
+    method: 'READ:ONE',
+    feature: 'a1d8f4b6-2e95-4c73-8a60-6f3d9b7e1c82',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'f5c8a2d1-3e74-4b90-9a16-6d2e7c5f1b43',
+    method: 'DELETE',
+    feature: 'a1d8f4b6-2e95-4c73-8a60-6f3d9b7e1c82',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // ATTRIBUTE
+  {
+    id: '2a6e9c4d-8f31-4b70-a215-7d3e5c8f1b64',
+    method: 'CREATE',
+    feature: 'b2e9a5c7-3f16-4d84-9b70-7a4e1c8d2f93',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'b9d3f6a1-5c82-4e70-8a24-1d7e3c5f9b46',
+    method: 'READ',
+    feature: 'b2e9a5c7-3f16-4d84-9b70-7a4e1c8d2f93',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '6c1e8a5d-2f94-4b70-9d36-7e3a5c8f1b42',
+    method: 'READ:ONE',
+    feature: 'b2e9a5c7-3f16-4d84-9b70-7a4e1c8d2f93',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'd4a7c2e9-1b63-4f80-a516-8e3d5c7b9f24',
+    method: 'DELETE',
+    feature: 'b2e9a5c7-3f16-4d84-9b70-7a4e1c8d2f93',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // BRAND
+  {
+    id: '8e2c5a7d-1f94-4b60-9a13-6d3e7c5f2b84',
+    method: 'CREATE',
+    feature: '6c0e8a3b-4d27-4f95-a170-8e5c2d9f3b04',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '3a9d6e1c-7f52-4b80-a214-5c8e2d7f9b43',
+    method: 'READ',
+    feature: '6c0e8a3b-4d27-4f95-a170-8e5c2d9f3b04',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'c7e1a4d8-5b32-4f90-8a16-2d9e6c3f7b51',
+    method: 'UPDATE',
+    feature: '6c0e8a3b-4d27-4f95-a170-8e5c2d9f3b04',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '5d2a8c6f-9e41-4b70-a315-7c3e6d8f2b94',
+    method: 'DELETE',
+    feature: '6c0e8a3b-4d27-4f95-a170-8e5c2d9f3b04',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '1f6b9d3e-4c82-4a70-8e15-2d7c5a9f3b64',
+    method: 'READ:ONE',
+    feature: '6c0e8a3b-4d27-4f95-a170-8e5c2d9f3b04',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+
+  // COLOR
+  {
+    id: 'b4e8a2c7-6d31-4f90-8a25-1c7e5d3f9b62',
+    method: 'CREATE',
+    feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '7c2d9e5a-1b64-4f80-a317-6e8c3d5f9b42',
+    method: 'READ',
+    feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'e1a6c3d8-5b72-4f90-8c24-7e3a5d9b1f64',
+    method: 'SEARCH',
+    feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
+    permission: 'e489d97b-e900-4978-98d8-68f4c0e08806',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '3f8b2d6a-9c41-4e70-a215-7d5e8c3f1b64',
+    method: 'READ:ONE',
+    feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '9d5c1a7e-4b83-4f60-8a21-6e3d7c5f2b94',
+    method: 'DELETE',
+    feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // FILTER
+  {
+    id: '6a3e9c1d-8f52-4b70-a416-2d7e5c8f9b34',
+    method: 'CREATE',
+    feature: '39f7b3d5-1a84-4e62-9c40-5b2f8d6a1e70',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd2f7a5c1-9e63-4b80-8a24-6c3d1e7f5b42',
+    method: 'READ',
+    feature: '39f7b3d5-1a84-4e62-9c40-5b2f8d6a1e70',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '1c8e4a7d-5b92-4f60-a315-7e6d3c9f2b84',
+    method: 'READ:ONE',
+    feature: '39f7b3d5-1a84-4e62-9c40-5b2f8d6a1e70',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'f5b2d8a1-7c34-4e90-9a16-3d6e8c5f1b72',
+    method: 'UPDATE',
+    feature: '39f7b3d5-1a84-4e62-9c40-5b2f8d6a1e70',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '8e1a6c3d-2f75-4b90-a214-5d7c9e3f1b64',
+    method: 'DELETE',
+    feature: '39f7b3d5-1a84-4e62-9c40-5b2f8d6a1e70',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SEARCH
+  {
+    id: '2d7e5a9c-1b43-4f80-8a16-6c3d9e2f7b54',
+    method: 'CREATE',
+    feature: '4a8c6e1f-2b95-4f73-8d50-6c3a9e7b1f82',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'a7c4e1d9-6b32-4f80-9a15-3d8e2c7f5b64',
+    method: 'READ',
+    feature: '4a8c6e1f-2b95-4f73-8d50-6c3a9e7b1f82',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: '5b9d2e7a-3c61-4f80-a214-8e6d1c3f7b42',
+    method: 'DELETE',
+    feature: '4a8c6e1f-2b95-4f73-8d50-6c3a9e7b1f82',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // CART
+  {
+    id: 'c6e2a9d4-7b31-4f80-8a15-2d6e3c9f1b74',
+    method: 'CREATE',
+    feature: 'f6c4e9a2-7d51-4b38-9f10-2e8c5a3b6d47',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '4a1d8c6f-2b93-4e70-a516-7d3c9e5f1b84',
+    method: 'READ',
+    feature: 'f6c4e9a2-7d51-4b38-9f10-2e8c5a3b6d47',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'e8c3a6d1-5f72-4b90-9a14-2d7e6c5f1b43',
+    method: 'EMPTY',
+    feature: 'f6c4e9a2-7d51-4b38-9f10-2e8c5a3b6d47',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '7f2a5d9c-1e64-4b80-a317-6c8d3e5f9b42',
+    method: 'READ:ONE',
+    feature: 'f6c4e9a2-7d51-4b38-9f10-2e8c5a3b6d47',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // ORDER
+  {
+    id: '1b6e9c3d-8f42-4a70-a215-7d5c3e8f9b64',
+    method: 'CREATE',
+    feature: '17d5f1b3-8e62-4c49-a020-3f9d6b4a7e58',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd9a4c2e7-5b13-4f80-8a26-6e3d1c7f5b42',
+    method: 'READ',
+    feature: '17d5f1b3-8e62-4c49-a020-3f9d6b4a7e58',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '6c3e8a1f-2d75-4b90-a416-9e5d7c3f1b84',
+    method: 'UPDATE',
+    feature: '17d5f1b3-8e62-4c49-a020-3f9d6b4a7e58',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'f3a7d1c9-5e62-4b80-9a14-6d8c2e5f1b43',
+    method: 'READ:ONE',
+    feature: '17d5f1b3-8e62-4c49-a020-3f9d6b4a7e58',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '9e5b2c7d-1a64-4f80-b315-6d8c3e2f7a94',
+    method: 'DELETE',
+    feature: '17d5f1b3-8e62-4c49-a020-3f9d6b4a7e58',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // PAYMENT
+  {
+    id: '2a7c5e9d-1b43-4f80-8a16-6d3e9c2f7b54',
+    method: 'PAYMENT',
+    feature: '2b9f5d7c-3e16-4a84-8c20-7d4f1b6e9a53',
+    permission: '353000a7-8c34-4f17-9de1-48d73d447d2b',
+    public: false,
+    service: 'CORE',
+  },
+
+  // SALE
+  {
+    id: 'b7d2e5a9-4c13-4f80-8a26-6e3d1c9f5b42',
+    method: 'CREATE',
+    feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '3c8e1a6d-9f52-4b70-a214-7d5e6c3f9b84',
+    method: 'READ',
+    feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'e5a1c7d9-2b64-4f80-9a35-6d8c3e7f1b42',
+    method: 'DELETE',
+    feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '8d4b2e6a-1c93-4f70-a516-7e3d9c5f2b84',
+    method: 'READ:SECTION',
+    feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
+    permission: 'a402a508-d79a-417b-88c0-634395660da3',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: '5f1c8a3d-7e62-4b90-9a14-2d6e3c8f1b74',
+    method: 'READ:ONE',
+    feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // LIKE
+  {
+    id: 'a71c3e92-6b4f-4d85-9a20-3f8c1e5b7d64',
+    method: 'READ',
+    feature: '28e6a2c4-9f73-4d51-8b30-4a1e7c5d9f69',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: true,
+    service: 'CORE',
+  },
+  {
+    id: 'b82d4f13-7c5a-4e96-8b31-4a9d2f6c0e75',
+    method: 'TOGGLE',
+    feature: '28e6a2c4-9f73-4d51-8b30-4a1e7c5d9f69',
+    permission: '2a7b6c2d-ed1d-45fb-aba5-f9fae0a75ecd',
+    public: false,
+    service: 'CORE',
+  },
+
+  // WISHLIST
+  {
+    id: 'c93e5a24-8d6b-4f17-9c42-5b0e3a7d1f86',
+    method: 'CREATE',
+    feature: '9f3b1d6e-7a50-4c28-8d40-2b8f5a3c6e37',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd04f6b35-9e7c-4a28-8d53-6c1f4b8e2a97',
+    method: 'READ',
+    feature: '9f3b1d6e-7a50-4c28-8d40-2b8f5a3c6e37',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'e15a7c46-0f8d-4b39-9e64-7d2a5c9f3b08',
+    method: 'READ:ONE',
+    feature: '9f3b1d6e-7a50-4c28-8d40-2b8f5a3c6e37',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'f26b8d57-1a9e-4c40-8f75-8e3b6d0a4c19',
+    method: 'UPDATE',
+    feature: '9f3b1d6e-7a50-4c28-8d40-2b8f5a3c6e37',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'a37c9e68-2b0f-4d51-9a86-9f4c7e1b5d20',
+    method: 'DELETE',
+    feature: '9f3b1d6e-7a50-4c28-8d40-2b8f5a3c6e37',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+
+  // TICKET
+  {
+    id: 'b48d0f79-3c1a-4e62-8b97-0a5d8f2c6e31',
+    method: 'CREATE',
+    feature: '5b9d7f2a-3c16-4a84-9e60-7d4b1f8c2a93',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'c59e1a80-4d2b-4f73-9c08-1b6e9a3d7f42',
+    method: 'READ',
+    feature: '5b9d7f2a-3c16-4a84-9e60-7d4b1f8c2a93',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd60f2b91-5e3c-4074-8d19-2c7f0b4e8a53',
+    method: 'UPDATE',
+    feature: '5b9d7f2a-3c16-4a84-9e60-7d4b1f8c2a93',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'e71a3ca2-6f4d-4185-9e20-3d8a1c5f9b64',
+    method: 'DELETE',
+    feature: '5b9d7f2a-3c16-4a84-9e60-7d4b1f8c2a93',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'f82b4db3-705e-4296-8f31-4e9b2d6a0c75',
+    method: 'READ:ONE',
+    feature: '5b9d7f2a-3c16-4a84-9e60-7d4b1f8c2a93',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // TARGET
+  {
+    id: 'a93c5ec4-816f-43a7-9042-5f0c3e7b1d86',
+    method: 'CREATE',
+    feature: '7d1f9b4c-5e38-4a06-8b20-9f6d3e1a4c15',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'ba4d6fd5-9270-44b8-8153-6a1d4f8c2e97',
+    method: 'READ',
+    feature: '7d1f9b4c-5e38-4a06-8b20-9f6d3e1a4c15',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'cb5e70e6-a381-45c9-9264-7b2e5a9d3f08',
+    method: 'UPDATE',
+    feature: '7d1f9b4c-5e38-4a06-8b20-9f6d3e1a4c15',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'dc6f81f7-b492-46da-8375-8c3f6b0e4a19',
+    method: 'DELETE',
+    feature: '7d1f9b4c-5e38-4a06-8b20-9f6d3e1a4c15',
+    permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'ed709208-c5a3-47eb-9486-9d4a7c1f5b20',
+    method: 'READ:ONE',
+    feature: '7d1f9b4c-5e38-4a06-8b20-9f6d3e1a4c15',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+
+  // REPORT
+  {
+    id: 'fe81a319-d6b4-480c-a597-0e5b8d2a6c31',
+    method: 'CREATE',
+    feature: '8e2a0c5d-6f49-4b17-9c30-1a7e4f2b5d26',
+    permission: '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'a092b42a-e7c5-491d-b6a8-1f6c9e3b7d42',
+    method: 'READ',
+    feature: '8e2a0c5d-6f49-4b17-9c30-1a7e4f2b5d26',
+    permission: '5e368af2-d334-4139-81e1-e76fc97a8bcb',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'b1a3c53b-f8d6-4a2e-87b9-2a7d0f4c8e53',
+    method: 'READ:ONE',
+    feature: '8e2a0c5d-6f49-4b17-9c30-1a7e4f2b5d26',
+    permission: '496c5edb-8f59-4030-9b45-91e1f7a926d4',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'c2b4d64c-a9e7-4b3f-98ca-3b8e1f5d9a64',
+    method: 'UPDATE',
+    feature: '8e2a0c5d-6f49-4b17-9c30-1a7e4f2b5d26',
+    permission: '8bf28016-1499-416f-a51e-3e8155fc43fe',
+    public: false,
+    service: 'CORE',
+  },
+  {
+    id: 'd3c5e75d-baf8-4c40-a9db-4c9f2a6e0b75',
+    method: 'DELETE',
+    feature: '8e2a0c5d-6f49-4b17-9c30-1a7e4f2b5d26',
     permission: '3b2c739e-3d88-4141-8888-f1f5cf67488d',
     public: false,
     service: 'CORE',
