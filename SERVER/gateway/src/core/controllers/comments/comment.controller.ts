@@ -83,7 +83,12 @@ export class CommentController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'COMMENT', enum: ['COMMENT'] },
-    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
+    {
+      name: 'permission',
+      required: true,
+      example: 'UPDATE:STATUS',
+      enum: ['UPDATE:STATUS'],
+    },
   ])
   update(@Body() data: UpdateCommentDto) {
     return this.coreService.send('COMMENT:UPDATE', data);

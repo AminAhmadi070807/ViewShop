@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { GuardsService } from '../../guards.service';
 import {
   ApiBadRequestResponse,
@@ -108,7 +117,7 @@ export class UserController {
     return this.guardsService.send('USER:TOGGLE:BANNED', data);
   }
 
-  @Get()
+  @Delete()
   @ApiOkResponse({ description: statusMessages.fa['204'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([

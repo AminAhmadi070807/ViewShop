@@ -15,7 +15,6 @@ export class PermissionSeeder {
 
   async seeder() {
     try {
-      console.log('AMIN');
       const result = await this.repository.find();
 
       for (const permission of result) {

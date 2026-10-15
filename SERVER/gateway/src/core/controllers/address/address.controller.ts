@@ -36,7 +36,7 @@ export class AddressController {
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'ADDRESS', enum: ['ADDRESS'] },
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: AddressDto, @Req() req: express.Request) {
@@ -52,7 +52,7 @@ export class AddressController {
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'ADDRESS', enum: ['ADDRESS'] },
     { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll(@Req() req: express.Request) {
@@ -69,7 +69,7 @@ export class AddressController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'ADDRESS', enum: ['ADDRESS'] },
     {
       name: 'permission',
       required: true,
@@ -91,7 +91,7 @@ export class AddressController {
   @ApiBadRequestResponse({ description: statusMessages.fa['400'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'ADDRESS', enum: ['ADDRESS'] },
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   remove(@Body() data: ValidateUUID, @Req() req: express.Request) {

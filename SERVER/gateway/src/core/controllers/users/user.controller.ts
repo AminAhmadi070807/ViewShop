@@ -59,7 +59,7 @@ export class UsersController {
     return this.coreService.send('USER:FIND');
   }
 
-  @Get()
+  @Get('profile')
   @ApiOkResponse({ description: statusMessages.fa['200'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
@@ -125,7 +125,7 @@ export class UsersController {
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
     { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
-    { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
+    { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   remove(@Body() data: ValidateUUID) {
     return this.coreService.send('USER:DELETE', data);
