@@ -31,8 +31,7 @@ export class GuardsSeeder {
 
         await this.repository.save(result);
       }
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

@@ -26,7 +26,7 @@ const data = [
   },
   {
     id: 'd4e5f607-1829-4da1-9e23-f4a5b6c7d834',
-    method: 'VALIDATE',
+    method: 'POST',
     feature: '5ce57965-3386-4563-b6ac-12d3427e18ea',
     permission: 'e227dfb3-2e26-4337-935e-2e361c1d720c',
     public: false,
@@ -118,7 +118,7 @@ const data = [
   },
   {
     id: '8f901a2b-3c4d-485c-a9de-4f5a6b7c8d45',
-    method: 'TOGGLE:ROLE',
+    method: 'PATCH',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '632b05ec-30dd-4478-aa0c-69e3c695311a',
     public: false,
@@ -126,7 +126,7 @@ const data = [
   },
   {
     id: '901a2b3c-4d5e-496d-b0ef-5a6b7c8d9e56',
-    method: 'TOGGLE:BAN',
+    method: 'PUT',
     feature: '014f41f8-e8f2-4cfc-b784-02e78338d5c4',
     permission: '30e51695-b3c4-4f34-9df2-e09d642d41cb',
     public: false,
@@ -194,7 +194,7 @@ const data = [
   },
   {
     id: '8192a3b4-c5d6-47e8-99ab-2c3d4e5f60d7',
-    method: 'TOGGLE:ACCESS',
+    method: 'PATCH',
     feature: '35b307b5-1c2f-4d5d-85ea-b876e583b58a',
     permission: 'ee459dba-f0d7-425e-9b20-c1aaeb9ccea4',
     public: false,
@@ -278,7 +278,7 @@ const data = [
   },
   {
     id: 'a6f3d821-9c57-4b20-ae64-2d8f1c5b7e93',
-    method: 'GET:PROFILE',
+    method: 'GET',
     feature: 'a7f3c2e1-8b94-4d65-9f21-6c0e5a8b3d72',
     permission: 'c896fdcd-f6c5-46cc-aaa5-2ab754e3097c',
     public: false,
@@ -304,7 +304,7 @@ const data = [
   // AUTH
   {
     id: '2a7d9c41-5e83-4b60-a2f7-1c6d8e9b3045',
-    method: 'REGISTER',
+    method: 'POST',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '55995abe-005b-4e1f-a5b0-2453414b54e2',
     public: true,
@@ -312,7 +312,7 @@ const data = [
   },
   {
     id: '7c4e1a93-2d85-4f60-b731-9e5a6c2d8f04',
-    method: 'LOGIN',
+    method: 'POST',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '4936abd6-f25d-4ef7-9859-2253abe2910a',
     public: true,
@@ -320,7 +320,7 @@ const data = [
   },
   {
     id: 'd3a6f821-7b49-4c50-8e12-5f9d2a6c3b74',
-    method: 'VERIFY:OTP',
+    method: 'POST',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '87cc6766-73ba-488e-b32b-1b48c846b304',
     public: true,
@@ -328,7 +328,7 @@ const data = [
   },
   {
     id: '9e1c5b72-4a63-4d80-bf25-7c8a3e6d1f94',
-    method: 'VERIFY:TOKEN',
+    method: 'POST',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: 'aa3f2d66-b2f6-4e06-ab91-9d14b2b793d2',
     public: false,
@@ -336,7 +336,7 @@ const data = [
   },
   {
     id: '4f8b2d61-9c35-4a70-8e24-6d1f7a9b3c52',
-    method: 'LOGOUT',
+    method: 'POST',
     feature: 'b2e8d4f6-1c73-4a95-8e20-7d9f3a6b5c41',
     permission: '8197d26e-ec30-479a-a044-6ea56dd1ea0a',
     public: false,
@@ -404,7 +404,7 @@ const data = [
   },
   {
     id: '8b3f1d64-7a92-4c50-ae28-5d6f9b2c3e71',
-    method: 'SEARCH',
+    method: 'GET',
     feature: 'c9a1e5b7-3d82-4f64-a710-2e6b8c4d9f53',
     permission: 'e489d97b-e900-4978-98d8-68f4c0e08806',
     public: false,
@@ -530,7 +530,7 @@ const data = [
   },
   {
     id: 'c2f7a4d9-1e63-4b80-9a25-6d8c3e7f1b54',
-    method: 'GET:CONNECTION',
+    method: 'GET',
     feature: 'c3f1b6d8-4a27-4e95-8c80-8b5f2d9e3a14',
     permission: 'a5e0e211-277b-449d-aca0-68d9d2d991b1',
     public: true,
@@ -1077,7 +1077,7 @@ const data = [
   },
   {
     id: 'e1a6c3d8-5b72-4f90-8c24-7e3a5d9b1f64',
-    method: 'SEARCH',
+    method: 'GET',
     feature: 'a04c2e7f-8b61-4d39-9e50-3c9f6b4a7d48',
     permission: 'e489d97b-e900-4978-98d8-68f4c0e08806',
     public: true,
@@ -1247,7 +1247,7 @@ const data = [
   // PAYMENT
   {
     id: '2a7c5e9d-1b43-4f80-8a16-6d3e9c2f7b54',
-    method: 'PAYMENT',
+    method: 'POST',
     feature: '2b9f5d7c-3e16-4a84-8c20-7d4f1b6e9a53',
     permission: '353000a7-8c34-4f17-9de1-48d73d447d2b',
     public: false,
@@ -1281,7 +1281,7 @@ const data = [
   },
   {
     id: '8d4b2e6a-1c93-4f70-a516-7e3d9c5f2b84',
-    method: 'GET:SECTION',
+    method: 'GET',
     feature: 'c26e4a9b-1d83-4f51-9b70-5e2c8d6a3f60',
     permission: 'a402a508-d79a-417b-88c0-634395660da3',
     public: false,
@@ -1307,7 +1307,7 @@ const data = [
   },
   {
     id: 'b82d4f13-7c5a-4e96-8b31-4a9d2f6c0e75',
-    method: 'TOGGLE',
+    method: 'POST',
     feature: '28e6a2c4-9f73-4d51-8b30-4a1e7c5d9f69',
     permission: '2a7b6c2d-ed1d-45fb-aba5-f9fae0a75ecd',
     public: false,
