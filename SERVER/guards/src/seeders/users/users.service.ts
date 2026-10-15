@@ -1,10 +1,10 @@
+import data from './object.data';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
 import { Repository } from 'typeorm';
-import { CustomException } from 'src/common/exceptions/custom.exception.error';
-import { statusMessages } from 'src/common/messages/status.message';
-import { User } from 'src/modules/users/entities/user.entity';
-import data from './object.data';
+import { User } from '../../modules/users/entities/user.entity';
 
 @Injectable()
 export class UserSeeder {

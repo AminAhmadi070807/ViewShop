@@ -21,4 +21,5 @@ export default [
   { title: 'READ:CONNECTION', id: 'a5e0e211-277b-449d-aca0-68d9d2d991b1' },
   { title: 'TOGGLE', id: '2a7b6c2d-ed1d-45fb-aba5-f9fae0a75ecd' },
   { title: 'READ:SECTION', id: 'a402a508-d79a-417b-88c0-634395660da3' },
+  { title: 'EMPTY', id: 'a402a102-d79a-127b-88c0-874395660da1' },
 ];

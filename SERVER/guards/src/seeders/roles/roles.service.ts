@@ -1,10 +1,10 @@
+import data from './object.data';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
 import { Repository } from 'typeorm';
-import { CustomException } from 'src/common/exceptions/custom.exception.error';
-import { statusMessages } from 'src/common/messages/status.message';
-import data from './object.data';
-import { Role } from 'src/modules/roles/entities/role.entity';
+import { Role } from '../../modules/roles/entities/role.entity';
 
 @Injectable()
 export class RoleSeeder {

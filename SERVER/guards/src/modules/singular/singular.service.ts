@@ -9,9 +9,9 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { RolesService } from '../roles/roles.service';
 import { PermissionsService } from '../permissions/permissions.service';
 import { RpcException } from '@nestjs/microservices';
-import { Feature } from '../features/entities/feature.entity';
 import { Role } from '../roles/entities/role.entity';
 import { Permission } from '../permissions/entities/permission.entity';
+import { Feature } from '../features/entities/feature.entity';
 
 @Injectable()
 export class SingularService {
@@ -73,7 +73,7 @@ export class SingularService {
         },
       });
 
-      const result: object[] = [];
+      const result = [];
       for (const singular of singulars) {
         const data: { role: Role; permissions: Permission[] }[] = [];
         for (const item of singular.data) {

@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import data from './object.data';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
 import { Repository } from 'typeorm';
-import { CustomException } from 'src/common/exceptions/custom.exception.error';
-import { statusMessages } from 'src/common/messages/status.message';
-import { Permission } from 'src/modules/permissions/entities/permission.entity';
+import { Permission } from '../../modules/permissions/entities/permission.entity';
 
 @Injectable()
 export class PermissionSeeder {

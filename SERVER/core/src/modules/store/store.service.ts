@@ -47,8 +47,7 @@ export class StoreService {
         message: statusMessages.fa['201'],
         body: { id: store.id },
       };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -126,8 +125,7 @@ export class StoreService {
       }
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
@@ -145,8 +143,7 @@ export class StoreService {
       await this.storeRepository.delete(id);
 
       return { status: 204, message: statusMessages.fa['204'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

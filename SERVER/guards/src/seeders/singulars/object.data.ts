@@ -1148,7 +1148,7 @@ const data = [
         permissions: [
           '50b4b6b8-7450-474c-9d3c-eadcd7b21a90', // CREATE
           '5e368af2-d334-4139-81e1-e76fc97a8bcb', // READ
-          'UUID_PERMISSION_EMPTY', // EMPTY - جایگزین با UUID واقعی
+          'a402a102-d79a-127b-88c0-874395660da1', // EMPTY
           '496c5edb-8f59-4030-9b45-91e1f7a926d4', // READ:ONE
         ],
       },
@@ -1157,7 +1157,7 @@ const data = [
         permissions: [
           '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
           '5e368af2-d334-4139-81e1-e76fc97a8bcb',
-          'UUID_PERMISSION_EMPTY',
+          'a402a102-d79a-127b-88c0-874395660da1',
           '496c5edb-8f59-4030-9b45-91e1f7a926d4',
         ],
       },
@@ -1166,7 +1166,7 @@ const data = [
         permissions: [
           '50b4b6b8-7450-474c-9d3c-eadcd7b21a90',
           '5e368af2-d334-4139-81e1-e76fc97a8bcb',
-          'UUID_PERMISSION_EMPTY',
+          'a402a102-d79a-127b-88c0-874395660da1',
           '496c5edb-8f59-4030-9b45-91e1f7a926d4',
         ],
       },

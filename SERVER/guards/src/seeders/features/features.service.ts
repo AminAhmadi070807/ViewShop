@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import data from './object.data';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Feature } from 'src/modules/features/entities/feature.entity';
+import { Feature } from '../../modules/features/entities/feature.entity';
+import { CustomException } from '../../common/exceptions/custom.exception.error';
+import { statusMessages } from '../../common/messages/status.message';
 import { Repository } from 'typeorm';
-import { CustomException } from 'src/common/exceptions/custom.exception.error';
-import { statusMessages } from 'src/common/messages/status.message';
 
 @Injectable()
 export class FeaturesSeeder {
