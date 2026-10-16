@@ -15,6 +15,7 @@ export class PaymentSettingSeeder {
 
   async seeder() {
     try {
+      console.log('AMIN 2');
       const result = await this.repository.find();
 
       if (result.length) return;
