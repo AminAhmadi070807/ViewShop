@@ -8,5 +8,6 @@ import { Setting } from './entities/setting.entity';
   controllers: [SettingsController],
   providers: [SettingsService],
   imports: [TypeOrmModule.forFeature([Setting])],
+  exports: [SettingsService],
 })
 export class SettingsModule {}
