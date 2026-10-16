@@ -14,11 +14,11 @@ export class FeaturesSeeder {
 
   async seeder() {
     try {
-      const result = await this.repository.find();
-
-      if (result.length) return;
-
       for (const detail of data) {
+        const exist = await this.repository.findOneBy({ id: detail.id });
+
+        if (exist) continue;
+
         const result = this.repository.create({
           id: detail.id,
           title: detail.title,
