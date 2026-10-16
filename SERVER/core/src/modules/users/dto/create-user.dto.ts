@@ -1,26 +1,35 @@
 import {
-  IsNotEmpty,
+  IsEnum,
+  IsOptional,
   IsPhoneNumber,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { UserRoleEnum } from '../../../common/enums/users/user.enum';
 
 export class CreateUserDto {
-  @IsNotEmpty({ message: 'please enter a valid phone number' })
-  @IsString({ message: 'please enter a valid phone number' })
-  @IsPhoneNumber('IR', { message: 'please enter a valid phone number' })
+  @IsOptional()
+  @IsUUID('4', { message: 'شناسه نامعتبر است' })
+  id?: string;
+
+  @IsOptional()
+  @IsEnum(UserRoleEnum, { message: 'نقش کاربر نامعتبر است' })
+  role?: UserRoleEnum;
+
+  @IsPhoneNumber('IR', { message: 'شماره تلفن نامعتبر است' })
   phone: string;
 
-  @IsNotEmpty({ message: 'password is not empty' })
-  @IsString({ message: 'password must be a string' })
-  @MinLength(8, { message: 'minLength must be at least 8 characters' })
-  @MaxLength(24, { message: 'maxLength must be at least 24 characters' })
+  @IsString({ message: 'رمز عبور نامعتبر است' })
+  @MinLength(8, { message: 'رمز عبور حدقل 8 کارکتر باید داشته باشد' })
+  @MaxLength(24, { message: 'رمز عبور حدکثر میتواند 24 کارکتر داشته باشد' })
   password: string;
 
-  @IsNotEmpty({ message: 'fullName is not empty' })
-  @IsString({ message: 'fullName has a string' })
-  @MinLength(8, { message: 'minLength must be at least 8 characters' })
-  @MaxLength(50, { message: 'maxLength must be at least 50 characters' })
+  @IsString({ message: 'نام و نام خانوادگی نامعتبر است' })
+  @MinLength(8, { message: 'نام و نام خانوادگی حدقل باید 8 کارکتر داشته باشد' })
+  @MaxLength(50, {
+    message: 'نام و نام خانوادگی حدکثر میتواند 50 کارکتر داشته باشد',
+  })
   fullName: string;
 }
