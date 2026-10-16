@@ -11,6 +11,6 @@ export class SeederService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     await this.smsSettingSeeder.seeder();
-    await this.paymentSettingSeeder.seeder();
+    // await this.paymentSettingSeeder.seeder();
   }
 }
