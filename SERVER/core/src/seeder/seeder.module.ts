@@ -9,6 +9,7 @@ import { MediaModule } from '../modules/media/media.module';
 import { MediaSeeder } from './media/media.seeder.service';
 import { SettingsModule } from '../modules/settings/settings.module';
 import { SettingSeeder } from './setting/setting/setting.seeder.service';
+import { UsersSeeder } from './users/users.seeder.service';
 
 @Module({
   imports: [UsersModule, SmsModule, PaymentModule, MediaModule, SettingsModule],
@@ -18,6 +19,7 @@ import { SettingSeeder } from './setting/setting/setting.seeder.service';
     PaymentSettingSeeder,
     MediaSeeder,
     SettingSeeder,
+    UsersSeeder,
   ],
 })
 export class SeederModule {}
