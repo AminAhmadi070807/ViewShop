@@ -1,4 +1,8 @@
 export enum UserRoleEnum {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
+  ADMIN = 'ادمین',
+  USER = 'کاربر',
+  MANAGER = 'مدیر',
+  MODERATOR = 'ناظر',
+  SELLER = 'فروشنده',
+  CUSTOMER = 'مشتری',
 }

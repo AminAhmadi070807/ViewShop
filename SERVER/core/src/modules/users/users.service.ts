@@ -31,6 +31,11 @@ export class UsersService {
       if (existing) return new CustomException(statusMessages.fa['409'], 409);
 
       const user = this.userRepository.create({
+        ...(data.id && {
+          id: data.id,
+          role: data.role,
+          verified: true,
+        }),
         phone: data.phone,
         password: bcrypt.hashSync(data.password, 12),
         fullName: data.fullName,

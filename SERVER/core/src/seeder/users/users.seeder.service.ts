@@ -3,32 +3,26 @@ import data from './object.data';
 import { statusMessages } from '../../common/message/message.status';
 import { CustomException } from '../../common/exceptions/custom.exception.error';
 import bcrypt from 'bcrypt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../modules/users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { UsersService } from '../../modules/users/users.service';
 
 @Injectable()
 export class UsersSeeder {
-  constructor(
-    @InjectRepository(User)
-    private readonly repository: Repository<User>,
-  ) {}
+  constructor(private readonly service: UsersService) {}
 
   async seeder() {
     try {
       for (const detail of data) {
-        const exist = await this.repository.findOneBy({ id: detail.id });
+        const exist = await this.service.findOne({ id: detail.id });
 
-        if (exist) continue;
+        if (exist instanceof CustomException) continue;
 
-        const result = this.repository.create({
+        await this.service.create({
           id: detail.id,
           fullName: detail.fullName,
           password: bcrypt.hashSync(detail.password, 12),
           phone: detail.phone,
+          role: detail.role,
         });
-
-        await this.repository.save(result);
       }
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
