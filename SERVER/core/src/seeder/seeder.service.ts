@@ -5,6 +5,7 @@ import { MediaSeeder } from './media/media.seeder.service';
 import { SettingSeeder } from './setting/setting/setting.seeder.service';
 import { UsersSeeder } from './users/users.seeder.service';
 import { MenuSeeder } from './menu/menu.seeder.service';
+import { ColorSeeder } from './color/color.seeder.service';
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {
@@ -15,6 +16,7 @@ export class SeederService implements OnApplicationBootstrap {
     private readonly settingSeeder: SettingSeeder,
     private readonly usersSeeder: UsersSeeder,
     private readonly menuSeeder: MenuSeeder,
+    private readonly colorSeeder: ColorSeeder,
   ) {}
 
   async onApplicationBootstrap() {
@@ -24,5 +26,6 @@ export class SeederService implements OnApplicationBootstrap {
     await this.settingSeeder.seeder();
     await this.usersSeeder.seeder();
     await this.menuSeeder.seeder();
+    await this.colorSeeder.seeder();
   }
 }

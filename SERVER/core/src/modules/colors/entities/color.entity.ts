@@ -17,7 +17,7 @@ export class Color {
   @Column({ type: 'varchar', nullable: false, unique: true })
   color: string;
 
-  @Column({ type: 'varchar', nullable: false, unique: true })
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
   @ManyToOne(() => Media)

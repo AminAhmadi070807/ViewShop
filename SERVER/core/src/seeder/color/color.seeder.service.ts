@@ -7,7 +7,7 @@ import { CustomException } from '../../common/exceptions/custom.exception.error'
 import { Color } from '../../modules/colors/entities/color.entity';
 
 @Injectable()
-export class MediaSeeder {
+export class ColorSeeder {
   constructor(
     @InjectRepository(Color)
     private readonly repository: Repository<Color>,
@@ -30,7 +30,8 @@ export class MediaSeeder {
       }
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

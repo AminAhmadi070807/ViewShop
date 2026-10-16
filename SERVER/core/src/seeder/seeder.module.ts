@@ -12,6 +12,8 @@ import { SettingSeeder } from './setting/setting/setting.seeder.service';
 import { UsersSeeder } from './users/users.seeder.service';
 import { MenuSeeder } from './menu/menu.seeder.service';
 import { MenusModule } from '../modules/menus/menus.module';
+import { ColorSeeder } from './color/color.seeder.service';
+import { ColorsModule } from '../modules/colors/colors.module';
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { MenusModule } from '../modules/menus/menus.module';
     MediaModule,
     SettingsModule,
     MenusModule,
+    ColorsModule,
   ],
   providers: [
     SeederService,
@@ -30,6 +33,7 @@ import { MenusModule } from '../modules/menus/menus.module';
     SettingSeeder,
     UsersSeeder,
     MenuSeeder,
+    ColorSeeder,
   ],
 })
 export class SeederModule {}
