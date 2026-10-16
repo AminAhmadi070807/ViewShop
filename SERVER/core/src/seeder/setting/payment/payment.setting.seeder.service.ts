@@ -15,7 +15,6 @@ export class PaymentSettingSeeder {
 
   async seeder() {
     try {
-      console.log('AMIN 2');
       const result = await this.repository.find();
 
       if (result.length) return;
@@ -37,8 +36,7 @@ export class PaymentSettingSeeder {
       }
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }

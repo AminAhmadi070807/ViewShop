@@ -1,4 +1,4 @@
-import { MediaTypeEnum } from '../../../common/enums/media/media.enum';
+import { MediaTypeEnum } from '../../common/enums/media/media.enum';
 
 const data = [
   {

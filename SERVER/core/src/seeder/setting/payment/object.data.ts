@@ -14,7 +14,7 @@ const data = [
     call_back: 'http://127.0.0.1:3000/api/v1/payment/zarin-pal/verify',
     api: 'https://payment.zarinpal.com/pg/v4/payment/',
     status: true,
-    media: '4783fe1d-18d6-4faa-9818-108f21f8be4e',
+    media: '0567c0e7-f362-4fbb-b62f-ffeeda7eef2d',
   },
 ];
 

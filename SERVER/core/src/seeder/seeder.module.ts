@@ -5,9 +5,16 @@ import { SmsSettingSeeder } from './setting/sms/sms.setting.seeder.service';
 import { SmsModule } from '../modules/sms/sms.module';
 import { PaymentModule } from '../modules/payment/payment.module';
 import { PaymentSettingSeeder } from './setting/payment/payment.setting.seeder.service';
+import { MediaModule } from '../modules/media/media.module';
+import { MediaSeeder } from './media/media.seeder.service';
 
 @Module({
-  imports: [UsersModule, SmsModule, PaymentModule],
-  providers: [SeederService, SmsSettingSeeder, PaymentSettingSeeder],
+  imports: [UsersModule, SmsModule, PaymentModule, MediaModule],
+  providers: [
+    SeederService,
+    SmsSettingSeeder,
+    PaymentSettingSeeder,
+    MediaSeeder,
+  ],
 })
 export class SeederModule {}

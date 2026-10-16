@@ -15,7 +15,6 @@ export class SmsSettingSeeder {
 
   async seeder() {
     try {
-      console.log('AMIN');
       const result = await this.repository.find({});
 
       if (result.length) return;
@@ -33,8 +32,7 @@ export class SmsSettingSeeder {
       }
 
       return { status: 200, message: statusMessages.fa['200'], body: null };
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new CustomException(statusMessages.fa['500'], 500);
     }
   }
