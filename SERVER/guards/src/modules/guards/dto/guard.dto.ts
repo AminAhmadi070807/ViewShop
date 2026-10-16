@@ -8,35 +8,27 @@ import {
 import { GuardEnum, MethodEnum } from '../../../common/enums/guards/guard.enum';
 
 export class GuardDto {
-  @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
-  @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
+  @IsEnum(MethodEnum, { message: 'متود انتخابی نامعتبر است' })
   method: MethodEnum;
 
-  @IsNotEmpty({ message: 'شناسه فیچر نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه فیچر نامعتبر است' })
   feature: string;
 
-  @IsNotEmpty({ message: 'شناسه پرمیژن نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'شناسه پرمیژن نامعتبر است' })
   permission: string;
 
-  @IsBoolean({ message: 'لطفا عمومی بودن مسیر را با true, false مشخص کنید' })
+  @IsBoolean({ message: 'ازاد بودن مسیر نامعتبر است' })
   public: boolean;
 
-  @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
-  @IsEnum(GuardEnum, {
-    message: 'سسرویس نامعتبر است',
-  })
+  @IsEnum(GuardEnum, { message: 'سسرویس نامعتبر است' })
   service: GuardEnum;
 }
 
 export class ValidateGuard {
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'لطفا یک ایدی معتبر وارد کنید' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   userId: string;
 
-  @IsNotEmpty({ message: 'متود نمیتواند خالی باشد' })
-  @IsEnum(MethodEnum, { message: 'لطفا یک متود درست وارد کنید' })
+  @IsEnum(MethodEnum, { message: 'متود انتخابی نامعتبر است' })
   method: MethodEnum;
 
   @IsNotEmpty({ message: 'فیچر نمیتواند خالی باشد' })
@@ -47,9 +39,6 @@ export class ValidateGuard {
   @IsString({ message: 'پرمیژن باید رشته باشد' })
   permission: string;
 
-  @IsNotEmpty({ message: 'سوریس نمیتواند خالی باشد' })
-  @IsEnum(GuardEnum, {
-    message: 'سوریس باید یکی از این موارد باشد (CORE, GUARD, PAYMENT)',
-  })
+  @IsEnum(GuardEnum, { message: 'سرویس نامعتبر است' })
   service: GuardEnum;
 }

@@ -1,22 +1,18 @@
-import { IsEnum, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsEnum, IsUUID } from 'class-validator';
 import { OrderStatusEnum } from '../../../common/enums/order/order.status.enum';
 
 export class OrderDto {
-  @IsNotEmpty({ message: 'ایدی ادرس نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی ادرس نامعتبر هست' })
+  @IsUUID('4', { message: 'شناسه ادرس نامعتبر است' })
   address: string;
 
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کاربر نامعتبر هست' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user: string;
 }
 
 export class UpdateOrderDto {
-  @IsNotEmpty({ message: 'ایدی سفارش نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی سفارش نامعتبر هست' })
+  @IsUUID('4', { message: 'شناسه سفارش نامعتبر است' })
   id: string;
 
-  @IsNotEmpty({ message: 'وضیعت نمیتواند خالی باشد' })
-  @IsEnum(OrderStatusEnum, { message: 'لطفا وضیعت را به درستی انتخاب نماید' })
+  @IsEnum(OrderStatusEnum, { message: 'وضیعت سفارش نامعتبر است' })
   status: OrderStatusEnum;
 }

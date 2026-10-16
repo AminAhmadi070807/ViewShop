@@ -29,26 +29,21 @@ export class CommentDto {
   @Max(5, { message: 'نمره حدکثر میتواند 5 باشد' })
   score: number;
 
-  @IsNotEmpty({ message: 'ایدی محصول نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی محصول نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه محصول نامعتبر است' })
   product: string;
 
-  @IsNotEmpty({ message: 'ایدی کاربر نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کاربر نامعتبر است' })
+  @IsUUID('4', { message: 'شناسه کاربر نامعتبر است' })
   user: string;
 
-  @IsOptional({ message: 'ایدی کامنت اختیاری است' })
-  @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
-  @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
+  @IsOptional()
+  @IsUUID('4', { message: 'شناسه نظر والد نامعتبر است' })
   parentComment?: string;
 }
 
 export class UpdateCommentDto {
-  @IsNotEmpty({ message: 'ایدی کامنت نمیتواند خالی باشد' })
   @IsUUID('4', { message: 'ایدی کامنت نامعتبر است' })
   id: string;
 
-  @IsNotEmpty({ message: 'وضیعت کامنت نمیتواند خالی باشد' })
-  @IsBoolean({ message: 'لطفا وضیع کامنت را براساس (true, false) وارد کنید' })
+  @IsBoolean({ message: 'وضیعت نظر نامعتبر است' })
   status: boolean;
 }

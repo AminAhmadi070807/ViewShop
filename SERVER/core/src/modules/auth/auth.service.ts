@@ -174,16 +174,13 @@ export class AuthService {
       );
 
       // hashed refresh token
-      const hashRefreshToken: string = await bcrypt.hash(
-        tokens.refresh_token,
-        12,
-      );
+      const hashRefreshToken = await bcrypt.hash(tokens.refresh_token, 12);
 
       // hashed secret key
       const hashSecret = bcrypt.hashSync(secret, 12);
 
       // create new token
-      const token: Auth = this.authRepository.create({
+      const token = this.authRepository.create({
         user,
         token: hashRefreshToken,
         secret: hashSecret,
@@ -193,7 +190,7 @@ export class AuthService {
       await this.authRepository.save(token);
 
       return {
-        status: HttpStatus.OK,
+        status: 200,
         message: statusMessages.fa.AUTH['200'],
         body: tokens,
       };
