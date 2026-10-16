@@ -1,6 +1,6 @@
 const data = [
   {
-    id: '4783fe1d-18d6-4faa-9999-108f21f8be5e',
+    id: '23246c1a-e5ff-4160-b602-941b00e5f03d',
     title: 'زرین پال',
     alias: 'ZARIN_PAL',
     details: [
