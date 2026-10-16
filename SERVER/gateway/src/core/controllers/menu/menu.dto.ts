@@ -3,9 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export enum MenuSectionEnum {
   HEADER = 'HEADER',
-  HEADER_HORIZONTAL = 'HEADER_HORIZONTAL',
   FOOTER = 'FOOTER',
-  FOOTER_HORIZONTAL = 'FOOTER_HORIZONTAL',
 }
 
 export class MenuDto {
