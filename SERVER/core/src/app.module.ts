@@ -36,12 +36,14 @@ import { SmsModule } from './modules/sms/sms.module';
 import { SpecificationModule } from './modules/specification/specification.module';
 import { SmsSettingModule } from './modules/sms-setting/sms-setting.module';
 import { DiscountsModule } from './modules/discounts/discounts.module';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync(TypeOrmModuleConfig),
     JwtModule.register({ global: true }),
     ConfigModule.forRoot({ isGlobal: true }),
+    SeederModule,
     AuthModule,
     AddressesModule,
     UsersModule,

@@ -1,8 +1,11 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { SmsSettingSeeder } from './setting/sms/sms.setting.seeder.service';
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {
-  constructor() {}
+  constructor(private readonly smsSettingSeeder: SmsSettingSeeder) {}
 
-  async onApplicationBootstrap() {}
+  async onApplicationBootstrap() {
+    await this.smsSettingSeeder.seeder();
+  }
 }

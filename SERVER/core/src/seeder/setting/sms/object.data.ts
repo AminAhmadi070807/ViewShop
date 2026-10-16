@@ -48,7 +48,7 @@ const data = [
     ],
   },
   {
-    id: 'fd08afe6-158b-8bbf-be1e-abcab4ce999a7',
+    id: 'fd08afe6-158b-8bbf-be1e-adcab4ce999a7',
     service: SmsServiceEnum.FARAZ_SMS,
     section: SmsEnum.OTP,
     active: false,

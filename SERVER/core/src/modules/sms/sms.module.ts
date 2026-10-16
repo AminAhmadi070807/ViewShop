@@ -12,6 +12,6 @@ import { SmsSetting } from '../sms-setting/entities/sms-setting.entity';
   controllers: [SmsController],
   providers: [SmsService, FarazSmsService, MedianaService, SmsIrService],
   imports: [TypeOrmModule.forFeature([Sms, SmsSetting])],
-  exports: [SmsService],
+  exports: [SmsService, TypeOrmModule],
 })
 export class SmsModule {}
