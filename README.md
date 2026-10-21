@@ -60,11 +60,11 @@
         <tr>
           <td align="center" width="100">
             <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/be5f4530-8924-462d-b9d8-ae74b995ae93" />
-            SMS ( Any Service )
+            SMS
           </td>
           <td align="center" width="100">
             <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/3567a91d-0453-4d5b-9674-5d7f6d966212" />
-            Payment ( Any Service )
+            Payment
           </td>
         </tr>
     </table>
