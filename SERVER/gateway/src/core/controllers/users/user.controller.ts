@@ -25,6 +25,7 @@ import { ValidateUUID } from '../../../common/validation/uuid.dto';
 import { statusMessages } from '../../../common/messages/status.message';
 import express from 'express';
 import { JwtPayload } from '../../../common/validation/jwt.dto';
+import { firstValueFrom } from 'rxjs';
 
 @Controller('core/users')
 @ApiInternalServerErrorResponse({ description: statusMessages.fa['500'] })
@@ -39,7 +40,7 @@ export class UsersController {
   @ApiConflictResponse({ description: statusMessages.fa['404'] })
   @ApiConflictResponse({ description: statusMessages.fa['409'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     { name: 'permission', required: true, example: 'CREATE', enum: ['CREATE'] },
   ])
   create(@Body() data: UserValidator) {
@@ -52,7 +53,7 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     { name: 'permission', required: true, example: 'READ', enum: ['READ'] },
   ])
   findAll() {
@@ -64,7 +65,7 @@ export class UsersController {
   @ApiUnauthorizedResponse({ description: statusMessages.fa['400'] })
   @ApiUnauthorizedResponse({ description: statusMessages.fa['401'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     {
       name: 'permission',
       required: true,
@@ -72,10 +73,19 @@ export class UsersController {
       enum: ['READ:PROFILE'],
     },
   ])
-  profile(@Req() req: express.Request) {
+  async profile(@Req() req: express.Request) {
+    console.log('AMIN');
     const user = req.user as JwtPayload;
 
-    return this.coreService.send('USER:ONE', { id: user.userId });
+    const result = await firstValueFrom(
+      this.coreService.send('USER:ONE', {
+        id: user.userId,
+        user: user.userId,
+      }),
+    );
+    console.log(result);
+
+    return result;
   }
 
   @Get(':id')
@@ -85,7 +95,7 @@ export class UsersController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     {
       name: 'permission',
       required: true,
@@ -104,7 +114,7 @@ export class UsersController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     { name: 'permission', required: true, example: 'UPDATE', enum: ['UPDATE'] },
   ])
   update(@Body() data: UserUpdateValidator, @Req() req: express.Request) {
@@ -124,7 +134,7 @@ export class UsersController {
   @ApiForbiddenResponse({ description: statusMessages.fa['403'] })
   @ApiNotFoundResponse({ description: statusMessages.fa['404'] })
   @ApiHeaders([
-    { name: 'feature', required: true, example: 'USER', enum: ['USER'] },
+    { name: 'feature', required: true, example: 'USERS', enum: ['USERS'] },
     { name: 'permission', required: true, example: 'DELETE', enum: ['DELETE'] },
   ])
   remove(@Body() data: ValidateUUID) {

@@ -133,7 +133,7 @@ export class AuthService {
 
       return {
         status: 200,
-        message: 'The otp was send successfully.',
+        message: statusMessages.fa.AUTH['200'],
         body: {
           route: access_route,
           ttl: 180,
@@ -201,6 +201,7 @@ export class AuthService {
 
   async verifyOtp(data: AuthVerifyOtp) {
     try {
+      console.log(data);
       const result: string | null = await this.redisService.get(data.route);
 
       if (!result) return new CustomException(statusMessages.fa['400'], 400);

@@ -119,8 +119,9 @@ export class GuardsService {
 
   async validate(data: ValidateGuard) {
     try {
+      console.log(data);
       // get patch from database
-      const guard: Guard | null = await this.guardsRepository.findOne({
+      const guard = await this.guardsRepository.findOne({
         where: {
           service: data.service,
           method: data.method,
@@ -133,6 +134,7 @@ export class GuardsService {
           permission: { id: true },
         },
       });
+      console.log(guard);
 
       // check guard
       if (!guard) return new CustomException(statusMessages.fa['404'], 404);
