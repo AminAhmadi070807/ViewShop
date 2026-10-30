@@ -72,8 +72,13 @@
 <div>
   <h2><img width="30" height="30" alt="image" src="https://github.com/user-attachments/assets/a1b95a4b-28ad-4e73-b485-165bb2951e2d" /> Setup & Installation</h2>
   <div>
-    <h3>1: clone repo</h3>
+    <h3>1: Create Two Databases In PostgreSql</h3>
     
+```     
+ Viewshop_Core
+ ViewShop_Guard
+```
+    <h3>1: clone repo</h3>
 ```     
  git clone https://github.com/AminAhmadi070807/viewshop.git
 ```
